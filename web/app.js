@@ -116,6 +116,26 @@ const verdictPill = (v) => `<span class="pill v-${esc(v)}">${esc(t(`i.${v}`))}</
 function hash01(s) { let h = 2166136261; for (const ch of s) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; }
 const devTypeLabel = (k) => { const v = t(`dt.${k}`); return v === `dt.${k}` ? k : v; };
 
+// Sources, counted honestly: one news site = one source; the 13 GitHub
+// repositories are one group; Hacker News is one source however many
+// searches run against it.
+function sourceGroup(key) {
+  if (key.startsWith('feed:gnews')) return 'search';
+  if (key.startsWith('feed:producthunt')) return 'products';
+  if (key.startsWith('feed:')) return 'news';
+  if (key.startsWith('se:') || key === 'stackoverflow') return 'qa';
+  if (key.startsWith('forum:')) return 'forums';
+  if (key.startsWith('hn:')) return 'hn';
+  if (key === 'gdelt') return 'search';
+  return 'github';
+}
+const GROUP_ORDER = ['news', 'qa', 'forums', 'hn', 'products', 'search', 'github'];
+function sourceSummary() {
+  const g = {};
+  for (const k of Object.keys(data.sources)) (g[sourceGroup(k)] ||= []).push(k);
+  return g;
+}
+
 // --- Chrome ----------------------------------------------------------------------
 function statusLine() {
   const now = Date.now();
@@ -126,7 +146,9 @@ function statusLine() {
     if (s.lastSuccessAt && (!newest || s.lastSuccessAt > newest)) newest = s.lastSuccessAt;
   }
   const late = newest && now - Date.parse(newest) > 20 * 60_000;
-  $('#status').innerHTML = `<i class="live ${late ? 'late' : ''}"></i><b>${esc(t('h.live'))}</b> · ${esc(t('status.synced', { ago: ago(newest) }))} · <a href="#sources">${esc(t('status.sources', { n: entries.length }))}${down ? ` (${esc(t('status.failing', { n: down }))})` : ''}</a>`;
+  const g = sourceSummary();
+  const parts = ['news', 'qa', 'forums'].filter((k) => g[k]).map((k) => t(`sg.${k}.n`, { n: g[k].length }));
+  $('#status').innerHTML = `<i class="live ${late ? 'late' : ''}"></i><b>${esc(t('h.live'))}</b> · ${esc(t('status.synced', { ago: ago(newest) }))} · <a href="#sources">${esc(parts.join(' · '))}${down ? ` (${esc(t('status.failing', { n: down }))})` : ''}</a>`;
 }
 
 function ticker() {
@@ -252,7 +274,7 @@ function viewHome() {
     </a>`;
   }).join('');
   return `<section class="hero2">
-      <p class="kicker">${esc(t('h.kicker', { d: data.meta.domains.length, s: Object.keys(data.sources).length }))}</p>
+      <p class="kicker">${esc(t('h.kicker', { d: data.meta.domains.length, s: (() => { const g = sourceSummary(); return (g.news?.length || 0) + (g.qa?.length || 0) + (g.forums?.length || 0); })() }))}</p>
       <h1>${t('h.title')}</h1>
       <div class="hero-grid">
         <p class="lede">${esc(t('h.lede'))}</p>
@@ -460,16 +482,22 @@ function viewDigest(week) {
 
 function viewSources() {
   const m = data.metrics;
-  const rows = Object.entries(data.sources).sort(([a], [b]) => a.localeCompare(b));
+  const g = sourceSummary();
   const metric = (n, key) => `<div class="metric"><b>${num(n)}</b><span>${esc(t(key))}</span></div>`;
+  const row = (k) => {
+    const s = data.sources[k];
+    const fail = s.consecutiveFailures > 0;
+    const status = fail ? `<span class="bad-dot"></span>${esc(t('sources.failing', { n: s.consecutiveFailures }))}: ${esc(s.lastError)}` : s.truncated ? `<span class="late-dot"></span>${esc(t('sources.catching'))}` : `<span class="ok-dot"></span>${esc(t('sources.ok'))}`;
+    return `<tr><td class="mono">${esc(k.replace(/^(feed|forum|se):/, ''))}</td><td>${esc(ago(s.lastSuccessAt))}</td><td class="${fail ? 'wrap-cell' : ''}">${status}</td><td class="num">${num(s.itemsLastRun)}</td></tr>`;
+  };
+  const groups = GROUP_ORDER.filter((k) => g[k]).map((k) => `<section class="block">
+      <div class="block-head"><h2>${esc(t(`sg.${k}`))} <span class="muted">${k === 'hn' ? 1 : g[k].length}</span></h2><p>${esc(t(`sg.${k}.d`))}</p></div>
+      <div class="table-wrap"><table><thead><tr><th>${esc(t('sources.col.source'))}</th><th>${esc(t('sources.col.success'))}</th><th>${esc(t('sources.col.status'))}</th><th class="num">${esc(t('sources.col.items'))}</th></tr></thead>
+      <tbody>${g[k].sort().map(row).join('')}</tbody></table></div></section>`).join('');
   return `${pageHead(t('sources.title'), t('sources.sub'))}
-    <div class="metrics">${metric(data.ideas.length, 'd.ideas')}${metric(data.needs.length, 'h.stat.needs')}${metric(data.devs.length, 'h.stat.devs')}${metric(m.cards, 'm.cards')}${metric(m.genuineResolutions, 'm.resolved')}${metric(m.qualityRetractions, 'm.retracted')}</div>
-    <div class="table-wrap"><table><thead><tr><th>${esc(t('sources.col.source'))}</th><th>${esc(t('sources.col.success'))}</th><th>${esc(t('sources.col.status'))}</th><th class="num">${esc(t('sources.col.items'))}</th></tr></thead>
-    <tbody>${rows.map(([k, s]) => {
-      const fail = s.consecutiveFailures > 0;
-      const status = fail ? `<span class="bad-dot"></span>${esc(t('sources.failing', { n: s.consecutiveFailures }))}: ${esc(s.lastError)}` : s.truncated ? `<span class="late-dot"></span>${esc(t('sources.catching'))}` : `<span class="ok-dot"></span>${esc(t('sources.ok'))}`;
-      return `<tr><td class="mono">${esc(k)}</td><td>${esc(ago(s.lastSuccessAt))}</td><td class="${fail ? 'wrap-cell' : ''}">${status}</td><td class="num">${num(s.itemsLastRun)}</td></tr>`;
-    }).join('')}</tbody></table></div>`;
+    <div class="metrics">${GROUP_ORDER.filter((k) => g[k]).map((k) => metric(k === 'hn' ? 1 : g[k].length, `sg.${k}`)).join('')}</div>
+    <div class="metrics">${metric(data.ideas.length, 'd.ideas')}${metric(data.needs.length, 'h.stat.needs')}${metric(data.devs.length, 'h.stat.devs')}${metric(m.genuineResolutions, 'm.resolved')}</div>
+    ${groups}`;
 }
 
 function viewAbout() {
