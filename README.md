@@ -12,8 +12,10 @@ Everything runs on free infrastructure: a scheduled GitHub Actions workflow, JSO
 
 ## What a user sees
 
-- **Moving:** cards whose evidence moved past a first report: *Worth trying*, *Watching*, *Fix coming*, *Resolved*.
-- **Early signals:** single first-hand reports, for people who want to get in early.
+The site is available in **English and Turkish** (switch in the top bar; it follows the browser language by default). Source excerpts stay in their original language because they are evidence.
+
+- **Overview:** a live radar of every moving card by repository and state, the evidence ladder with counts, and the cards worth trying now, fixes on the way and fixes that just shipped.
+- **Problems:** every card, filterable by state and repository, sorted by recent movement, case count or recency.
 - **Card detail:** job, blocker, workaround and environment, each a verbatim excerpt with a link to its source. An evidence timeline shows every case, fix and release with the version it applies to, the source's current state and when it was last checked.
 - **Follow:** star a card and the *Following* tab shows only state transitions since you last looked, each with the exact comment, PR or release that caused it.
 - **Changelog, Weekly digest, Sources:** every transition, an auto-generated weekly digest (also as RSS), and per-source sync health.

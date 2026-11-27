@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 22
       - name: Syntax check
-        run: for f in src/*.js src/sources/*.js web/app.js scripts/*.js; do node --check "$f"; done
+        run: for f in src/*.js src/sources/*.js web/*.js scripts/*.js; do node --check "$f"; done
       - name: Scenario tests
         run: npm test
       - name: Build site from an empty store

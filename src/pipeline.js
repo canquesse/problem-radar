@@ -69,6 +69,8 @@ export function processCards(state, now) {
           to: c.state,
           at: now,
           reason: c.trigger.reason,
+          code: c.trigger.code,
+          params: c.trigger.params,
           triggerRecordId: c.trigger.recordId,
           triggerUrl: c.trigger.url,
           summary: from

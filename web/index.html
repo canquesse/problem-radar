@@ -5,42 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Problem Radar · AI infra &amp; dev tools</title>
   <meta name="description" content="A problem watchlist for AI infrastructure and developer tools. First-hand cases, evidence states and release-verified fixes from GitHub and Hacker News." />
+  <meta name="theme-color" content="#f2efe6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#101112" media="(prefers-color-scheme: dark)" />
   <link rel="alternate" type="application/rss+xml" title="Problem Radar weekly digest" href="feed.xml" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23141414' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23141414' stroke-width='2'/%3E%3Ccircle cx='22' cy='10' r='3' fill='%23d94f1e'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23f2efe6' stroke='%2316161a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%2316161a' stroke-width='1.5'/%3E%3Cpath d='M16 16 L27 9' stroke='%2316161a' stroke-width='2'/%3E%3Ccircle cx='22' cy='20' r='3' fill='%23e5532d'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="masthead">
-    <div class="wrap masthead-row">
-      <a class="brand" href="#feed" aria-label="Problem Radar home">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><circle cx="16" cy="16" r="7"/><circle class="blip" cx="22" cy="10" r="3"/></svg>
-        <span>Problem Radar</span>
-      </a>
-      <nav class="tabs" aria-label="Sections">
-        <a href="#feed" data-tab="feed">Moving</a>
-        <a href="#early" data-tab="early">Early signals</a>
-        <a href="#following" data-tab="following">Following <b id="follow-badge" hidden></b></a>
-        <a href="#changes" data-tab="changes">Changelog</a>
-        <a href="#digest" data-tab="digest">Weekly</a>
-        <a href="#sources" data-tab="sources">Sources</a>
-        <a href="#about" data-tab="about">How it works</a>
-      </nav>
+  <div class="strip">
+    <div class="wrap strip-row">
+      <span id="status" class="status" aria-live="polite"></span>
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="tr">TR</button><button data-lang="en">EN</button>
+      </div>
     </div>
-    <div class="wrap status-row" id="status-row" aria-live="polite"></div>
-  </header>
-
-  <main class="wrap" id="main">
-    <p class="loading">Loading the radar…</p>
-  </main>
-
-  <div class="sheet" id="sheet" hidden>
-    <div class="sheet-backdrop" data-close></div>
-    <article class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1" id="sheet-panel"></article>
   </div>
 
-  <footer class="wrap foot">
-    <span>Built from public GitHub and Hacker News data. Every claim links to its source.</span>
-    <span><a href="feed.xml">RSS digest</a> · <a id="repo-link" href="https://github.com/canquesse/problem-radar">Source code</a></span>
+  <header class="head">
+    <div class="wrap head-row">
+      <a class="brand" href="#overview">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" class="ring" />
+          <circle cx="20" cy="20" r="11" class="ring thin" />
+          <circle cx="20" cy="20" r="4" class="ring thin" />
+          <path d="M20 20 L34 11" class="hand" />
+          <circle cx="28" cy="26" r="3.2" class="blip" />
+        </svg>
+        <span class="brand-text"><b>Problem Radar</b><small id="brand-tag"></small></span>
+      </a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">☰</button>
+      <nav id="nav" class="nav" aria-label="Sections"></nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap main" tabindex="-1"><p class="loading">…</p></main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <span id="foot-left"></span>
+      <span><a href="feed.xml">RSS</a> · <a id="repo-link" href="https://github.com/canquesse/problem-radar">GitHub</a></span>
+    </div>
   </footer>
   <script type="module" src="app.js"></script>
 </body>

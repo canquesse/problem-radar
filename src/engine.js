@@ -292,25 +292,25 @@ export function evaluateCluster(memberIds, idx, records, verifications = {}) {
   if (activeCases.length === 0 && cases.length > 0) {
     state = 'retracted';
     const r = latest(cases.map((c) => c.retracted));
-    trigger = { recordId: r.recordId, url: r.url, reason: 'The only first-hand report was retracted by its author.' };
+    trigger = { recordId: r.recordId, url: r.url, reason: 'The only first-hand report was retracted by its author.', code: 'retracted', params: {} };
   } else if (conflicts.length) {
     state = 'watching';
     const c = latest(conflicts);
-    trigger = { recordId: c.recordId, url: c.url, reason: c.type === 'reopened' ? 'The issue was reopened after a fix was merged.' : 'A new report says the problem still happens after the fix.' };
+    trigger = { recordId: c.recordId, url: c.url, reason: c.type === 'reopened' ? 'The issue was reopened after a fix was merged.' : 'A new report says the problem still happens after the fix.', code: c.type === 'reopened' ? 'reopened' : 'still_happening', params: {} };
   } else if (releasedFix) {
     state = 'resolved';
-    trigger = { recordId: releasedFix.release.recordId, url: releasedFix.release.url, reason: `Fix ${prRef(releasedFix.pr)} verified in release ${releasedFix.release.tag} (${releasedFix.release.method}).` };
+    trigger = { recordId: releasedFix.release.recordId, url: releasedFix.release.url, reason: `Fix ${prRef(releasedFix.pr)} verified in release ${releasedFix.release.tag} (${releasedFix.release.method}).`, code: 'resolved', params: { pr: prRef(releasedFix.pr), tag: releasedFix.release.tag, method: releasedFix.release.method } };
   } else if (mergedFix) {
     state = 'fix_coming';
-    trigger = { recordId: mergedFix.pr.id, url: mergedFix.pr.url, reason: `Fix ${prRef(mergedFix.pr)} was merged; no published release contains it yet.` };
+    trigger = { recordId: mergedFix.pr.id, url: mergedFix.pr.url, reason: `Fix ${prRef(mergedFix.pr)} was merged; no published release contains it yet.`, code: 'fix_coming', params: { pr: prRef(mergedFix.pr) } };
   } else if (activeCases.length >= 2 && workaround) {
     state = 'worth_trying';
     const second = activeCases.slice().sort((a, b) => a.at.localeCompare(b.at))[1];
-    trigger = { recordId: second.recordId, url: second.url, reason: `${activeCases.length} first-hand cases and a documented workaround.` };
+    trigger = { recordId: second.recordId, url: second.url, reason: `${activeCases.length} first-hand cases and a documented workaround.`, code: 'worth_trying', params: { count: activeCases.length } };
   } else {
     state = 'early_signal';
     const first = activeCases[0];
-    trigger = { recordId: first.recordId, url: first.url, reason: 'A first-hand report was found.' };
+    trigger = { recordId: first.recordId, url: first.url, reason: 'A first-hand report was found.', code: 'early_signal', params: {} };
   }
 
   const closedIssues = issues.filter((i) => i.state === 'closed');
@@ -424,17 +424,17 @@ function excerpt(body, test, fallback) {
 function nextStep(state, { workaround, releasedFix, mergedFix, conflicts }) {
   switch (state) {
     case 'early_signal':
-      return { size: 'Interview first', text: 'One first-hand report so far. Read the source thread and ask the reporter what they were trying to do and how they get by today.' };
+      return { size: 'Interview first', code: 'early_signal', params: {}, text: 'One first-hand report so far. Read the source thread and ask the reporter what they were trying to do and how they get by today.' };
     case 'worth_trying':
-      return { size: 'Weekend prototype', text: `Several people hit this and one documented a workaround. Prototype the smallest tool or patch that removes it: "${workaround.value}"` };
+      return { size: 'Weekend prototype', code: 'worth_trying', params: { workaround: workaround.value }, text: `Several people hit this and one documented a workaround. Prototype the smallest tool or patch that removes it: "${workaround.value}"` };
     case 'watching':
-      return { size: 'Tonight', text: `Sources disagree. Open the latest conflicting report (${conflicts.length} so far) and try to reproduce on the newest release.` };
+      return { size: 'Tonight', code: 'watching', params: { count: conflicts.length }, text: `Sources disagree. Open the latest conflicting report (${conflicts.length} so far) and try to reproduce on the newest release.` };
     case 'fix_coming':
-      return { size: 'Tonight', text: `A fix (${prRef(mergedFix.pr)}) is merged but not in a release yet. Test it from main and report back on the issue, or pin to the merge commit.` };
+      return { size: 'Tonight', code: 'fix_coming', params: { pr: prRef(mergedFix.pr) }, text: `A fix (${prRef(mergedFix.pr)}) is merged but not in a release yet. Test it from main and report back on the issue, or pin to the merge commit.` };
     case 'resolved':
-      return { size: 'Tonight', text: `Upgrade to ${releasedFix.release.tag}. If you carry a workaround for this, you can drop it.` };
+      return { size: 'Tonight', code: 'resolved', params: { tag: releasedFix.release.tag }, text: `Upgrade to ${releasedFix.release.tag}. If you carry a workaround for this, you can drop it.` };
     default:
-      return { size: null, text: 'Withdrawn: the reporter retracted the claim. Kept for transparency.' };
+      return { size: null, code: 'retracted', params: {}, text: 'Withdrawn: the reporter retracted the claim. Kept for transparency.' };
   }
 }
 
