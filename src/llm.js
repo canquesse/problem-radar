@@ -127,7 +127,8 @@ Never invent facts: base everything on the quotes. Answer in JSON only.`;
  */
 export async function writeIdeas(state, candidates, llm, { domainName = (d) => d, log = () => {} } = {}) {
   state.llmIdeas ||= {};
-  const todo = candidates.filter((c) => !state.llmIdeas[c.signature]).slice(0, 60);
+  // A stronger (remote) model re-judges what the small local model decided.
+  const todo = candidates.filter((c) => !state.llmIdeas[c.signature] || (!llm.local && state.llmIdeas[c.signature].local)).slice(0, 80);
   if (llm.local) {
     // Small local model: one cluster at a time, English answers.
     for (const c of todo) {

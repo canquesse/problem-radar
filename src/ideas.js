@@ -132,7 +132,9 @@ export function computeIdeas(state, developments, vectors, place, now, { loose =
       const views = m.reduce((n, x) => n + (x.views || 0), 0);
       // Evidence: 2+ people, or one explicit "I need a product for this"
       // with real attention (views/score), or someone saying they would pay.
-      const strongSingle = people === 1 && (pay || (seeking && ((m[0].views || 0) >= 80 || (m[0].score || 0) >= 2)));
+      // In loose mode (a language model will judge), any single explicit
+      // request with some attention is a candidate.
+      const strongSingle = people === 1 && (pay || (seeking && ((m[0].views || 0) >= (loose ? 30 : 80) || (m[0].score || 0) >= 2)));
       if (people < 2 && !strongSingle) continue;
       // An idea must read as one: phrased from an explicit request, or backed
       // by three or more people with the same problem.
