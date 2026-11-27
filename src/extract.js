@@ -71,7 +71,9 @@ export function normalizeSignature(type, message) {
   const msg = (message || '')
     .toLowerCase()
     .replace(/https?:\/\/\S+/g, '<url>')
-    .replace(/(['"`])(?:(?!\1).){1,80}\1/g, '<v>') // quoted values vary per user
+    // Quoted identifiers (class, attribute, key names) identify the failure and
+    // are kept; quoted free text (prompts, user values) varies per user.
+    .replace(/(['"`])((?:(?!\1).){1,80})\1/g, (m, q, v) => (/^[\w.:-]{1,48}$/.test(v) ? ` ${v} ` : '<v>'))
     .replace(/(?:\/[\w.-]+)+/g, '<path>')
     .replace(/0x[0-9a-f]+/g, '<hex>')
     .replace(/\b\d+(?:\.\d+)*\b/g, '<n>')
@@ -84,18 +86,24 @@ export function normalizeSignature(type, message) {
   return `${type.toLowerCase()}: ${msg}`;
 }
 
+/** A signature that is all template and no specifics would merge unrelated failures. */
+function isSpecific(sig) {
+  const words = sig.split(' ').slice(1).filter((w) => w && !w.startsWith('<'));
+  return words.length >= 4;
+}
+
 export function extractErrorSignature(text) {
   const t = text || '';
   const m = t.match(ERROR_LINE_RE);
   if (m) {
     const sig = normalizeSignature(m[1], m[2]);
     // Generic one-word messages do not identify a failure.
-    if (sig.split(' ').length >= 4) return { signature: sig, line: `${m[1]}: ${m[2].trim()}`.slice(0, 220) };
+    if (isSpecific(sig)) return { signature: sig, line: `${m[1]}: ${m[2].trim()}`.slice(0, 220) };
   }
   const p = t.match(RUST_GO_PANIC_RE);
   if (p && p[2] && p[2].trim().length > 12) {
     const sig = normalizeSignature(p[1].replace(/\s+/g, '_'), p[2]);
-    if (sig.split(' ').length >= 4) return { signature: sig, line: `${p[1]}: ${p[2].trim()}`.slice(0, 220) };
+    if (isSpecific(sig)) return { signature: sig, line: `${p[1]}: ${p[2].trim()}`.slice(0, 220) };
   }
   return null;
 }

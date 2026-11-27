@@ -86,6 +86,8 @@ export function normalizePull(repo, p) {
   };
 }
 
+export const isPrereleaseTag = (tag) => /(?:^|[-.+_])(?:alpha|beta|rc|dev|pre|preview|nightly)[-.]?\d*(?:$|[-.+])/i.test(tag || '') || /\d(?:a|b|rc)\d+$/.test(tag || '');
+
 export function normalizeRelease(repo, r) {
   return {
     id: ghId.release(repo, r.id),
@@ -100,7 +102,8 @@ export function normalizeRelease(repo, r) {
     createdAt: r.created_at,
     updatedAt: r.published_at || r.created_at,
     publishedAt: r.published_at || null,
-    prerelease: !!r.prerelease,
+    // Some projects ship beta/rc tags without the pre-release flag.
+    prerelease: !!r.prerelease || isPrereleaseTag(r.tag_name),
     draft: !!r.draft,
     state: r.draft ? 'draft' : 'published',
   };

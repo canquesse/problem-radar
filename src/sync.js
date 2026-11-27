@@ -6,7 +6,7 @@ import { LIMITS, REPOS } from './config.js';
 import { computeClusters } from './engine.js';
 import { HttpClient, RateLimitError } from './http.js';
 import { computeMetrics, processCards, pruneRecords } from './pipeline.js';
-import { fetchPull, ghId, releaseContainsCommit, syncRepo } from './sources/github.js';
+import { fetchPull, ghId, isPrereleaseTag, releaseContainsCommit, syncRepo } from './sources/github.js';
 import { syncHN } from './sources/hn.js';
 import { parseFixedByRefs } from './extract.js';
 import { recordSourceRun, upsertRecord } from './store.js';
@@ -111,7 +111,7 @@ export async function verifyFixes(state, { gh, now, upsert, log = () => {} }) {
       const key = `${pr.repo}@${pr.mergeCommitSha}`;
       const ver = (state.verifications[key] ||= { checks: {}, checkedAt: null });
       const candidates = Object.values(state.records)
-        .filter((r) => r.kind === 'release' && r.repo === pr.repo && !r.draft && !r.prerelease && r.publishedAt >= pr.mergedAt && ver.checks[r.tag] === undefined)
+        .filter((r) => r.kind === 'release' && r.repo === pr.repo && !r.draft && !r.prerelease && !isPrereleaseTag(r.tag) && r.publishedAt >= pr.mergedAt && ver.checks[r.tag] === undefined)
         .sort((a, b) => a.publishedAt.localeCompare(b.publishedAt));
       for (const rel of candidates) {
         if (budget-- <= 0) break;

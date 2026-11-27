@@ -20,7 +20,7 @@ import {
   extractWorkaround, isFirstHandHN, isFirstHandMeToo, isProblemReport, isRetraction, isStillHappening,
   parseDuplicateOf, parseFixedByRefs, parseFixRefs, parseIssueUrls, sentences,
 } from './extract.js';
-import { ghId } from './sources/github.js';
+import { ghId, isPrereleaseTag } from './sources/github.js';
 
 const MAINTAINER = new Set(['OWNER', 'MEMBER', 'COLLABORATOR']);
 
@@ -388,7 +388,7 @@ function fixView(f) {
  * release notes reference the PR.
  */
 export function findRelease(pr, idx, verifications) {
-  const releases = (idx.releasesByRepo.get(pr.repo) || []).filter((r) => !r.draft && !r.prerelease && r.publishedAt && r.publishedAt >= pr.mergedAt);
+  const releases = (idx.releasesByRepo.get(pr.repo) || []).filter((r) => !r.draft && !r.prerelease && !isPrereleaseTag(r.tag) && r.publishedAt && r.publishedAt >= pr.mergedAt);
   const ver = pr.mergeCommitSha ? verifications[`${pr.repo}@${pr.mergeCommitSha}`] : null;
   const prUrl = `github.com/${pr.repo}/pull/${pr.number}`;
   const noteRe = new RegExp(`(^|[^\\w/])#${pr.number}\\b`);

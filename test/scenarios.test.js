@@ -109,6 +109,24 @@ test('merged but unreleased fix is "Fix coming"; a release containing it resolve
   assert.equal(processCards(s, T2).transitions.length, 0, 'no duplicate notification');
 });
 
+test('a beta tag without the pre-release flag does not resolve a card', () => {
+  const s = stateWith([
+    issue(47), pr(48, { body: 'Fixes #47', mergedAt: '2026-11-05T00:00:00Z' }),
+    release(9, { tag: 'v0.9.0-beta', publishedAt: '2026-11-06T00:00:00Z', body: '(#48)' }),
+  ]);
+  processCards(s, T0);
+  assert.equal(only(s).state, 'fix_coming');
+});
+
+test('generic error templates do not merge unrelated failures', () => {
+  const s = stateWith([
+    issue(5, { body: "AttributeError: 'list' object has no attribute 'endswith'", author: 'a' }),
+    issue(6, { body: "AttributeError: 'Gemma3Output' object has no attribute 'last_hidden_state'", author: 'b' }),
+  ]);
+  processCards(s, T0);
+  assert.equal(cards(s).length, 2);
+});
+
 test('release notes that reference the PR also verify a fix', () => {
   const s = stateWith([
     issue(45), pr(46, { body: 'closes #45', mergedAt: '2026-11-05T00:00:00Z' }),
