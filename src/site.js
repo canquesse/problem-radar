@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PUBLISHED_STATES, REPOS, STATE_LABELS } from './config.js';
+import { PUBLISHED_STATES, REPOS, STATE_LABELS, TOPICS } from './config.js';
 import { loadState } from './store.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -45,7 +45,9 @@ export function buildDigests(state, now, weeks = 8) {
     byWeek.get(k).push(e);
   }
   const current = isoWeek(now);
-  const keys = [...byWeek.keys()].sort().reverse().slice(0, weeks);
+  for (const e of state.events.filter((x) => x.kind === 'opportunity')) if (!byWeek.has(isoWeek(e.at))) byWeek.set(isoWeek(e.at), []);
+  for (const d of state.developments || []) if (d.type === 'funding' && d.publishedAt && !byWeek.has(isoWeek(d.publishedAt))) byWeek.set(isoWeek(d.publishedAt), []);
+  const keys = [...byWeek.keys()].filter((k) => k <= current).sort().reverse().slice(0, weeks);
   return keys.map((key) => {
     const events = byWeek.get(key).filter((e) => state.cards[e.cardId]);
     // Keep the latest move per card in the week.
@@ -61,11 +63,20 @@ export function buildDigests(state, now, weeks = 8) {
       .sort((a, b) => b.caseCount - a.caseCount || b.teamCount - a.teamCount || b.lastEvidenceAt.localeCompare(a.lastEvidenceAt))
       .slice(0, 5)
       .map((c) => ({ cardId: c.id, title: c.title, repo: c.repo, caseCount: c.caseCount, teamCount: c.teamCount, nextStep: c.nextStep, url: c.url }));
+    const range = weekRange(key);
+    const inWeek = (iso) => iso && iso >= range.start && iso < range.end;
+    const oppMoves = state.events.filter((e) => e.kind === 'opportunity' && inWeek(e.at) && state.opportunities?.[e.cardId])
+      .map((e) => ({ id: e.cardId, name: state.opportunities[e.cardId].name, to: e.to, from: e.from, reason: e.reason, triggerUrl: e.triggerUrl }));
+    const funding = (state.developments || []).filter((d) => d.type === 'funding' && inWeek(d.publishedAt))
+      .sort((a, b) => (b.verified === true) - (a.verified === true) || b.outletCount - a.outletCount).slice(0, 12)
+      .map((d) => ({ id: d.id, title: d.title, url: d.url, outletCount: d.outletCount, verified: d.verified, funding: d.funding, topics: d.topics }));
     return {
       week: key,
+      opportunities: oppMoves,
+      funding,
       ...weekRange(key),
       inProgress: key === current,
-      counts: { moves: items.length },
+      counts: { moves: items.length + oppMoves.length },
       topOpportunities: key === current ? top : [],
       sections: {
         worth_trying: section('worth_trying'),
@@ -88,7 +99,11 @@ export function renderDigestHtml(d, siteUrl) {
   const top = d.topOpportunities.length
     ? `<h3>Top opportunities right now</h3><ol>${d.topOpportunities.map((t) => `<li><a href="${esc(`${siteUrl}#card/${t.cardId}`)}">${esc(t.title)}</a> <small>${esc(t.repo)} · ${t.caseCount} cases, ${t.teamCount} teams</small><br/><em>${esc(t.nextStep.size)}:</em> ${esc(t.nextStep.text)}</li>`).join('')}</ol>`
     : '';
-  return `${top}${list('Resolved (release verified)', d.sections.resolved)}${list('Fix coming (merged, not released)', d.sections.fix_coming)}${list('Worth trying', d.sections.worth_trying)}${list('Watching (sources disagree)', d.sections.watching)}${list('Withdrawn', d.sections.retracted)}`;
+  const opps = d.opportunities?.length
+    ? `<h3>Opportunities that moved</h3><ul>${d.opportunities.map((o) => `<li><a href="${esc(`${siteUrl}#opportunity/${o.id}`)}">${esc(o.name.en)}</a>: ${esc(o.reason)}</li>`).join('')}</ul>` : '';
+  const funding = d.funding?.length
+    ? `<h3>Funding this week</h3><ul>${d.funding.map((f) => `<li><a href="${esc(f.url)}">${esc(f.title)}</a> <small>${f.outletCount} outlet${f.outletCount === 1 ? '' : 's'}, counted once${f.verified ? ', verified' : ''}</small></li>`).join('')}</ul>` : '';
+  return `${opps}${funding}${top}${list('Resolved (release verified)', d.sections.resolved)}${list('Fix coming (merged, not released)', d.sections.fix_coming)}${list('Worth trying', d.sections.worth_trying)}${list('Watching (sources disagree)', d.sections.watching)}${list('Withdrawn', d.sections.retracted)}`;
 }
 
 export function renderRss(digests, siteUrl, now) {
@@ -140,11 +155,13 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
   const digests = buildDigests(state, now);
   const write = (name, value) => fs.writeFileSync(path.join(distDir, 'data', name), JSON.stringify(value));
   write('cards.json', Object.values(state.cards));
+  write('opportunities.json', Object.values(state.opportunities || {}));
+  write('developments.json', (state.developments || []).slice(0, 600));
   write('events.json', state.events.slice(-3000));
   write('sources.json', state.sources);
   write('metrics.json', metrics);
   write('digests.json', digests);
-  write('meta.json', { builtAt: now, repos: REPOS, stateLabels: STATE_LABELS, siteUrl: base });
+  write('meta.json', { builtAt: now, repos: REPOS, stateLabels: STATE_LABELS, siteUrl: base, topics: TOPICS.map(({ id, name }) => ({ id, name })) });
   fs.writeFileSync(path.join(distDir, 'feed.xml'), renderRss(digests, base, now));
   fs.writeFileSync(path.join(distDir, '.nojekyll'), '');
   console.log(`site: ${Object.keys(state.cards).length} cards, ${digests.length} digest weeks -> ${distDir}`);

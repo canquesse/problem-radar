@@ -8,6 +8,8 @@ import { HttpClient, RateLimitError } from './http.js';
 import { computeMetrics, processCards, pruneRecords } from './pipeline.js';
 import { fetchPull, ghId, isPrereleaseTag, releaseContainsCommit, syncRepo } from './sources/github.js';
 import { syncHN } from './sources/hn.js';
+import { syncFeeds, syncLaunches, syncNewRepos } from './sources/developments.js';
+import { processOpportunities } from './market.js';
 import { parseFixedByRefs } from './extract.js';
 import { recordSourceRun, upsertRecord } from './store.js';
 
@@ -23,7 +25,7 @@ export function makeGitHubClient({ token, etags, fetch, sleep }) {
 
 export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep, log = console.log, skipHN = false } = {}) {
   const gh = makeGitHubClient({ token, etags: state.etags, fetch, sleep });
-  const hn = new HttpClient({ headers: { 'User-Agent': 'problem-radar' }, fetch, sleep });
+  const hn = new HttpClient({ headers: { 'User-Agent': 'Mozilla/5.0 (compatible; problem-radar/0.2; +https://github.com/canquesse/problem-radar)' }, fetch, sleep, maxRetries: 1 });
   const counts = { new: 0, changed: 0, unchanged: 0 };
   const upsert = (rec) => { counts[upsertRecord(state, rec, now)]++; };
   let ghBlocked = null;
@@ -62,7 +64,22 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
 
   if (!ghBlocked) await verifyFixes(state, { gh, now, upsert, log });
 
+  // Developments: funding, launches, news, brand-new repos.
+  if (!skipHN) {
+    const record = (key, r) => {
+      recordSourceRun(state, key, r, now);
+      log(`  ${key}: ${r.ok ? `${r.items} items` : `FAILED ${r.error}`}`);
+    };
+    await syncFeeds({ http: hn, now, upsert, record });
+    await syncLaunches({ http: hn, state, now, upsert, record });
+    if (!ghBlocked) await syncNewRepos({ http: gh, now, upsert, record });
+  }
+
   const result = processCards(state, now);
+  const market = processOpportunities(state, now);
+  result.transitions.push(...market.transitions);
+  result.created.push(...market.created);
+  log(`market: ${market.developments} developments, ${market.opportunities} opportunities`);
   const pruned = pruneRecords(state, now);
   const metrics = computeMetrics(state, now);
   log(`records: +${counts.new} new, ${counts.changed} changed, ${counts.unchanged} unchanged; pruned ${pruned}`);

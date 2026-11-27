@@ -2,7 +2,8 @@
 // Everything that comes from GitHub or Hacker News is escaped before rendering.
 
 import {
-  evidenceName, flagText, getLang, groupName, nextStepText, reasonText, setLang, sizeName, stateName, stateRule, t,
+  devTypeName, evidenceName, experimentText, flagText, getLang, groupName, meaningText, nextStepText, oppReasonText, oppStateName,
+  oppStatusLine, reasonText, setLang, sizeName, stateName, stateRule, t,
 } from './i18n.js';
 
 const LADDER = ['early_signal', 'worth_trying', 'fix_coming', 'resolved'];
@@ -26,11 +27,15 @@ let outcomes = store.get('outcomes', {});
 setLang(store.get('lang', (navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en'));
 
 // --- Data ------------------------------------------------------------------------
-const data = { cards: [], byId: new Map(), events: [], byCard: new Map(), sources: {}, metrics: {}, digests: [], meta: {} };
+const data = { cards: [], byId: new Map(), events: [], byCard: new Map(), sources: {}, metrics: {}, digests: [], meta: {}, opps: [], oppById: new Map(), devs: [], devById: new Map() };
 
 async function load() {
   const get = (n) => fetch(`data/${n}.json`, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null));
-  const [cards, events, sources, metrics, digests, meta] = await Promise.all(['cards', 'events', 'sources', 'metrics', 'digests', 'meta'].map(get));
+  const [cards, events, sources, metrics, digests, meta, opps, devs] = await Promise.all(['cards', 'events', 'sources', 'metrics', 'digests', 'meta', 'opportunities', 'developments'].map(get));
+  data.opps = (opps || []).filter((o) => !o.faded).sort((a, b) => b.score - a.score);
+  data.oppById = new Map((opps || []).map((o) => [o.id, o]));
+  data.devs = devs || [];
+  data.devById = new Map(data.devs.map((d) => [d.id, d]));
   data.cards = cards || [];
   data.byId = new Map(data.cards.map((c) => [c.id, c]));
   data.events = events || [];
@@ -109,10 +114,11 @@ function statusStrip() {
 function chrome() {
   document.documentElement.lang = getLang();
   $('#brand-tag').textContent = t('brand.tag');
+  $('.brand-text b').textContent = t('brand.name');
   $('#foot-left').textContent = t('foot.left');
   $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === getLang()));
-  const badge = Object.keys(follows).map((id) => data.byId.get(id)).filter(Boolean).reduce((s, c) => s + unseen(c).length, 0);
-  const items = [['overview', 'nav.overview'], ['cards', 'nav.cards'], ['following', 'nav.following'], ['changes', 'nav.changes'], ['digest', 'nav.digest'], ['sources', 'nav.sources'], ['about', 'nav.about']];
+  const badge = Object.keys(follows).map((id) => data.byId.get(id) || data.oppById.get(id)).filter(Boolean).reduce((s, c) => s + unseen(c).length, 0);
+  const items = [['overview', 'nav.overview'], ['opportunities', 'nav.opps'], ['developments', 'nav.devs'], ['needs', 'nav.needs'], ['following', 'nav.following'], ['changes', 'nav.changes'], ['digest', 'nav.digest'], ['sources', 'nav.sources'], ['about', 'nav.about']];
   $('#nav').innerHTML = items.map(([k, key]) => `<a href="#${k}" data-tab="${k}">${esc(t(key))}${k === 'following' && badge ? `<span class="badge">${badge}</span>` : ''}</a>`).join('');
   statusStrip();
 }
@@ -160,37 +166,168 @@ function scope() {
 
 // --- Views -----------------------------------------------------------------------
 function viewOverview() {
-  const by = (s) => data.cards.filter((c) => c.state === s);
-  const recent = (arr) => arr.sort((a, b) => (b.stateSince || '').localeCompare(a.stateSince || '') || b.caseCount - a.caseCount);
-  const worth = by('worth_trying').sort((a, b) => b.caseCount - a.caseCount || (b.stateSince || '').localeCompare(a.stateSince || ''));
-  const coming = recent(by('fix_coming'));
-  const resolved = recent(by('resolved'));
-  const watching = recent(by('watching'));
-  const section = (key, list, state) => `<section class="section">
-      <div class="section-head"><div><h2>${esc(t(key))}</h2><p>${esc(t(`${key}.sub`))}</p></div>${list.length > 6 ? `<a href="#cards?state=${state}">${esc(t('sec.seeall'))} (${num(list.length)}) →</a>` : ''}</div>
-      ${list.length ? `<div class="grid">${list.slice(0, 6).map(tile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}
-    </section>`;
-  const rung = (s) => `<a class="rung-tile c-${s}" href="#cards?state=${s}"><span class="num">${num(by(s).length)}</span><span class="name">${esc(stateName(s))}</span><span class="rule">${esc(stateRule(s))}</span></a>`;
+  const by = (st) => data.cards.filter((c) => c.state === st);
+  const moving = data.cards.filter((c) => ['worth_trying', 'fix_coming', 'resolved', 'watching'].includes(c.state))
+    .sort((a, b) => (b.stateSince || '').localeCompare(a.stateSince || '') || b.caseCount - a.caseCount);
+  const devs = data.devs.filter((d) => d.type !== 'release').slice(0, 8);
+  const rung = (st) => `<a class="rung-tile c-${st}" href="#needs?state=${st}"><span class="num">${num(by(st).length)}</span><span class="name">${esc(stateName(st))}</span><span class="rule">${esc(stateRule(st))}</span></a>`;
   return `<section class="hero">
       <div>
         <p class="kicker">${esc(t('hero.kicker', { repos: (data.meta.repos || []).length }))}</p>
-        <h1>${t('hero.title')}</h1>
-        <p class="lede">${esc(t('hero.lede'))}</p>
-        <div class="ctas"><a class="btn primary" href="#cards">${esc(t('hero.cta'))} →</a><a class="btn ghost" href="#about">${esc(t('hero.cta2'))}</a></div>
+        <h1>${t('hero2.title')}</h1>
+        <p class="lede">${esc(t('hero2.lede'))}</p>
+        <div class="ctas"><a class="btn primary" href="#opportunities">${esc(t('hero2.cta'))} →</a><a class="btn ghost" href="#developments">${esc(t('hero2.cta2'))}</a></div>
       </div>
       ${scope()}
     </section>
-    <nav class="ladder" aria-label="${esc(t('ladder.title'))}">
-      ${LADDER.map(rung).join('')}
-      <div class="rung-tile side"><div class="pair">
-        <a href="#cards?state=watching" class="c-watching" style="text-decoration:none"><span class="num">${num(by('watching').length)}</span><div class="name">${esc(stateName('watching'))}</div></a>
-        <a href="#cards?state=retracted" class="c-retracted" style="text-decoration:none"><span class="num">${num(by('retracted').length)}</span><div class="name">${esc(stateName('retracted'))}</div></a>
-      </div><span class="rule">${esc(stateRule('watching'))}</span></div>
-    </nav>
-    ${section('sec.opportunities', worth, 'worth_trying')}
-    ${section('sec.coming', coming, 'fix_coming')}
-    ${section('sec.resolved', resolved, 'resolved')}
-    ${watching.length ? section('sec.watching', watching, 'watching') : ''}`;
+    <section class="section">
+      <div class="section-head"><div><h2>${esc(t('ov.opps'))}</h2><p>${esc(t('ov.opps.sub'))}</p></div><a href="#opportunities">${esc(t('sec.seeall'))} (${num(data.opps.length)}) →</a></div>
+      ${data.opps.length ? `<div class="grid opp-grid">${data.opps.slice(0, 3).map(oppTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}
+    </section>
+    <section class="section">
+      <div class="section-head"><div><h2>${esc(t('ov.devs'))}</h2><p>${esc(t('ov.devs.sub'))}</p></div><a href="#developments">${esc(t('sec.seeall'))} →</a></div>
+      <div class="devlist">${devs.map(devRow).join('')}</div>
+    </section>
+    <section class="section">
+      <div class="section-head"><div><h2>${esc(t('ov.needs'))}</h2><p>${esc(t('ov.needs.sub'))}</p></div><a href="#needs">${esc(t('sec.seeall'))} →</a></div>
+      <nav class="ladder" aria-label="${esc(t('ladder.title'))}">
+        ${LADDER.map(rung).join('')}
+        <div class="rung-tile side"><div class="pair">
+          <a href="#needs?state=watching" class="c-watching" style="text-decoration:none"><span class="num">${num(by('watching').length)}</span><div class="name">${esc(stateName('watching'))}</div></a>
+          <a href="#needs?state=retracted" class="c-retracted" style="text-decoration:none"><span class="num">${num(by('retracted').length)}</span><div class="name">${esc(stateName('retracted'))}</div></a>
+        </div><span class="rule">${esc(stateRule('watching'))}</span></div>
+      </nav>
+      <div class="grid">${moving.slice(0, 6).map(tile).join('')}</div>
+    </section>`;
+}
+
+// --- Opportunities ------------------------------------------------------------------
+const oppPill = (st) => `<span class="pill o-${esc(st)}"><span class="t">${esc(oppStateName(st))}</span></span>`;
+
+function supplyChips(o) {
+  const s = o.supply;
+  return [
+    s.funding && `<span class="chip-s k-funding">${esc(t('opp.fundingN', { n: s.funding }))}${s.fundingVerified ? ` · ${esc(t('opp.verifiedN', { n: s.fundingVerified }))}` : ''}</span>`,
+    s.products && `<span class="chip-s k-product">${esc(t('opp.productsN', { n: s.products }))}</span>`,
+    s.newRepos && `<span class="chip-s k-new_repo">${esc(t('opp.reposN', { n: s.newRepos }))}</span>`,
+    s.news && `<span class="chip-s k-news">${esc(t('opp.newsN', { n: s.news }))}</span>`,
+  ].filter(Boolean).join('');
+}
+function demandChips(o) {
+  const d = o.demand;
+  return [
+    `<span class="chip-d">${esc(t('opp.casesN', { n: d.cases }))}</span>`,
+    `<span class="chip-d">${esc(t('opp.cardsN', { n: d.cards }))}</span>`,
+    d.multiPerson && `<span class="chip-d">${esc(t('opp.multiN', { n: d.multiPerson }))}</span>`,
+    d.worthTrying && `<span class="chip-d strong">${esc(t('opp.worthN', { n: d.worthTrying }))}</span>`,
+  ].filter(Boolean).join('');
+}
+
+function oppTile(o) {
+  const on = !!follows[o.id];
+  const n = unseen(o).length;
+  return `<article class="tile opp" data-opp="${esc(o.id)}">
+    ${n ? `<span class="newflag">${esc(t('card.new', { n }))}</span>` : ''}
+    <div class="tile-top"><span class="repo">${esc(t('devs.opp'))}</span>${oppPill(o.state)}</div>
+    <h3><a href="#opportunity/${esc(o.id)}">${esc(o.name[getLang()])}</a></h3>
+    <p class="q">${esc(o.question[getLang()])}</p>
+    <div class="sd"><div><span class="lbl">${esc(t('opp.supply'))}</span>${supplyChips(o)}</div><div><span class="lbl">${esc(t('opp.demand'))}</span>${demandChips(o)}</div></div>
+    <div class="tile-foot">
+      <span class="size-tag">${esc(sizeName(o.experiment.size))}</span>
+      <button class="follow" data-follow="${esc(o.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button>
+    </div>
+  </article>`;
+}
+
+function viewOpps() {
+  return `<div class="page-head"><h1>${esc(t('opps.title'))}</h1><p>${esc(t('opps.sub'))}</p></div>
+    ${data.opps.length ? `<div class="grid opp-grid">${data.opps.map(oppTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}`;
+}
+
+function viewOpp(id) {
+  const o = data.oppById.get(id);
+  if (!o) return `<div class="detail"><a class="back" href="#opportunities">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
+  if (follows[o.id]) { follows[o.id].seenAt = new Date().toISOString(); store.set('follows', follows); }
+  const on = !!follows[o.id];
+  const L = getLang();
+  const devs = o.developmentIds.map((d) => data.devById.get(d)).filter(Boolean);
+  const rels = (o.releaseIds || []).map((d) => data.devById.get(d)).filter(Boolean).slice(0, 6);
+  const needs = o.needIds.map((n) => data.byId.get(n)).filter(Boolean);
+  const anchor = o.anchor && data.byId.get(o.anchor.cardId);
+  const events = (data.byCard.get(o.id) || []).slice().sort((a, b) => b.at.localeCompare(a.at));
+  return `<div class="detail">
+    <a class="back" href="#${esc(lastList.startsWith('opportunit') || lastList === 'overview' ? lastList : 'opportunities')}">${esc(t('detail.back'))}</a>
+    <header class="detail-head">
+      ${oppPill(o.state)}${o.faded ? ` <span class="flag">${esc(t('opp.faded'))}</span>` : ''}
+      <h1>${esc(o.name[L])}</h1>
+      <div class="detail-meta"><span class="sd inline">${supplyChips(o)}${demandChips(o)}</span>
+        <button class="follow" data-follow="${esc(o.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button></div>
+    </header>
+    <div class="detail-grid">
+      <div>
+        <div class="panel why"><h2>${esc(t('opp.status'))}</h2><p>${esc(oppStatusLine(o))}</p>
+          ${o.trigger?.url ? `<div class="sub">${esc(o.trigger.title || '')} <a href="${safeUrl(o.trigger.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></div>` : ''}</div>
+        <div class="panel"><h2>${esc(t('opp.question'))}</h2><p class="bigq">${esc(o.question[L])}</p>
+          ${anchor ? `<p class="note">${esc(t('opp.anchor', { title: '' }))}<a href="#card/${esc(anchor.id)}">${esc(anchor.title)}</a> · ${esc(t('card.cases', { n: anchor.caseCount }))}</p>` : ''}</div>
+      </div>
+      <div>
+        <div class="panel next"><h2>${esc(t('opp.experiment'))}</h2><span class="size">${esc(sizeName(o.experiment.size))}</span><p>${esc(experimentText(o.experiment))}</p></div>
+        <div class="panel"><h2>${esc(t('opp.tools'))}</h2>${o.tools.map((tl) => `<div class="fixrow"><a href="${safeUrl(tl.url)}" ${ext}>${esc(tl.name)} ↗</a><div class="muted" style="font-size:13px">${esc(tl.covers[L])}</div></div>`).join('')}
+          ${rels.length ? `<h2 style="margin-top:16px">${esc(t('opp.releases'))}</h2>${rels.map((r) => `<div class="fixrow"><a href="${safeUrl(r.url)}" ${ext}>${esc(r.title)}</a> <span class="muted">${esc(fmtDate(r.publishedAt))}</span></div>`).join('')}` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="two">
+      <section><h2 class="h-sec">${esc(t('opp.devlist'))} <span class="muted">(${devs.length})</span></h2><div class="devlist">${devs.slice(0, 30).map(devRow).join('')}</div></section>
+      <section><h2 class="h-sec">${esc(t('opp.needlist'))} <span class="muted">(${needs.length})</span></h2>
+        <div class="grid one">${needs.slice(0, 8).map(tile).join('')}</div>
+        ${needs.length > 8 ? `<p><a class="btn ghost" href="#needs">${esc(t('opp.seeNeeds', { n: needs.length }))}</a></p>` : ''}</section>
+    </div>
+    ${events.length ? `<h2 class="h-sec">${esc(t('opp.history'))}</h2><ul class="timeline">${events.map((e) => `<li class="h-${esc(e.to)}"><span class="when">${esc(fmtDate(e.at))}</span>
+      <div class="body">${e.from ? `${oppPill(e.from)} → ` : `${esc(t('detail.created'))} `}${oppPill(e.to)}</div>
+      <div class="body">${esc(oppReasonText(e))} <a href="${safeUrl(e.triggerUrl)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></div>
+      <div class="body meaning"><b>${esc(t('follow.meaning'))}:</b> ${esc(meaningText(e))}</div></li>`).join('')}</ul>` : ''}
+  </div>`;
+}
+
+// --- Developments -------------------------------------------------------------------
+const DEV_TYPES = ['funding', 'product', 'launch', 'new_repo', 'release', 'news'];
+let devFilt = { type: '', topic: '', limit: 40 };
+const topicName = (id) => (data.meta.topics || []).find((x) => x.id === id)?.name[getLang()] || id;
+
+function devRow(d) {
+  const f = d.funding;
+  const opp = d.topics?.map((tp) => data.oppById.get(`o-${tp}`)).find((o) => o && !o.faded);
+  const meta = [
+    d.type === 'funding' && f ? [f.amount, f.round].filter(Boolean).join(' · ') : null,
+    d.outletCount > 1 ? t('devs.outlets', { n: d.outletCount }) : d.outlets?.[0]?.name || null,
+    d.type === 'funding' ? (d.verified ? `✓ ${t('devs.verified')}` : t('devs.single')) : null,
+    d.stars != null ? t('devs.stars', { n: num(d.stars) }) : null,
+    d.points ? t('devs.points', { n: d.points }) : null,
+  ].filter(Boolean);
+  return `<div class="dev">
+    <span class="dtype k-${esc(d.type)}">${esc(devTypeName(d.type))}</span>
+    <div class="dbody">
+      <a class="dtitle" href="${safeUrl(d.url)}" ${ext}>${esc(d.title)}</a>
+      ${d.summary && d.type !== 'release' ? `<p class="dsum">${esc(d.summary)}</p>` : ''}
+      <div class="dmeta"><span>${esc(fmtDate(d.publishedAt))}</span>${meta.map((m) => `<span>${esc(m)}</span>`).join('')}
+        ${(d.topics || []).map((tp) => `<a class="topic" href="#developments?topic=${esc(tp)}">${esc(topicName(tp))}</a>`).join('')}
+        ${opp ? `<a class="topic opp-link" href="#opportunity/${esc(opp.id)}">→ ${esc(t('devs.opp'))}</a>` : ''}</div>
+    </div>
+  </div>`;
+}
+
+function viewDevs() {
+  const list = data.devs.filter((d) => (!devFilt.type || d.type === devFilt.type) && (!devFilt.topic || d.topics?.includes(devFilt.topic)));
+  const count = (ty) => data.devs.filter((d) => d.type === ty && (!devFilt.topic || d.topics?.includes(devFilt.topic))).length;
+  return `<div class="page-head"><h1>${esc(t('devs.title'))}</h1><p>${esc(t('devs.sub'))}</p></div>
+    <div class="devbar">
+      <button class="chip" data-dtype="" aria-pressed="${!devFilt.type}">${esc(t('devs.all'))}</button>
+      ${DEV_TYPES.map((ty) => `<button class="chip" data-dtype="${ty}" aria-pressed="${devFilt.type === ty}">${esc(devTypeName(ty))} <span class="muted">${num(count(ty))}</span></button>`).join('')}
+      <select id="dtopic" aria-label="${esc(t('devs.topic'))}"><option value="">${esc(t('devs.allTopics'))}</option>${(data.meta.topics || []).map((x) => `<option value="${esc(x.id)}" ${devFilt.topic === x.id ? 'selected' : ''}>${esc(x.name[getLang()])}</option>`).join('')}</select>
+    </div>
+    ${list.length ? `<div class="devlist">${list.slice(0, devFilt.limit).map(devRow).join('')}</div>` : `<p class="empty">${esc(t('devs.empty'))}</p>`}
+    ${list.length > devFilt.limit ? `<button class="btn ghost more" id="dmore">${esc(t('list.more'))} (${num(list.length - devFilt.limit)})</button>` : ''}`;
 }
 
 // Problems browser
@@ -218,7 +355,7 @@ function viewCards() {
   const groups = {};
   for (const r of data.meta.repos || []) (groups[r.group] ||= []).push(r.repo);
   const list = filteredCards();
-  return `<div class="page-head"><h1>${esc(t('nav.cards'))}</h1></div>
+  return `<div class="page-head"><h1>${esc(t('needs.title'))}</h1><p>${esc(t('needs.sub'))}</p></div>
     <div class="browse">
       <aside class="side">
         <input class="search" type="search" id="q" placeholder="${esc(t('filters.search'))}" value="${esc(filt.q)}" aria-label="${esc(t('filters.search'))}" />
@@ -255,7 +392,7 @@ const fact = (label, f) => `<dt>${esc(label)}</dt><dd>${f ? `${esc(f.value)}<a c
 
 function viewDetail(id) {
   const c = data.byId.get(id);
-  if (!c) return `<div class="detail"><a class="back" href="#cards">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
+  if (!c) return `<div class="detail"><a class="back" href="#needs">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
   if (follows[c.id]) { follows[c.id].seenAt = new Date().toISOString(); store.set('follows', follows); }
   const on = !!follows[c.id];
   const events = (data.byCard.get(c.id) || []).slice().sort((a, b) => b.at.localeCompare(a.at));
@@ -323,32 +460,40 @@ function viewDetail(id) {
   </div>`;
 }
 
-function changeItem(e) {
+function changeItem(e, withMeaning = false) {
+  const opp = e.kind === 'opportunity';
+  const o = opp ? data.oppById.get(e.cardId) : null;
+  const p = opp ? oppPill : pill;
+  const title = opp ? (o ? o.name[getLang()] : e.cardTitle) : e.cardTitle;
+  const meaning = withMeaning ? meaningText(e) : '';
   return `<div class="change">
-    <div class="arrow">${e.from ? pill(e.from) : ''}${e.from ? '→' : ''}${pill(e.to)}</div>
-    <div><h3><a href="#card/${esc(e.cardId)}">${esc(e.cardTitle)}</a></h3>
-      <p><span class="mono muted" style="font-size:12px">${esc(e.repo)}</span> · ${esc(reasonText(e))} <a href="${safeUrl(e.triggerUrl)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></p></div>
+    <div class="arrow">${e.from ? p(e.from) : ''}${e.from ? '→' : ''}${p(e.to)}</div>
+    <div><h3><a href="#${opp ? 'opportunity' : 'card'}/${esc(e.cardId)}">${esc(title)}</a></h3>
+      <p>${opp ? `<span class="mono muted" style="font-size:12px">${esc(t('devs.opp'))}</span>` : `<span class="mono muted" style="font-size:12px">${esc(e.repo)}</span>`} · ${esc(opp ? oppReasonText(e) : reasonText(e))} <a href="${safeUrl(e.triggerUrl)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></p>
+      ${meaning ? `<p class="meaning"><b>${esc(t('follow.meaning'))}:</b> ${esc(meaning)}</p>` : ''}</div>
   </div>`;
 }
 
-function byDay(events) {
+function byDay(events, withMeaning = false) {
   const out = [];
   let day = null;
   for (const e of events) {
     const d = e.at.slice(0, 10);
     if (d !== day) { out.push(`<h3 class="day">${esc(fmtDay(e.at))}</h3>`); day = d; }
-    out.push(changeItem(e));
+    out.push(changeItem(e, withMeaning));
   }
   return out.join('');
 }
 
 function viewFollowing() {
   const list = Object.keys(follows).map((id) => data.byId.get(id)).filter(Boolean).sort((a, b) => unseen(b).length - unseen(a).length);
-  const changes = list.flatMap((c) => unseen(c)).sort((a, b) => b.at.localeCompare(a.at));
+  const oppList = Object.keys(follows).map((id) => data.oppById.get(id)).filter(Boolean);
+  const changes = [...list, ...oppList].flatMap((c) => unseen(c)).sort((a, b) => b.at.localeCompare(a.at));
   return `<div class="page-head"><h1>${esc(t('following.title'))}</h1><p>${esc(t('following.sub'))}</p></div>
-    ${changes.length ? `<section class="section"><div class="section-head"><h2>${esc(t('following.changes'))}</h2><button class="btn ghost" id="mark-seen">${esc(t('following.markSeen'))}</button></div>${byDay(changes)}</section>` : ''}
+    ${changes.length ? `<section class="section"><div class="section-head"><h2>${esc(t('following.changes'))}</h2><button class="btn ghost" id="mark-seen">${esc(t('following.markSeen'))}</button></div>${byDay(changes, true)}</section>` : ''}
+    ${oppList.length ? `<section class="section"><div class="section-head"><h2>${esc(t('nav.opps'))}</h2></div><div class="grid opp-grid">${oppList.map(oppTile).join('')}</div></section>` : ''}
     <section class="section"><div class="section-head"><h2>${esc(t('following.cards'))}</h2></div>
-    ${list.length ? `<div class="grid">${list.map(tile).join('')}</div>` : `<p class="empty">${esc(t('following.empty'))}</p>`}</section>`;
+    ${list.length ? `<div class="grid">${list.map(tile).join('')}</div>` : oppList.length ? '' : `<p class="empty">${esc(t('following.empty'))}</p>`}</section>`;
 }
 
 function viewChanges() {
@@ -429,19 +574,24 @@ function parseHash() {
 function render() {
   const { tab, arg, params } = parseHash();
   const main = $('#main');
-  if (tab === 'cards') {
+  if (tab === 'needs' || tab === 'cards') {
     if (params.has('state')) { filt.state = params.get('state'); filt.limit = PAGE; }
     if (params.has('repo')) filt.repo = params.get('repo');
   }
-  const views = { overview: viewOverview, cards: viewCards, card: () => viewDetail(arg), following: viewFollowing, changes: viewChanges, digest: () => viewDigest(arg), sources: viewSources, about: viewAbout };
+  if (tab === 'developments') { if (params.has('type')) devFilt.type = params.get('type'); if (params.has('topic')) devFilt.topic = params.get('topic'); }
+  const views = {
+    overview: viewOverview, opportunities: viewOpps, opportunity: () => viewOpp(arg), developments: viewDevs, needs: viewCards, cards: viewCards,
+    card: () => viewDetail(arg), following: viewFollowing, changes: viewChanges, digest: () => viewDigest(arg), sources: viewSources, about: viewAbout,
+  };
   const view = views[tab] || viewOverview;
-  if (tab !== 'card') lastList = location.hash.slice(1) || 'overview';
+  if (tab !== 'card' && tab !== 'opportunity') lastList = location.hash.slice(1) || 'overview';
   chrome();
   main.innerHTML = view();
-  const active = tab === 'card' ? 'cards' : views[tab] ? tab : 'overview';
+  const active = tab === 'card' || tab === 'cards' ? 'needs' : tab === 'opportunity' ? 'opportunities' : views[tab] ? tab : 'overview';
   $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === active));
   $('#nav').classList.remove('open');
-  document.title = `${tab === 'card' && data.byId.get(arg) ? `${data.byId.get(arg).title} · ` : ''}Problem Radar`;
+  const oppT = tab === 'opportunity' && data.oppById.get(arg) ? `${data.oppById.get(arg).name[getLang()]} · ` : '';
+  document.title = `${tab === 'card' && data.byId.get(arg) ? `${data.byId.get(arg).title} · ` : oppT}${t('brand.name')}`;
 }
 
 function rerenderKeepScroll() { const y = window.scrollY; render(); window.scrollTo(0, y); }
@@ -459,7 +609,7 @@ document.addEventListener('click', (ev) => {
     store.set('follows', follows);
     const on = !!follows[id];
     $$(`[data-follow="${CSS.escape(id)}"]`).forEach((b) => { b.setAttribute('aria-pressed', on); b.textContent = `${on ? '★' : '☆'} ${on ? t('card.following') : t('card.follow')}`; });
-    chrome(); const { tab } = parseHash(); $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === (tab === 'card' ? 'cards' : tab)));
+    chrome(); const { tab } = parseHash(); $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === ({ card: 'needs', cards: 'needs', opportunity: 'opportunities' }[tab] || tab)));
     return;
   }
   const oc = el.closest('[data-outcome]');
@@ -471,11 +621,16 @@ document.addEventListener('click', (ev) => {
     oc.setAttribute('aria-pressed', cur.has(k));
     return;
   }
+  const dt = el.closest('[data-dtype]');
+  if (dt) { devFilt.type = dt.dataset.dtype; devFilt.limit = 40; history.replaceState(null, '', '#developments'); rerenderKeepScroll(); return; }
+  if (el.id === 'dmore') { devFilt.limit += 40; rerenderKeepScroll(); return; }
+  const oppEl = el.closest('.tile.opp');
+  if (oppEl && !el.closest('a, button')) { location.hash = `opportunity/${oppEl.dataset.opp}`; return; }
   const fs = el.closest('[data-fstate]');
-  if (fs) { filt.state = fs.dataset.fstate; filt.limit = PAGE; history.replaceState(null, '', '#cards'); rerenderKeepScroll(); return; }
+  if (fs) { filt.state = fs.dataset.fstate; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
   const fr = el.closest('[data-frepo]');
-  if (fr) { filt.repo = fr.dataset.frepo; filt.limit = PAGE; history.replaceState(null, '', '#cards'); rerenderKeepScroll(); return; }
-  if (el.id === 'clear') { filt = { ...filt, q: '', state: '', repo: '', limit: PAGE }; history.replaceState(null, '', '#cards'); render(); return; }
+  if (fr) { filt.repo = fr.dataset.frepo; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
+  if (el.id === 'clear') { filt = { ...filt, q: '', state: '', repo: '', limit: PAGE }; history.replaceState(null, '', '#needs'); render(); return; }
   if (el.id === 'more') { filt.limit += PAGE; rerenderKeepScroll(); return; }
   if (el.id === 'mark-seen') { const now = new Date().toISOString(); for (const id of Object.keys(follows)) follows[id].seenAt = now; store.set('follows', follows); render(); return; }
   if (el.id === 'menu-btn') { const n = $('#nav'); n.classList.toggle('open'); el.setAttribute('aria-expanded', n.classList.contains('open')); return; }
@@ -511,8 +666,9 @@ document.addEventListener('input', (ev) => {
   }, 180);
 });
 document.addEventListener('change', (ev) => {
-  if (ev.target.id === 'mstate') { filt.state = ev.target.value; filt.limit = PAGE; history.replaceState(null, '', '#cards'); rerenderKeepScroll(); return; }
-  if (ev.target.id === 'mrepo') { filt.repo = ev.target.value; filt.limit = PAGE; history.replaceState(null, '', '#cards'); rerenderKeepScroll(); return; }
+  if (ev.target.id === 'dtopic') { devFilt.topic = ev.target.value; devFilt.limit = 40; history.replaceState(null, '', '#developments'); rerenderKeepScroll(); return; }
+  if (ev.target.id === 'mstate') { filt.state = ev.target.value; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
+  if (ev.target.id === 'mrepo') { filt.repo = ev.target.value; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
   if (ev.target.id === 'sort') { filt.sort = ev.target.value; filt.limit = PAGE; rerenderKeepScroll(); } });
 window.addEventListener('hashchange', () => { render(); if (!location.hash.includes('?')) window.scrollTo({ top: 0, behavior: 'instant' }); $('#main').focus({ preventScroll: true }); });
 

@@ -1,6 +1,12 @@
-# Problem Radar
+# Problem Radar (Fırsat Radarı)
 
-**A problem watchlist for AI infrastructure and developer tools.** It reads GitHub issues, comments, merged pull requests and releases from 13 projects, plus Hacker News, and turns them into problem cards: who is stuck, what they were trying to do, what blocks them, how they get by today, and whether a fix has actually shipped.
+**See what is happening in AI infrastructure and developer tools, see where people are stuck, and find real work you can start today.**
+
+The radar has two streams and connects them:
+
+- **Developments:** funding announcements, new AI products, release notes, media news and brand-new small open-source repositories (found before they collect stars).
+- **Needs:** first-hand problems from GitHub issues and Hacker News: who is stuck, what they were trying to do, what blocks them, how they get by today, and whether a fix actually shipped.
+- **Opportunities:** where a development meets a need in the same area, the radar opens a card with the evidence on both sides, what already exists, a narrow question to research, the smallest first experiment, a status line and a job size (contribute tonight, weekend prototype, talk to users first).
 
 **Live:** https://canquesse.github.io/problem-radar/ · **Weekly digest (RSS):** https://canquesse.github.io/problem-radar/feed.xml
 
@@ -22,7 +28,23 @@ The site is available in **English and Turkish** (switch in the top bar; it foll
 
 Cards say **"3 first-hand cases, 2 verified teams"** instead of claiming independence they cannot prove.
 
-## The evidence ladder
+## Developments and opportunities
+
+| Development | Free source |
+|---|---|
+| Funding | Google News searches for AI infra / dev tool rounds, TechCrunch (AI, Venture), Crunchbase News |
+| New AI products | Product Hunt (AI and developer tools), Show HN and Launch HN |
+| Release notes | Releases of the 13 watched repositories |
+| Media news | SiliconANGLE AI, The Verge AI, Hugging Face blog, TechCrunch |
+| New small repos | GitHub search: repositories created in the last 7 days with 5 to 300 stars in LLM, agents, MCP, RAG, inference and LLMOps topics |
+
+- **Syndication:** the same story from many outlets is one development. Funding is grouped by company; other stories by canonical URL and title. A round reported by two or more distinct outlets is marked *verified*; a single outlet stays *single source*.
+- **Topics:** 13 areas (inference cost, serving, GPU and hardware, local models, agents, MCP, observability, RAG and memory, fine-tuning, structured output, gateways, security, coding agents). Both developments and needs are tagged by keywords; a watched repository only tips the balance, it never tags on its own.
+- **Opportunity states:** *Investigating* (market interest meets first-hand cases), *Demand confirmed* (a need is worth trying, or at least two problems were hit by two or more people), *Being solved upstream* (every linked need has a merged or released fix), *Watching* (a linked fix is disputed).
+- **First experiment:** a weekend prototype when a need has a documented workaround, contributing upstream when the fix is already coming, and talking to the reporters first otherwise.
+- **Investor interest is not demand.** Funding, launches and news are shown as market signals and never counted as first-hand cases.
+
+## The evidence ladder (needs)
 
 | State | Rule |
 |---|---|

@@ -63,7 +63,13 @@ export class HttpClient {
    * @param {object} [opts]
    * @param {boolean} [opts.conditional=true]
    */
-  async get(url, { conditional = true } = {}) {
+  /** GET a text body (RSS/Atom). Returns { status, text, notModified }. */
+  async getText(url, opts = {}) {
+    const r = await this.get(url, { ...opts, text: true });
+    return { status: r.status, text: r.data, notModified: r.notModified };
+  }
+
+  async get(url, { conditional = true, text: asText = false } = {}) {
     if (this.stats.remaining !== null && this.stats.remaining <= this.minRemaining) {
       throw new RateLimitError(`quota floor reached (${this.stats.remaining} left)`, this.stats.resetAt);
     }
@@ -89,8 +95,13 @@ export class HttpClient {
       const h = (name) => (res.headers && res.headers.get ? res.headers.get(name) : null);
       const remaining = h('x-ratelimit-remaining');
       const reset = h('x-ratelimit-reset');
-      if (remaining !== null) this.stats.remaining = Number(remaining);
-      if (reset !== null) this.stats.resetAt = Number(reset) * 1000;
+      // Only the core quota guards the budget; search has its own small
+      // per-minute bucket that must not trip the core floor.
+      const resource = h('x-ratelimit-resource');
+      if (!resource || resource === 'core') {
+        if (remaining !== null) this.stats.remaining = Number(remaining);
+        if (reset !== null) this.stats.resetAt = Number(reset) * 1000;
+      }
 
       if (res.status === 304) {
         this.stats.notModified++;
@@ -128,10 +139,13 @@ export class HttpClient {
 
       let data;
       const text = await res.text();
-      try {
-        data = text ? JSON.parse(text) : null;
-      } catch {
-        throw new HttpError(res.status, url, 'invalid JSON: ' + text.slice(0, 120));
+      if (asText) data = text;
+      else {
+        try {
+          data = text ? JSON.parse(text) : null;
+        } catch {
+          throw new HttpError(res.status, url, 'invalid JSON: ' + text.slice(0, 120));
+        }
       }
       const etag = h('etag');
       const lastModified = h('last-modified');

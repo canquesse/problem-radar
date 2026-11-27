@@ -14,6 +14,7 @@ import { execSync } from 'node:child_process';
 import path from 'node:path';
 import { buildSite } from './site.js';
 import { computeMetrics, processCards } from './pipeline.js';
+import { processOpportunities } from './market.js';
 import { loadState, saveState } from './store.js';
 import { runSync } from './sync.js';
 
@@ -35,6 +36,8 @@ if (cmd === 'sync') {
 } else if (cmd === 'reprocess') {
   const state = loadState(dataDir);
   const r = processCards(state, now);
+  const m = processOpportunities(state, now);
+  r.created.push(...m.created); r.transitions.push(...m.transitions);
   const metrics = computeMetrics(state, now);
   saveState(dataDir, state, { metrics });
   console.log(`reprocessed: ${metrics.cards} cards, ${r.created.length} created, ${r.transitions.length} transitions`);

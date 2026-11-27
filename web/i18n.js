@@ -3,11 +3,30 @@
 
 export const STRINGS = {
   en: {
+    'nav.opps': 'Opportunities', 'nav.devs': 'Developments', 'nav.needs': 'Needs',
+    'hero2.title': 'See what is happening, <em>see where people are stuck,</em> find real work to start today.',
+    'hero2.lede': 'Developments (funding, new AI products, releases, news, brand-new repos) on one side, needs (first-hand problems from GitHub and Hacker News) on the other. Where they meet, the radar opens an opportunity card with the evidence, what already exists, a narrow question and the smallest experiment you can run.',
+    'hero2.cta': 'See opportunities', 'hero2.cta2': 'Latest developments',
+    'ov.opps': 'Top opportunities', 'ov.opps.sub': 'A development meets a need. Ranked by verified funding, launches and first-hand demand.',
+    'ov.devs': 'Latest developments', 'ov.devs.sub': 'Funding, launches, releases and news. Copies of one story count once.',
+    'ov.needs': 'Needs on the move', 'ov.needs.sub': 'Problems whose evidence just changed.',
+    'opps.title': 'Opportunities', 'opps.sub': 'Each card connects market developments to real, first-hand needs in the same area, with a narrow question to research and the smallest first experiment.',
+    'opp.supply': 'Developments', 'opp.demand': 'Needs', 'opp.question': 'Need to research', 'opp.experiment': 'First experiment',
+    'opp.status': 'Card status', 'opp.tools': 'What already exists', 'opp.releases': 'Recent releases in this area', 'opp.devlist': 'Market developments (last 30 days)',
+    'opp.needlist': 'First-hand needs in this area', 'opp.seeNeeds': 'See all {n} needs', 'opp.anchor': 'Strongest evidence: {title}',
+    'opp.fundingN': '{n} funding round|{n} funding rounds', 'opp.verifiedN': '{n} verified', 'opp.productsN': '{n} launch|{n} launches', 'opp.reposN': '{n} new repo|{n} new repos', 'opp.newsN': '{n} news story|{n} news stories',
+    'opp.casesN': '{n} first-hand case|{n} first-hand cases', 'opp.cardsN': '{n} problem|{n} problems', 'opp.multiN': '{n} hit by 2+ people', 'opp.worthN': '{n} worth trying', 'opp.workaroundsN': '{n} with a workaround',
+    'opp.faded': 'No recent development in this area', 'opp.history': 'State history',
+    'devs.title': 'Developments', 'devs.sub': 'What is changing: funding, new AI products, release notes, media news and brand-new small repositories. When many outlets publish the same story it is one event, not many signals.',
+    'devs.all': 'All', 'devs.topic': 'Area', 'devs.allTopics': 'All areas', 'devs.outlets': 'reported by {n} outlet, counted once|reported by {n} outlets, counted once',
+    'devs.verified': 'verified by 2+ outlets', 'devs.single': 'single source', 'devs.stars': '{n} stars', 'devs.points': '{n} points', 'devs.empty': 'No developments match.',
+    'devs.opp': 'Opportunity', 'needs.title': 'Needs', 'needs.sub': 'First-hand problems from GitHub issues and Hacker News: who is stuck, what they were trying to do, how they get by today, and which fix actually shipped.',
+    'follow.meaning': 'What it means for you',
     'nav.overview': 'Overview', 'nav.cards': 'Problems', 'nav.following': 'Following', 'nav.changes': 'Changelog',
     'nav.digest': 'Weekly', 'nav.sources': 'Sources', 'nav.about': 'How it works',
     'brand.tag': 'AI infra & dev tools',
     'status.synced': 'Synced {ago}', 'status.sources': '{n} sources', 'status.failing': '{n} failing', 'status.delayed': '{n} delayed',
-    'hero.kicker': 'Problem watchlist · {repos} repositories · GitHub + Hacker News',
+    'hero.kicker': 'Opportunity radar · funding, launches, news · {repos} repositories · Hacker News', 'brand.name': 'Problem Radar',
     'hero.title': 'Where builders get stuck, <em>and when it actually gets fixed.</em>',
     'hero.lede': 'Every card is one real problem, counted in first-hand cases rather than headlines. It only moves when the evidence moves: a second person hits it, a fix merges, a release ships it.',
     'hero.cta': 'Browse problems', 'hero.cta2': 'How the evidence works',
@@ -55,11 +74,30 @@ export const STRINGS = {
     'ago.never': 'never',
   },
   tr: {
+    'nav.opps': 'Fırsatlar', 'nav.devs': 'Gelişmeler', 'nav.needs': 'İhtiyaçlar',
+    'hero2.title': 'Piyasada ne olduğunu gör, <em>insanların nerede takıldığını anla,</em> bugün başlayabileceğin gerçek bir iş bul.',
+    'hero2.lede': 'Bir yanda gelişmeler (yatırımlar, yeni AI ürünleri, sürümler, haberler, yepyeni repolar), öbür yanda ihtiyaçlar (GitHub ve Hacker News’ten birinci elden problemler). İkisi buluştuğunda radar bir fırsat kartı açar: kanıtı, mevcut çözümler, araştırılacak dar soru ve deneyebileceğin en küçük şey.',
+    'hero2.cta': 'Fırsatları gör', 'hero2.cta2': 'Son gelişmeler',
+    'ov.opps': 'Öne çıkan fırsatlar', 'ov.opps.sub': 'Bir gelişme bir ihtiyaçla buluşuyor. Doğrulanmış yatırım, lansman ve birinci elden talebe göre sıralı.',
+    'ov.devs': 'Son gelişmeler', 'ov.devs.sub': 'Yatırımlar, lansmanlar, sürümler ve haberler. Aynı haberin kopyaları tek sayılır.',
+    'ov.needs': 'Hareketlenen ihtiyaçlar', 'ov.needs.sub': 'Kanıtı az önce değişen problemler.',
+    'opps.title': 'Fırsatlar', 'opps.sub': 'Her kart, aynı alandaki piyasa gelişmelerini gerçek, birinci elden ihtiyaçlarla birleştirir. Araştırılacak dar bir soru ve en küçük ilk deneyle gelir.',
+    'opp.supply': 'Gelişmeler', 'opp.demand': 'İhtiyaçlar', 'opp.question': 'Araştırılacak ihtiyaç', 'opp.experiment': 'İlk deney',
+    'opp.status': 'Kartın durumu', 'opp.tools': 'Mevcut çözümler', 'opp.releases': 'Bu alandaki son sürümler', 'opp.devlist': 'Piyasa gelişmeleri (son 30 gün)',
+    'opp.needlist': 'Bu alandaki birinci elden ihtiyaçlar', 'opp.seeNeeds': '{n} ihtiyacın tamamını gör', 'opp.anchor': 'En güçlü kanıt: {title}',
+    'opp.fundingN': '{n} yatırım turu|{n} yatırım turu', 'opp.verifiedN': '{n} doğrulanmış', 'opp.productsN': '{n} lansman|{n} lansman', 'opp.reposN': '{n} yeni repo|{n} yeni repo', 'opp.newsN': '{n} haber|{n} haber',
+    'opp.casesN': '{n} birinci elden vaka|{n} birinci elden vaka', 'opp.cardsN': '{n} problem|{n} problem', 'opp.multiN': '{n} tanesinde 2+ kişi', 'opp.worthN': '{n} denemeye değer', 'opp.workaroundsN': '{n} tanesinde geçici çözüm',
+    'opp.faded': 'Bu alanda yakın zamanda gelişme yok', 'opp.history': 'Durum geçmişi',
+    'devs.title': 'Gelişmeler', 'devs.sub': 'Ne değişiyor: yatırım duyuruları, yeni AI ürünleri, sürüm notları, medya haberleri ve yepyeni küçük repolar. Aynı haberi yayımlayan onlarca site tek olay sayılır, ayrı sinyal değil.',
+    'devs.all': 'Tümü', 'devs.topic': 'Alan', 'devs.allTopics': 'Tüm alanlar', 'devs.outlets': '{n} kaynakta yayımlandı, tek sayıldı|{n} kaynakta yayımlandı, tek sayıldı',
+    'devs.verified': '2+ kaynakla doğrulandı', 'devs.single': 'tek kaynak', 'devs.stars': '{n} yıldız', 'devs.points': '{n} puan', 'devs.empty': 'Uyan gelişme yok.',
+    'devs.opp': 'Fırsat', 'needs.title': 'İhtiyaçlar', 'needs.sub': 'GitHub issue’larından ve Hacker News’ten birinci elden problemler: kim takılmış, ne yapmaya çalışıyormuş, bugün nasıl idare ediyor ve hangi düzeltme gerçekten yayımlandı.',
+    'follow.meaning': 'Senin için anlamı',
     'nav.overview': 'Genel bakış', 'nav.cards': 'Problemler', 'nav.following': 'Takip', 'nav.changes': 'Değişiklikler',
     'nav.digest': 'Haftalık', 'nav.sources': 'Kaynaklar', 'nav.about': 'Nasıl çalışır',
     'brand.tag': 'AI altyapısı ve geliştirici araçları',
     'status.synced': '{ago} güncellendi', 'status.sources': '{n} kaynak', 'status.failing': '{n} hatalı', 'status.delayed': '{n} gecikmeli',
-    'hero.kicker': 'Problem takip listesi · {repos} repo · GitHub + Hacker News',
+    'hero.kicker': 'Fırsat radarı · yatırım, lansman, haber · {repos} repo · Hacker News', 'brand.name': 'Fırsat Radarı',
     'hero.title': 'Geliştiriciler nerede takılıyor, <em>ve ne zaman gerçekten çözülüyor.</em>',
     'hero.lede': 'Her kart gerçek bir problem. Haberle değil, birinci elden vakayla sayılır. Kart ancak kanıt değişince hareket eder: ikinci biri aynı soruna takılır, bir düzeltme birleşir, bir sürüm onu yayımlar.',
     'hero.cta': 'Problemlere göz at', 'hero.cta2': 'Kanıt nasıl işliyor',
@@ -243,4 +281,80 @@ export function nextStepText(n, card) {
     case 'retracted': return tr ? 'Geri çekildi: bildiren kişi iddiasını geri aldı. Şeffaflık için tutuluyor.' : n.text;
     default: return n.text;
   }
+}
+
+export const OPP_STATE_NAMES = {
+  en: { investigating: 'Investigating', demand_confirmed: 'Demand confirmed', being_solved: 'Being solved upstream', watching: 'Watching' },
+  tr: { investigating: 'Araştırılıyor', demand_confirmed: 'Talep doğrulandı', being_solved: 'Kaynağında çözülüyor', watching: 'Takipte' },
+};
+export const oppStateName = (s) => OPP_STATE_NAMES[lang][s] || s;
+
+export const DEV_TYPES = {
+  en: { funding: 'Funding', product: 'Product', launch: 'Launch', new_repo: 'New repo', release: 'Release', news: 'News' },
+  tr: { funding: 'Yatırım', product: 'Ürün', launch: 'Lansman', new_repo: 'Yeni repo', release: 'Sürüm', news: 'Haber' },
+};
+export const devTypeName = (s) => DEV_TYPES[lang][s] || s;
+
+/** One-line card status, built from the evidence counts. */
+export function oppStatusLine(o) {
+  const tr = lang === 'tr';
+  const s = o.supply, d = o.demand;
+  const parts = [];
+  if (s.funding) parts.push(tr ? `Yatırım: ${s.funding} tur, ${s.fundingVerified} tanesi 2+ kaynakla doğrulandı.` : `Funding: ${s.funding} round${s.funding === 1 ? '' : 's'}, ${s.fundingVerified} verified by 2+ outlets.`);
+  else parts.push(tr ? `Piyasa: ${s.products} lansman, ${s.newRepos} yeni repo, ${s.news} haber.` : `Market: ${s.products} launches, ${s.newRepos} new repos, ${s.news} news stories.`);
+  parts.push(tr ? `Talep: ${d.cards} problemde ${d.cases} birinci elden vaka, ${d.teams} doğrulanmış ekip.` : `Demand: ${d.cases} first-hand cases on ${d.cards} problems, ${d.teams} verified teams.`);
+  const tail = {
+    investigating: tr ? 'Küçük ekiplerde çözülmemiş bir ihtiyaç olup olmadığı araştırılıyor.' : 'Investigating whether the need is still unsolved.',
+    demand_confirmed: tr ? 'Birden fazla kişinin takıldığı doğrulandı; ilk deney için hazır.' : 'Several people are confirmed stuck; ready for a first experiment.',
+    being_solved: tr ? 'Bağlı problemlerin hepsinde birleşmiş ya da yayımlanmış bir düzeltme var.' : 'Every linked problem has a merged or released fix.',
+    watching: tr ? 'Bir düzeltme tartışmalı; açık yeniden doğabilir.' : 'A fix is disputed; the gap may reopen.',
+  }[o.state];
+  parts.push(tail);
+  return parts.join(' ');
+}
+
+export function experimentText(e) {
+  const tr = lang === 'tr';
+  const p = e.params || {};
+  switch (e.code) {
+    case 'prototype': return tr
+      ? `“${p.title}” için insanların bugün kullandığı geçici çözümü ortadan kaldıran en küçük aracı yap ve bildirenlere göster.${p.workaround ? ` Geçici çözüm: “${p.workaround}”` : ''}`
+      : `Build the smallest tool that removes the workaround people use today for “${p.title}”, then show it to the reporters.${p.workaround ? ` Workaround: “${p.workaround}”` : ''}`;
+    case 'contribute': return tr
+      ? `“${p.title}” için ${p.pr} düzeltmesini test et ve sonucu issue’ya yaz. Yeni bir şey yazmaktan önce kaynağa katkı ver.`
+      : `Test ${p.pr} for “${p.title}” and report back on the issue. Contribute upstream before building something new.`;
+    default: return tr
+      ? `Kod yazmadan önce aşağıdaki problemlerin arkasındaki ${p.reporters} kişiyle konuş: bugün bunu nasıl idare ediyorlar, ne kadar zamanlarını alıyor?`
+      : `Before writing code, talk to the ${p.reporters} people behind the top problems below: how do they handle this today, and what does it cost them?`;
+  }
+}
+
+/** "What it means for you" line for a followed change. */
+export function meaningText(e) {
+  const tr = lang === 'tr';
+  const m = {
+    resolved: tr ? 'Yükseltip geçici çözümünü bırakabilirsin.' : 'You can upgrade and drop your workaround.',
+    fix_coming: tr ? 'Düzeltmeyi erkenden dene ya da sürüme girmesine yardım et.' : 'Test the fix early, or help it land in a release.',
+    worth_trying: tr ? 'Küçük bir prototipi haklı çıkaracak kadar kişi takılmış.' : 'Enough people are stuck to justify a small prototype.',
+    watching: tr ? 'Düzeltme tutmayabilir; güvenmeden önce kontrol et.' : 'The fix may not hold. Check before you rely on it.',
+    retracted: tr ? 'Problem geri çekildi; bir şey yapmana gerek yok.' : 'The problem was withdrawn; no action needed.',
+    early_signal: tr ? 'Sen de takılıyor musun diye kaynağı oku.' : 'Read the source to see if you hit this too.',
+    opp_demand_confirmed: tr ? 'Birden fazla kişi takılmış; ilk deney zamanı.' : 'Several people are stuck here; time for a first experiment.',
+    opp_being_solved: tr ? 'Kaynağında çözülüyor; sıfırdan yapmak yerine katkı ver.' : 'Upstream is fixing it; contribute rather than build.',
+    opp_watching: tr ? 'Bir düzeltme tartışmalı; açık yeniden doğabilir.' : 'A fix is disputed; the gap may reopen.',
+    opp_investigating: tr ? 'Piyasa ilgisi var; inşa etmeden önce kullanıcılarla konuş.' : 'Market interest exists; talk to users before building.',
+  };
+  return m[e.code] || m[e.to] || '';
+}
+
+export function oppReasonText(e) {
+  const tr = lang === 'tr';
+  if (!tr || !e.code?.startsWith('opp_')) return e.reason;
+  const map = {
+    opp_demand_confirmed: 'Talep doğrulandı: birden fazla kişinin takıldığı problemler var.',
+    opp_being_solved: 'Bağlı her problemin artık birleşmiş ya da yayımlanmış bir düzeltmesi var.',
+    opp_watching: 'Bağlı bir problem düzeltmeden sonra tartışmalı hale geldi.',
+    opp_investigating: 'Piyasa sinyalleri birinci elden vakalarla buluştu; ihtiyaç hâlâ çözülmemiş mi?',
+  };
+  return map[e.code] || e.reason;
 }

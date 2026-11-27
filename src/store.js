@@ -9,13 +9,15 @@
 //   verifications.json  release-containment checks for merged fixes
 //   cards.json          derived problem cards (rebuilt every run)
 //   events.json         append-only state-transition changelog
+//   developments.json   derived market events (funding, launches, news, repos)
+//   opportunities.json  derived opportunity cards (development meets need)
 
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-const FILES = ['records', 'cursors', 'etags', 'sources', 'verifications', 'cards', 'events'];
-const DEFAULTS = { records: {}, cursors: {}, etags: {}, sources: {}, verifications: {}, cards: {}, events: [] };
+const FILES = ['records', 'cursors', 'etags', 'sources', 'verifications', 'cards', 'events', 'opportunities', 'developments'];
+const DEFAULTS = { records: {}, cursors: {}, etags: {}, sources: {}, verifications: {}, cards: {}, events: [], opportunities: {}, developments: [] };
 
 export function emptyState() {
   return structuredClone(DEFAULTS);
