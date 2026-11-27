@@ -122,7 +122,9 @@ export async function syncFeeds({ http, now, upsert, record, feeds = DEV_FEEDS, 
     try {
       const res = await http.getText(feed.url);
       if (res.notModified) { record(`feed:${feed.id}`, { ok: true, items: 0, notModified: 1 }); continue; }
-      const items = parseFeed(res.text);
+      // Newest first, capped: some feeds (arXiv, hardware news) publish
+      // hundreds of items a day and would drown everything else.
+      const items = parseFeed(res.text).sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || '')).slice(0, feed.maxItems || 30);
       if (!items.length && !/<(rss|feed)[\s>]/i.test(res.text)) throw new Error('not a feed (blocked or changed)');
       let n = 0;
       for (const it of items) {

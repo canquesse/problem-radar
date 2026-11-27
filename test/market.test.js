@@ -113,3 +113,12 @@ test('a blocked feed is reported as failing and does not stop the other feeds', 
   assert.equal(got['feed:blocked'].ok, false);
   assert.equal(upserted.length, 1);
 });
+
+test('a high-volume feed is capped to its newest items', async () => {
+  const items = Array.from({ length: 120 }, (_, i) => `<item><title>Paper ${i}</title><link>https://ex.org/${i}</link><pubDate>${new Date(Date.parse(NOW) - i * 60_000).toUTCString()}</pubDate></item>`).join('');
+  const http = new HttpClient({ fetch: async () => response(200, `<rss><channel>${items}</channel></rss>`), sleep: async () => {} });
+  const upserted = [];
+  await syncFeeds({ http, now: NOW, upsert: (r) => upserted.push(r), record: () => {}, feeds: [{ id: 'big', kind: 'news', url: 'https://ex.org/feed' }] });
+  assert.equal(upserted.length, 30);
+  assert.equal(upserted[0].title, 'Paper 0', 'newest first');
+});
