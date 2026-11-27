@@ -131,7 +131,8 @@ function lookbackIso(now) {
  * Sync one repository. Mutates `state` through `upsert`. Returns per-endpoint
  * stats. Throws only on rate limit / fatal errors; the caller records health.
  */
-export async function syncRepo({ http, state, repo, now, upsert }) {
+export async function syncRepo({ http, state, repo, now, upsert, endpoints = ['issues', 'comments', 'pulls', 'releases'] }) {
+  const want = (ep) => endpoints.includes(ep);
   const stats = { items: 0, truncated: false };
   const cur = (ep) => (state.cursors[`github:${repo}:${ep}`] ||= {});
 
@@ -180,7 +181,7 @@ export async function syncRepo({ http, state, repo, now, upsert }) {
   }
 
   // 3) Closed pulls (descending; stop once we pass the cursor)
-  {
+  if (want('pulls')) {
     const c = cur('pulls');
     const after = c.updatedAfter || lookbackIso(now);
     const url = `${API}/repos/${repo}/pulls?state=closed&sort=updated&direction=desc&per_page=${LIMITS.perPage}`;
@@ -204,7 +205,7 @@ export async function syncRepo({ http, state, repo, now, upsert }) {
   }
 
   // 4) Releases (descending; stop at the first release we already know)
-  {
+  if (want('releases')) {
     const c = cur('releases');
     const known = new Set(c.knownIds || []);
     const floor = c.knownIds ? null : lookbackIso(now);

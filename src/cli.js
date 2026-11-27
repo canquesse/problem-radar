@@ -11,6 +11,7 @@
 //   SITE_URL      absolute site URL used in the RSS feed
 
 import { execSync } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import { buildSite } from './site.js';
 import { computeMetrics, processCards } from './pipeline.js';
@@ -31,8 +32,9 @@ const now = process.env.RADAR_NOW || new Date().toISOString();
 
 if (cmd === 'sync') {
   const state = loadState(dataDir);
-  const { metrics } = await runSync(state, { now, token: token(), skipHN: process.env.SKIP_HN === '1' });
+  const { metrics, lane } = await runSync(state, { now, token: token(), skipHN: process.env.SKIP_HN === '1', lane: process.env.RADAR_LANE || 'full' });
   saveState(dataDir, state, { metrics });
+  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `lane=${lane}\n`);
 } else if (cmd === 'reprocess') {
   const state = loadState(dataDir);
   const r = processCards(state, now);

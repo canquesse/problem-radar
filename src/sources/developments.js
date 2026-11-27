@@ -110,9 +110,14 @@ export function normalizeFeedItem(feed, item) {
 }
 
 /** Fetch every RSS/Atom feed. Each feed is its own source with its own health. */
-export async function syncFeeds({ http, now, upsert, record, feeds = DEV_FEEDS }) {
+export async function syncFeeds({ http, now, upsert, record, feeds = DEV_FEEDS, state = null, minIntervalMin = 0 }) {
   const horizon = new Date(Date.parse(now) - 30 * 86400_000).toISOString();
   for (const feed of feeds) {
+    // Be polite to publishers: in the fast lane a feed is fetched at most
+    // every `minIntervalMin` minutes.
+    const cur = state ? (state.cursors[`feed:${feed.id}`] ||= {}) : {};
+    if (minIntervalMin && cur.fetchedAt && Date.parse(now) - Date.parse(cur.fetchedAt) < minIntervalMin * 60_000) continue;
+    cur.fetchedAt = now;
     try {
       const res = await http.getText(feed.url);
       if (res.notModified) { record(`feed:${feed.id}`, { ok: true, items: 0, notModified: 1 }); continue; }

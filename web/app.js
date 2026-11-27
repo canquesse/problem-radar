@@ -29,8 +29,28 @@ setLang(store.get('lang', (navigator.language || '').toLowerCase().startsWith('t
 // --- Data ------------------------------------------------------------------------
 const data = { cards: [], byId: new Map(), events: [], byCard: new Map(), sources: {}, metrics: {}, digests: [], meta: {}, opps: [], oppById: new Map(), devs: [], devById: new Map() };
 
+// Live data: the sync job publishes fresh JSON to the data branch every few
+// minutes. The page reads it from there (no redeploy needed) and falls back
+// to the copy deployed with the site.
+const LIVE = (document.querySelector('meta[name="radar-live"]')?.content || '').trim();
+let dataBase = 'data/';
+let dataVersion = null;
+
+async function pulse() {
+  const tryGet = async (base) => {
+    const r = await fetch(`${base}pulse.json?t=${Date.now()}`, { cache: 'no-store' });
+    if (!r.ok) throw new Error(String(r.status));
+    return r.json();
+  };
+  if (LIVE) { try { return { base: LIVE, p: await tryGet(LIVE) }; } catch { /* fall back */ } }
+  try { return { base: 'data/', p: await tryGet('data/') }; } catch { return { base: 'data/', p: null }; }
+}
+
 async function load() {
-  const get = (n) => fetch(`data/${n}.json`, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null));
+  const { base, p } = await pulse();
+  dataBase = base;
+  dataVersion = p?.builtAt || String(Date.now());
+  const get = (n) => fetch(`${dataBase}${n}.json?v=${encodeURIComponent(dataVersion)}`).then((r) => (r.ok ? r.json() : null));
   const [cards, events, sources, metrics, digests, meta, opps, devs] = await Promise.all(['cards', 'events', 'sources', 'metrics', 'digests', 'meta', 'opportunities', 'developments'].map(get));
   data.opps = (opps || []).filter((o) => !o.faded).sort((a, b) => b.score - a.score);
   data.oppById = new Map((opps || []).map((o) => [o.id, o]));
@@ -39,6 +59,7 @@ async function load() {
   data.cards = cards || [];
   data.byId = new Map(data.cards.map((c) => [c.id, c]));
   data.events = events || [];
+  data.byCard = new Map();
   for (const e of data.events) {
     if (!data.byCard.has(e.cardId)) data.byCard.set(e.cardId, []);
     data.byCard.get(e.cardId).push(e);
@@ -675,3 +696,25 @@ window.addEventListener('hashchange', () => { render(); if (!location.hash.inclu
 chrome();
 $('#main').innerHTML = `<p class="loading">${esc(t('loading'))}</p>`;
 load().then(render).catch((err) => { $('#main').innerHTML = `<p class="empty">${esc(t('loadError', { e: err.message }))}</p>`; });
+
+// Poll for fresh data every minute; update in place without losing scroll.
+function toast(msg) {
+  const el = $('#toast');
+  el.textContent = msg;
+  el.hidden = false;
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => { el.hidden = true; }, 6000);
+}
+setInterval(async () => {
+  if (document.hidden) return;
+  const { p } = await pulse();
+  if (!p || !dataVersion || p.builtAt === dataVersion) { statusStrip(); return; }
+  const before = data.events.length;
+  try {
+    await load();
+    const typing = document.activeElement?.id === 'q';
+    if (!typing) rerenderKeepScroll(); else statusStrip();
+    const n = Math.max(0, data.events.length - before);
+    toast(n ? t('live.updatedN', { n }) : t('live.updated'));
+  } catch { /* keep the current view */ }
+}, 60_000);

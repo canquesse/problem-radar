@@ -132,7 +132,7 @@ ${items}
 `;
 }
 
-export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toISOString() }) {
+export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toISOString(), liveUrl = process.env.LIVE_DATA_URL || '' }) {
   const state = loadState(dataDir);
   const metricsFile = path.join(dataDir, 'metrics.json');
   const metrics = fs.existsSync(metricsFile) ? JSON.parse(fs.readFileSync(metricsFile, 'utf8')) : {};
@@ -148,6 +148,7 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
   for (const f of files) {
     let body = fs.readFileSync(path.join(webDir, f), 'utf8');
     if (f === 'index.html') body = body.replace(/(href|src)="(style\.css|app\.js)"/g, `$1="$2?v=${v}"`);
+    if (f === 'index.html' && liveUrl) body = body.replace('<meta name="radar-live" content="" />', `<meta name="radar-live" content="${liveUrl}" />`);
     if (f.endsWith('.js')) body = body.replace(/from '\.\/([\w-]+\.js)'/g, `from './$1?v=${v}'`);
     fs.writeFileSync(path.join(distDir, f), body);
   }
@@ -161,6 +162,7 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
   write('sources.json', state.sources);
   write('metrics.json', metrics);
   write('digests.json', digests);
+  write('pulse.json', { builtAt: now, cards: Object.keys(state.cards).length, events: state.events.length });
   write('meta.json', { builtAt: now, repos: REPOS, stateLabels: STATE_LABELS, siteUrl: base, topics: TOPICS.map(({ id, name }) => ({ id, name })) });
   fs.writeFileSync(path.join(distDir, 'feed.xml'), renderRss(digests, base, now));
   fs.writeFileSync(path.join(distDir, '.nojekyll'), '');

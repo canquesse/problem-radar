@@ -23,7 +23,24 @@ export function makeGitHubClient({ token, etags, fetch, sleep }) {
   return new HttpClient({ headers, etags, fetch, sleep, minRemaining: token ? LIMITS.minRemainingQuota : 5 });
 }
 
-export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep, log = console.log, skipHN = false } = {}) {
+/**
+ * Two lanes keep the radar fresh without blowing the free budgets:
+ *   fast (every ~5 minutes): issues, comments, Hacker News, launches, and news
+ *        feeds that were not fetched in the last 15 minutes
+ *   full (about once an hour): everything, plus closed PRs, releases, release
+ *        containment checks and new-repo search
+ * `auto` picks full when the last full run is 55+ minutes old.
+ */
+export function pickLane(state, now, lane = 'auto') {
+  if (lane === 'fast' || lane === 'full') return lane;
+  const last = state.cursors['lane:full']?.at;
+  return !last || Date.parse(now) - Date.parse(last) >= 55 * 60_000 ? 'full' : 'fast';
+}
+
+export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep, log = console.log, skipHN = false, lane: laneOpt = 'full' } = {}) {
+  const lane = pickLane(state, now, laneOpt);
+  const full = lane === 'full';
+  log(`lane: ${lane}`);
   const gh = makeGitHubClient({ token, etags: state.etags, fetch, sleep });
   const hn = new HttpClient({ headers: { 'User-Agent': 'Mozilla/5.0 (compatible; problem-radar/0.2; +https://github.com/canquesse/problem-radar)' }, fetch, sleep, maxRetries: 1 });
   const counts = { new: 0, changed: 0, unchanged: 0 };
@@ -39,7 +56,7 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
       // Work on a copy of the cursors so a failed run cannot half-advance them.
       const cursorSnapshot = JSON.stringify(Object.fromEntries(Object.entries(state.cursors).filter(([k]) => k.startsWith(`${key}:`))));
       try {
-        const s = await syncRepo({ http: gh, state, repo, now, upsert });
+        const s = await syncRepo({ http: gh, state, repo, now, upsert, endpoints: full ? undefined : ['issues', 'comments'] });
         recordSourceRun(state, key, { ok: true, items: s.items, truncated: s.truncated, requests: gh.stats.requests - before.requests, notModified: gh.stats.notModified - before.notModified }, now);
         log(`  ${key}: ${s.items} items, ${gh.stats.requests - before.requests} requests (${gh.stats.notModified - before.notModified} not modified)${s.truncated ? ', truncated (resumes next run)' : ''}`);
       } catch (err) {
@@ -62,7 +79,7 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
     }
   }
 
-  if (!ghBlocked) await verifyFixes(state, { gh, now, upsert, log });
+  if (!ghBlocked && full) await verifyFixes(state, { gh, now, upsert, log });
 
   // Developments: funding, launches, news, brand-new repos.
   if (!skipHN) {
@@ -70,11 +87,12 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
       recordSourceRun(state, key, r, now);
       log(`  ${key}: ${r.ok ? `${r.items} items` : `FAILED ${r.error}`}`);
     };
-    await syncFeeds({ http: hn, now, upsert, record });
+    await syncFeeds({ http: hn, now, upsert, record, state, minIntervalMin: full ? 0 : 15 });
     await syncLaunches({ http: hn, state, now, upsert, record });
-    if (!ghBlocked) await syncNewRepos({ http: gh, now, upsert, record });
+    if (!ghBlocked && full) await syncNewRepos({ http: gh, now, upsert, record });
   }
 
+  if (full && !ghBlocked) state.cursors['lane:full'] = { at: now };
   const result = processCards(state, now);
   const market = processOpportunities(state, now);
   result.transitions.push(...market.transitions);
@@ -85,7 +103,7 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
   log(`records: +${counts.new} new, ${counts.changed} changed, ${counts.unchanged} unchanged; pruned ${pruned}`);
   log(`cards: ${metrics.cards} (${JSON.stringify(metrics.byState)}); events: ${result.created.length} created, ${result.transitions.length} transitions`);
   log(`github quota: ${gh.stats.remaining ?? '?'} remaining, ${gh.stats.requests} requests this run (${gh.stats.notModified} were 304)`);
-  return { result, metrics, counts, ghStats: gh.stats };
+  return { result, metrics, counts, ghStats: gh.stats, lane };
 }
 
 /**

@@ -96,13 +96,18 @@ HN Algolia ──┘                       └─> cursors.json, etags.json, sou
 
 ### GitHub API budget
 
-`GITHUB_TOKEN` inside Actions is limited to **1,000 requests per hour per repository**. A typical hourly run uses 100 to 180 requests for 13 repositories, so the budget has plenty of headroom. The main saving comes from the cursors: each endpoint asks only for what changed since the last run.
+`GITHUB_TOKEN` inside Actions is limited to **1,000 requests per hour per repository**. The workflow runs every 5 minutes (the shortest interval GitHub's scheduler allows) in two lanes:
+
+- **Fast lane** (most runs): issues and comments for the 13 repositories (about 26 requests), Hacker News, Show/Launch HN, and news feeds that were not fetched in the last 15 minutes. Fresh data is published to the `data` branch under `site/`, and the live site reads it from there and updates in place, so no Pages redeploy is needed.
+- **Full lane** (about once an hour): everything above plus closed PRs, releases, release-containment checks and new-repo search (100 to 180 requests), then a Pages redeploy.
+
+That is roughly 300 to 450 GitHub requests an hour, well inside the budget. The main saving comes from the cursors: each endpoint asks only for what changed since the last run.
 
 Conditional requests are always sent, but there is a catch worth knowing: `GITHUB_TOKEN` is minted fresh for every run and GitHub's ETags vary by token, so in Actions they rarely produce a 304. Locally (with `gh auth token`) they do. To get 304s in Actions too, add a read-only fine-grained personal access token as the `RADAR_TOKEN` repository secret; the workflow prefers it when present and falls back to `GITHUB_TOKEN` otherwise.
 
 The workflow also:
 
-- runs at minute 17, avoiding the top-of-the-hour scheduler rush, and the UI shows per-source freshness, so a late run is visible;
+- shows per-source freshness in the UI, because scheduled runs can start late when GitHub is busy;
 - uses a `concurrency` group so two syncs never write the data branch at once;
 - force-pushes the `data` branch every run and calls the workflow `enable` API, so GitHub's **60-day auto-disable** of scheduled workflows never kicks in.
 
