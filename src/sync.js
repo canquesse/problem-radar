@@ -34,8 +34,11 @@ export function makeGitHubClient({ token, etags, fetch, sleep }) {
  */
 export function pickLane(state, now, lane = 'auto') {
   if (lane === 'fast' || lane === 'full') return lane;
-  const last = state.cursors['lane:full']?.at;
-  return !last || Date.parse(now) - Date.parse(last) >= 55 * 60_000 ? 'full' : 'fast';
+  const last = state.cursors['lane:full'];
+  // New code always gets a full run (and a Pages deploy), even when the
+  // push-triggered run was replaced by a chained one.
+  if (process.env.GITHUB_SHA && last?.sha && last.sha !== process.env.GITHUB_SHA) return 'full';
+  return !last?.at || Date.parse(now) - Date.parse(last.at) >= 55 * 60_000 ? 'full' : 'fast';
 }
 
 export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), log = console.log, skipHN = false, lane: laneOpt = 'full', embedFn = null } = {}) {
@@ -106,7 +109,7 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
     }
   }
 
-  if (full && !ghBlocked) state.cursors['lane:full'] = { at: now };
+  if (full && !ghBlocked) state.cursors['lane:full'] = { at: now, sha: process.env.GITHUB_SHA || null };
   const result = processCards(state, now);
   const market = await processMarket(state, now, { log, embedFn });
   result.transitions.push(...market.transitions);
