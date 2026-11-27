@@ -38,7 +38,6 @@ export const DOMAINS = [
       ['siliconangle', 'https://siliconangle.com/feed/'],
       ['geekwire', 'https://www.geekwire.com/feed/'],
       ['sifted', 'https://sifted.eu/feed'],
-      ['eu-startups', 'https://www.eu-startups.com/feed/'],
       ['crunchbase-news', 'https://news.crunchbase.com/feed/'],
       ['techfundingnews', 'https://techfundingnews.com/feed/'],
       ['tech-eu', 'https://tech.eu/feed/'],
@@ -65,7 +64,6 @@ export const DOMAINS = [
       ['ieee-spectrum', 'https://spectrum.ieee.org/feeds/feed.rss'],
       ['eetimes', 'https://www.eetimes.com/feed/'],
       ['electronics-weekly', 'https://www.electronicsweekly.com/feed/'],
-      ['cnx-software', 'https://www.cnx-software.com/feed/'],
       ['adafruit', 'https://blog.adafruit.com/feed/'],
       ['allaboutcircuits', 'https://www.allaboutcircuits.com/rss/news/'],
       ['embedded', 'https://www.embedded.com/feed/'],
@@ -88,7 +86,6 @@ export const DOMAINS = [
     news: ['(raises OR "seed round" OR "series A" OR launches) (robotics OR "3D printing" OR manufacturing OR CAD OR machining) startup when:7d'],
     // Outlets that cover this domain, each its own source.
     feeds: [
-      ['3dprintingindustry', 'https://3dprintingindustry.com/feed/'],
       ['3dprint-com', 'https://3dprint.com/feed/'],
       ['3dnatives', 'https://www.3dnatives.com/en/feed/'],
       ['voxelmatters', 'https://www.voxelmatters.com/feed/'],
