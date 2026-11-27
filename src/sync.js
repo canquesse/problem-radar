@@ -102,7 +102,7 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
     // Demand signals: people asking for a tool or saying they would pay.
     await syncHNAsks({ http: hn, state, now, upsert, record });
     await syncForums({ http: hn, state, now, upsert, record });
-    await syncStackExchange({ http: hn, state, now, upsert, record, maxSites: full ? 8 : 3 });
+    await syncStackExchange({ http: hn, state, now, upsert, record, maxSites: full ? 20 : 3 });
     if (full) {
       // GDELT asks for one request every 5 seconds and answers 429 otherwise:
       // never wait on it, just skip that topic until the next full run.

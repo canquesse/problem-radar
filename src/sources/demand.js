@@ -15,7 +15,8 @@ import { isFunding, parseFunding } from './developments.js';
 export const ASK_PHRASES = [
   'is there a tool', 'is there an app', 'is there a library', 'is there a service', 'looking for a tool', 'looking for an alternative',
   'alternative to', 'I would pay', "I'd pay", 'would pay for', 'I wish there was', 'anyone know of a', 'how do you handle', 'how do you manage',
-  'how are you handling', 'what do you use for', 'does anyone have a good way',
+  'how are you handling', 'what do you use for', 'does anyone have a good way', 'is there any software', 'looking for software',
+  'does anyone know a tool', 'recommend a tool', 'what tool do you use', 'nothing on the market', 'no good solution',
 ];
 
 // "I'd pay for a tool that…" — not "I'd pay $20 for a used printer".
@@ -56,6 +57,24 @@ export async function syncHNAsks({ http, state, now, upsert, record }) {
       }
       c.createdAfter = newest;
     }
+    // Every Ask HN post: people describing what they need or how they cope.
+    const c2 = (state.cursors['hn:ask_hn'] ||= {});
+    const after2 = c2.createdAfter || Math.floor((Date.parse(now) - 30 * 86400_000) / 1000);
+    let newest2 = after2;
+    const res2 = await http.get(`https://hn.algolia.com/api/v1/search_by_date?tags=ask_hn&hitsPerPage=100&numericFilters=${encodeURIComponent(`created_at_i>${after2}`)}`, { conditional: false });
+    for (const h of res2.data?.hits || []) {
+      if (h.created_at_i > newest2) newest2 = h.created_at_i;
+      const title = (h.title || '').replace(/^Ask HN:\s*/i, '');
+      const body = cleanText(stripHtml(h.story_text || ''));
+      if (!title) continue;
+      upsert({
+        id: `ask:hn:${h.objectID}`, source: 'hn', kind: 'ask', askKind: askKind(`${title} ${body}`), url: `https://news.ycombinator.com/item?id=${h.objectID}`,
+        title, context: 'Ask HN', body: body.slice(0, 1500), quote: title, author: h.author, points: h.points || 0, answers: h.num_comments || 0,
+        views: (h.points || 0) * 10, answered: (h.num_comments || 0) > 0, createdAt: h.created_at, updatedAt: h.created_at,
+      });
+      n++;
+    }
+    c2.createdAfter = newest2;
     record(key, { ok: true, items: n });
   } catch (err) {
     record(key, { ok: false, error: err.message });

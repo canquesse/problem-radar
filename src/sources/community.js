@@ -33,7 +33,7 @@ export async function syncStackExchange({ http, state, now, upsert, record, site
   for (const { site, c } of due) {
     const key = `se:${site}`;
     try {
-      const from = c.fromDate || Math.floor((Date.parse(now) - 21 * 86400_000) / 1000);
+      const from = c.fromDate || Math.floor((Date.parse(now) - 30 * 86400_000) / 1000);
       const url = `https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&site=${site}&pagesize=100&fromdate=${from}&filter=withbody`;
       const res = await http.get(url, { conditional: false });
       let newest = from;
