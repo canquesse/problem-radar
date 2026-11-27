@@ -1,0 +1,16 @@
+{
+  "name": "problem-radar",
+  "version": "0.1.0",
+  "description": "A problem watchlist for AI infrastructure and developer tools: first-hand cases, evidence states and release-verified fixes from GitHub and Hacker News.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "sync": "node src/cli.js sync",
+    "build": "node src/cli.js build",
+    "reprocess": "node src/cli.js reprocess",
+    "dev": "node src/cli.js build && node scripts/serve.js",
+    "test": "node --test"
+  }
+}
