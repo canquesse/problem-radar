@@ -160,8 +160,11 @@ jobs:
           started=$(gh run view "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --json startedAt -q .startedAt)
           elapsed=$(( $(date +%s) - $(date -d "$started" +%s) ))
           wait=$(( 180 - elapsed )); [ "$wait" -gt 0 ] && sleep "$wait"
-          # The concurrency group keeps at most one pending run, so a cron run
-          # and a chained run can never pile up.
+          # Do not queue behind a run that is already waiting (a manual full
+          # run, a push): the concurrency group would cancel it in favour of
+          # this one. That run will chain the next one itself.
+          waiting=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow radar.yml --json status -q '[.[] | select(.status=="queued" or .status=="pending" or .status=="waiting")] | length')
+          if [ "$waiting" -gt 0 ]; then echo "A run is already waiting; not chaining."; exit 0; fi
           gh workflow run radar.yml --repo "$GITHUB_REPOSITORY" -f lane=auto
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
