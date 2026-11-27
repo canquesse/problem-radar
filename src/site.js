@@ -1,6 +1,7 @@
 // Static site builder: copies the web app, publishes the data it reads, and
 // renders the weekly RSS digest. Output is plain files for GitHub Pages.
 
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -124,7 +125,17 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
 
   fs.rmSync(distDir, { recursive: true, force: true });
   fs.mkdirSync(path.join(distDir, 'data'), { recursive: true });
-  for (const f of fs.readdirSync(path.join(ROOT, 'web'))) fs.copyFileSync(path.join(ROOT, 'web', f), path.join(distDir, f));
+  // Copy the web app with cache-busting: Pages caches files for ~10 minutes,
+  // and a fresh index.html must never meet a stale app.js (or vice versa).
+  const webDir = path.join(ROOT, 'web');
+  const files = fs.readdirSync(webDir).sort();
+  const v = crypto.createHash('sha1').update(files.map((f) => fs.readFileSync(path.join(webDir, f))).join('\n')).digest('hex').slice(0, 10);
+  for (const f of files) {
+    let body = fs.readFileSync(path.join(webDir, f), 'utf8');
+    if (f === 'index.html') body = body.replace(/(href|src)="(style\.css|app\.js)"/g, `$1="$2?v=${v}"`);
+    if (f.endsWith('.js')) body = body.replace(/from '\.\/([\w-]+\.js)'/g, `from './$1?v=${v}'`);
+    fs.writeFileSync(path.join(distDir, f), body);
+  }
 
   const digests = buildDigests(state, now);
   const write = (name, value) => fs.writeFileSync(path.join(distDir, 'data', name), JSON.stringify(value));
