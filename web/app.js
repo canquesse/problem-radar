@@ -9,6 +9,7 @@ const LADDER = ['early_signal', 'worth_trying', 'fix_coming', 'resolved'];
 const OUTCOMES = ['talked', 'contributed', 'prototyped', 'not_useful'];
 const DEV_TYPES = ['funding', 'product', 'launch', 'new_repo', 'news', 'release'];
 const PAGE = 30;
+const APP_VERSION = '__APP_VERSION__'; // replaced at build time
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const safeUrl = (u) => (/^https:\/\//.test(u || '') ? esc(u) : '#');
@@ -618,6 +619,12 @@ load().then(render).catch((err) => { $('#main').innerHTML = `<p class="empty">${
 setInterval(async () => {
   if (document.hidden) return;
   const { p } = await pulse();
+  // A new version of the site was deployed: reload once to pick it up.
+  if (p?.app && APP_VERSION !== '__APP_VERSION__' && p.app !== APP_VERSION && sessionStorage.getItem('radar.reloadedFor') !== p.app) {
+    sessionStorage.setItem('radar.reloadedFor', p.app);
+    location.reload();
+    return;
+  }
   if (!p || !dataVersion || p.builtAt === dataVersion) { statusLine(); return; }
   const before = data.events.length;
   try {

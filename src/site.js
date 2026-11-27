@@ -134,6 +134,8 @@ ${items}
 `;
 }
 
+let appVersion = null;
+
 export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toISOString(), liveUrl = process.env.LIVE_DATA_URL || '' }) {
   const state = loadState(dataDir);
   const metricsFile = path.join(dataDir, 'metrics.json');
@@ -146,12 +148,13 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
   // and a fresh index.html must never meet a stale app.js (or vice versa).
   const webDir = path.join(ROOT, 'web');
   const files = fs.readdirSync(webDir).sort();
-  const v = crypto.createHash('sha1').update(files.map((f) => fs.readFileSync(path.join(webDir, f))).join('\n')).digest('hex').slice(0, 10);
+  const v = appVersion = crypto.createHash('sha1').update(files.map((f) => fs.readFileSync(path.join(webDir, f))).join('\n')).digest('hex').slice(0, 10);
   for (const f of files) {
     let body = fs.readFileSync(path.join(webDir, f), 'utf8');
     if (f === 'index.html') body = body.replace(/(href|src)="(style\.css|app\.js)"/g, `$1="$2?v=${v}"`);
     if (f === 'index.html' && liveUrl) body = body.replace('<meta name="radar-live" content="" />', `<meta name="radar-live" content="${liveUrl}" />`);
     if (f.endsWith('.js')) body = body.replace(/from '\.\/([\w-]+\.js)'/g, `from './$1?v=${v}'`);
+    if (f === 'app.js') body = body.replace("'__APP_VERSION__'", `'${v}'`);
     fs.writeFileSync(path.join(distDir, f), body);
   }
 
@@ -170,7 +173,7 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
   write('sources.json', state.sources);
   write('metrics.json', metrics);
   write('digests.json', digests);
-  write('pulse.json', { builtAt: now, cards: Object.keys(state.cards).length, events: state.events.length });
+  write('pulse.json', { builtAt: now, app: appVersion, cards: Object.keys(state.cards).length, events: state.events.length });
   write('meta.json', { builtAt: now, repos: REPOS, stateLabels: STATE_LABELS, siteUrl: base, topics: TOPICS.map(({ id, name }) => ({ id, name })), domains: DOMAINS.map((d) => ({ id: d.id, color: d.color, name: d.name, subs: d.subs.map((x) => ({ id: x.id, name: x.name })) })) });
   fs.writeFileSync(path.join(distDir, 'feed.xml'), renderRss(digests, base, now));
   fs.writeFileSync(path.join(distDir, '.nojekyll'), '');
