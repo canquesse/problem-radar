@@ -7,7 +7,7 @@
 //                 fetched by the GitHub source, classified here)
 //   GDELT         free worldwide news search (65 languages), for developments
 
-import { HN_LAUNCH_KEYWORDS, TOPICS } from '../config.js';
+import { TOPICS } from '../config.js';
 import { cleanText } from '../extract.js';
 import { stripHtml } from './hn.js';
 import { isFunding, parseFunding } from './developments.js';
@@ -18,7 +18,8 @@ export const ASK_PHRASES = [
   'how are you handling', 'what do you use for', 'does anyone have a good way',
 ];
 
-const PAY_RE = /\b(i'?d pay|i would pay|would pay for|happy to pay|shut up and take my money|willing to pay)\b/i;
+// "I'd pay for a tool that…" — not "I'd pay $20 for a used printer".
+const PAY_RE = /\b(?:i'?d|i would|we'?d|we would|i'?d happily|i would happily|happy to|willing to)\s+pay\s+(?:good money\s+|real money\s+|a subscription\s+)?(?:for|to have)\s+(?:a|an|something|someone|this|that|software|tool|app|service|anything)\b|shut up and take my money/i;
 const SEEK_RE = /\b(is there (?:a|an|any) (?:tool|app|library|service|way|product)|looking for (?:a|an) (?:tool|alternative|solution|library|service)|alternative to|i wish there (?:was|were)|anyone know of|what do you use for|how (?:do|are) you (?:handle|handling|manage|managing|deal|dealing))\b/i;
 
 export function askKind(text) {
@@ -43,7 +44,7 @@ export async function syncHNAsks({ http, state, now, upsert, record }) {
         const body = cleanText(stripHtml(h.comment_text || h.story_text || ''));
         const title = h.title || h.story_title || '';
         const text = `${h.title || ''} ${body}`;
-        if (!HN_LAUNCH_KEYWORDS.test(text) || !new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(text)) continue;
+        if (!new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(text)) continue;
         // Keep the sentence around the ask: it is the evidence.
         const sentence = body.split(/(?<=[.!?])\s+/).find((s) => s.toLowerCase().includes(phrase.toLowerCase().replace(/^i'd/, "i'd"))) || body.slice(0, 300);
         upsert({

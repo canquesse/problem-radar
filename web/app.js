@@ -1,15 +1,14 @@
-// Problem Radar front end. Plain ES modules, no build step.
-// Everything that comes from GitHub or Hacker News is escaped before rendering.
+// Fırsat Radarı / Problem Radar front end. Plain ES modules, no build step.
+// Everything that comes from outside sources is escaped before rendering.
 
 import {
-  devTypeName, evidenceName, experimentText, flagText, getLang, groupName, meaningText, nextStepText, oppReasonText, oppStateName,
-  oppStatusLine, reasonText, setLang, sizeName, stateName, stateRule, t,
+  evidenceName, flagText, getLang, meaningText, nextStepText, reasonText, setLang, sizeName, stateName, t,
 } from './i18n.js';
 
 const LADDER = ['early_signal', 'worth_trying', 'fix_coming', 'resolved'];
-const ALL_STATES = ['early_signal', 'worth_trying', 'watching', 'fix_coming', 'resolved', 'retracted'];
 const OUTCOMES = ['talked', 'contributed', 'prototyped', 'not_useful'];
-const PAGE = 24;
+const DEV_TYPES = ['funding', 'product', 'launch', 'new_repo', 'news', 'release'];
+const PAGE = 30;
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const safeUrl = (u) => (/^https:\/\//.test(u || '') ? esc(u) : '#');
@@ -17,7 +16,7 @@ const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const ext = 'target="_blank" rel="noopener"';
 
-// --- Persistent local state ----------------------------------------------------
+// --- Local state ---------------------------------------------------------------
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(`radar.${k}`)) ?? d; } catch { return d; } },
   set(k, v) { try { localStorage.setItem(`radar.${k}`, JSON.stringify(v)); } catch { /* private mode */ } },
@@ -26,15 +25,14 @@ let follows = store.get('follows', {});
 let outcomes = store.get('outcomes', {});
 setLang(store.get('lang', (navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en'));
 
-// --- Data ------------------------------------------------------------------------
-const data = { cards: [], byId: new Map(), events: [], byCard: new Map(), sources: {}, metrics: {}, digests: [], meta: {}, opps: [], oppById: new Map(), devs: [], devById: new Map(), gaps: [], gapById: new Map() };
-
-// Live data: the sync job publishes fresh JSON to the data branch every few
-// minutes. The page reads it from there (no redeploy needed) and falls back
-// to the copy deployed with the site.
+// --- Data ----------------------------------------------------------------------
 const LIVE = (document.querySelector('meta[name="radar-live"]')?.content || '').trim();
 let dataBase = 'data/';
 let dataVersion = null;
+const data = {
+  ideas: [], ideaById: new Map(), needs: [], devs: [], events: [], byCard: new Map(), sources: {}, metrics: {}, digests: [], meta: { domains: [] },
+  cards: null, cardById: new Map(),
+};
 
 async function pulse() {
   const tryGet = async (base) => {
@@ -45,21 +43,17 @@ async function pulse() {
   if (LIVE) { try { return { base: LIVE, p: await tryGet(LIVE) }; } catch { /* fall back */ } }
   try { return { base: 'data/', p: await tryGet('data/') }; } catch { return { base: 'data/', p: null }; }
 }
+const getJson = (n) => fetch(`${dataBase}${n}.json?v=${encodeURIComponent(dataVersion)}`).then((r) => (r.ok ? r.json() : null));
 
 async function load() {
   const { base, p } = await pulse();
   dataBase = base;
   dataVersion = p?.builtAt || String(Date.now());
-  const get = (n) => fetch(`${dataBase}${n}.json?v=${encodeURIComponent(dataVersion)}`).then((r) => (r.ok ? r.json() : null));
-  const [cards, events, sources, metrics, digests, meta, opps, devs, gaps] = await Promise.all(['cards', 'events', 'sources', 'metrics', 'digests', 'meta', 'opportunities', 'developments', 'gaps'].map(get));
-  data.gaps = (gaps || []).sort((a, b) => b.score - a.score);
-  data.gapById = new Map(data.gaps.map((g) => [g.id, g]));
-  data.opps = (opps || []).filter((o) => !o.faded).sort((a, b) => b.score - a.score);
-  data.oppById = new Map((opps || []).map((o) => [o.id, o]));
+  const [ideas, needs, devs, events, sources, metrics, digests, meta] = await Promise.all(['ideas', 'needs', 'developments', 'events', 'sources', 'metrics', 'digests', 'meta'].map(getJson));
+  data.ideas = (ideas || []).sort((a, b) => b.score - a.score);
+  data.ideaById = new Map(data.ideas.map((g) => [g.id, g]));
+  data.needs = needs || [];
   data.devs = devs || [];
-  data.devById = new Map(data.devs.map((d) => [d.id, d]));
-  data.cards = cards || [];
-  data.byId = new Map(data.cards.map((c) => [c.id, c]));
   data.events = events || [];
   data.byCard = new Map();
   for (const e of data.events) {
@@ -69,11 +63,20 @@ async function load() {
   data.sources = sources || {};
   data.metrics = metrics || {};
   data.digests = digests || [];
-  data.meta = meta || {};
+  data.meta = meta || { domains: [] };
+  if (data.cards) { data.cards = null; await loadCards(); }
 }
 
-// --- Formatting --------------------------------------------------------------------
-const locale = () => (getLang() === 'tr' ? 'tr-TR' : 'en-US');
+// GitHub problem cards are large; load them only when a page needs them.
+async function loadCards() {
+  if (data.cards) return;
+  data.cards = (await getJson('cards')) || [];
+  data.cardById = new Map(data.cards.map((c) => [c.id, c]));
+}
+
+// --- Helpers -------------------------------------------------------------------
+const L = () => getLang();
+const locale = () => (L() === 'tr' ? 'tr-TR' : 'en-US');
 const fmtDate = (iso) => (iso ? new Date(iso).toLocaleDateString(locale(), { year: 'numeric', month: 'short', day: 'numeric' }) : '—');
 const fmtDay = (iso) => new Date(iso).toLocaleDateString(locale(), { weekday: 'long', day: 'numeric', month: 'long' });
 function ago(iso) {
@@ -87,667 +90,428 @@ function ago(iso) {
   return rtf.format(Math.round(s / 86400), 'day');
 }
 const num = (n) => Number(n || 0).toLocaleString(locale());
-const pill = (s) => `<span class="pill c-${esc(s)}"><span class="t">${esc(stateName(s))}</span></span>`;
-const counts = (c) => `<span><b>${num(c.caseCount)}</b> ${esc(t('card.cases', { n: c.caseCount }).replace(/^\S+\s/, ''))}</span><span><b>${num(c.teamCount)}</b> ${esc(t('card.teams', { n: c.teamCount }).replace(/^\S+\s/, ''))}</span>`;
-const repoName = (r) => r.split('/')[1] || r;
-
-function track(state, large = false) {
-  const idx = state === 'watching' ? 2 : state === 'retracted' ? -1 : LADDER.indexOf(state);
-  const cls = `track ${large ? 'track-lg' : ''} ${state === 'watching' ? 'watching' : ''} ${state === 'retracted' ? 'retracted' : ''} c-${state}`;
-  return `<div class="${cls}" aria-hidden="true">${LADDER.map((_, i) => `<i class="${i <= idx ? 'on' : ''}"></i>`).join('')}</div>`;
+const tx = (en, trText) => (L() === 'tr' && trText ? trText : en);
+const domainOf = (id) => data.meta.domains.find((d) => d.id === id);
+const subOf = (d, s) => domainOf(d)?.subs.find((x) => x.id === s);
+const dName = (id) => domainOf(id)?.name[L()] || id;
+const sName = (d, s) => subOf(d, s)?.name[L()] || s;
+const dColor = (id) => domainOf(id)?.color || '#888';
+const family = (src) => (src?.startsWith('se:') || src === 'stackoverflow' ? 'stackexchange' : src?.startsWith('forum:') ? 'forum' : src === 'hn' ? 'hn' : src === 'github' ? 'github' : 'other');
+function sourceLabel(src) {
+  if (!src) return '';
+  if (src.startsWith('se:')) return { softwarerecs: 'Software Recs', hardwarerecs: 'Hardware Recs', '3dprinting': '3D Printing SE', stats: 'Cross Validated' }[src.slice(3)] || `${src.slice(3)}.stackexchange`;
+  if (src === 'stackoverflow') return 'Stack Overflow';
+  if (src.startsWith('forum:')) return src.slice(6).replace(/^(forum|community|discuss|discourse)\./, '').replace(/\.(org|io|cc|com|info)$/, '');
+  return { hn: 'Hacker News', github: 'GitHub', producthunt: 'Product Hunt', news: 'News' }[src] || src;
 }
-const unseen = (c) => {
-  const f = follows[c.id];
-  return f ? (data.byCard.get(c.id) || []).filter((e) => e.type === 'transition' && e.at > f.seenAt) : [];
+const unseen = (id) => {
+  const f = follows[id];
+  return f ? (data.byCard.get(id) || []).filter((e) => e.type === 'transition' && e.at > f.seenAt) : [];
 };
-
-// --- Components ------------------------------------------------------------------
-function tile(c, i = 0) {
-  const on = !!follows[c.id];
-  const n = unseen(c).length;
-  return `<article class="tile" data-card="${esc(c.id)}" style="animation-delay:${Math.min(i, 6) * 25}ms">
-    ${n ? `<span class="newflag">${esc(t('card.new', { n }))}</span>` : ''}
-    <div class="tile-top"><span class="repo">${esc(c.repo)}</span>${pill(c.state)}</div>
-    <h3><a href="#card/${esc(c.id)}">${esc(c.title)}</a></h3>
-    ${track(c.state)}
-    ${c.blocker ? `<p class="quote">${esc(c.blocker.value)}</p>` : ''}
-    <div class="tile-foot">
-      <span class="counts">${counts(c)}</span>
-      <button class="follow" data-follow="${esc(c.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button>
-    </div>
-  </article>`;
+function followBtn(id) {
+  const on = !!follows[id];
+  return `<button class="follow" data-follow="${esc(id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button>`;
 }
+const verdictPill = (v) => `<span class="pill v-${esc(v)}">${esc(t(`i.${v}`))}</span>`;
+function hash01(s) { let h = 2166136261; for (const ch of s) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; }
+const devTypeLabel = (k) => { const v = t(`dt.${k}`); return v === `dt.${k}` ? k : v; };
 
-function statusStrip() {
+// --- Chrome ----------------------------------------------------------------------
+function statusLine() {
   const now = Date.now();
-  let late = 0, down = 0, newest = null;
+  let down = 0, newest = null;
   const entries = Object.values(data.sources);
   for (const s of entries) {
-    const hours = s.lastSuccessAt ? (now - Date.parse(s.lastSuccessAt)) / 3600000 : Infinity;
     if (s.consecutiveFailures > 0) down++;
-    else if (hours > 3) late++;
     if (s.lastSuccessAt && (!newest || s.lastSuccessAt > newest)) newest = s.lastSuccessAt;
   }
-  $('#status').innerHTML = `
-    <span><i class="live ${down ? 'down' : late ? 'late' : ''}"></i>${esc(t('status.synced', { ago: ago(newest) }))}</span>
-    <span>${esc(t('status.sources', { n: entries.length }))}${down ? ` · <a href="#sources">${esc(t('status.failing', { n: down }))}</a>` : ''}${late ? ` · <a href="#sources">${esc(t('status.delayed', { n: late }))}</a>` : ''}</span>
-    <span>${num(data.cards.length)} ${esc(t('m.cards'))}</span>`;
+  const late = newest && now - Date.parse(newest) > 20 * 60_000;
+  $('#status').innerHTML = `<i class="live ${late ? 'late' : ''}"></i><b>${esc(t('h.live'))}</b> · ${esc(t('status.synced', { ago: ago(newest) }))} · <a href="#sources">${esc(t('status.sources', { n: entries.length }))}${down ? ` (${esc(t('status.failing', { n: down }))})` : ''}</a>`;
+}
+
+function ticker() {
+  const items = data.devs.filter((d) => d.type !== 'release').slice(0, 24);
+  if (!items.length) return;
+  const row = items.map((d) => `<a href="${safeUrl(d.url)}" ${ext}><span class="tk k-${esc(d.type)}">${esc(devTypeLabel(d.type))}</span>${esc(tx(d.title, d.titleTr))}</a>`).join('<span class="sep">◆</span>');
+  $('#ticker').innerHTML = `<div class="tk-track">${row}<span class="sep">◆</span>${row}</div>`;
 }
 
 function chrome() {
-  document.documentElement.lang = getLang();
-  $('#brand-tag').textContent = t('brand.tag');
+  document.documentElement.lang = L();
   $('.brand-text b').textContent = t('brand.name');
   $('#foot-left').textContent = t('foot.left');
-  $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === getLang()));
-  const badge = Object.keys(follows).map((id) => data.byId.get(id) || data.oppById.get(id) || data.gapById.get(id)).filter(Boolean).reduce((s, c) => s + unseen(c).length, 0);
-  const items = [['overview', 'nav.overview'], ['opportunities', 'nav.opps'], ['developments', 'nav.devs'], ['needs', 'nav.needs'], ['following', 'nav.following'], ['changes', 'nav.changes'], ['digest', 'nav.digest'], ['sources', 'nav.sources'], ['about', 'nav.about']];
-  $('#nav').innerHTML = items.map(([k, key]) => `<a href="#${k}" data-tab="${k}">${esc(t(key))}${k === 'following' && badge ? `<span class="badge">${badge}</span>` : ''}</a>`).join('');
-  statusStrip();
+  $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === L()));
+  const badge = Object.keys(follows).reduce((n, id) => n + unseen(id).length, 0);
+  $('#nav').innerHTML = [
+    ['following', 'nav.following'], ['changes', 'nav.changes'], ['digest', 'nav.digest'], ['sources', 'nav.sources'], ['about', 'nav.about'],
+  ].map(([k, key]) => `<a href="#${k}" data-tab="${k}">${esc(t(key))}${k === 'following' && badge ? `<span class="badge">${badge}</span>` : ''}</a>`).join('');
+  $('#domains-nav').innerHTML = data.meta.domains.map((d, i) => `<a href="#d/${esc(d.id)}" data-domain="${esc(d.id)}" style="--dc:${esc(d.color)}"><span class="no">${String(i + 1).padStart(2, '0')}</span>${esc(d.name[L()])}</a>`).join('');
+  statusLine();
+  ticker();
 }
 
-// --- Radar scope (hero visual) ----------------------------------------------------
-function hash(s) { let h = 2166136261; for (const ch of s) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; }
-
-function scope() {
-  const repos = (data.meta.repos || []).map((r) => r.repo);
-  const R = 210;
-  const bands = { resolved: [8, 52], fix_coming: [62, 98], watching: [104, 124], worth_trying: [130, 160], early_signal: [168, 202] };
-  const early = data.cards.filter((c) => c.state === 'early_signal').sort((a, b) => (b.lastEvidenceAt || '').localeCompare(a.lastEvidenceAt || '')).slice(0, 140);
-  const shown = [...data.cards.filter((c) => bands[c.state] && c.state !== 'early_signal'), ...early];
-  const dots = shown.map((c) => {
-    const ri = Math.max(0, repos.indexOf(c.repo));
-    const ang = ((ri + 0.1 + hash(c.id) * 0.8) / Math.max(repos.length, 1)) * Math.PI * 2 - Math.PI / 2;
-    const [r0, r1] = bands[c.state];
-    const r = r0 + hash(`${c.id}r`) * (r1 - r0);
-    const size = c.state === 'early_signal' ? 2.2 : 3.6 + Math.min(c.caseCount, 4) * 0.5;
-    return `<circle class="dot c-${c.state}" data-card="${esc(c.id)}" cx="${(Math.cos(ang) * r).toFixed(1)}" cy="${(Math.sin(ang) * r).toFixed(1)}" r="${size.toFixed(1)}" fill="currentColor" fill-opacity="${c.state === 'early_signal' ? 0.45 : 0.9}"/>`;
+// --- Opportunity map (readable quadrant chart) -----------------------------------
+function oppMap(ideas, { colorBy = 'domain', height = 440 } = {}) {
+  if (!ideas.length) return '';
+  const W = 1000, H = height, pad = { l: 56, r: 24, t: 24, b: 52 };
+  const maxX = Math.max(8, ...ideas.map((g) => g.demandScore || 0));
+  const maxY = 2.4;
+  const X = (v) => pad.l + (Math.min(v, maxX) / maxX) * (W - pad.l - pad.r);
+  const Y = (v) => H - pad.b - (Math.min(v, maxY) / maxY) * (H - pad.t - pad.b);
+  const yOpen = Y(0.6);
+  const color = (g) => (colorBy === 'domain' ? dColor(g.domain) : `hsl(${Math.round(hash01(g.sub) * 360)} 55% 45%)`);
+  const labeled = new Set(ideas.slice().sort((a, b) => b.score - a.score).slice(0, 9).map((g) => g.id));
+  const placed = [];
+  const dots = ideas.map((g) => {
+    const cx = X(g.demandScore || 0) + (hash01(g.id) - 0.5) * 10;
+    const cy = Y(g.coverage || 0) + (hash01(`${g.id}y`) - 0.5) * 10;
+    const r = 5 + Math.sqrt(g.people) * 2.4;
+    let label = '';
+    if (labeled.has(g.id)) {
+      const text = tx(g.idea, g.ideaTr);
+      const short = text.length > 34 ? `${text.slice(0, 33)}…` : text;
+      let ly = cy - r - 8;
+      while (placed.some((p) => Math.abs(p.y - ly) < 16 && Math.abs(p.x - cx) < 230)) ly -= 17;
+      placed.push({ x: cx, y: ly });
+      const anchor = cx > W - 260 ? 'end' : 'start';
+      label = `<text class="m-label" x="${(cx + (anchor === 'end' ? -4 : 4)).toFixed(0)}" y="${ly.toFixed(0)}" text-anchor="${anchor}">${esc(short)}</text>`;
+    }
+    return `<g class="m-dot" data-idea="${esc(g.id)}"><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${esc(color(g))}" fill-opacity="${g.verdict === 'open' ? 0.9 : 0.45}" stroke="${esc(color(g))}"/>${label}</g>`;
   }).join('');
-  const spokes = repos.map((_, i) => {
-    const a = (i / repos.length) * Math.PI * 2 - Math.PI / 2;
-    return `<line class="spoke" x1="0" y1="0" x2="${(Math.cos(a) * R).toFixed(1)}" y2="${(Math.sin(a) * R).toFixed(1)}"/>`;
-  }).join('');
-  const labels = repos.map((r, i) => {
-    const a = ((i + 0.5) / repos.length) * Math.PI * 2 - Math.PI / 2;
-    const x = Math.cos(a) * (R + 16), y = Math.sin(a) * (R + 16);
-    return `<text class="sector-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${Math.abs(x) < 20 ? 'middle' : x > 0 ? 'start' : 'end'}" dominant-baseline="middle">${esc(repoName(r))}</text>`;
-  }).join('');
-  const rings = [52, 98, 124, 160].map((r) => `<circle class="rung" r="${r}"/>`).join('');
-  return `<div class="scope" id="scope">
-    <svg viewBox="-290 -250 580 500" role="img" aria-label="${esc(t('ladder.title'))}">
-      <defs><linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--signal)" stop-opacity="0"/><stop offset="1" stop-color="var(--signal)" stop-opacity=".22"/></linearGradient></defs>
-      <circle class="disc" r="${R}"/>
-      ${spokes}${rings}
-      <g class="sweep"><path d="M0 0 L${R} 0 A${R} ${R} 0 0 0 ${(Math.cos(-0.5) * R).toFixed(1)} ${(Math.sin(-0.5) * R).toFixed(1)} Z"/></g>
+  return `<figure class="map">
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t('h.map'))}">
+      <rect class="m-open" x="${pad.l}" y="${yOpen}" width="${W - pad.l - pad.r}" height="${H - pad.b - yOpen}"/>
+      <line class="m-axis" x1="${pad.l}" y1="${H - pad.b}" x2="${W - pad.r}" y2="${H - pad.b}"/>
+      <line class="m-axis" x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H - pad.b}"/>
+      <line class="m-grid" x1="${pad.l}" y1="${yOpen}" x2="${W - pad.r}" y2="${yOpen}"/>
+      <text class="m-zone" x="${W - pad.r - 8}" y="${H - pad.b - 10}" text-anchor="end">${esc(t('map.open'))}</text>
+      <text class="m-zone dim" x="${W - pad.r - 8}" y="${pad.t + 16}" text-anchor="end">${esc(t('map.crowded'))}</text>
+      <text class="m-ax" x="${W - pad.r}" y="${H - 16}" text-anchor="end">${esc(t('map.x'))}</text>
+      <text class="m-ax" x="18" y="${pad.t}" transform="rotate(-90 18 ${pad.t})" text-anchor="end">${esc(t('map.y'))}</text>
       ${dots}
-      ${labels}
-      <circle r="3" fill="var(--ink)"/>
     </svg>
-    <div class="scope-tip" id="scope-tip"></div>
-  </div>`;
+    <div class="map-tip" id="map-tip"></div>
+  </figure>`;
 }
 
-// --- Views -----------------------------------------------------------------------
-function viewOverview() {
-  const by = (st) => data.cards.filter((c) => c.state === st);
-  const moving = data.cards.filter((c) => ['worth_trying', 'fix_coming', 'resolved', 'watching'].includes(c.state))
-    .sort((a, b) => (b.stateSince || '').localeCompare(a.stateSince || '') || b.caseCount - a.caseCount);
-  const devs = data.devs.filter((d) => d.type !== 'release').slice(0, 8);
-  const market = data.gaps.filter((g) => g.scope === 'market' && g.verdict !== 'crowded');
-  const rung = (st) => `<a class="rung-tile c-${st}" href="#needs?state=${st}"><span class="num">${num(by(st).length)}</span><span class="name">${esc(stateName(st))}</span><span class="rule">${esc(stateRule(st))}</span></a>`;
-  return `<section class="hero">
-      <div>
-        <p class="kicker">${esc(t('hero3.kicker', { n: num(Object.keys(data.sources).length) }))}</p>
-        <h1>${t('hero3.title')}</h1>
-        <p class="lede">${esc(t('hero3.lede'))}</p>
-        <div class="ctas"><a class="btn primary" href="#opportunities">${esc(t('hero2.cta'))} →</a><a class="btn ghost" href="#developments">${esc(t('hero2.cta2'))}</a></div>
-      </div>
-      ${gapScope()}
-    </section>
-    <section class="section">
-      <div class="section-head"><div><h2>${esc(t('ov.gaps'))}</h2><p>${esc(t('ov.gaps.sub'))}</p></div><a href="#opportunities">${esc(t('sec.seeall'))} (${num(data.gaps.length)}) →</a></div>
-      ${market.length ? `<div class="grid opp-grid">${market.slice(0, 6).map(gapTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}
-    </section>
-    <section class="section">
-      <div class="section-head"><div><h2>${esc(t('ov.areas'))}</h2><p>${esc(t('ov.areas.sub'))}</p></div><a href="#opportunities?tab=areas">${esc(t('sec.seeall'))} (${num(data.opps.length)}) →</a></div>
-      ${data.opps.length ? `<div class="grid opp-grid">${data.opps.slice(0, 3).map(oppTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}
-    </section>
-    <section class="section">
-      <div class="section-head"><div><h2>${esc(t('ov.devs'))}</h2><p>${esc(t('ov.devs.sub'))}</p></div><a href="#developments">${esc(t('sec.seeall'))} →</a></div>
-      <div class="devlist">${devs.map(devRow).join('')}</div>
-    </section>
-    <section class="section">
-      <div class="section-head"><div><h2>${esc(t('ov.needs'))}</h2><p>${esc(t('ov.needs.sub'))}</p></div><a href="#needs">${esc(t('sec.seeall'))} →</a></div>
-      <nav class="ladder" aria-label="${esc(t('ladder.title'))}">
-        ${LADDER.map(rung).join('')}
-        <div class="rung-tile side"><div class="pair">
-          <a href="#needs?state=watching" class="c-watching" style="text-decoration:none"><span class="num">${num(by('watching').length)}</span><div class="name">${esc(stateName('watching'))}</div></a>
-          <a href="#needs?state=retracted" class="c-retracted" style="text-decoration:none"><span class="num">${num(by('retracted').length)}</span><div class="name">${esc(stateName('retracted'))}</div></a>
-        </div><span class="rule">${esc(stateRule('watching'))}</span></div>
-      </nav>
-      <div class="grid">${moving.slice(0, 6).map(tile).join('')}</div>
-    </section>`;
-}
-
-// --- Gaps ---------------------------------------------------------------------------
-const gapPill = (v) => `<span class="pill g-${esc(v)}"><span class="t">${esc(t(`gap.${v}`))}</span></span>`;
-
-function gapCounts(g) {
+// --- Components --------------------------------------------------------------------
+function ideaCard(g, i = 0) {
   const c = g.counts;
-  return [
-    c.pay && `<span class="chip-d strong">${esc(t('gap.pay', { n: c.pay }))}</span>`,
-    c.seeking && `<span class="chip-d strong">${esc(t('gap.seeking', { n: c.seeking }))}</span>`,
-    c.complaints && `<span class="chip-d">${esc(t('gap.complaints', { n: c.complaints }))}</span>`,
-    c.problems && `<span class="chip-d">${esc(t('gap.problems', { n: c.problems }))}</span>`,
-    c.features && `<span class="chip-d">${esc(t('gap.features', { n: c.features }))}</span>`,
-    c.questions && `<span class="chip-d">${esc(t('gap.questions', { n: c.questions }))}${c.unanswered ? ` · ${esc(t('gap.unanswered', { n: c.unanswered }))}` : ''}</span>`,
-  ].filter(Boolean).join('');
-}
-const SRC_NAMES = { github: 'GitHub', hn: 'Hacker News', stackoverflow: 'Stack Overflow' };
-
-function gapTile(g) {
-  const on = !!follows[g.id];
-  return `<article class="tile gap g-${esc(g.verdict)}" data-gap="${esc(g.id)}">
-    <div class="tile-top"><span class="repo">${esc(t(`gap.${g.scope}`))}${g.topic ? ` · ${esc(topicName(g.topic))}` : ''}</span>${gapPill(g.verdict)}</div>
-    <h3><a href="#gap/${esc(g.id)}">${esc(g.title)}</a></h3>
-    <div class="who"><b>${esc(t('gap.people', { n: g.people }))}</b> · ${g.sources.map((x) => esc(SRC_NAMES[x] || x)).join(', ')}</div>
-    <div class="sd"><div>${gapCounts(g)}</div></div>
-    <div class="supply-line">${g.solutions.length ? esc(t('gap.solutionsN', { n: g.solutions.length })) : `<span class="openmark">${esc(t('gap.noSolutions'))}</span>`}${g.interest.length ? ` · ${esc(t('gap.interestN', { n: g.interest.length }))}` : ''}</div>
-    <div class="tile-foot">
-      <span class="size-tag">${esc(sizeName(g.nextStep.size))}</span>
-      <button class="follow" data-follow="${esc(g.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button>
-    </div>
-  </article>`;
-}
-
-let gapTab = 'market';
-function viewGaps() {
-  const list = gapTab === 'areas' ? [] : data.gaps.filter((g) => g.scope === gapTab);
-  return `<div class="page-head"><h1>${esc(t('gaps.title'))}</h1><p>${esc(t('gaps.sub'))}</p></div>
-    <div class="devbar">${['market', 'upstream', 'areas'].map((k) => `<button class="chip" data-gtab="${k}" aria-pressed="${gapTab === k}">${esc(t(`gaps.tab.${k}`))} <span class="muted">${num(k === 'areas' ? data.opps.length : data.gaps.filter((g) => g.scope === k).length)}</span></button>`).join('')}</div>
-    ${gapTab === 'areas'
-      ? `<div class="grid opp-grid">${data.opps.map(oppTile).join('')}</div>`
-      : list.length ? `<div class="grid opp-grid">${list.map(gapTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}`;
-}
-
-function viewGap(id) {
-  const g = data.gapById.get(id);
-  if (!g) return `<div class="detail"><a class="back" href="#opportunities">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
-  if (follows[g.id]) { follows[g.id].seenAt = new Date().toISOString(); store.set('follows', follows); }
-  const on = !!follows[g.id];
-  const people = t('gap.people', { n: g.people });
-  const verdictKey = { open: 'gap.verdictOpen', partial: 'gap.verdictPartial', crowded: 'gap.verdictCrowded' }[g.verdict];
-  const opp = g.topic && data.oppById.get(`o-${g.topic}`);
-  const kindName = (k) => ({ pay: t('gap.pay', { n: 1 }).replace(/^1\s*/, ''), seeking: t('gap.seeking', { n: 1 }).replace(/^1\s*/, ''), complaint: t('gap.complaints', { n: 1 }).replace(/^1\s*/, ''), problem: t('gap.problems', { n: 1 }).replace(/^1\s*/, ''), feature: t('gap.features', { n: 1 }).replace(/^1\s*/, ''), question: t('gap.questions', { n: 1 }).replace(/^1\s*/, '') }[k] || k);
-  return `<div class="detail">
-    <a class="back" href="#${esc(lastList.startsWith('opportunit') || lastList === 'overview' ? lastList : 'opportunities')}">${esc(t('detail.back'))}</a>
-    <header class="detail-head">
-      ${gapPill(g.verdict)} <span class="flag">${esc(t(`gap.${g.scope}`))}</span>
-      <h1>${esc(g.title)}</h1>
-      <div class="detail-meta"><b>${esc(people)}</b><span>${g.sources.map((x) => esc(SRC_NAMES[x] || x)).join(', ')}</span>
-        ${opp ? `<a href="#opportunity/${esc(opp.id)}">${esc(t('gap.area'))}: ${esc(opp.name[getLang()])}</a>` : ''}
-        <button class="follow" data-follow="${esc(g.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button></div>
-      <div class="sd inline" style="margin-top:12px">${gapCounts(g)}</div>
-    </header>
-    <div class="detail-grid">
-      <div>
-        <div class="panel why"><h2>${esc(t('opp.status'))}</h2><p>${esc(t(verdictKey, { people }))}</p>${g.scope === 'upstream' ? `<div class="sub">${esc(t('gap.upstreamNote'))}</div>` : ''}
-          ${g.keywords.length ? `<div class="sub">${esc(t('gap.keywords'))}: ${g.keywords.map(esc).join(', ')}</div>` : ''}</div>
-        <h2 class="h-sec" style="margin-top:28px">${esc(t('gap.evidence'))}</h2>
-        <ul class="timeline">${g.evidence.map((e) => `<li class="ev-${esc(e.kind)}"><span class="when">${esc(fmtDate(e.at))}</span><span class="kind">${esc(kindName(e.kind))}</span> <span class="muted">· ${esc(SRC_NAMES[e.source] || e.source)}${e.people > 1 ? ` · ${esc(t('gap.people', { n: e.people }))}` : ''}</span>
-          <blockquote>${esc(e.quote || e.title)}</blockquote>
-          <div class="sub"><a href="${safeUrl(e.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a>${e.cardId ? `<a href="#card/${esc(e.cardId)}">${esc(t('nav.needs'))} →</a>` : ''}</div></li>`).join('')}</ul>
-      </div>
-      <div>
-        <div class="panel next"><h2>${esc(t('gap.next'))}</h2><span class="size">${esc(sizeName(g.nextStep.size))}</span><p>${esc(t(`gap.step.${g.nextStep.code}`, g.nextStep.params || {}))}</p></div>
-        <div class="panel"><h2>${esc(t('gap.solutions'))}</h2>${g.solutions.length ? g.solutions.map((x) => `<div class="fixrow"><a href="${safeUrl(x.url)}" ${ext}>${esc(x.title)} ↗</a> <span class="muted">${esc(devTypeName(x.kind) === x.kind ? 'Tool' : devTypeName(x.kind))} · ${esc(t('gap.similar', { p: Math.round(x.similarity * 100) }))}</span></div>`).join('') : `<p class="openmark" style="margin:0">${esc(t('gap.noSolutions'))}</p>`}</div>
-        ${g.interest.length ? `<div class="panel"><h2>${esc(t('gap.interest'))}</h2>${g.interest.map((x) => `<div class="fixrow"><a href="${safeUrl(x.url)}" ${ext}>${esc(x.title)} ↗</a><div class="muted" style="font-size:13px">${esc([x.funding?.amount, x.funding?.round].filter(Boolean).join(' · '))}${x.verified ? ` · ✓ ${esc(t('devs.verified'))}` : ''} · ${esc(t('gap.similar', { p: Math.round(x.similarity * 100) }))}</div></div>`).join('')}</div>` : ''}
-      </div>
-    </div>
-  </div>`;
-}
-
-function gapScope() {
-  const topics = (data.meta.topics || []).map((x) => x.id);
-  const sectors = [...topics, 'other'];
-  const R = 210;
-  const band = { open: [10, 80], partial: [92, 150], crowded: [160, 202] };
-  const maxP = Math.max(3, ...data.gaps.map((g) => g.people));
-  const dots = data.gaps.map((g) => {
-    const si = Math.max(0, sectors.indexOf(g.topic || 'other'));
-    const ang = ((si + 0.12 + hash(g.id) * 0.76) / sectors.length) * Math.PI * 2 - Math.PI / 2;
-    const [r0, r1] = band[g.verdict];
-    const r = r0 + hash(`${g.id}r`) * (r1 - r0);
-    const size = 3.5 + (Math.sqrt(g.people) / Math.sqrt(maxP)) * 9;
-    const hollow = g.scope === 'upstream';
-    return `<circle class="dot g-${g.verdict}" data-gapdot="${esc(g.id)}" cx="${(Math.cos(ang) * r).toFixed(1)}" cy="${(Math.sin(ang) * r).toFixed(1)}" r="${size.toFixed(1)}" fill="${hollow ? 'none' : 'currentColor'}" fill-opacity="${hollow ? 0 : 0.85}" stroke="currentColor" stroke-width="${hollow ? 1.6 : 0}"/>`;
-  }).join('');
-  const spokes = sectors.map((_, i) => {
-    const a = (i / sectors.length) * Math.PI * 2 - Math.PI / 2;
-    return `<line class="spoke" x1="0" y1="0" x2="${(Math.cos(a) * R).toFixed(1)}" y2="${(Math.sin(a) * R).toFixed(1)}"/>`;
-  }).join('');
-  const labels = sectors.map((id, i) => {
-    const a = ((i + 0.5) / sectors.length) * Math.PI * 2 - Math.PI / 2;
-    const x = Math.cos(a) * (R + 14), y = Math.sin(a) * (R + 14);
-    const name = id === 'other' ? '…' : topicName(id);
-    return `<text class="sector-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${Math.abs(x) < 20 ? 'middle' : x > 0 ? 'start' : 'end'}" dominant-baseline="middle">${esc(name.length > 26 ? `${name.slice(0, 25)}…` : name)}</text>`;
-  }).join('');
-  return `<div class="scope" id="scope">
-    <svg viewBox="-330 -250 660 500" role="img" aria-label="${esc(t('gaps.radar'))}">
-      <defs><linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--signal)" stop-opacity="0"/><stop offset="1" stop-color="var(--signal)" stop-opacity=".22"/></linearGradient>
-        <radialGradient id="openGlow"><stop offset="0" stop-color="var(--signal)" stop-opacity=".16"/><stop offset="1" stop-color="var(--signal)" stop-opacity="0"/></radialGradient></defs>
-      <circle class="disc" r="${R}"/>
-      <circle r="86" fill="url(#openGlow)"/>
-      ${spokes}<circle class="rung" r="86"/><circle class="rung" r="155"/>
-      <g class="sweep"><path d="M0 0 L${R} 0 A${R} ${R} 0 0 0 ${(Math.cos(-0.5) * R).toFixed(1)} ${(Math.sin(-0.5) * R).toFixed(1)} Z"/></g>
-      ${dots}${labels}
-      <circle r="3" fill="var(--ink)"/>
-    </svg>
-    <div class="scope-legend">${esc(t('gaps.radar.legend'))}</div>
-    <div class="scope-tip" id="scope-tip"></div>
-  </div>`;
-}
-
-// --- Opportunities ------------------------------------------------------------------
-const oppPill = (st) => `<span class="pill o-${esc(st)}"><span class="t">${esc(oppStateName(st))}</span></span>`;
-
-function supplyChips(o) {
-  const s = o.supply;
-  return [
-    s.funding && `<span class="chip-s k-funding">${esc(t('opp.fundingN', { n: s.funding }))}${s.fundingVerified ? ` · ${esc(t('opp.verifiedN', { n: s.fundingVerified }))}` : ''}</span>`,
-    s.products && `<span class="chip-s k-product">${esc(t('opp.productsN', { n: s.products }))}</span>`,
-    s.newRepos && `<span class="chip-s k-new_repo">${esc(t('opp.reposN', { n: s.newRepos }))}</span>`,
-    s.news && `<span class="chip-s k-news">${esc(t('opp.newsN', { n: s.news }))}</span>`,
-  ].filter(Boolean).join('');
-}
-function demandChips(o) {
-  const d = o.demand;
-  return [
-    `<span class="chip-d">${esc(t('opp.casesN', { n: d.cases }))}</span>`,
-    `<span class="chip-d">${esc(t('opp.cardsN', { n: d.cards }))}</span>`,
-    d.multiPerson && `<span class="chip-d">${esc(t('opp.multiN', { n: d.multiPerson }))}</span>`,
-    d.worthTrying && `<span class="chip-d strong">${esc(t('opp.worthN', { n: d.worthTrying }))}</span>`,
-  ].filter(Boolean).join('');
-}
-
-function oppTile(o) {
-  const on = !!follows[o.id];
-  const n = unseen(o).length;
-  return `<article class="tile opp" data-opp="${esc(o.id)}">
+  const signals = [c.pay && `<span class="sig strong">${c.pay} ${esc(t('k.pay'))}</span>`, c.seeking && `<span class="sig">${c.seeking} ${esc(t('k.seeking'))}</span>`, c.questions && `<span class="sig">${c.questions} ${esc(t('k.question'))}</span>`, c.complaints && `<span class="sig">${c.complaints} ${esc(t('k.complaint'))}</span>`].filter(Boolean).join('');
+  const n = unseen(g.id).length;
+  return `<article class="idea" data-idea="${esc(g.id)}" style="--dc:${esc(dColor(g.domain))};animation-delay:${Math.min(i, 8) * 40}ms">
     ${n ? `<span class="newflag">${esc(t('card.new', { n }))}</span>` : ''}
-    <div class="tile-top"><span class="repo">${esc(t('devs.opp'))}</span>${oppPill(o.state)}</div>
-    <h3><a href="#opportunity/${esc(o.id)}">${esc(o.name[getLang()])}</a></h3>
-    <p class="q">${esc(o.question[getLang()])}</p>
-    <div class="sd"><div><span class="lbl">${esc(t('opp.supply'))}</span>${supplyChips(o)}</div><div><span class="lbl">${esc(t('opp.demand'))}</span>${demandChips(o)}</div></div>
-    <div class="tile-foot">
-      <span class="size-tag">${esc(sizeName(o.experiment.size))}</span>
-      <button class="follow" data-follow="${esc(o.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button>
-    </div>
+    <div class="idea-top"><span class="crumb"><i></i>${esc(dName(g.domain))} · ${esc(sName(g.domain, g.sub))}</span>${verdictPill(g.verdict)}</div>
+    <p class="type">${esc(t(`i.type.${g.type}`))} · ${esc(t(`i.strength.${g.strength}`))}</p>
+    <h3><a href="#idea/${esc(g.id)}">${esc(tx(g.idea, g.ideaTr))}</a></h3>
+    <div class="who"><b>${esc(t('i.people', { n: g.people }))}</b><span>${g.sources.map((s) => esc(sourceLabel(s))).slice(0, 3).join(' · ')}</span></div>
+    <div class="sigs">${signals}</div>
+    <div class="idea-foot"><span class="size-tag">${esc(sizeName(g.nextStep.size))}</span>${followBtn(g.id)}</div>
   </article>`;
 }
 
-function viewOpps() {
-  return `<div class="page-head"><h1>${esc(t('opps.title'))}</h1><p>${esc(t('opps.sub'))}</p></div>
-    ${data.opps.length ? `<div class="grid opp-grid">${data.opps.map(oppTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}`;
+function needRow(n) {
+  return `<a class="need" href="${safeUrl(n.url)}" ${ext} style="--dc:${esc(dColor(n.domain))}">
+    <span class="src f-${esc(family(n.source))}">${esc(sourceLabel(n.source))}</span>
+    <span class="nt">${esc(tx(n.title, n.titleTr))}${L() === 'tr' && n.titleTr ? `<small>${esc(n.title)}</small>` : ''}</span>
+    <span class="nm">${esc(t(`k.${n.kind}`))}${n.views ? ` · ${esc(t('i.views', { n: num(n.views) }))}` : ''}${n.kind === 'question' ? ` · ${esc(n.answered ? t('i.answered') : t('i.unanswered'))}` : ''} · ${esc(fmtDate(n.at))}</span>
+  </a>`;
 }
-
-function viewOpp(id) {
-  const o = data.oppById.get(id);
-  if (!o) return `<div class="detail"><a class="back" href="#opportunities">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
-  if (follows[o.id]) { follows[o.id].seenAt = new Date().toISOString(); store.set('follows', follows); }
-  const on = !!follows[o.id];
-  const L = getLang();
-  const devs = o.developmentIds.map((d) => data.devById.get(d)).filter(Boolean);
-  const rels = (o.releaseIds || []).map((d) => data.devById.get(d)).filter(Boolean).slice(0, 6);
-  const needs = o.needIds.map((n) => data.byId.get(n)).filter(Boolean);
-  const anchor = o.anchor && data.byId.get(o.anchor.cardId);
-  const events = (data.byCard.get(o.id) || []).slice().sort((a, b) => b.at.localeCompare(a.at));
-  return `<div class="detail">
-    <a class="back" href="#${esc(lastList.startsWith('opportunit') || lastList === 'overview' ? lastList : 'opportunities')}">${esc(t('detail.back'))}</a>
-    <header class="detail-head">
-      ${oppPill(o.state)}${o.faded ? ` <span class="flag">${esc(t('opp.faded'))}</span>` : ''}
-      <h1>${esc(o.name[L])}</h1>
-      <div class="detail-meta"><span class="sd inline">${supplyChips(o)}${demandChips(o)}</span>
-        <button class="follow" data-follow="${esc(o.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button></div>
-    </header>
-    <div class="detail-grid">
-      <div>
-        <div class="panel why"><h2>${esc(t('opp.status'))}</h2><p>${esc(oppStatusLine(o))}</p>
-          ${o.trigger?.url ? `<div class="sub">${esc(o.trigger.title || '')} <a href="${safeUrl(o.trigger.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></div>` : ''}</div>
-        <div class="panel"><h2>${esc(t('opp.question'))}</h2><p class="bigq">${esc(o.question[L])}</p>
-          ${anchor ? `<p class="note">${esc(t('opp.anchor', { title: '' }))}<a href="#card/${esc(anchor.id)}">${esc(anchor.title)}</a> · ${esc(t('card.cases', { n: anchor.caseCount }))}</p>` : ''}</div>
-      </div>
-      <div>
-        <div class="panel next"><h2>${esc(t('opp.experiment'))}</h2><span class="size">${esc(sizeName(o.experiment.size))}</span><p>${esc(experimentText(o.experiment))}</p></div>
-        <div class="panel"><h2>${esc(t('opp.tools'))}</h2>${o.tools.map((tl) => `<div class="fixrow"><a href="${safeUrl(tl.url)}" ${ext}>${esc(tl.name)} ↗</a><div class="muted" style="font-size:13px">${esc(tl.covers[L])}</div></div>`).join('')}
-          ${rels.length ? `<h2 style="margin-top:16px">${esc(t('opp.releases'))}</h2>${rels.map((r) => `<div class="fixrow"><a href="${safeUrl(r.url)}" ${ext}>${esc(r.title)}</a> <span class="muted">${esc(fmtDate(r.publishedAt))}</span></div>`).join('')}` : ''}
-        </div>
-      </div>
-    </div>
-    <div class="two">
-      <section><h2 class="h-sec">${esc(t('opp.devlist'))} <span class="muted">(${devs.length})</span></h2><div class="devlist">${devs.slice(0, 30).map(devRow).join('')}</div></section>
-      <section><h2 class="h-sec">${esc(t('opp.needlist'))} <span class="muted">(${needs.length})</span></h2>
-        <div class="grid one">${needs.slice(0, 8).map(tile).join('')}</div>
-        ${needs.length > 8 ? `<p><a class="btn ghost" href="#needs">${esc(t('opp.seeNeeds', { n: needs.length }))}</a></p>` : ''}</section>
-    </div>
-    ${events.length ? `<h2 class="h-sec">${esc(t('opp.history'))}</h2><ul class="timeline">${events.map((e) => `<li class="h-${esc(e.to)}"><span class="when">${esc(fmtDate(e.at))}</span>
-      <div class="body">${e.from ? `${oppPill(e.from)} → ` : `${esc(t('detail.created'))} `}${oppPill(e.to)}</div>
-      <div class="body">${esc(oppReasonText(e))} <a href="${safeUrl(e.triggerUrl)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></div>
-      <div class="body meaning"><b>${esc(t('follow.meaning'))}:</b> ${esc(meaningText(e))}</div></li>`).join('')}</ul>` : ''}
-  </div>`;
-}
-
-// --- Developments -------------------------------------------------------------------
-const DEV_TYPES = ['funding', 'product', 'launch', 'new_repo', 'release', 'news'];
-let devFilt = { type: '', topic: '', limit: 40 };
-const topicName = (id) => (data.meta.topics || []).find((x) => x.id === id)?.name[getLang()] || id;
 
 function devRow(d) {
   const f = d.funding;
-  const opp = d.topics?.map((tp) => data.oppById.get(`o-${tp}`)).find((o) => o && !o.faded);
   const meta = [
     d.type === 'funding' && f ? [f.amount, f.round].filter(Boolean).join(' · ') : null,
     d.outletCount > 1 ? t('devs.outlets', { n: d.outletCount }) : d.outlets?.[0]?.name || null,
     d.type === 'funding' ? (d.verified ? `✓ ${t('devs.verified')}` : t('devs.single')) : null,
     d.stars != null ? t('devs.stars', { n: num(d.stars) }) : null,
-    d.points ? t('devs.points', { n: d.points }) : null,
   ].filter(Boolean);
-  return `<div class="dev">
-    <span class="dtype k-${esc(d.type)}">${esc(devTypeName(d.type))}</span>
-    <div class="dbody">
-      <a class="dtitle" href="${safeUrl(d.url)}" ${ext}>${esc(d.title)}</a>
-      ${d.summary && d.type !== 'release' ? `<p class="dsum">${esc(d.summary)}</p>` : ''}
-      <div class="dmeta"><span>${esc(fmtDate(d.publishedAt))}</span>${meta.map((m) => `<span>${esc(m)}</span>`).join('')}
-        ${(d.topics || []).map((tp) => `<a class="topic" href="#developments?topic=${esc(tp)}">${esc(topicName(tp))}</a>`).join('')}
-        ${opp ? `<a class="topic opp-link" href="#opportunity/${esc(opp.id)}">→ ${esc(t('devs.opp'))}</a>` : ''}</div>
+  return `<div class="dev" style="--dc:${esc(dColor(d.domain))}">
+    <span class="dtype k-${esc(d.type)}">${esc(devTypeLabel(d.type))}</span>
+    <div class="dbody2">
+      <a class="dtitle" href="${safeUrl(d.url)}" ${ext}>${esc(tx(d.title, d.titleTr))}</a>
+      ${d.summary && d.type !== 'release' ? `<p class="dsum">${esc(tx(d.summary, d.summaryTr))}</p>` : ''}
+      <div class="dmeta"><span>${esc(fmtDate(d.publishedAt))}</span>${d.domain ? `<a class="topic" href="#d/${esc(d.domain)}/${esc(d.sub)}">${esc(sName(d.domain, d.sub))}</a>` : ''}${meta.map((m) => `<span>${esc(m)}</span>`).join('')}</div>
     </div>
   </div>`;
 }
 
-function viewDevs() {
-  const list = data.devs.filter((d) => (!devFilt.type || d.type === devFilt.type) && (!devFilt.topic || d.topics?.includes(devFilt.topic)));
-  const count = (ty) => data.devs.filter((d) => d.type === ty && (!devFilt.topic || d.topics?.includes(devFilt.topic))).length;
-  return `<div class="page-head"><h1>${esc(t('devs.title'))}</h1><p>${esc(t('devs.sub'))}</p></div>
-    <div class="devbar">
-      <button class="chip" data-dtype="" aria-pressed="${!devFilt.type}">${esc(t('devs.all'))}</button>
-      ${DEV_TYPES.map((ty) => `<button class="chip" data-dtype="${ty}" aria-pressed="${devFilt.type === ty}">${esc(devTypeName(ty))} <span class="muted">${num(count(ty))}</span></button>`).join('')}
-      <select id="dtopic" aria-label="${esc(t('devs.topic'))}"><option value="">${esc(t('devs.allTopics'))}</option>${(data.meta.topics || []).map((x) => `<option value="${esc(x.id)}" ${devFilt.topic === x.id ? 'selected' : ''}>${esc(x.name[getLang()])}</option>`).join('')}</select>
-    </div>
-    ${list.length ? `<div class="devlist">${list.slice(0, devFilt.limit).map(devRow).join('')}</div>` : `<p class="empty">${esc(t('devs.empty'))}</p>`}
-    ${list.length > devFilt.limit ? `<button class="btn ghost more" id="dmore">${esc(t('list.more'))} (${num(list.length - devFilt.limit)})</button>` : ''}`;
+// --- Views -------------------------------------------------------------------------
+function viewHome() {
+  const open = data.ideas.filter((g) => g.verdict !== 'crowded');
+  const doms = data.meta.domains.map((d, i) => {
+    const ideas = data.ideas.filter((g) => g.domain === d.id);
+    const top = ideas[0];
+    return `<a class="drow" href="#d/${esc(d.id)}" style="--dc:${esc(d.color)}">
+      <span class="dno">${String(i + 1).padStart(2, '0')}</span>
+      <span class="dname">${esc(d.name[L()])}<small>${d.subs.map((s) => esc(s.name[L()])).join(' · ')}</small></span>
+      <span class="dpeek">${top ? `“${esc(tx(top.idea, top.ideaTr))}”` : ''}</span>
+      <span class="dstat"><b>${num(ideas.filter((g) => g.verdict === 'open').length)}</b><span>${esc(t('h.stat.ideas'))}</span></span>
+      <span class="dstat"><b>${num(data.needs.filter((x) => x.domain === d.id).length)}</b><span>${esc(t('d.needs'))}</span></span>
+      <span class="darrow">→</span>
+    </a>`;
+  }).join('');
+  return `<section class="hero2">
+      <p class="kicker">${esc(t('h.kicker', { d: data.meta.domains.length, s: Object.keys(data.sources).length }))}</p>
+      <h1>${t('h.title')}</h1>
+      <div class="hero-grid">
+        <p class="lede">${esc(t('h.lede'))}</p>
+        <div class="stats">
+          <div><b>${num(open.length)}</b><span>${esc(t('h.stat.ideas'))}</span></div>
+          <div><b>${num(data.needs.length)}</b><span>${esc(t('h.stat.needs'))}</span></div>
+          <div><b>${num(data.devs.length)}</b><span>${esc(t('h.stat.devs'))}</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="block">
+      <div class="block-head"><span class="bno">01</span><h2>${esc(t('h.index'))}</h2></div>
+      <nav class="dindex">${doms}</nav>
+    </section>
+    <section class="block">
+      <div class="block-head"><span class="bno">02</span><div><h2>${esc(t('h.top'))}</h2><p>${esc(t('h.top.sub'))}</p></div></div>
+      <div class="ideas">${open.slice(0, 9).map(ideaCard).join('')}</div>
+    </section>
+    <section class="block">
+      <div class="block-head"><span class="bno">03</span><div><h2>${esc(t('h.map'))}</h2><p>${esc(t('h.map.sub'))}</p></div></div>
+      ${oppMap(data.ideas.slice(0, 150))}
+      <div class="legend">${data.meta.domains.map((d) => `<a href="#d/${esc(d.id)}" style="--dc:${esc(d.color)}"><i></i>${esc(d.name[L()])}</a>`).join('')}</div>
+    </section>`;
 }
 
-// Problems browser
-let filt = { q: '', state: '', repo: '', sort: 'recent', limit: PAGE };
+let dState = { section: 'ideas', src: 'all', limit: PAGE, devType: '' };
 
-function filteredCards() {
-  const q = filt.q.trim().toLowerCase();
-  let list = data.cards.filter((c) => (!filt.state || c.state === filt.state) && (!filt.repo || c.repo === filt.repo) &&
-    (!q || `${c.title} ${c.blocker?.value || ''} ${c.workaround?.value || ''} ${c.repo}`.toLowerCase().includes(q)));
-  const sorters = {
-    recent: (a, b) => (b.stateSince || '').localeCompare(a.stateSince || '') || ALL_STATES.indexOf(b.state) - ALL_STATES.indexOf(a.state) || b.caseCount - a.caseCount,
-    cases: (a, b) => b.caseCount - a.caseCount || b.teamCount - a.teamCount || (b.lastEvidenceAt || '').localeCompare(a.lastEvidenceAt || ''),
-    new: (a, b) => (b.firstReportedAt || '').localeCompare(a.firstReportedAt || ''),
-  };
-  list.sort(sorters[filt.sort] || sorters.recent);
-  // Default view puts moving cards first: early signals are the long tail.
-  if (!filt.state && filt.sort === 'recent') list = [...list.filter((c) => c.state !== 'early_signal'), ...list.filter((c) => c.state === 'early_signal')];
-  return list;
+function viewDomain(domainId, subId) {
+  const d = domainOf(domainId);
+  if (!d) return viewHome();
+  const idx = data.meta.domains.indexOf(d);
+  const inScope = (x) => x.domain === d.id && (!subId || x.sub === subId);
+  const ideas = data.ideas.filter(inScope);
+  const needs = data.needs.filter(inScope);
+  const devs = data.devs.filter(inScope);
+  const subTabs = [`<a href="#d/${esc(d.id)}" class="${!subId ? 'on' : ''}">${esc(t('d.all'))}</a>`, ...d.subs.map((s) => {
+    const n = data.ideas.filter((g) => g.domain === d.id && g.sub === s.id).length;
+    return `<a href="#d/${esc(d.id)}/${esc(s.id)}" class="${subId === s.id ? 'on' : ''}">${esc(s.name[L()])}${n ? ` <i>${n}</i>` : ''}</a>`;
+  })].join('');
+  const sectionTabs = ['ideas', 'needs', 'devs'].map((k) => `<button data-dsec="${k}" aria-pressed="${dState.section === k}">${esc(t(`d.${k}`))} <i>${num({ ideas: ideas.length, needs: needs.length, devs: devs.length }[k])}</i></button>`).join('');
+  let body = '';
+  if (dState.section === 'ideas') {
+    body = ideas.length
+      ? `${oppMap(ideas, { colorBy: 'sub', height: 380 })}<div class="ideas">${ideas.slice(0, dState.limit).map(ideaCard).join('')}</div>${ideas.length > dState.limit ? `<button class="btn ghost more" id="more">${esc(t('list.more'))}</button>` : ''}`
+      : `<p class="empty">${esc(t('d.noIdeas'))}</p>`;
+  } else if (dState.section === 'needs') {
+    const fams = ['all', 'stackexchange', 'forum', 'hn', ...(d.id === 'computer' ? ['github'] : [])];
+    const chips = fams.map((f) => `<button class="chip" data-src="${f}" aria-pressed="${dState.src === f}">${esc(t(`d.src.${f}`))}</button>`).join('');
+    if (dState.src === 'github') {
+      if (!data.cards) loadCards().then(() => rerenderKeepScroll());
+      const cards = (data.cards || []).filter((c) => (c.domain || 'computer') === d.id && (!subId || c.sub === subId)).sort((a, b) => LADDER.indexOf(b.state) - LADDER.indexOf(a.state) || b.caseCount - a.caseCount);
+      body = `<div class="chips">${chips}</div>${data.cards ? `<div class="needs">${cards.slice(0, dState.limit).map((c) => `<a class="need" href="#card/${esc(c.id)}"><span class="src f-github">${esc(c.repo)}</span><span class="nt">${esc(tx(c.title, c.titleTr))}</span><span class="nm">${esc(stateName(c.state))} · ${esc(t('card.cases', { n: c.caseCount }))}</span></a>`).join('')}</div>${cards.length > dState.limit ? `<button class="btn ghost more" id="more">${esc(t('list.more'))}</button>` : ''}` : `<p class="loading">${esc(t('loading'))}</p>`}`;
+    } else {
+      const list = needs.filter((n) => dState.src === 'all' || family(n.source) === dState.src);
+      body = `<div class="chips">${chips}</div><div class="needs">${list.slice(0, dState.limit).map(needRow).join('')}</div>${list.length > dState.limit ? `<button class="btn ghost more" id="more">${esc(t('list.more'))}</button>` : ''}${list.length ? '' : `<p class="empty">${esc(t('list.empty'))}</p>`}`;
+    }
+  } else {
+    const types = ['', ...DEV_TYPES].map((ty) => `<button class="chip" data-devtype="${ty}" aria-pressed="${dState.devType === ty}">${esc(ty ? devTypeLabel(ty) : t('devs.all'))}</button>`).join('');
+    const list = devs.filter((x) => !dState.devType || x.type === dState.devType);
+    body = `<div class="chips">${types}</div><div class="devlist">${list.slice(0, dState.limit).map(devRow).join('')}</div>${list.length > dState.limit ? `<button class="btn ghost more" id="more">${esc(t('list.more'))}</button>` : ''}${list.length ? '' : `<p class="empty">${esc(t('devs.empty'))}</p>`}`;
+  }
+  return `<header class="dhead" style="--dc:${esc(d.color)}">
+      <span class="dno-big">${String(idx + 1).padStart(2, '0')} / ${String(data.meta.domains.length).padStart(2, '0')}</span>
+      <h1>${esc(subId ? sName(d.id, subId) : d.name[L()])}</h1>
+      ${subId ? `<p class="dparent"><a href="#d/${esc(d.id)}">← ${esc(d.name[L()])}</a></p>` : ''}
+      <p class="dcounts"><b>${esc(t('d.openIdeas', { n: ideas.filter((g) => g.verdict === 'open').length }))}</b> · ${esc(t('d.needsN', { n: num(needs.length) }))} · ${esc(t('d.devsN', { n: num(devs.length) }))}</p>
+    </header>
+    <nav class="subtabs" style="--dc:${esc(d.color)}">${subTabs}</nav>
+    <div class="sectabs" style="--dc:${esc(d.color)}">${sectionTabs}</div>
+    <div class="dpage">${body}</div>`;
 }
 
-function viewCards() {
-  const base = data.cards.filter((c) => (!filt.repo || c.repo === filt.repo));
-  const stateCount = (s) => base.filter((c) => c.state === s).length;
-  const repoCount = (r) => data.cards.filter((c) => c.repo === r && (!filt.state || c.state === filt.state)).length;
-  const groups = {};
-  for (const r of data.meta.repos || []) (groups[r.group] ||= []).push(r.repo);
-  const list = filteredCards();
-  return `<div class="page-head"><h1>${esc(t('needs.title'))}</h1><p>${esc(t('needs.sub'))}</p></div>
-    <div class="browse">
-      <aside class="side">
-        <input class="search" type="search" id="q" placeholder="${esc(t('filters.search'))}" value="${esc(filt.q)}" aria-label="${esc(t('filters.search'))}" />
-        <div class="mfilters">
-          <select id="mstate" aria-label="${esc(t('filters.state'))}"><option value="">${esc(t('filters.allStates'))} (${num(base.length)})</option>${ALL_STATES.map((s) => `<option value="${s}" ${filt.state === s ? 'selected' : ''}>${esc(stateName(s))} (${num(stateCount(s))})</option>`).join('')}</select>
-          <select id="mrepo" aria-label="${esc(t('filters.repo'))}"><option value="">${esc(t('filters.all'))}</option>${(data.meta.repos || []).map((r) => `<option value="${esc(r.repo)}" ${filt.repo === r.repo ? 'selected' : ''}>${esc(repoName(r.repo))}</option>`).join('')}</select>
-        </div>
-        <div class="desk"><h4>${esc(t('filters.state'))}</h4>
-          <button class="opt" data-fstate="" aria-pressed="${!filt.state}"><span>${esc(t('filters.allStates'))}</span><span class="n">${num(base.length)}</span></button>
-          ${ALL_STATES.map((s) => `<button class="opt" data-fstate="${s}" aria-pressed="${filt.state === s}"><span class="dotc c-${s}"><span style="color:var(--ink)">${esc(stateName(s))}</span></span><span class="n">${num(stateCount(s))}</span></button>`).join('')}
-        </div>
-        <div><h4>${esc(t('filters.sort'))}</h4>
-          <select id="sort">${['recent', 'cases', 'new'].map((k) => `<option value="${k}" ${filt.sort === k ? 'selected' : ''}>${esc(t(`sort.${k}`))}</option>`).join('')}</select>
-        </div>
-        <div class="repo-list desk"><h4>${esc(t('filters.repo'))}</h4>
-          <button class="opt" data-frepo="" aria-pressed="${!filt.repo}"><span>${esc(t('filters.all'))}</span></button>
-          ${Object.entries(groups).map(([g, rs]) => `<div class="repo-group">${esc(groupName(g))}</div>${rs.map((r) => `<button class="opt" data-frepo="${esc(r)}" aria-pressed="${filt.repo === r}"><span>${esc(repoName(r))}</span><span class="n">${num(repoCount(r))}</span></button>`).join('')}`).join('')}
-        </div>
-        ${filt.q || filt.state || filt.repo ? `<button class="linkbtn" id="clear">${esc(t('filters.clear'))}</button>` : ''}
-      </aside>
+function viewIdea(id) {
+  const g = data.ideaById.get(id);
+  if (!g) return `<div class="ideapage"><a class="back" href="#">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
+  if (follows[g.id]) { follows[g.id].seenAt = new Date().toISOString(); store.set('follows', follows); }
+  const people = t('i.people', { n: g.people });
+  return `<article class="ideapage" style="--dc:${esc(dColor(g.domain))}">
+    <a class="back" href="#d/${esc(g.domain)}/${esc(g.sub)}">← ${esc(dName(g.domain))} · ${esc(sName(g.domain, g.sub))}</a>
+    <div class="ip-tags"><span class="tag solid">${esc(t(`i.type.${g.type}`))}</span>${verdictPill(g.verdict)}<span class="tag">${esc(t(`i.strength.${g.strength}`))}</span>${followBtn(g.id)}</div>
+    <h1>${esc(tx(g.idea, g.ideaTr))}</h1>
+    ${L() === 'tr' && g.ideaTr ? `<p class="orig">${esc(t('i.original'))}: ${esc(g.idea)}</p>` : ''}
+    <p class="verdict">${esc(t(`i.verdict.${g.verdict}`, { people }))}</p>
+    <div class="ip-grid">
       <section>
-        <div class="results-bar"><span>${esc(t('list.count', { n: num(list.length) }))}</span></div>
-        ${list.length ? `<div class="grid">${list.slice(0, filt.limit).map(tile).join('')}</div>` : `<p class="empty">${esc(t('list.empty'))}</p>`}
-        ${list.length > filt.limit ? `<button class="btn ghost more" id="more">${esc(t('list.more'))} (${num(list.length - filt.limit)})</button>` : ''}
+        <h2 class="h-sec">${esc(t('i.evidence'))} <span class="muted">(${g.evidence.length})</span></h2>
+        <ul class="quotes">${g.evidence.map((e) => `<li>
+          <div class="qmeta"><span class="src f-${esc(family(e.source))}">${esc(sourceLabel(e.source))}</span><span>${esc(t(`k.${e.kind}`))}</span><span>${esc(fmtDate(e.at))}</span>${e.views ? `<span>${esc(t('i.views', { n: num(e.views) }))}</span>` : ''}</div>
+          <blockquote>${esc(tx(e.quote || e.title, e.quoteTr))}</blockquote>
+          ${L() === 'tr' && e.quoteTr ? `<p class="orig">${esc(e.quote || e.title)}</p>` : ''}
+          <a href="${safeUrl(e.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></li>`).join('')}</ul>
       </section>
-    </div>`;
+      <aside>
+        <div class="panel next"><h2>${esc(t('i.next'))}</h2><span class="size">${esc(sizeName(g.nextStep.size))}</span><p>${esc(t(`i.step.${g.nextStep.code}`, g.nextStep.params || {}))}</p></div>
+        <div class="panel"><h2>${esc(t('i.solutions'))}</h2>${g.solutions.length ? g.solutions.map((x) => `<div class="sol"><a href="${safeUrl(x.url)}" ${ext}>${esc(x.title)} ↗</a><span>${esc(devTypeLabel(x.kind))} · ${esc(t('gap.similar', { p: Math.round(x.similarity * 100) }))}</span></div>`).join('') : `<p class="openmark">${esc(t('i.none'))}</p>`}</div>
+      </aside>
+    </div>
+  </article>`;
 }
 
+// GitHub problem card (the needs ladder for open-source projects)
+function track(state, large = false) {
+  const idx = state === 'watching' ? 2 : state === 'retracted' ? -1 : LADDER.indexOf(state);
+  return `<div class="track ${large ? 'track-lg' : ''} c-${state}" aria-hidden="true">${LADDER.map((_, i) => `<i class="${i <= idx ? 'on' : ''}"></i>`).join('')}</div>`;
+}
+const pill = (s) => `<span class="pill c-${esc(s)}">${esc(stateName(s))}</span>`;
 function envText(env) {
   const parts = [...Object.entries(env?.versions || {}).map(([k, v]) => `${k} ${v.join(', ')}`), ...(env?.os || []), ...(env?.hardware || [])];
   return parts.length ? parts.join(' · ') : null;
 }
-const fact = (label, f) => `<dt>${esc(label)}</dt><dd>${f ? `${esc(f.value)}<a class="src" href="${safeUrl(f.url)}" ${ext}>${esc(t('detail.source'))} ↗</a>` : `<span class="none">${esc(t('detail.notStated'))}</span>`}</dd>`;
+const fact = (label, f) => `<dt>${esc(label)}</dt><dd>${f ? `${esc(f.value)}<a class="src-link" href="${safeUrl(f.url)}" ${ext}>${esc(t('detail.source'))} ↗</a>` : `<span class="none">${esc(t('detail.notStated'))}</span>`}</dd>`;
 
-function viewDetail(id) {
-  const c = data.byId.get(id);
-  if (!c) return `<div class="detail"><a class="back" href="#needs">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
+function viewCard(id) {
+  if (!data.cards) { loadCards().then(() => render()); return `<p class="loading">${esc(t('loading'))}</p>`; }
+  const c = data.cardById.get(id);
+  if (!c) return `<div class="ideapage"><a class="back" href="#">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
   if (follows[c.id]) { follows[c.id].seenAt = new Date().toISOString(); store.set('follows', follows); }
-  const on = !!follows[c.id];
   const events = (data.byCard.get(c.id) || []).slice().sort((a, b) => b.at.localeCompare(a.at));
   const env = envText(c.environment);
-  const flags = [
-    c.flags.closedWithoutFix && flagText('closedWithoutFix'), c.flags.partialFixMerged && flagText('partialFixMerged'),
-    c.flags.narrowed && flagText('narrowed'), c.flags.hnOnly && flagText('hnOnly'),
-    c.syndicatedCount && flagText('syndicated', { n: c.syndicatedCount }), c.retractedCount && flagText('retracted', { n: c.retractedCount }),
-  ].filter(Boolean);
+  const flags = [c.flags.closedWithoutFix && flagText('closedWithoutFix'), c.flags.partialFixMerged && flagText('partialFixMerged'), c.flags.narrowed && flagText('narrowed'), c.syndicatedCount && flagText('syndicated', { n: c.syndicatedCount }), c.retractedCount && flagText('retracted', { n: c.retractedCount })].filter(Boolean);
   const idx = c.state === 'watching' ? 2 : LADDER.indexOf(c.state);
   const mine = outcomes[c.id] || [];
-  const fixRow = (f) => `<div class="fixrow"><a href="${safeUrl(f.url)}" ${ext}>${esc(f.pr)}</a> · ${esc(t('detail.mergedOn', { date: fmtDate(f.mergedAt) }))}<br/>
-    ${f.release ? `<span class="ok">✓ ${esc(t('detail.shipped'))} </span><a href="${safeUrl(f.release.url)}" ${ext}>${esc(f.release.tag)}</a> <span class="muted">(${esc(fmtDate(f.release.publishedAt))})</span>` : `<span class="wait">… ${esc(t('detail.notReleased'))}</span>`}
-    <div class="muted" style="font-size:13px">${esc(f.title)}</div></div>`;
-  const stateLine = c.previousState
-    ? t('detail.was', { state: stateName(c.state), date: fmtDate(c.stateSince), prev: stateName(c.previousState) })
-    : t('detail.sinceOnly', { state: stateName(c.state), date: fmtDate(c.stateSince) });
-
-  return `<div class="detail">
-    <a class="back" href="#${esc(lastList)}">${esc(t('detail.back'))}</a>
-    <header class="detail-head">
-      ${pill(c.state)}
-      <h1>${esc(c.title)}</h1>
-      <div class="detail-meta"><span class="mono">${esc(c.repo)}</span><span class="counts">${counts(c)}</span><span>${esc(t('detail.reported', { date: fmtDate(c.firstReportedAt) }))}</span><a href="${safeUrl(c.url)}" ${ext}>${esc(t('detail.openIssue'))} ↗</a>
-        <button class="follow" data-follow="${esc(c.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button></div>
-      ${flags.length ? `<div class="flags">${flags.map((f) => `<span class="flag">${esc(f)}</span>`).join('')}</div>` : ''}
-      ${track(c.state, true)}
-      <div class="track-labels">${LADDER.map((s, i) => `<span class="${i <= idx ? 'on' : ''}">${esc(stateName(s))}</span>`).join('')}</div>
-    </header>
-
-    <div class="detail-grid">
-      <div>
-        <div class="panel why"><h2>${esc(t('detail.why'))}</h2>
-          <p>${esc(reasonText(c.trigger))} <a href="${safeUrl(c.trigger.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></p>
-          <div class="sub">${esc(stateLine)}</div>
-        </div>
-        <div class="panel"><dl class="facts" style="margin-top:-12px">
-          ${fact(t('detail.job'), c.job)}${fact(t('detail.blocker'), c.blocker)}${fact(t('detail.workaround'), c.workaround)}
-          <dt>${esc(t('detail.env'))}</dt><dd>${env ? `<span class="mono" style="font-size:13.5px">${esc(env)}</span>` : `<span class="none">${esc(t('detail.notStated'))}</span>`}</dd>
-        </dl></div>
-      </div>
-      <div>
+  const fixRow = (f) => `<div class="sol"><a href="${safeUrl(f.url)}" ${ext}>${esc(f.pr)}</a><span>${esc(t('detail.mergedOn', { date: fmtDate(f.mergedAt) }))} · ${f.release ? `${esc(t('detail.shipped'))} <a href="${safeUrl(f.release.url)}" ${ext}>${esc(f.release.tag)}</a>` : esc(t('detail.notReleased'))}</span></div>`;
+  return `<article class="ideapage" style="--dc:${esc(dColor('computer'))}">
+    <a class="back" href="#d/computer">← ${esc(dName('computer'))} · ${esc(t('d.src.github'))}</a>
+    <div class="ip-tags">${pill(c.state)}<span class="tag">${esc(c.repo)}</span><span class="tag">${esc(t('card.cases', { n: c.caseCount }))}</span>${followBtn(c.id)}</div>
+    <h1>${esc(tx(c.title, c.titleTr))}</h1>
+    ${track(c.state, true)}<div class="track-labels">${LADDER.map((s, i) => `<span class="${i <= idx ? 'on' : ''}">${esc(stateName(s))}</span>`).join('')}</div>
+    ${flags.length ? `<div class="flags">${flags.map((f) => `<span class="tag">${esc(f)}</span>`).join('')}</div>` : ''}
+    <p class="verdict">${esc(reasonText(c.trigger))} <a href="${safeUrl(c.trigger.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></p>
+    <div class="ip-grid">
+      <section>
+        <dl class="facts">${fact(t('detail.job'), c.job)}${fact(t('detail.blocker'), c.blocker)}${fact(t('detail.workaround'), c.workaround)}<dt>${esc(t('detail.env'))}</dt><dd>${env ? esc(env) : `<span class="none">${esc(t('detail.notStated'))}</span>`}</dd></dl>
+        <h2 class="h-sec">${esc(t('detail.evidence'))} <span class="muted">(${c.evidence.length})</span></h2>
+        <ul class="quotes">${c.evidence.map((e) => `<li><div class="qmeta"><span>${esc(evidenceName(e.type))}</span>${e.author ? `<span>${esc(e.author)}</span>` : ''}<span>${esc(fmtDate(e.at))}</span>${e.appliesTo ? `<span>${esc(t('detail.appliesTo', { v: e.appliesTo }))}</span>` : ''}${e.sourceState ? `<span>${esc(t('detail.sourceNow', { s: e.sourceState }))}</span>` : ''}</div>${e.excerpt ? `<blockquote>${esc(e.excerpt)}</blockquote>` : ''}<a href="${safeUrl(e.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></li>`).join('')}</ul>
+        <h2 class="h-sec">${esc(t('detail.history'))}</h2>
+        <ul class="quotes">${events.map((e) => `<li><div class="qmeta"><span>${esc(fmtDate(e.at))}</span></div><p>${e.from ? `${pill(e.from)} → ` : ''}${pill(e.to)} ${esc(reasonText(e))}</p><p class="meaning">${esc(meaningText(e))}</p></li>`).join('')}</ul>
+      </section>
+      <aside>
         ${c.nextStep ? `<div class="panel next"><h2>${esc(t('detail.next'))}</h2>${c.nextStep.size ? `<span class="size">${esc(sizeName(c.nextStep.size))}</span>` : ''}<p>${esc(nextStepText(c.nextStep, c))}</p></div>` : ''}
-        <div class="panel"><h2>${esc(t('detail.fix'))}</h2>${c.fixes.length ? c.fixes.map(fixRow).join('') : `<p class="muted" style="margin:0">${esc(t('detail.noFix'))}</p>`}
-          ${c.partialFixes?.length ? `<h2 style="margin-top:16px">${esc(t('detail.partial'))} (${c.partialFixes.length})</h2>${c.partialFixes.slice(0, 5).map(fixRow).join('')}` : ''}
-        </div>
-        <div class="panel"><h2>${esc(t('detail.outcome'))}</h2>
-          <div class="outcomes">${OUTCOMES.map((k) => `<button class="chip" data-outcome="${k}" data-card-id="${esc(c.id)}" aria-pressed="${mine.includes(k)}">${esc(t(`outcome.${k}`))}</button>`).join('')}</div>
-          <p class="note">${esc(t('detail.outcomeNote'))}</p>
-        </div>
-      </div>
+        <div class="panel"><h2>${esc(t('detail.fix'))}</h2>${c.fixes.length ? c.fixes.map(fixRow).join('') : `<p class="muted">${esc(t('detail.noFix'))}</p>`}</div>
+        <div class="panel"><h2>${esc(t('detail.outcome'))}</h2><div class="chips">${OUTCOMES.map((k) => `<button class="chip" data-outcome="${k}" data-card-id="${esc(c.id)}" aria-pressed="${mine.includes(k)}">${esc(t(`outcome.${k}`))}</button>`).join('')}</div><p class="note">${esc(t('detail.outcomeNote'))}</p></div>
+      </aside>
     </div>
-
-    <h2 class="h-sec">${esc(t('detail.evidence'))} <span class="muted">(${c.evidence.length})</span></h2>
-    <ul class="timeline">${c.evidence.map((e) => `<li class="k-${esc(e.type)}">
-      <span class="when">${esc(fmtDate(e.at))}</span><span class="kind">${esc(evidenceName(e.type))}</span>${e.author ? ` <span class="muted">· ${esc(e.author)}</span>` : ''}
-      ${e.excerpt ? `<blockquote>${esc(e.excerpt)}</blockquote>` : ''}
-      <div class="sub"><a href="${safeUrl(e.url)}" ${ext}>${e.source === 'hn' ? 'Hacker News' : 'GitHub'} ↗</a>${e.appliesTo ? `<span>${esc(t('detail.appliesTo', { v: e.appliesTo }))}</span>` : ''}${e.sourceState ? `<span>${esc(t('detail.sourceNow', { s: e.sourceState }))}</span>` : ''}${e.lastCheckedAt ? `<span>${esc(t('detail.checked', { ago: ago(e.lastCheckedAt) }))}</span>` : ''}</div>
-    </li>`).join('')}</ul>
-
-    <h2 class="h-sec">${esc(t('detail.history'))}</h2>
-    <ul class="timeline">${events.map((e) => `<li class="h-${esc(e.to)}"><span class="when">${esc(fmtDate(e.at))}</span>
-      <div class="body">${e.from ? `${pill(e.from)} → ` : `${esc(t('detail.created'))} `}${pill(e.to)}</div>
-      <div class="body">${esc(reasonText(e))} <a href="${safeUrl(e.triggerUrl)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></div></li>`).join('')}</ul>
-  </div>`;
+  </article>`;
 }
 
 function changeItem(e, withMeaning = false) {
-  if (e.kind === 'gap') {
-    return `<div class="change"><div class="arrow">${gapPill(e.from)}→${gapPill(e.to)}</div>
-      <div><h3><a href="#gap/${esc(e.cardId)}">${esc(data.gapById.get(e.cardId)?.title || e.cardTitle)}</a></h3><p>${esc(t('gap.people', { n: e.params?.people || 0 }))}</p></div></div>`;
-  }
-  const opp = e.kind === 'opportunity';
-  const o = opp ? data.oppById.get(e.cardId) : null;
-  const p = opp ? oppPill : pill;
-  const title = opp ? (o ? o.name[getLang()] : e.cardTitle) : e.cardTitle;
+  const isIdea = e.kind === 'idea';
+  const g = isIdea ? data.ideaById.get(e.cardId) : null;
+  const card = data.cardById.get(e.cardId);
+  const title = isIdea ? (g ? tx(g.idea, g.ideaTr) : e.cardTitle) : (card ? tx(card.title, card.titleTr) : e.cardTitle);
+  const p = isIdea ? verdictPill : pill;
   const meaning = withMeaning ? meaningText(e) : '';
   return `<div class="change">
-    <div class="arrow">${e.from ? p(e.from) : ''}${e.from ? '→' : ''}${p(e.to)}</div>
-    <div><h3><a href="#${opp ? 'opportunity' : 'card'}/${esc(e.cardId)}">${esc(title)}</a></h3>
-      <p>${opp ? `<span class="mono muted" style="font-size:12px">${esc(t('devs.opp'))}</span>` : `<span class="mono muted" style="font-size:12px">${esc(e.repo)}</span>`} · ${esc(opp ? oppReasonText(e) : reasonText(e))} <a href="${safeUrl(e.triggerUrl)}" ${ext}>${esc(t('detail.openSource'))} ↗</a></p>
+    <div class="arrow">${e.from ? `${p(e.from)} →` : ''} ${p(e.to)}</div>
+    <div><h3><a href="#${isIdea ? 'idea' : 'card'}/${esc(e.cardId)}">${esc(title)}</a></h3>
+      <p>${isIdea ? esc(t('i.people', { n: e.params?.people || 0 })) : `${esc(e.repo || '')} · ${esc(reasonText(e))}`} ${e.triggerUrl ? `<a href="${safeUrl(e.triggerUrl)}" ${ext}>${esc(t('detail.openSource'))} ↗</a>` : ''}</p>
       ${meaning ? `<p class="meaning"><b>${esc(t('follow.meaning'))}:</b> ${esc(meaning)}</p>` : ''}</div>
   </div>`;
 }
-
 function byDay(events, withMeaning = false) {
   const out = [];
   let day = null;
   for (const e of events) {
-    const d = e.at.slice(0, 10);
-    if (d !== day) { out.push(`<h3 class="day">${esc(fmtDay(e.at))}</h3>`); day = d; }
+    const dd = e.at.slice(0, 10);
+    if (dd !== day) { out.push(`<h3 class="day">${esc(fmtDay(e.at))}</h3>`); day = dd; }
     out.push(changeItem(e, withMeaning));
   }
   return out.join('');
 }
 
+const pageHead = (title, sub) => `<header class="phead"><h1>${esc(title)}</h1>${sub ? `<p>${esc(sub)}</p>` : ''}</header>`;
+
 function viewFollowing() {
-  const list = Object.keys(follows).map((id) => data.byId.get(id)).filter(Boolean).sort((a, b) => unseen(b).length - unseen(a).length);
-  const oppList = Object.keys(follows).map((id) => data.oppById.get(id)).filter(Boolean);
-  const gapList = Object.keys(follows).map((id) => data.gapById.get(id)).filter(Boolean);
-  const changes = [...list, ...oppList, ...gapList].flatMap((c) => unseen(c)).sort((a, b) => b.at.localeCompare(a.at));
-  return `<div class="page-head"><h1>${esc(t('following.title'))}</h1><p>${esc(t('following.sub'))}</p></div>
-    ${changes.length ? `<section class="section"><div class="section-head"><h2>${esc(t('following.changes'))}</h2><button class="btn ghost" id="mark-seen">${esc(t('following.markSeen'))}</button></div>${byDay(changes, true)}</section>` : ''}
-    ${gapList.length ? `<section class="section"><div class="section-head"><h2>${esc(t('gaps.tab.market'))}</h2></div><div class="grid opp-grid">${gapList.map(gapTile).join('')}</div></section>` : ''}
-    ${oppList.length ? `<section class="section"><div class="section-head"><h2>${esc(t('nav.opps'))}</h2></div><div class="grid opp-grid">${oppList.map(oppTile).join('')}</div></section>` : ''}
-    <section class="section"><div class="section-head"><h2>${esc(t('following.cards'))}</h2></div>
-    ${list.length ? `<div class="grid">${list.map(tile).join('')}</div>` : oppList.length || gapList.length ? '' : `<p class="empty">${esc(t('following.empty'))}</p>`}</section>`;
+  const ids = Object.keys(follows);
+  const ideas = ids.map((id) => data.ideaById.get(id)).filter(Boolean);
+  const cardIds = ids.filter((id) => id.startsWith('c-'));
+  if (cardIds.length && !data.cards) loadCards().then(() => rerenderKeepScroll());
+  const cards = cardIds.map((id) => data.cardById.get(id)).filter(Boolean);
+  const changes = ids.flatMap((id) => unseen(id)).sort((a, b) => b.at.localeCompare(a.at));
+  return `${pageHead(t('following.title'), t('following.sub'))}
+    ${changes.length ? `<section class="block"><div class="block-head"><h2>${esc(t('following.changes'))}</h2><button class="btn ghost" id="mark-seen">${esc(t('following.markSeen'))}</button></div>${byDay(changes, true)}</section>` : ''}
+    ${ideas.length ? `<section class="block"><div class="ideas">${ideas.map(ideaCard).join('')}</div></section>` : ''}
+    ${cards.length ? `<section class="block"><div class="needs">${cards.map((c) => `<a class="need" href="#card/${esc(c.id)}"><span class="src f-github">${esc(c.repo)}</span><span class="nt">${esc(tx(c.title, c.titleTr))}</span><span class="nm">${esc(stateName(c.state))}</span></a>`).join('')}</div></section>` : ''}
+    ${!ideas.length && !cards.length ? `<p class="empty">${esc(t('following.empty'))}</p>` : ''}`;
 }
 
 function viewChanges() {
-  const tr = data.events.filter((e) => e.type === 'transition').sort((a, b) => b.at.localeCompare(a.at)).slice(0, 300);
-  return `<div class="page-head"><h1>${esc(t('changes.title'))}</h1><p>${esc(t('changes.sub'))}</p></div>
-    ${tr.length ? byDay(tr) : `<p class="empty">${esc(t('changes.empty'))}</p>`}`;
+  const list = data.events.filter((e) => e.type === 'transition').sort((a, b) => b.at.localeCompare(a.at)).slice(0, 300);
+  if (list.some((e) => e.kind !== 'idea') && !data.cards) loadCards().then(() => rerenderKeepScroll());
+  return `${pageHead(t('changes.title'), t('changes.sub'))}${list.length ? byDay(list) : `<p class="empty">${esc(t('changes.empty'))}</p>`}`;
 }
 
 function viewDigest(week) {
   const d = data.digests.find((x) => x.week === week) || data.digests[0];
-  const head = `<div class="page-head"><h1>${esc(t('digest.title'))}</h1><p>${esc(t('digest.sub'))} <a href="feed.xml">${esc(t('digest.rss'))}</a></p></div>`;
-  if (!d) return `${head}<p class="empty">${esc(t('digest.empty'))}</p>`;
-  const sec = (s, key) => (d.sections[s]?.length ? `<section class="section"><div class="section-head"><h2>${esc(stateName(s))} <span class="muted">(${d.sections[s].length})</span></h2></div><div class="grid">${d.sections[s].map((i) => data.byId.get(i.cardId)).filter(Boolean).slice(0, 12).map(tile).join('')}</div></section>` : '');
-  const top = (d.topOpportunities || []).map((x) => data.byId.get(x.cardId)).filter(Boolean);
-  return `${head}
-    <div class="weeks">${data.digests.map((x) => `<a class="chip" aria-pressed="${x.week === d.week}" href="#digest/${esc(x.week)}">${esc(x.week)}${x.inProgress ? ` · ${esc(t('digest.sofar'))}` : ''}</a>`).join('')}</div>
-    ${top.length ? `<section class="section"><div class="section-head"><h2>${esc(t('digest.top'))}</h2></div><div class="grid">${top.map(tile).join('')}</div></section>` : ''}
-    ${sec('resolved')}${sec('fix_coming')}${sec('worth_trying')}${sec('watching')}${sec('retracted')}`;
+  if (!d) return `${pageHead(t('digest.title'))}<p class="empty">${esc(t('digest.empty'))}</p>`;
+  const fund = (d.funding || []).map((f) => `<div class="dev"><span class="dtype k-funding">${esc(devTypeLabel('funding'))}</span><div class="dbody2"><a class="dtitle" href="${safeUrl(f.url)}" ${ext}>${esc(f.title)}</a><div class="dmeta"><span>${esc(t('devs.outlets', { n: f.outletCount }))}</span>${f.verified ? `<span>✓ ${esc(t('devs.verified'))}</span>` : ''}</div></div></div>`).join('');
+  const weekIdeas = data.ideas.filter((g) => g.firstSeenAt && g.firstSeenAt >= d.start && g.firstSeenAt < d.end && g.verdict !== 'crowded');
+  return `${pageHead(`${t('digest.title')} · ${d.week}${d.inProgress ? ` (${t('digest.sofar')})` : ''}`, `${t('digest.sub')} feed.xml`)}
+    <div class="chips">${data.digests.map((x) => `<a class="chip" aria-pressed="${x.week === d.week}" href="#digest/${esc(x.week)}">${esc(x.week)}</a>`).join('')}</div>
+    ${weekIdeas.length ? `<section class="block"><div class="block-head"><h2>${esc(t('h.top'))}</h2></div><div class="ideas">${weekIdeas.slice(0, 12).map(ideaCard).join('')}</div></section>` : ''}
+    ${fund ? `<section class="block"><div class="block-head"><h2>${esc(devTypeLabel('funding'))}</h2></div><div class="devlist">${fund}</div></section>` : ''}`;
 }
 
 function viewSources() {
   const m = data.metrics;
-  const metric = (n, key) => `<div class="metric"><b>${num(n)}</b><span>${esc(t(key))}</span></div>`;
   const rows = Object.entries(data.sources).sort(([a], [b]) => a.localeCompare(b));
-  return `<div class="page-head"><h1>${esc(t('sources.title'))}</h1><p>${esc(t('sources.sub'))}</p></div>
-    <div class="metrics">
-      ${metric(m.cards, 'm.cards')}${metric(m.publishedNow, 'm.published')}${metric(m.changedByNewEvidence, 'm.changed')}
-      ${metric(m.genuineResolutions, 'm.resolved')}${metric(m.qualityRetractions, 'm.retracted')}${metric(m.conflicts, 'm.conflicts')}
-      ${metric(m.closedWithoutFix, 'm.closedNoFix')}${metric(m.firstHandCases, 'm.cases')}${metric(m.verifiedTeams, 'm.teams')}
-    </div>
-    <p class="note" style="margin-bottom:22px">${esc(t('sources.note'))}</p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>${esc(t('sources.col.source'))}</th><th>${esc(t('sources.col.success'))}</th><th>${esc(t('sources.col.status'))}</th><th class="num">${esc(t('sources.col.items'))}</th><th class="num">${esc(t('sources.col.requests'))}</th></tr></thead>
-      <tbody>${rows.map(([k, s]) => {
-        const fail = s.consecutiveFailures > 0;
-        const status = fail ? `<span class="bad-dot"></span>${esc(t('sources.failing', { n: s.consecutiveFailures }))}: ${esc(s.lastError)}` : s.truncated ? `<span class="late-dot"></span>${esc(t('sources.catching'))}` : `<span class="ok-dot"></span>${esc(t('sources.ok'))}`;
-        return `<tr><td class="mono">${esc(k)}</td><td>${esc(ago(s.lastSuccessAt))}</td><td class="${fail ? 'wrap-cell' : ''}">${status}</td><td class="num">${num(s.itemsLastRun)}</td><td class="num">${s.requestsLastRun != null ? num(s.requestsLastRun) : '—'}</td></tr>`;
-      }).join('')}</tbody>
-    </table></div>`;
+  const metric = (n, key) => `<div class="metric"><b>${num(n)}</b><span>${esc(t(key))}</span></div>`;
+  return `${pageHead(t('sources.title'), t('sources.sub'))}
+    <div class="metrics">${metric(data.ideas.length, 'd.ideas')}${metric(data.needs.length, 'h.stat.needs')}${metric(data.devs.length, 'h.stat.devs')}${metric(m.cards, 'm.cards')}${metric(m.genuineResolutions, 'm.resolved')}${metric(m.qualityRetractions, 'm.retracted')}</div>
+    <div class="table-wrap"><table><thead><tr><th>${esc(t('sources.col.source'))}</th><th>${esc(t('sources.col.success'))}</th><th>${esc(t('sources.col.status'))}</th><th class="num">${esc(t('sources.col.items'))}</th></tr></thead>
+    <tbody>${rows.map(([k, s]) => {
+      const fail = s.consecutiveFailures > 0;
+      const status = fail ? `<span class="bad-dot"></span>${esc(t('sources.failing', { n: s.consecutiveFailures }))}: ${esc(s.lastError)}` : s.truncated ? `<span class="late-dot"></span>${esc(t('sources.catching'))}` : `<span class="ok-dot"></span>${esc(t('sources.ok'))}`;
+      return `<tr><td class="mono">${esc(k)}</td><td>${esc(ago(s.lastSuccessAt))}</td><td class="${fail ? 'wrap-cell' : ''}">${status}</td><td class="num">${num(s.itemsLastRun)}</td></tr>`;
+    }).join('')}</tbody></table></div>`;
 }
 
 function viewAbout() {
-  const tr = getLang() === 'tr';
-  const rules = ['early_signal', 'worth_trying', 'fix_coming', 'resolved', 'watching', 'retracted'].map((s) => `<div>${pill(s)}<span>${esc(stateRule(s))}</span></div>`).join('');
+  const tr = L() === 'tr';
   const body = tr ? `
-    <p>Problem Radar, AI altyapısı ve geliştirici araçlarındaki ${(data.meta.repos || []).length} repodan issue'ları, yorumları, birleşmiş PR'ları ve sürümleri, bir de bunlardan bahseden Hacker News tartışmalarını okur. Bunları dil modeli değil kurallar problem kartlarına dönüştürür. Karttaki her alan kaynağından birebir alınmış bir alıntıdır ve kaynağı açılabilir.</p>
-    <h2>Kanıt merdiveni</h2><div class="rules">${rules}</div>
-    <h2>Ne vaka sayılır</h2><ul>
-      <li>Bir kişi kaç yorum yazarsa yazsın bir kez sayılır. Tek başına "+1" vaka değildir.</li>
-      <li>Aynı linkin ya da aynı metnin kopyaları tek sinyal olarak sayılır.</li>
-      <li>Hatayı doğrulayan bakımcılar vaka eklemez, çünkü takılan onlar değil.</li>
-      <li>Bir ekip ancak bildirim kendi açık projesine bağlanıyorsa "doğrulanmış" sayılır. Kartlar bağımsızlığı tahmin etmek yerine "3 birinci elden vaka, 2 doğrulanmış ekip" der.</li>
-      <li>Kapatılmış bir issue tek başına asla "çözüldü" sayılmaz.</li></ul>
-    <h2>Neden bildirim aldın</h2><p>Bildirim sadece durum değişince gelir ve her biri değişikliğe sebep olan yorumu, PR'ı ya da sürümü gösterir. Bir kartı aç, "Neden bu durumda" ve "Durum geçmişi" bölümlerine bak.</p>
-    <h2>Sırada ne var</h2><p>Bu ücretsiz pilot. Kendi repolarını ve rakiplerininkini izleyen geliştirici aracı şirketleri için sürüm dahil yol haritası <a href="https://github.com/canquesse/problem-radar#roadmap" ${ext}>README</a> dosyasında.</p>` : `
-    <p>Problem Radar reads issues, comments, merged pull requests and releases from ${(data.meta.repos || []).length} AI infrastructure and developer tool repositories, plus Hacker News discussions that mention them. Rules, not a language model, turn that into problem cards. Every field on a card is a verbatim excerpt you can open at its source.</p>
-    <h2>The evidence ladder</h2><div class="rules">${rules}</div>
-    <h2>What counts as a case</h2><ul>
-      <li>One person counts once, however many times they comment. A bare "+1" is not a case.</li>
-      <li>Syndicated copies (the same link or the same text posted again) collapse into one signal.</li>
-      <li>Maintainers confirming a bug do not add cases; they are not the ones stuck.</li>
-      <li>A team is "verified" only when the report ties itself to a public project of its own. Cards say "3 first-hand cases, 2 verified teams" instead of guessing independence.</li>
-      <li>A closed issue alone is never "resolved".</li></ul>
-    <h2>Why you were notified</h2><p>Notifications only happen on a state change, and each one links the exact comment, pull request or release that caused it. Open a card and look at "Why it is in this state" and "State history".</p>
-    <h2>What is next</h2><p>This is the free pilot. The roadmap, including the version for dev tool companies that watch their own and their competitors' repositories, is in the <a href="https://github.com/canquesse/problem-radar#roadmap" ${ext}>README</a>.</p>`;
-  return `<div class="page-head"><h1>${esc(t('nav.about'))}</h1></div><div class="prose">${body}</div>`;
+    <p>Radar her gün insanların kendi cümleleriyle neye ihtiyaç duyduğunu okur: 13 Stack Exchange sitesi (Software Recommendations ve Hardware Recommendations dahil), KiCad, Arduino, PlatformIO, Inductive Automation, OpenEnergyMonitor, Hugging Face, PyTorch, Julia gibi açık topluluk forumları ve Hacker News’teki "böyle bir araç var mı", "para öderim", "alternatif arıyorum" gönderileri.</p>
+    <p>Bir yerel dil modeli (all-MiniLM, GitHub Actions içinde çalışır, API yok, ücret yok) her ihtiyacı 7 alandan birinin alt başlığına anlamına göre yerleştirir ve aynı şeyi isteyenleri tek fikirde toplar. Sonra Product Hunt lansmanları, Show HN, yeni GitHub repoları ve bilinen araçlar arasında buna yakın bir şey var mı diye bakar. Yakın bir şey yoksa fikir "boşta görünüyor" olur.</p>
+    <h2>Fikir ne zaman çıkar</h2><ul><li>En az iki kişi aynı şeyi istiyorsa, ya da bir kişi açıkça bir ürün istiyor ve buna gerçek ilgi varsa (görüntülenme, oy) ya da "para öderim" diyorsa.</li><li>GitHub issue’ları fikir kanıtı sayılmaz: bir repodaki eksik özellik pazar boşluğu değil, katkı fırsatıdır. Onlar Bilgisayar > İhtiyaçlar > GitHub sorunları altında durur.</li><li>Yatırım haberleri talep sayılmaz; piyasa ilgisi olarak gösterilir. Aynı haberi yayımlayan onlarca site tek olaydır.</li></ul>
+    <h2>Türkçe</h2><p>Başlıklar, fikirler ve alıntılar yerel bir çeviri modeliyle (NLLB-200) Türkçeye çevrilir ve önbelleğe alınır. Orijinal metin her zaman yanında durur, çünkü kanıt odur.</p>
+    <h2>Güncelleme</h2><p>Yaklaşık 3 dakikada bir yenilenir; sayfa dakikada bir yeni veri var mı bakar.</p>` : `
+    <p>The radar reads what people say they need, in their own words: 13 Stack Exchange sites (including Software Recommendations and Hardware Recommendations), public community forums such as KiCad, Arduino, PlatformIO, Inductive Automation, OpenEnergyMonitor, Hugging Face, PyTorch and Julia, and Hacker News posts like "is there a tool", "I'd pay for", "alternative to".</p>
+    <p>A local language model (all-MiniLM, running inside GitHub Actions, no API, no cost) places every need in a sub-area of one of 7 domains by meaning and groups people asking for the same thing into one idea. It then searches Product Hunt launches, Show HN, brand-new GitHub repositories and known tools for anything close. If nothing is close, the idea "looks open".</p>
+    <h2>When an idea appears</h2><ul><li>At least two people ask for the same thing, or one person clearly asks for a product and it gets real attention (views, votes), or someone says they would pay.</li><li>GitHub issues are not idea evidence: a missing feature in one repository is a contribution opportunity, not a market gap. They live under Computing > Needs > GitHub issues.</li><li>Funding news is not demand; it is shown as market interest. A story published by dozens of sites is one event.</li></ul>
+    <h2>Turkish</h2><p>Titles, ideas and quotes are translated with a local model (NLLB-200) and cached. The original text always stays next to it, because that is the evidence.</p>
+    <h2>Updates</h2><p>About every 3 minutes; the page checks for fresh data every minute.</p>`;
+  return `${pageHead(t('nav.about'))}<div class="prose">${body}</div>`;
 }
 
-// --- Router ------------------------------------------------------------------------
-let lastList = 'cards';
+// --- Router --------------------------------------------------------------------------
 function parseHash() {
-  const raw = decodeURIComponent(location.hash.slice(1)) || 'overview';
-  const [path, query] = raw.split('?');
-  const [tab, arg] = path.split('/');
-  return { tab, arg, params: new URLSearchParams(query || '') };
+  const raw = decodeURIComponent(location.hash.slice(1)) || '';
+  return raw.split('?')[0].split('/').filter(Boolean);
 }
 
+let lastDomain = '';
 function render() {
-  const { tab, arg, params } = parseHash();
-  const main = $('#main');
-  if (tab === 'needs' || tab === 'cards') {
-    if (params.has('state')) { filt.state = params.get('state'); filt.limit = PAGE; }
-    if (params.has('repo')) filt.repo = params.get('repo');
-  }
-  if (tab === 'developments') { if (params.has('type')) devFilt.type = params.get('type'); if (params.has('topic')) devFilt.topic = params.get('topic'); }
+  const [tab, a, b] = parseHash();
+  if (tab === 'd' && a !== lastDomain) dState = { section: 'ideas', src: 'all', limit: PAGE, devType: '' };
+  if (tab === 'd') lastDomain = a;
   const views = {
-    overview: viewOverview, opportunities: viewGaps, opportunity: () => viewOpp(arg), gap: () => viewGap(arg), developments: viewDevs, needs: viewCards, cards: viewCards,
-    card: () => viewDetail(arg), following: viewFollowing, changes: viewChanges, digest: () => viewDigest(arg), sources: viewSources, about: viewAbout,
+    d: () => viewDomain(a, b), idea: () => viewIdea(a), card: () => viewCard(a), following: viewFollowing, changes: viewChanges,
+    digest: () => viewDigest(a), sources: viewSources, about: viewAbout,
   };
-  const view = views[tab] || viewOverview;
-  if (tab === 'opportunities' && params.has('tab')) gapTab = params.get('tab');
-  if (tab !== 'card' && tab !== 'opportunity' && tab !== 'gap') lastList = location.hash.slice(1) || 'overview';
   chrome();
-  main.innerHTML = view();
-  const active = tab === 'card' || tab === 'cards' ? 'needs' : tab === 'opportunity' || tab === 'gap' ? 'opportunities' : views[tab] ? tab : 'overview';
-  $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === active));
-  $('#nav').classList.remove('open');
-  const oppT = tab === 'opportunity' && data.oppById.get(arg) ? `${data.oppById.get(arg).name[getLang()]} · ` : tab === 'gap' && data.gapById.get(arg) ? `${data.gapById.get(arg).title} · ` : '';
-  document.title = `${tab === 'card' && data.byId.get(arg) ? `${data.byId.get(arg).title} · ` : oppT}${t('brand.name')}`;
+  $('#main').innerHTML = (views[tab] || viewHome)();
+  $$('#nav a').forEach((x) => x.classList.toggle('on', x.dataset.tab === tab));
+  const activeDomain = tab === 'd' ? a : tab === 'idea' ? data.ideaById.get(a)?.domain : tab === 'card' ? 'computer' : null;
+  $$('#domains-nav a').forEach((x) => x.classList.toggle('on', x.dataset.domain === activeDomain));
+  document.documentElement.style.setProperty('--accent', activeDomain ? dColor(activeDomain) : '');
+  const g = tab === 'idea' && data.ideaById.get(a);
+  document.title = `${g ? `${tx(g.idea, g.ideaTr)} · ` : tab === 'd' && domainOf(a) ? `${dName(a)} · ` : ''}${t('brand.name')}`;
 }
-
 function rerenderKeepScroll() { const y = window.scrollY; render(); window.scrollTo(0, y); }
 
 // --- Events --------------------------------------------------------------------------
@@ -761,9 +525,7 @@ document.addEventListener('click', (ev) => {
     const id = fb.dataset.follow;
     if (follows[id]) delete follows[id]; else { const now = new Date().toISOString(); follows[id] = { since: now, seenAt: now }; }
     store.set('follows', follows);
-    const on = !!follows[id];
-    $$(`[data-follow="${CSS.escape(id)}"]`).forEach((b) => { b.setAttribute('aria-pressed', on); b.textContent = `${on ? '★' : '☆'} ${on ? t('card.following') : t('card.follow')}`; });
-    chrome(); const { tab } = parseHash(); $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === ({ card: 'needs', cards: 'needs', opportunity: 'opportunities', gap: 'opportunities' }[tab] || tab)));
+    rerenderKeepScroll();
     return;
   }
   const oc = el.closest('[data-outcome]');
@@ -775,71 +537,37 @@ document.addEventListener('click', (ev) => {
     oc.setAttribute('aria-pressed', cur.has(k));
     return;
   }
-  const gt = el.closest('[data-gtab]');
-  if (gt) { gapTab = gt.dataset.gtab; history.replaceState(null, '', '#opportunities'); rerenderKeepScroll(); return; }
-  const gapEl = el.closest('.tile.gap');
-  if (gapEl && !el.closest('a, button')) { location.hash = `gap/${gapEl.dataset.gap}`; return; }
-  const gdot = el.closest('circle[data-gapdot]');
-  if (gdot) { location.hash = `gap/${gdot.dataset.gapdot}`; return; }
-  const dt = el.closest('[data-dtype]');
-  if (dt) { devFilt.type = dt.dataset.dtype; devFilt.limit = 40; history.replaceState(null, '', '#developments'); rerenderKeepScroll(); return; }
-  if (el.id === 'dmore') { devFilt.limit += 40; rerenderKeepScroll(); return; }
-  const oppEl = el.closest('.tile.opp');
-  if (oppEl && !el.closest('a, button')) { location.hash = `opportunity/${oppEl.dataset.opp}`; return; }
-  const fs = el.closest('[data-fstate]');
-  if (fs) { filt.state = fs.dataset.fstate; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
-  const fr = el.closest('[data-frepo]');
-  if (fr) { filt.repo = fr.dataset.frepo; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
-  if (el.id === 'clear') { filt = { ...filt, q: '', state: '', repo: '', limit: PAGE }; history.replaceState(null, '', '#needs'); render(); return; }
-  if (el.id === 'more') { filt.limit += PAGE; rerenderKeepScroll(); return; }
+  const sec = el.closest('[data-dsec]');
+  if (sec) { dState = { ...dState, section: sec.dataset.dsec, limit: PAGE }; rerenderKeepScroll(); return; }
+  const src = el.closest('[data-src]');
+  if (src) { dState = { ...dState, src: src.dataset.src, limit: PAGE }; rerenderKeepScroll(); return; }
+  const dt = el.closest('[data-devtype]');
+  if (dt) { dState = { ...dState, devType: dt.dataset.devtype, limit: PAGE }; rerenderKeepScroll(); return; }
+  if (el.id === 'more') { dState.limit += PAGE; rerenderKeepScroll(); return; }
   if (el.id === 'mark-seen') { const now = new Date().toISOString(); for (const id of Object.keys(follows)) follows[id].seenAt = now; store.set('follows', follows); render(); return; }
-  if (el.id === 'menu-btn') { const n = $('#nav'); n.classList.toggle('open'); el.setAttribute('aria-expanded', n.classList.contains('open')); return; }
-  const dot = el.closest('circle.dot');
-  if (dot) { location.hash = `card/${dot.dataset.card}`; return; }
-  const tileEl = el.closest('.tile');
-  if (tileEl && !el.closest('a, button')) location.hash = `card/${tileEl.dataset.card}`;
+  if (el.closest('#menu-btn')) { $('#nav').classList.toggle('open'); return; }
+  const dot = el.closest('.m-dot');
+  if (dot) { location.hash = `idea/${dot.dataset.idea}`; return; }
+  const card = el.closest('.idea');
+  if (card && !el.closest('a, button')) location.hash = `idea/${card.dataset.idea}`;
 });
 
 document.addEventListener('mousemove', (ev) => {
-  const tip = $('#scope-tip');
+  const dot = ev.target.closest?.('.m-dot');
+  const tip = dot ? dot.closest('.map').querySelector('.map-tip') : $('#map-tip');
   if (!tip) return;
-  const dot = ev.target.closest?.('circle.dot');
-  if (!dot) { tip.classList.remove('show'); return; }
-  const g = data.gapById.get(dot.dataset.gapdot);
-  const c = data.byId.get(dot.dataset.card);
-  if (!g && !c) return;
-  const box = $('#scope').getBoundingClientRect();
-  tip.innerHTML = g
-    ? `${esc(g.title)}<small>${esc(t(`gap.${g.verdict}`))} · ${esc(t('gap.people', { n: g.people }))}${g.topic ? ` · ${esc(topicName(g.topic))}` : ''}</small>`
-    : `${esc(c.title)}<small>${esc(c.repo)} · ${esc(stateName(c.state))}</small>`;
+  if (!dot) { $$('.map-tip').forEach((x) => x.classList.remove('show')); return; }
+  const g = data.ideaById.get(dot.dataset.idea);
+  if (!g) return;
+  const box = dot.closest('.map').getBoundingClientRect();
+  tip.innerHTML = `${esc(tx(g.idea, g.ideaTr))}<small>${esc(dName(g.domain))} · ${esc(t(`i.${g.verdict}`))} · ${esc(t('i.people', { n: g.people }))}</small>`;
   tip.style.left = `${ev.clientX - box.left}px`;
   tip.style.top = `${ev.clientY - box.top}px`;
   tip.classList.add('show');
 });
 
-let qTimer;
-document.addEventListener('input', (ev) => {
-  if (ev.target.id !== 'q') return;
-  clearTimeout(qTimer);
-  qTimer = setTimeout(() => {
-    filt.q = ev.target.value; filt.limit = PAGE;
-    const pos = ev.target.selectionStart;
-    rerenderKeepScroll();
-    const q = $('#q'); q.focus(); q.setSelectionRange(pos, pos);
-  }, 180);
-});
-document.addEventListener('change', (ev) => {
-  if (ev.target.id === 'dtopic') { devFilt.topic = ev.target.value; devFilt.limit = 40; history.replaceState(null, '', '#developments'); rerenderKeepScroll(); return; }
-  if (ev.target.id === 'mstate') { filt.state = ev.target.value; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
-  if (ev.target.id === 'mrepo') { filt.repo = ev.target.value; filt.limit = PAGE; history.replaceState(null, '', '#needs'); rerenderKeepScroll(); return; }
-  if (ev.target.id === 'sort') { filt.sort = ev.target.value; filt.limit = PAGE; rerenderKeepScroll(); } });
-window.addEventListener('hashchange', () => { render(); if (!location.hash.includes('?')) window.scrollTo({ top: 0, behavior: 'instant' }); $('#main').focus({ preventScroll: true }); });
+window.addEventListener('hashchange', () => { render(); window.scrollTo({ top: 0, behavior: 'instant' }); });
 
-chrome();
-$('#main').innerHTML = `<p class="loading">${esc(t('loading'))}</p>`;
-load().then(render).catch((err) => { $('#main').innerHTML = `<p class="empty">${esc(t('loadError', { e: err.message }))}</p>`; });
-
-// Poll for fresh data every minute; update in place without losing scroll.
 function toast(msg) {
   const el = $('#toast');
   el.textContent = msg;
@@ -847,15 +575,19 @@ function toast(msg) {
   clearTimeout(toast.t);
   toast.t = setTimeout(() => { el.hidden = true; }, 6000);
 }
+
+chrome();
+$('#main').innerHTML = `<p class="loading">${esc(t('loading'))}</p>`;
+load().then(render).catch((err) => { $('#main').innerHTML = `<p class="empty">${esc(t('loadError', { e: err.message }))}</p>`; });
+
 setInterval(async () => {
   if (document.hidden) return;
   const { p } = await pulse();
-  if (!p || !dataVersion || p.builtAt === dataVersion) { statusStrip(); return; }
+  if (!p || !dataVersion || p.builtAt === dataVersion) { statusLine(); return; }
   const before = data.events.length;
   try {
     await load();
-    const typing = document.activeElement?.id === 'q';
-    if (!typing) rerenderKeepScroll(); else statusStrip();
+    rerenderKeepScroll();
     const n = Math.max(0, data.events.length - before);
     toast(n ? t('live.updatedN', { n }) : t('live.updated'));
   } catch { /* keep the current view */ }

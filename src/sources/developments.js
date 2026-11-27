@@ -2,7 +2,7 @@
 // Every source is free and keyless: RSS/Atom feeds (including Google News
 // searches), the Hacker News Algolia API and the GitHub search API.
 
-import { DEV_FEEDS, HN_LAUNCH_KEYWORDS, LIMITS, NEW_REPO_QUERIES, NEW_REPO_STARS, NEW_REPO_WINDOW_DAYS } from '../config.js';
+import { DEV_FEEDS, LIMITS, NEW_REPO_QUERIES, NEW_REPO_STARS, NEW_REPO_WINDOW_DAYS } from '../config.js';
 import { hash } from '../store.js';
 import { stripHtml } from './hn.js';
 
@@ -106,6 +106,7 @@ export function normalizeFeedItem(feed, item) {
     createdAt: publishedAt,
     updatedAt: publishedAt,
     ...(devType === 'funding' ? { funding: parseFunding(title) } : {}),
+    ...(feed.domain ? { domainHint: feed.domain } : {}),
   };
 }
 
@@ -151,7 +152,7 @@ export async function syncLaunches({ http, state, now, upsert, record }) {
       for (const h of res.data?.hits || []) {
         if (h.created_at_i > newest) newest = h.created_at_i;
         const title = h.title || '';
-        if (!/^(Show|Launch) HN/i.test(title) || !HN_LAUNCH_KEYWORDS.test(`${title} ${h.story_text || ''}`)) continue;
+        if (!/^(Show|Launch) HN/i.test(title)) continue;
         upsert({
           id: `dev:hn:${h.objectID}`, source: 'hn', kind: 'dev', devType: 'launch', url: `https://news.ycombinator.com/item?id=${h.objectID}`,
           productUrl: h.url || null, title, body: stripHtml(h.story_text || '').slice(0, 600), outlet: 'Hacker News', author: h.author,
@@ -175,9 +176,11 @@ export async function syncNewRepos({ http, now, upsert, record }) {
   const since = new Date(Date.parse(now) - NEW_REPO_WINDOW_DAYS * 86400_000).toISOString().slice(0, 10);
   let n = 0;
   try {
-    for (const q of NEW_REPO_QUERIES) {
+    for (const [i, q] of NEW_REPO_QUERIES.entries()) {
+      // The search API allows 30 requests a minute: pace the queries.
+      if (i) await new Promise((r) => setTimeout(r, 2200));
       const query = `${q} created:>=${since} stars:${NEW_REPO_STARS} fork:false archived:false`;
-      const res = await http.get(`https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=20`, { conditional: false });
+      const res = await http.get(`https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=15`, { conditional: false });
       for (const r of res.data?.items || []) {
         if (!r.description) continue; // no description, no way to tell what it is
         upsert({

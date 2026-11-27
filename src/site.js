@@ -7,6 +7,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PUBLISHED_STATES, REPOS, STATE_LABELS, TOPICS } from './config.js';
 import { loadState } from './store.js';
+import { tr } from './translate.js';
+import { DOMAINS } from './domains.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
@@ -155,16 +157,21 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
 
   const digests = buildDigests(state, now);
   const write = (name, value) => fs.writeFileSync(path.join(distDir, 'data', name), JSON.stringify(value));
-  write('cards.json', Object.values(state.cards));
+  // Turkish next to English: the page picks one, the original stays visible.
+  const T = (text) => tr(state, text);
+  write('cards.json', Object.values(state.cards).map((c) => ({ ...c, titleTr: T(c.title) })));
   write('opportunities.json', Object.values(state.opportunities || {}));
-  write('gaps.json', Object.values(state.gaps || {}).sort((a, b) => b.score - a.score).slice(0, 300));
-  write('developments.json', (state.developments || []).slice(0, 600));
+  write('ideas.json', Object.values(state.ideas || {}).sort((a, b) => b.score - a.score).slice(0, 400).map((g) => ({
+    ...g, ideaTr: T(g.idea), evidence: g.evidence.map((e) => ({ ...e, quoteTr: T(e.quote || e.title) })),
+  })));
+  write('needs.json', (state.needs || []).map((n) => ({ ...n, titleTr: T(n.title) })));
+  write('developments.json', (state.developments || []).slice(0, 700).map((d) => ({ ...d, titleTr: T(d.title), summaryTr: T(d.summary) })));
   write('events.json', state.events.slice(-3000));
   write('sources.json', state.sources);
   write('metrics.json', metrics);
   write('digests.json', digests);
   write('pulse.json', { builtAt: now, cards: Object.keys(state.cards).length, events: state.events.length });
-  write('meta.json', { builtAt: now, repos: REPOS, stateLabels: STATE_LABELS, siteUrl: base, topics: TOPICS.map(({ id, name }) => ({ id, name })) });
+  write('meta.json', { builtAt: now, repos: REPOS, stateLabels: STATE_LABELS, siteUrl: base, topics: TOPICS.map(({ id, name }) => ({ id, name })), domains: DOMAINS.map((d) => ({ id: d.id, color: d.color, name: d.name, subs: d.subs.map((x) => ({ id: x.id, name: x.name })) })) });
   fs.writeFileSync(path.join(distDir, 'feed.xml'), renderRss(digests, base, now));
   fs.writeFileSync(path.join(distDir, '.nojekyll'), '');
   console.log(`site: ${Object.keys(state.cards).length} cards, ${digests.length} digest weeks -> ${distDir}`);

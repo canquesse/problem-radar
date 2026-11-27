@@ -11,15 +11,17 @@
 //   events.json         append-only state-transition changelog
 //   developments.json   derived market events (funding, launches, news, repos)
 //   opportunities.json  derived opportunity cards (development meets need)
-//   gaps.json           derived gaps (strong demand, weak supply)
+//   ideas.json          derived ideas (strong demand, weak supply)
+//   needs.json          derived list of placed demand items
+//   translations.json   cached English -> Turkish translations
 //   embeddings.json     cached sentence vectors from the local model
 
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-const FILES = ['records', 'cursors', 'etags', 'sources', 'verifications', 'cards', 'events', 'opportunities', 'developments', 'gaps', 'embeddings'];
-const DEFAULTS = { records: {}, cursors: {}, etags: {}, sources: {}, verifications: {}, cards: {}, events: [], opportunities: {}, developments: [], gaps: {}, embeddings: {} };
+const FILES = ['records', 'cursors', 'etags', 'sources', 'verifications', 'cards', 'events', 'opportunities', 'developments', 'ideas', 'needs', 'embeddings', 'translations'];
+const DEFAULTS = { records: {}, cursors: {}, etags: {}, sources: {}, verifications: {}, cards: {}, events: [], opportunities: {}, developments: [], ideas: {}, needs: [], embeddings: {}, translations: {} };
 
 export function emptyState() {
   return structuredClone(DEFAULTS);

@@ -9,7 +9,8 @@ import { computeMetrics, processCards, pruneRecords } from './pipeline.js';
 import { fetchPull, ghId, isPrereleaseTag, releaseContainsCommit, syncRepo } from './sources/github.js';
 import { syncHN } from './sources/hn.js';
 import { syncFeeds, syncLaunches, syncNewRepos } from './sources/developments.js';
-import { syncGdelt, syncHNAsks, syncStackOverflow } from './sources/demand.js';
+import { syncGdelt, syncHNAsks } from './sources/demand.js';
+import { syncForums, syncStackExchange } from './sources/community.js';
 import { processMarket } from './analyze.js';
 import { parseFixedByRefs } from './extract.js';
 import { recordSourceRun, upsertRecord } from './store.js';
@@ -41,7 +42,7 @@ export function pickLane(state, now, lane = 'auto') {
   return !last?.at || Date.parse(now) - Date.parse(last.at) >= 55 * 60_000 ? 'full' : 'fast';
 }
 
-export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), log = console.log, skipHN = false, lane: laneOpt = 'full', embedFn = null } = {}) {
+export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), log = console.log, skipHN = false, lane: laneOpt = 'full', embedFn = null, translateFn = null } = {}) {
   const lane = pickLane(state, now, laneOpt);
   const full = lane === 'full';
   log(`lane: ${lane}`);
@@ -100,8 +101,9 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
     if (!ghBlocked && full) await syncNewRepos({ http: gh, now, upsert, record });
     // Demand signals: people asking for a tool or saying they would pay.
     await syncHNAsks({ http: hn, state, now, upsert, record });
+    await syncForums({ http: hn, state, now, upsert, record });
+    await syncStackExchange({ http: hn, state, now, upsert, record, maxSites: full ? 8 : 3 });
     if (full) {
-      await syncStackOverflow({ http: hn, state, now, upsert, record });
       // GDELT asks for one request every 5 seconds and answers 429 otherwise:
       // never wait on it, just skip that topic until the next full run.
       const gd = new HttpClient({ headers: { 'User-Agent': 'problem-radar' }, fetch, sleep, maxRetries: 0, maxWaitMs: 0 });
@@ -111,10 +113,10 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
 
   if (full && !ghBlocked) state.cursors['lane:full'] = { at: now, sha: process.env.GITHUB_SHA || null };
   const result = processCards(state, now);
-  const market = await processMarket(state, now, { log, embedFn });
+  const market = await processMarket(state, now, { log, embedFn, translateFn, translateBudgetMs: translateFn === false ? 0 : full ? 300_000 : 60_000, translateAll: full });
   result.transitions.push(...market.transitions);
   result.created.push(...market.created);
-  log(`market: ${market.developments} developments, ${market.opportunities} opportunities, ${market.gaps} gaps`);
+  log(`market: ${market.developments} developments, ${market.ideas} ideas`);
   const pruned = pruneRecords(state, now);
   const metrics = computeMetrics(state, now);
   log(`records: +${counts.new} new, ${counts.changed} changed, ${counts.unchanged} unchanged; pruned ${pruned}`);

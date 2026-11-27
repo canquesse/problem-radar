@@ -2,16 +2,14 @@
 
 **See what is happening in AI infrastructure and developer tools, see where people are stuck, and find real work you can start today.**
 
-The radar has two streams and connects them:
+It reads what people say they need, in their own words, across **7 domains** (Computing & Software, Electronics, Mechanical, Hardware, Industry, Math & Science, Cybersecurity, each with its own sub-areas), groups requests that mean the same thing, checks what already exists, and turns the gaps into **product, startup and project ideas**.
 
-- **Developments:** funding announcements, new AI products, release notes, media news and brand-new small open-source repositories (found before they collect stars).
-- **Needs:** first-hand problems from GitHub issues and Hacker News: who is stuck, what they were trying to do, what blocks them, how they get by today, and whether a fix actually shipped.
-- **Gaps (the core):** where demand is strong and supply is weak. A free local language model groups requests that mean the same thing (a GitHub feature request, an Ask HN "is there a tool for…", an "I'd pay for…" comment, an unanswered Stack Overflow question) and checks known tools, new products, launches and new repositories for anything that already solves it. A gap with several people behind it and nothing close to it is marked **looks open**: "this idea looks free, here is who wants it".
-- **Areas:** where market developments meet first-hand needs in the same area, with the evidence on both sides, what already exists, a narrow question to research, the smallest first experiment, a status line and a job size (contribute tonight, weekend prototype, talk to users first).
+- **Needs:** 13 Stack Exchange sites (including Software Recommendations and Hardware Recommendations), public community forums (KiCad, Arduino, PlatformIO, Particle, Maker Forums, Inductive Automation, OpenEnergyMonitor, Hugging Face, PyTorch, Julia, Hack The Box), and Hacker News posts like "is there a tool", "I'd pay for a tool that…", "alternative to", plus first-hand complaints. GitHub issues of 13 AI/dev-tool projects are tracked as their own sub-source (Computing > Needs > GitHub issues) with the full evidence ladder below, but they never count as idea evidence: a missing feature in one repository is a contribution opportunity, not a market gap.
+- **Developments:** funding (Google News searches per domain, TechCrunch, Crunchbase News, GDELT), product launches (Product Hunt AI, Developer Tools, Hardware; Show/Launch HN), release notes, media news, and brand-new small repositories per domain topic.
+- **Ideas:** a free local language model places every item in a domain sub-area by meaning, groups needs that mean the same thing, phrases them as ideas ("A tool that…", "An alternative to…"), and checks launches, new repositories and known tools for anything close. Nothing close: **looks open**.
+- **Turkish:** titles, ideas and quotes are translated with a local NLLB-200 model and cached; the original text always stays next to the translation.
 
-**Live:** https://canquesse.github.io/problem-radar/ · **Weekly digest (RSS):** https://canquesse.github.io/problem-radar/feed.xml
-
-**Demo walkthrough:** [docs/DEMO.md](docs/DEMO.md) shows the three pilot behaviors on real cards.
+**Demo walkthrough (needs ladder):** [docs/DEMO.md](docs/DEMO.md).
 
 Everything runs on free infrastructure: a scheduled GitHub Actions workflow, JSON data on a `data` branch, and GitHub Pages. No paid APIs, no LLM calls.
 

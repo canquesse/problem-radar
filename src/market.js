@@ -99,6 +99,7 @@ export function computeDevelopments(records) {
       stars: first.stars ?? null,
       points: first.points ?? null,
       productUrl: first.productUrl || null,
+      domainHint: first.domainHint || null,
       topics: tagTopics(first.title, text),
     });
   }

@@ -1,3 +1,5 @@
+import { ALL_REPO_TOPICS, DOMAIN_FEEDS } from './domains.js';
+
 // Central configuration for the radar. Everything here is plain data so it can
 // be reviewed in a PR and changed without touching the pipeline code.
 
@@ -86,15 +88,18 @@ export const DEV_FEEDS = [
   // New AI products
   { id: 'producthunt-ai', kind: 'product', url: 'https://www.producthunt.com/feed?category=artificial-intelligence' },
   { id: 'producthunt-devtools', kind: 'product', url: 'https://www.producthunt.com/feed?category=developer-tools' },
+  { id: 'producthunt-hardware', kind: 'product', url: 'https://www.producthunt.com/feed?category=hardware' },
+  // One funding and launch search per domain (electronics, mechanical, ...).
+  ...DOMAIN_FEEDS,
 ];
 
 // Show HN / Launch HN posts that look AI or dev-tool related.
 export const HN_LAUNCH_KEYWORDS = /\b(ai|llm|llms|gpt|agent|agents|mcp|rag|inference|model|models|embedding|vector|gpu|fine-?tun\w*|eval\w*|prompt|copilot|devtools?|sdk|api)\b/i;
 
 // Brand-new small repositories, found before they collect stars.
-export const NEW_REPO_QUERIES = [
-  'topic:llm', 'topic:ai-agents', 'topic:mcp', 'topic:rag', 'topic:llm-inference', 'topic:llmops',
-];
+export const NEW_REPO_QUERIES = [...new Set([
+  'topic:llm', 'topic:ai-agents', 'topic:mcp', 'topic:rag', 'topic:llm-inference', 'topic:llmops', ...ALL_REPO_TOPICS,
+])];
 export const NEW_REPO_WINDOW_DAYS = 7;
 export const NEW_REPO_STARS = '5..300';
 

@@ -41,7 +41,7 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -57,10 +57,12 @@ jobs:
         run: npm ci --omit=dev --no-audit --no-fund
 
       # all-MiniLM-L6-v2 (~23 MB) is downloaded once and cached between runs.
+      # Local models: all-MiniLM-L6-v2 (~23 MB) for meaning, NLLB-200 distilled
+      # (~900 MB) for English -> Turkish. Downloaded once, then cached.
       - uses: actions/cache@v4
         with:
           path: .model-cache
-          key: minilm-l6-v2-q8
+          key: models-minilm-nllb-v1
 
       - name: Fetch the data branch (records, cursors, ETags, changelog)
         run: |
