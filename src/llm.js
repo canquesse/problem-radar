@@ -16,7 +16,7 @@ export function llmConfig(env = process.env) {
   return {
     key,
     url: env.LLM_URL || DEFAULT_URL,
-    models: (env.LLM_MODEL || 'gemini-2.5-flash-lite,gemini-2.5-flash,gemini-2.0-flash').split(',').map((m) => m.trim()).filter(Boolean),
+    models: (env.LLM_MODEL || 'gemini-2.5-flash,gemini-2.0-flash,gemini-flash-latest').split(',').map((m) => m.trim()).filter(Boolean),
     maxRequests: Number(env.LLM_MAX_REQUESTS || 20),
     minGapMs: Number(env.LLM_MIN_GAP_MS || 4500),
   };
