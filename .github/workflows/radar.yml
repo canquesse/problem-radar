@@ -44,7 +44,7 @@ jobs:
     timeout-minutes: 30
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url || steps.deploy_retry.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
 
@@ -133,8 +133,21 @@ jobs:
         if: steps.sync.outputs.lane == 'full'
         with:
           path: dist
+      # The artifact API is eventually consistent: deploy-pages sometimes asks
+      # for the artifact a second after the upload and finds nothing. Give it
+      # a moment, and retry once if it still misses.
+      - name: Let the Pages artifact settle
+        if: steps.sync.outputs.lane == 'full'
+        run: sleep 10
       - id: deploy
         if: steps.sync.outputs.lane == 'full'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Wait before retrying the deploy
+        if: steps.sync.outputs.lane == 'full' && steps.deploy.outcome == 'failure'
+        run: sleep 30
+      - id: deploy_retry
+        if: steps.sync.outputs.lane == 'full' && steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
 
       - name: Chain the next run (~3 minutes after this one started)
