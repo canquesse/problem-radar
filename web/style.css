@@ -328,3 +328,9 @@ tr:last-child td { border-bottom: 0; }
   .block { padding-top: 44px; }
   .idea h3 { font-size: 24px; }
 }
+
+/* Idea brief (written by the language model when available) */
+.brief { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 28px 0 0; }
+.brief div { background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--dc); border-radius: var(--r); padding: 16px 18px; }
+.brief dt { font: 500 11.5px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); margin-bottom: 6px; }
+.brief dd { margin: 0; font-size: 16px; line-height: 1.45; }

@@ -3,6 +3,7 @@
 
 export const STRINGS = {
   en: {
+    'i.who': 'Who needs it', 'i.problem': 'The problem', 'i.whyOpen': 'Why it looks open', 'i.firstStep': 'First step',
     'sg.news': 'News sites', 'sg.news.n': '{n} news sites', 'sg.news.d': 'Each outlet is its own source: tech, startup, electronics, maker, manufacturing, energy, science and security press.',
     'sg.qa': 'Q&A sites', 'sg.qa.n': '{n} Q&A sites', 'sg.qa.d': 'Stack Exchange sites where people ask for tools and products or get stuck.',
     'sg.forums': 'Community forums', 'sg.forums.n': '{n} forums', 'sg.forums.d': 'Public Discourse forums of engineering and maker communities.',
@@ -130,6 +131,7 @@ export const STRINGS = {
     'ago.never': 'never',
   },
   tr: {
+    'i.who': 'Kim istiyor', 'i.problem': 'Sorun', 'i.whyOpen': 'Neden boşta', 'i.firstStep': 'İlk adım',
     'sg.news': 'Haber siteleri', 'sg.news.n': '{n} haber sitesi', 'sg.news.d': 'Her yayın organı ayrı bir kaynak: teknoloji, girişim, elektronik, maker, imalat, enerji, bilim ve güvenlik basını.',
     'sg.qa': 'Soru-cevap siteleri', 'sg.qa.n': '{n} soru-cevap sitesi', 'sg.qa.d': 'İnsanların araç ve ürün aradığı ya da takıldığı Stack Exchange siteleri.',
     'sg.forums': 'Topluluk forumları', 'sg.forums.n': '{n} forum', 'sg.forums.d': 'Mühendislik ve maker topluluklarının açık Discourse forumları.',
