@@ -37,7 +37,7 @@ export function pickLane(state, now, lane = 'auto') {
   const last = state.cursors['lane:full'];
   // New code always gets a full run (and a Pages deploy), even when the
   // push-triggered run was replaced by a chained one.
-  if (process.env.GITHUB_SHA && last?.sha && last.sha !== process.env.GITHUB_SHA) return 'full';
+  if (process.env.GITHUB_SHA && last?.sha !== process.env.GITHUB_SHA) return 'full';
   return !last?.at || Date.parse(now) - Date.parse(last.at) >= 55 * 60_000 ? 'full' : 'fast';
 }
 
