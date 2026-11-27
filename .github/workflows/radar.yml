@@ -58,11 +58,13 @@ jobs:
 
       # all-MiniLM-L6-v2 (~23 MB) is downloaded once and cached between runs.
       # Local models: all-MiniLM-L6-v2 (~23 MB) for meaning, NLLB-200 distilled
-      # (~900 MB) for English -> Turkish. Downloaded once, then cached.
+      # (~900 MB) for English -> Turkish, Qwen2.5-1.5B-Instruct (~1.8 GB, 4-bit)
+      # for writing ideas. Downloaded once, then cached.
       - uses: actions/cache@v4
         with:
           path: .model-cache
-          key: models-minilm-nllb-v1
+          key: models-minilm-nllb-qwen-v1
+          restore-keys: models-minilm-nllb-
 
       - name: Fetch the data branch (records, cursors, ETags, changelog)
         run: |
