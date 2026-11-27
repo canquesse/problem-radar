@@ -12,7 +12,7 @@ import { syncFeeds, syncLaunches, syncNewRepos } from './sources/developments.js
 import { syncGdelt, syncHNAsks } from './sources/demand.js';
 import { syncForums, syncStackExchange } from './sources/community.js';
 import { processMarket } from './analyze.js';
-import { LLM, llmConfig } from './llm.js';
+import { LLM, LocalLLM, llmConfig } from './llm.js';
 import { parseFixedByRefs } from './extract.js';
 import { recordSourceRun, upsertRecord } from './store.js';
 
@@ -116,9 +116,11 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
   const result = processCards(state, now);
   // Optional language model (free Gemini tier when GEMINI_API_KEY is set),
   // only in the full lane to stay well inside the free quota.
+  // Without a key, a small local model does the same job (slower, English,
+  // then translated). Set LOCAL_LLM=off to disable it.
   const cfg = full && translateFn !== false ? llmConfig() : null;
-  const llm = cfg ? new LLM(cfg, { log }) : null;
-  if (llm) log(`llm: enabled (${cfg.models[0]})`);
+  const llm = cfg ? new LLM(cfg, { log }) : full && translateFn !== false && process.env.LOCAL_LLM !== 'off' ? new LocalLLM({ log }) : null;
+  if (llm) log(`llm: ${cfg ? `enabled (${cfg.models[0]})` : `local (${llm.model})`}`);
   const market = await processMarket(state, now, { llm, log, embedFn, translateFn, translateBudgetMs: translateFn === false ? 0 : full ? 300_000 : 60_000, translateAll: full });
   result.transitions.push(...market.transitions);
   result.created.push(...market.created);

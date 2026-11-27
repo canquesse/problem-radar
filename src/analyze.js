@@ -65,7 +65,11 @@ export async function processMarket(state, now, { embedFn = null, translateFn = 
     const j = state.llmIdeas?.[g.signature];
     if (!j) return g.ruleIdea ? [g] : [];
     if (!j.isIdea) return [];
-    return [{ ...g, idea: j.ideaEn || g.idea, ideaTrLlm: j.ideaTr || null, type: j.type || g.type, whoTr: j.whoTr, problemTr: j.problemTr, whyOpenTr: j.whyOpenTr, firstStepTr: j.firstStepTr, judged: true }];
+    return [{
+      ...g, idea: j.ideaEn || g.idea, ideaTrLlm: j.ideaTr || null, type: j.type || g.type, judged: true,
+      whoTr: j.whoTr, problemTr: j.problemTr, whyOpenTr: j.whyOpenTr, firstStepTr: j.firstStepTr,
+      whoEn: j.whoEn, problemEn: j.problemEn, whyOpenEn: j.whyOpenEn, firstStepEn: j.firstStepEn,
+    }];
   });
   const prev = state.ideas || {};
   const next = {};
@@ -105,6 +109,7 @@ export async function processMarket(state, now, { embedFn = null, translateFn = 
     // the hourly full run catches up on everything else.
     const texts = [
       ...ideasSorted.map((g) => g.idea),
+      ...ideasSorted.flatMap((g) => [g.whoEn, g.problemEn, g.whyOpenEn, g.firstStepEn].filter(Boolean)),
       ...ideasSorted.slice(0, 80).flatMap((g) => g.evidence.slice(0, 4).map((e) => e.quote || e.title)),
     ];
     if (translateAll) texts.push(

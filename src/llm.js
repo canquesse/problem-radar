@@ -73,6 +73,48 @@ export class LLM {
   }
 }
 
+/**
+ * A small instruct model running locally (Qwen2.5-1.5B-Instruct, 4-bit, CPU,
+ * through transformers.js). No key, no cost. It writes in English; the local
+ * translation model turns its answers into Turkish. One cluster per prompt,
+ * within a time budget per run.
+ */
+export class LocalLLM {
+  constructor({ model = process.env.LOCAL_LLM_MODEL || 'onnx-community/Qwen2.5-1.5B-Instruct', budgetMs = 240_000, log = () => {} } = {}) {
+    this.model = model;
+    this.budgetMs = budgetMs;
+    this.log = log;
+    this.local = true;
+    this.started = null;
+    this.gen = null;
+    this.used = 0;
+    this.disabled = false;
+  }
+
+  get available() { return !this.disabled && (!this.started || Date.now() - this.started < this.budgetMs); }
+
+  async json(system, user) {
+    if (!this.available) return null;
+    this.started ||= Date.now();
+    try {
+      if (!this.gen) {
+        const { pipeline, env } = await import('@huggingface/transformers');
+        env.cacheDir = process.env.MODEL_CACHE_DIR || '.model-cache';
+        this.gen = await pipeline('text-generation', this.model, { dtype: 'q4' });
+      }
+      this.used++;
+      const out = await this.gen([{ role: 'system', content: system }, { role: 'user', content: user }], { max_new_tokens: 180, do_sample: false });
+      const text = out[0]?.generated_text?.at(-1)?.content || '';
+      const m = text.match(/\{[\s\S]*\}/);
+      return m ? JSON.parse(m[0]) : null;
+    } catch (err) {
+      this.log(`  local llm: ${err.message}`);
+      if (!this.gen) this.disabled = true;
+      return null;
+    }
+  }
+}
+
 const IDEA_SYSTEM = `You review clusters of real requests that people posted online (Stack Exchange, community forums, Hacker News).
 For each cluster decide whether it reveals an opportunity for a NEW product, startup or open-source project.
 Say no for: plain technical support ("how do I configure X", "why does my code fail"), homework, opinions, news, or a missing feature that only the maintainers of one existing product can add.
@@ -86,6 +128,23 @@ Never invent facts: base everything on the quotes. Answer in JSON only.`;
 export async function writeIdeas(state, candidates, llm, { domainName = (d) => d, log = () => {} } = {}) {
   state.llmIdeas ||= {};
   const todo = candidates.filter((c) => !state.llmIdeas[c.signature]).slice(0, 60);
+  if (llm.local) {
+    // Small local model: one cluster at a time, English answers.
+    for (const c of todo) {
+      if (!llm.available) break;
+      const out = await llm.json(IDEA_SYSTEM, `Requests (${domainName(c.domain)}):
+${c.evidence.slice(0, 5).map((e) => `- (${e.source}) ${(e.quote || e.title).slice(0, 200)}`).join('\n')}
+Is this an opportunity for a new product, startup or project (not tech support)? Return {"is_idea":true|false,"type":"startup"|"product"|"project","idea":"A ... (one line)","who":"who needs it","problem":"the pain in one sentence","why_open":"why it seems unserved, from the requests only","first_step":"smallest first step"}`);
+      if (!out) continue;
+      state.llmIdeas[c.signature] = {
+        isIdea: !!out.is_idea, type: ['startup', 'product', 'project'].includes(out.type) ? out.type : null,
+        ideaEn: String(out.idea || '').slice(0, 200), whoEn: String(out.who || '').slice(0, 200), problemEn: String(out.problem || '').slice(0, 300),
+        whyOpenEn: String(out.why_open || '').slice(0, 300), firstStepEn: String(out.first_step || '').slice(0, 300), local: true,
+      };
+    }
+    log(`local llm: judged ${llm.used} clusters this run, ${Object.keys(state.llmIdeas).length} cached`);
+    return;
+  }
   for (let i = 0; i < todo.length && llm.available; i += 8) {
     const batch = todo.slice(i, i + 8);
     const user = `Clusters:\n${batch.map((c, k) => `#${k + 1} [${domainName(c.domain)} / ${c.sub}] ${c.people} people\n${c.evidence.slice(0, 5).map((e) => `- (${e.source}, ${e.kind}) ${(e.quote || e.title).slice(0, 220)}`).join('\n')}`).join('\n\n')}

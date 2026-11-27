@@ -165,7 +165,7 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
   write('cards.json', Object.values(state.cards).map((c) => ({ ...c, titleTr: T(c.title) })));
   write('opportunities.json', Object.values(state.opportunities || {}));
   write('ideas.json', Object.values(state.ideas || {}).sort((a, b) => b.score - a.score).slice(0, 400).map((g) => ({
-    ...g, ideaTr: T(g.idea), evidence: g.evidence.map((e) => ({ ...e, quoteTr: T(e.quote || e.title) })),
+    ...g, ideaTr: g.ideaTrLlm || T(g.idea), whoTr: g.whoTr || T(g.whoEn), problemTr: g.problemTr || T(g.problemEn), whyOpenTr: g.whyOpenTr || T(g.whyOpenEn), firstStepTr: g.firstStepTr || T(g.firstStepEn), evidence: g.evidence.map((e) => ({ ...e, quoteTr: T(e.quote || e.title) })),
   })));
   write('needs.json', (state.needs || []).map((n) => ({ ...n, titleTr: T(n.title) })));
   write('developments.json', (state.developments || []).slice(0, 3000).map((d) => ({ ...d, titleTr: T(d.title), summaryTr: T(d.summary) })));
