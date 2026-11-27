@@ -200,8 +200,23 @@ export const DOMAINS = [
 
 export const SUBS = DOMAINS.flatMap((d) => d.subs.map((s) => ({ ...s, domain: d.id, key: `${d.id}/${s.id}` })));
 
+// One Google News search per sub-area (its strongest keywords, last 3 days):
+// each search spans thousands of outlets, so a story that only specialist
+// press covers still reaches the radar.
+const subQuery = (sub) => `(${sub.keywords.filter((k) => k.length > 2).slice(0, 6).map((k) => (k.includes(' ') ? `"${k}"` : k)).join(' OR ')}) when:3d`;
+const EXTRA_NEWS = {
+  math: ['(mathematician OR mathematicians OR "math proof" OR theorem OR conjecture) when:7d', '("Riemann hypothesis" OR "Lean 4" OR "formal proof" OR "proof assistant" OR "AI mathematics") when:14d'],
+  hardware: ['("new chip" OR "unveils chip" OR "processor" OR "GPU launch") when:3d'],
+  industry: ['("factory automation" OR "industrial robot" OR "predictive maintenance" OR "digital twin") when:7d'],
+  mechanical: ['("additive manufacturing" OR "3D printed" OR "CNC machine" OR "humanoid robot") when:7d'],
+  electronics: ['(microcontroller OR "PCB design" OR "chipmaker" OR "sensor startup") when:7d'],
+  cyber: ['(vulnerability OR breach OR ransomware OR "zero-day") when:2d'],
+};
+
 export const DOMAIN_FEEDS = DOMAINS.flatMap((d) => [
   ...d.news.map((q, i) => ({ id: `gnews-${d.id}${i ? `-${i}` : ''}`, kind: 'news', url: gnews(q), domain: d.id })),
+  ...d.subs.map((sub) => ({ id: `gnews-${d.id}-${sub.id}`, kind: 'news', url: gnews(subQuery(sub)), domain: d.id })),
+  ...(EXTRA_NEWS[d.id] || []).map((q, i) => ({ id: `gnews-${d.id}-x${i + 1}`, kind: 'news', url: gnews(q), domain: d.id })),
   ...(d.feeds || []).map(([id, url]) => ({ id, kind: 'news', url, domain: d.id })),
 ]);
 
