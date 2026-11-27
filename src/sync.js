@@ -9,7 +9,8 @@ import { computeMetrics, processCards, pruneRecords } from './pipeline.js';
 import { fetchPull, ghId, isPrereleaseTag, releaseContainsCommit, syncRepo } from './sources/github.js';
 import { syncHN } from './sources/hn.js';
 import { syncFeeds, syncLaunches, syncNewRepos } from './sources/developments.js';
-import { processOpportunities } from './market.js';
+import { syncGdelt, syncHNAsks, syncStackOverflow } from './sources/demand.js';
+import { processMarket } from './analyze.js';
 import { parseFixedByRefs } from './extract.js';
 import { recordSourceRun, upsertRecord } from './store.js';
 
@@ -37,7 +38,7 @@ export function pickLane(state, now, lane = 'auto') {
   return !last || Date.parse(now) - Date.parse(last) >= 55 * 60_000 ? 'full' : 'fast';
 }
 
-export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep, log = console.log, skipHN = false, lane: laneOpt = 'full' } = {}) {
+export async function runSync(state, { now = new Date().toISOString(), token, repos = REPOS, fetch, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), log = console.log, skipHN = false, lane: laneOpt = 'full', embedFn = null } = {}) {
   const lane = pickLane(state, now, laneOpt);
   const full = lane === 'full';
   log(`lane: ${lane}`);
@@ -94,14 +95,23 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
     await syncFeeds({ http: hn, now, upsert, record, state, minIntervalMin: full ? 0 : 15 });
     await syncLaunches({ http: hn, state, now, upsert, record });
     if (!ghBlocked && full) await syncNewRepos({ http: gh, now, upsert, record });
+    // Demand signals: people asking for a tool or saying they would pay.
+    await syncHNAsks({ http: hn, state, now, upsert, record });
+    if (full) {
+      await syncStackOverflow({ http: hn, state, now, upsert, record });
+      // GDELT asks for one request every 5 seconds and answers 429 otherwise:
+      // never wait on it, just skip that topic until the next full run.
+      const gd = new HttpClient({ headers: { 'User-Agent': 'problem-radar' }, fetch, sleep, maxRetries: 0, maxWaitMs: 0 });
+      await syncGdelt({ http: gd, now, upsert, record, sleep });
+    }
   }
 
   if (full && !ghBlocked) state.cursors['lane:full'] = { at: now };
   const result = processCards(state, now);
-  const market = processOpportunities(state, now);
+  const market = await processMarket(state, now, { log, embedFn });
   result.transitions.push(...market.transitions);
   result.created.push(...market.created);
-  log(`market: ${market.developments} developments, ${market.opportunities} opportunities`);
+  log(`market: ${market.developments} developments, ${market.opportunities} opportunities, ${market.gaps} gaps`);
   const pruned = pruneRecords(state, now);
   const metrics = computeMetrics(state, now);
   log(`records: +${counts.new} new, ${counts.changed} changed, ${counts.unchanged} unchanged; pruned ${pruned}`);

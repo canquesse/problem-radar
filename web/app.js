@@ -27,7 +27,7 @@ let outcomes = store.get('outcomes', {});
 setLang(store.get('lang', (navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en'));
 
 // --- Data ------------------------------------------------------------------------
-const data = { cards: [], byId: new Map(), events: [], byCard: new Map(), sources: {}, metrics: {}, digests: [], meta: {}, opps: [], oppById: new Map(), devs: [], devById: new Map() };
+const data = { cards: [], byId: new Map(), events: [], byCard: new Map(), sources: {}, metrics: {}, digests: [], meta: {}, opps: [], oppById: new Map(), devs: [], devById: new Map(), gaps: [], gapById: new Map() };
 
 // Live data: the sync job publishes fresh JSON to the data branch every few
 // minutes. The page reads it from there (no redeploy needed) and falls back
@@ -51,7 +51,9 @@ async function load() {
   dataBase = base;
   dataVersion = p?.builtAt || String(Date.now());
   const get = (n) => fetch(`${dataBase}${n}.json?v=${encodeURIComponent(dataVersion)}`).then((r) => (r.ok ? r.json() : null));
-  const [cards, events, sources, metrics, digests, meta, opps, devs] = await Promise.all(['cards', 'events', 'sources', 'metrics', 'digests', 'meta', 'opportunities', 'developments'].map(get));
+  const [cards, events, sources, metrics, digests, meta, opps, devs, gaps] = await Promise.all(['cards', 'events', 'sources', 'metrics', 'digests', 'meta', 'opportunities', 'developments', 'gaps'].map(get));
+  data.gaps = (gaps || []).sort((a, b) => b.score - a.score);
+  data.gapById = new Map(data.gaps.map((g) => [g.id, g]));
   data.opps = (opps || []).filter((o) => !o.faded).sort((a, b) => b.score - a.score);
   data.oppById = new Map((opps || []).map((o) => [o.id, o]));
   data.devs = devs || [];
@@ -138,7 +140,7 @@ function chrome() {
   $('.brand-text b').textContent = t('brand.name');
   $('#foot-left').textContent = t('foot.left');
   $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === getLang()));
-  const badge = Object.keys(follows).map((id) => data.byId.get(id) || data.oppById.get(id)).filter(Boolean).reduce((s, c) => s + unseen(c).length, 0);
+  const badge = Object.keys(follows).map((id) => data.byId.get(id) || data.oppById.get(id) || data.gapById.get(id)).filter(Boolean).reduce((s, c) => s + unseen(c).length, 0);
   const items = [['overview', 'nav.overview'], ['opportunities', 'nav.opps'], ['developments', 'nav.devs'], ['needs', 'nav.needs'], ['following', 'nav.following'], ['changes', 'nav.changes'], ['digest', 'nav.digest'], ['sources', 'nav.sources'], ['about', 'nav.about']];
   $('#nav').innerHTML = items.map(([k, key]) => `<a href="#${k}" data-tab="${k}">${esc(t(key))}${k === 'following' && badge ? `<span class="badge">${badge}</span>` : ''}</a>`).join('');
   statusStrip();
@@ -191,18 +193,23 @@ function viewOverview() {
   const moving = data.cards.filter((c) => ['worth_trying', 'fix_coming', 'resolved', 'watching'].includes(c.state))
     .sort((a, b) => (b.stateSince || '').localeCompare(a.stateSince || '') || b.caseCount - a.caseCount);
   const devs = data.devs.filter((d) => d.type !== 'release').slice(0, 8);
+  const market = data.gaps.filter((g) => g.scope === 'market' && g.verdict !== 'crowded');
   const rung = (st) => `<a class="rung-tile c-${st}" href="#needs?state=${st}"><span class="num">${num(by(st).length)}</span><span class="name">${esc(stateName(st))}</span><span class="rule">${esc(stateRule(st))}</span></a>`;
   return `<section class="hero">
       <div>
-        <p class="kicker">${esc(t('hero.kicker', { repos: (data.meta.repos || []).length }))}</p>
-        <h1>${t('hero2.title')}</h1>
-        <p class="lede">${esc(t('hero2.lede'))}</p>
+        <p class="kicker">${esc(t('hero3.kicker', { n: num(Object.keys(data.sources).length) }))}</p>
+        <h1>${t('hero3.title')}</h1>
+        <p class="lede">${esc(t('hero3.lede'))}</p>
         <div class="ctas"><a class="btn primary" href="#opportunities">${esc(t('hero2.cta'))} →</a><a class="btn ghost" href="#developments">${esc(t('hero2.cta2'))}</a></div>
       </div>
-      ${scope()}
+      ${gapScope()}
     </section>
     <section class="section">
-      <div class="section-head"><div><h2>${esc(t('ov.opps'))}</h2><p>${esc(t('ov.opps.sub'))}</p></div><a href="#opportunities">${esc(t('sec.seeall'))} (${num(data.opps.length)}) →</a></div>
+      <div class="section-head"><div><h2>${esc(t('ov.gaps'))}</h2><p>${esc(t('ov.gaps.sub'))}</p></div><a href="#opportunities">${esc(t('sec.seeall'))} (${num(data.gaps.length)}) →</a></div>
+      ${market.length ? `<div class="grid opp-grid">${market.slice(0, 6).map(gapTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}
+    </section>
+    <section class="section">
+      <div class="section-head"><div><h2>${esc(t('ov.areas'))}</h2><p>${esc(t('ov.areas.sub'))}</p></div><a href="#opportunities?tab=areas">${esc(t('sec.seeall'))} (${num(data.opps.length)}) →</a></div>
       ${data.opps.length ? `<div class="grid opp-grid">${data.opps.slice(0, 3).map(oppTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}
     </section>
     <section class="section">
@@ -220,6 +227,125 @@ function viewOverview() {
       </nav>
       <div class="grid">${moving.slice(0, 6).map(tile).join('')}</div>
     </section>`;
+}
+
+// --- Gaps ---------------------------------------------------------------------------
+const gapPill = (v) => `<span class="pill g-${esc(v)}"><span class="t">${esc(t(`gap.${v}`))}</span></span>`;
+
+function gapCounts(g) {
+  const c = g.counts;
+  return [
+    c.pay && `<span class="chip-d strong">${esc(t('gap.pay', { n: c.pay }))}</span>`,
+    c.seeking && `<span class="chip-d strong">${esc(t('gap.seeking', { n: c.seeking }))}</span>`,
+    c.complaints && `<span class="chip-d">${esc(t('gap.complaints', { n: c.complaints }))}</span>`,
+    c.problems && `<span class="chip-d">${esc(t('gap.problems', { n: c.problems }))}</span>`,
+    c.features && `<span class="chip-d">${esc(t('gap.features', { n: c.features }))}</span>`,
+    c.questions && `<span class="chip-d">${esc(t('gap.questions', { n: c.questions }))}${c.unanswered ? ` · ${esc(t('gap.unanswered', { n: c.unanswered }))}` : ''}</span>`,
+  ].filter(Boolean).join('');
+}
+const SRC_NAMES = { github: 'GitHub', hn: 'Hacker News', stackoverflow: 'Stack Overflow' };
+
+function gapTile(g) {
+  const on = !!follows[g.id];
+  return `<article class="tile gap g-${esc(g.verdict)}" data-gap="${esc(g.id)}">
+    <div class="tile-top"><span class="repo">${esc(t(`gap.${g.scope}`))}${g.topic ? ` · ${esc(topicName(g.topic))}` : ''}</span>${gapPill(g.verdict)}</div>
+    <h3><a href="#gap/${esc(g.id)}">${esc(g.title)}</a></h3>
+    <div class="who"><b>${esc(t('gap.people', { n: g.people }))}</b> · ${g.sources.map((x) => esc(SRC_NAMES[x] || x)).join(', ')}</div>
+    <div class="sd"><div>${gapCounts(g)}</div></div>
+    <div class="supply-line">${g.solutions.length ? esc(t('gap.solutionsN', { n: g.solutions.length })) : `<span class="openmark">${esc(t('gap.noSolutions'))}</span>`}${g.interest.length ? ` · ${esc(t('gap.interestN', { n: g.interest.length }))}` : ''}</div>
+    <div class="tile-foot">
+      <span class="size-tag">${esc(sizeName(g.nextStep.size))}</span>
+      <button class="follow" data-follow="${esc(g.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button>
+    </div>
+  </article>`;
+}
+
+let gapTab = 'market';
+function viewGaps() {
+  const list = gapTab === 'areas' ? [] : data.gaps.filter((g) => g.scope === gapTab);
+  return `<div class="page-head"><h1>${esc(t('gaps.title'))}</h1><p>${esc(t('gaps.sub'))}</p></div>
+    <div class="devbar">${['market', 'upstream', 'areas'].map((k) => `<button class="chip" data-gtab="${k}" aria-pressed="${gapTab === k}">${esc(t(`gaps.tab.${k}`))} <span class="muted">${num(k === 'areas' ? data.opps.length : data.gaps.filter((g) => g.scope === k).length)}</span></button>`).join('')}</div>
+    ${gapTab === 'areas'
+      ? `<div class="grid opp-grid">${data.opps.map(oppTile).join('')}</div>`
+      : list.length ? `<div class="grid opp-grid">${list.map(gapTile).join('')}</div>` : `<p class="empty">${esc(t('sec.empty'))}</p>`}`;
+}
+
+function viewGap(id) {
+  const g = data.gapById.get(id);
+  if (!g) return `<div class="detail"><a class="back" href="#opportunities">${esc(t('detail.back'))}</a><p class="empty">${esc(t('detail.missing'))}</p></div>`;
+  if (follows[g.id]) { follows[g.id].seenAt = new Date().toISOString(); store.set('follows', follows); }
+  const on = !!follows[g.id];
+  const people = t('gap.people', { n: g.people });
+  const verdictKey = { open: 'gap.verdictOpen', partial: 'gap.verdictPartial', crowded: 'gap.verdictCrowded' }[g.verdict];
+  const opp = g.topic && data.oppById.get(`o-${g.topic}`);
+  const kindName = (k) => ({ pay: t('gap.pay', { n: 1 }).replace(/^1\s*/, ''), seeking: t('gap.seeking', { n: 1 }).replace(/^1\s*/, ''), complaint: t('gap.complaints', { n: 1 }).replace(/^1\s*/, ''), problem: t('gap.problems', { n: 1 }).replace(/^1\s*/, ''), feature: t('gap.features', { n: 1 }).replace(/^1\s*/, ''), question: t('gap.questions', { n: 1 }).replace(/^1\s*/, '') }[k] || k);
+  return `<div class="detail">
+    <a class="back" href="#${esc(lastList.startsWith('opportunit') || lastList === 'overview' ? lastList : 'opportunities')}">${esc(t('detail.back'))}</a>
+    <header class="detail-head">
+      ${gapPill(g.verdict)} <span class="flag">${esc(t(`gap.${g.scope}`))}</span>
+      <h1>${esc(g.title)}</h1>
+      <div class="detail-meta"><b>${esc(people)}</b><span>${g.sources.map((x) => esc(SRC_NAMES[x] || x)).join(', ')}</span>
+        ${opp ? `<a href="#opportunity/${esc(opp.id)}">${esc(t('gap.area'))}: ${esc(opp.name[getLang()])}</a>` : ''}
+        <button class="follow" data-follow="${esc(g.id)}" aria-pressed="${on}">${on ? '★' : '☆'} ${esc(on ? t('card.following') : t('card.follow'))}</button></div>
+      <div class="sd inline" style="margin-top:12px">${gapCounts(g)}</div>
+    </header>
+    <div class="detail-grid">
+      <div>
+        <div class="panel why"><h2>${esc(t('opp.status'))}</h2><p>${esc(t(verdictKey, { people }))}</p>${g.scope === 'upstream' ? `<div class="sub">${esc(t('gap.upstreamNote'))}</div>` : ''}
+          ${g.keywords.length ? `<div class="sub">${esc(t('gap.keywords'))}: ${g.keywords.map(esc).join(', ')}</div>` : ''}</div>
+        <h2 class="h-sec" style="margin-top:28px">${esc(t('gap.evidence'))}</h2>
+        <ul class="timeline">${g.evidence.map((e) => `<li class="ev-${esc(e.kind)}"><span class="when">${esc(fmtDate(e.at))}</span><span class="kind">${esc(kindName(e.kind))}</span> <span class="muted">· ${esc(SRC_NAMES[e.source] || e.source)}${e.people > 1 ? ` · ${esc(t('gap.people', { n: e.people }))}` : ''}</span>
+          <blockquote>${esc(e.quote || e.title)}</blockquote>
+          <div class="sub"><a href="${safeUrl(e.url)}" ${ext}>${esc(t('detail.openSource'))} ↗</a>${e.cardId ? `<a href="#card/${esc(e.cardId)}">${esc(t('nav.needs'))} →</a>` : ''}</div></li>`).join('')}</ul>
+      </div>
+      <div>
+        <div class="panel next"><h2>${esc(t('gap.next'))}</h2><span class="size">${esc(sizeName(g.nextStep.size))}</span><p>${esc(t(`gap.step.${g.nextStep.code}`, g.nextStep.params || {}))}</p></div>
+        <div class="panel"><h2>${esc(t('gap.solutions'))}</h2>${g.solutions.length ? g.solutions.map((x) => `<div class="fixrow"><a href="${safeUrl(x.url)}" ${ext}>${esc(x.title)} ↗</a> <span class="muted">${esc(devTypeName(x.kind) === x.kind ? 'Tool' : devTypeName(x.kind))} · ${esc(t('gap.similar', { p: Math.round(x.similarity * 100) }))}</span></div>`).join('') : `<p class="openmark" style="margin:0">${esc(t('gap.noSolutions'))}</p>`}</div>
+        ${g.interest.length ? `<div class="panel"><h2>${esc(t('gap.interest'))}</h2>${g.interest.map((x) => `<div class="fixrow"><a href="${safeUrl(x.url)}" ${ext}>${esc(x.title)} ↗</a><div class="muted" style="font-size:13px">${esc([x.funding?.amount, x.funding?.round].filter(Boolean).join(' · '))}${x.verified ? ` · ✓ ${esc(t('devs.verified'))}` : ''} · ${esc(t('gap.similar', { p: Math.round(x.similarity * 100) }))}</div></div>`).join('')}</div>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function gapScope() {
+  const topics = (data.meta.topics || []).map((x) => x.id);
+  const sectors = [...topics, 'other'];
+  const R = 210;
+  const band = { open: [10, 80], partial: [92, 150], crowded: [160, 202] };
+  const maxP = Math.max(3, ...data.gaps.map((g) => g.people));
+  const dots = data.gaps.map((g) => {
+    const si = Math.max(0, sectors.indexOf(g.topic || 'other'));
+    const ang = ((si + 0.12 + hash(g.id) * 0.76) / sectors.length) * Math.PI * 2 - Math.PI / 2;
+    const [r0, r1] = band[g.verdict];
+    const r = r0 + hash(`${g.id}r`) * (r1 - r0);
+    const size = 3.5 + (Math.sqrt(g.people) / Math.sqrt(maxP)) * 9;
+    const hollow = g.scope === 'upstream';
+    return `<circle class="dot g-${g.verdict}" data-gapdot="${esc(g.id)}" cx="${(Math.cos(ang) * r).toFixed(1)}" cy="${(Math.sin(ang) * r).toFixed(1)}" r="${size.toFixed(1)}" fill="${hollow ? 'none' : 'currentColor'}" fill-opacity="${hollow ? 0 : 0.85}" stroke="currentColor" stroke-width="${hollow ? 1.6 : 0}"/>`;
+  }).join('');
+  const spokes = sectors.map((_, i) => {
+    const a = (i / sectors.length) * Math.PI * 2 - Math.PI / 2;
+    return `<line class="spoke" x1="0" y1="0" x2="${(Math.cos(a) * R).toFixed(1)}" y2="${(Math.sin(a) * R).toFixed(1)}"/>`;
+  }).join('');
+  const labels = sectors.map((id, i) => {
+    const a = ((i + 0.5) / sectors.length) * Math.PI * 2 - Math.PI / 2;
+    const x = Math.cos(a) * (R + 14), y = Math.sin(a) * (R + 14);
+    const name = id === 'other' ? '…' : topicName(id);
+    return `<text class="sector-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${Math.abs(x) < 20 ? 'middle' : x > 0 ? 'start' : 'end'}" dominant-baseline="middle">${esc(name.length > 26 ? `${name.slice(0, 25)}…` : name)}</text>`;
+  }).join('');
+  return `<div class="scope" id="scope">
+    <svg viewBox="-330 -250 660 500" role="img" aria-label="${esc(t('gaps.radar'))}">
+      <defs><linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--signal)" stop-opacity="0"/><stop offset="1" stop-color="var(--signal)" stop-opacity=".22"/></linearGradient>
+        <radialGradient id="openGlow"><stop offset="0" stop-color="var(--signal)" stop-opacity=".16"/><stop offset="1" stop-color="var(--signal)" stop-opacity="0"/></radialGradient></defs>
+      <circle class="disc" r="${R}"/>
+      <circle r="86" fill="url(#openGlow)"/>
+      ${spokes}<circle class="rung" r="86"/><circle class="rung" r="155"/>
+      <g class="sweep"><path d="M0 0 L${R} 0 A${R} ${R} 0 0 0 ${(Math.cos(-0.5) * R).toFixed(1)} ${(Math.sin(-0.5) * R).toFixed(1)} Z"/></g>
+      ${dots}${labels}
+      <circle r="3" fill="var(--ink)"/>
+    </svg>
+    <div class="scope-legend">${esc(t('gaps.radar.legend'))}</div>
+    <div class="scope-tip" id="scope-tip"></div>
+  </div>`;
 }
 
 // --- Opportunities ------------------------------------------------------------------
@@ -482,6 +608,10 @@ function viewDetail(id) {
 }
 
 function changeItem(e, withMeaning = false) {
+  if (e.kind === 'gap') {
+    return `<div class="change"><div class="arrow">${gapPill(e.from)}→${gapPill(e.to)}</div>
+      <div><h3><a href="#gap/${esc(e.cardId)}">${esc(data.gapById.get(e.cardId)?.title || e.cardTitle)}</a></h3><p>${esc(t('gap.people', { n: e.params?.people || 0 }))}</p></div></div>`;
+  }
   const opp = e.kind === 'opportunity';
   const o = opp ? data.oppById.get(e.cardId) : null;
   const p = opp ? oppPill : pill;
@@ -509,12 +639,14 @@ function byDay(events, withMeaning = false) {
 function viewFollowing() {
   const list = Object.keys(follows).map((id) => data.byId.get(id)).filter(Boolean).sort((a, b) => unseen(b).length - unseen(a).length);
   const oppList = Object.keys(follows).map((id) => data.oppById.get(id)).filter(Boolean);
-  const changes = [...list, ...oppList].flatMap((c) => unseen(c)).sort((a, b) => b.at.localeCompare(a.at));
+  const gapList = Object.keys(follows).map((id) => data.gapById.get(id)).filter(Boolean);
+  const changes = [...list, ...oppList, ...gapList].flatMap((c) => unseen(c)).sort((a, b) => b.at.localeCompare(a.at));
   return `<div class="page-head"><h1>${esc(t('following.title'))}</h1><p>${esc(t('following.sub'))}</p></div>
     ${changes.length ? `<section class="section"><div class="section-head"><h2>${esc(t('following.changes'))}</h2><button class="btn ghost" id="mark-seen">${esc(t('following.markSeen'))}</button></div>${byDay(changes, true)}</section>` : ''}
+    ${gapList.length ? `<section class="section"><div class="section-head"><h2>${esc(t('gaps.tab.market'))}</h2></div><div class="grid opp-grid">${gapList.map(gapTile).join('')}</div></section>` : ''}
     ${oppList.length ? `<section class="section"><div class="section-head"><h2>${esc(t('nav.opps'))}</h2></div><div class="grid opp-grid">${oppList.map(oppTile).join('')}</div></section>` : ''}
     <section class="section"><div class="section-head"><h2>${esc(t('following.cards'))}</h2></div>
-    ${list.length ? `<div class="grid">${list.map(tile).join('')}</div>` : oppList.length ? '' : `<p class="empty">${esc(t('following.empty'))}</p>`}</section>`;
+    ${list.length ? `<div class="grid">${list.map(tile).join('')}</div>` : oppList.length || gapList.length ? '' : `<p class="empty">${esc(t('following.empty'))}</p>`}</section>`;
 }
 
 function viewChanges() {
@@ -601,17 +733,18 @@ function render() {
   }
   if (tab === 'developments') { if (params.has('type')) devFilt.type = params.get('type'); if (params.has('topic')) devFilt.topic = params.get('topic'); }
   const views = {
-    overview: viewOverview, opportunities: viewOpps, opportunity: () => viewOpp(arg), developments: viewDevs, needs: viewCards, cards: viewCards,
+    overview: viewOverview, opportunities: viewGaps, opportunity: () => viewOpp(arg), gap: () => viewGap(arg), developments: viewDevs, needs: viewCards, cards: viewCards,
     card: () => viewDetail(arg), following: viewFollowing, changes: viewChanges, digest: () => viewDigest(arg), sources: viewSources, about: viewAbout,
   };
   const view = views[tab] || viewOverview;
-  if (tab !== 'card' && tab !== 'opportunity') lastList = location.hash.slice(1) || 'overview';
+  if (tab === 'opportunities' && params.has('tab')) gapTab = params.get('tab');
+  if (tab !== 'card' && tab !== 'opportunity' && tab !== 'gap') lastList = location.hash.slice(1) || 'overview';
   chrome();
   main.innerHTML = view();
-  const active = tab === 'card' || tab === 'cards' ? 'needs' : tab === 'opportunity' ? 'opportunities' : views[tab] ? tab : 'overview';
+  const active = tab === 'card' || tab === 'cards' ? 'needs' : tab === 'opportunity' || tab === 'gap' ? 'opportunities' : views[tab] ? tab : 'overview';
   $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === active));
   $('#nav').classList.remove('open');
-  const oppT = tab === 'opportunity' && data.oppById.get(arg) ? `${data.oppById.get(arg).name[getLang()]} · ` : '';
+  const oppT = tab === 'opportunity' && data.oppById.get(arg) ? `${data.oppById.get(arg).name[getLang()]} · ` : tab === 'gap' && data.gapById.get(arg) ? `${data.gapById.get(arg).title} · ` : '';
   document.title = `${tab === 'card' && data.byId.get(arg) ? `${data.byId.get(arg).title} · ` : oppT}${t('brand.name')}`;
 }
 
@@ -630,7 +763,7 @@ document.addEventListener('click', (ev) => {
     store.set('follows', follows);
     const on = !!follows[id];
     $$(`[data-follow="${CSS.escape(id)}"]`).forEach((b) => { b.setAttribute('aria-pressed', on); b.textContent = `${on ? '★' : '☆'} ${on ? t('card.following') : t('card.follow')}`; });
-    chrome(); const { tab } = parseHash(); $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === ({ card: 'needs', cards: 'needs', opportunity: 'opportunities' }[tab] || tab)));
+    chrome(); const { tab } = parseHash(); $$('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.tab === ({ card: 'needs', cards: 'needs', opportunity: 'opportunities', gap: 'opportunities' }[tab] || tab)));
     return;
   }
   const oc = el.closest('[data-outcome]');
@@ -642,6 +775,12 @@ document.addEventListener('click', (ev) => {
     oc.setAttribute('aria-pressed', cur.has(k));
     return;
   }
+  const gt = el.closest('[data-gtab]');
+  if (gt) { gapTab = gt.dataset.gtab; history.replaceState(null, '', '#opportunities'); rerenderKeepScroll(); return; }
+  const gapEl = el.closest('.tile.gap');
+  if (gapEl && !el.closest('a, button')) { location.hash = `gap/${gapEl.dataset.gap}`; return; }
+  const gdot = el.closest('circle[data-gapdot]');
+  if (gdot) { location.hash = `gap/${gdot.dataset.gapdot}`; return; }
   const dt = el.closest('[data-dtype]');
   if (dt) { devFilt.type = dt.dataset.dtype; devFilt.limit = 40; history.replaceState(null, '', '#developments'); rerenderKeepScroll(); return; }
   if (el.id === 'dmore') { devFilt.limit += 40; rerenderKeepScroll(); return; }
@@ -666,10 +805,13 @@ document.addEventListener('mousemove', (ev) => {
   if (!tip) return;
   const dot = ev.target.closest?.('circle.dot');
   if (!dot) { tip.classList.remove('show'); return; }
+  const g = data.gapById.get(dot.dataset.gapdot);
   const c = data.byId.get(dot.dataset.card);
-  if (!c) return;
+  if (!g && !c) return;
   const box = $('#scope').getBoundingClientRect();
-  tip.innerHTML = `${esc(c.title)}<small>${esc(c.repo)} · ${esc(stateName(c.state))}</small>`;
+  tip.innerHTML = g
+    ? `${esc(g.title)}<small>${esc(t(`gap.${g.verdict}`))} · ${esc(t('gap.people', { n: g.people }))}${g.topic ? ` · ${esc(topicName(g.topic))}` : ''}</small>`
+    : `${esc(c.title)}<small>${esc(c.repo)} · ${esc(stateName(c.state))}</small>`;
   tip.style.left = `${ev.clientX - box.left}px`;
   tip.style.top = `${ev.clientY - box.top}px`;
   tip.classList.add('show');

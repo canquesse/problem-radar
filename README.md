@@ -6,7 +6,8 @@ The radar has two streams and connects them:
 
 - **Developments:** funding announcements, new AI products, release notes, media news and brand-new small open-source repositories (found before they collect stars).
 - **Needs:** first-hand problems from GitHub issues and Hacker News: who is stuck, what they were trying to do, what blocks them, how they get by today, and whether a fix actually shipped.
-- **Opportunities:** where a development meets a need in the same area, the radar opens a card with the evidence on both sides, what already exists, a narrow question to research, the smallest first experiment, a status line and a job size (contribute tonight, weekend prototype, talk to users first).
+- **Gaps (the core):** where demand is strong and supply is weak. A free local language model groups requests that mean the same thing (a GitHub feature request, an Ask HN "is there a tool for…", an "I'd pay for…" comment, an unanswered Stack Overflow question) and checks known tools, new products, launches and new repositories for anything that already solves it. A gap with several people behind it and nothing close to it is marked **looks open**: "this idea looks free, here is who wants it".
+- **Areas:** where market developments meet first-hand needs in the same area, with the evidence on both sides, what already exists, a narrow question to research, the smallest first experiment, a status line and a job size (contribute tonight, weekend prototype, talk to users first).
 
 **Live:** https://canquesse.github.io/problem-radar/ · **Weekly digest (RSS):** https://canquesse.github.io/problem-radar/feed.xml
 
@@ -28,11 +29,19 @@ The site is available in **English and Turkish** (switch in the top bar; it foll
 
 Cards say **"3 first-hand cases, 2 verified teams"** instead of claiming independence they cannot prove.
 
-## Developments and opportunities
+## The gap engine
+
+- **Demand:** first-hand problems (GitHub, HN), open feature requests in the watched repositories, Hacker News posts and comments matching phrases like "is there a tool", "alternative to", "I'd pay for", "how do you handle" (AI and dev-tool related only), first-hand complaints on HN, and new Stack Overflow questions in 8 AI tags.
+- **Supply:** curated known tools per area, Product Hunt launches, Show/Launch HN, and brand-new repositories.
+- **Model:** `all-MiniLM-L6-v2` (quantized, about 23 MB) through transformers.js, running on the CPU inside GitHub Actions. No API, no key, no cost. Vectors are cached per record (`embeddings.json`), so each run embeds only new text. The same model merges news stories that report the same event with different headlines.
+- **Rules:** a gap needs three people, or two different kinds of source. Coverage is the weighted similarity of matching supply; below a threshold the gap is *looks open*, above it *partly served* or *crowded*. A gap whose demand sits entirely in one repository is an *upstream request* (best answered by contributing); a gap that shows up off GitHub or across projects is a *market gap*. Investor interest nearby (similar funding stories) is shown but never counted as demand.
+- **Next step:** talk to the people who said they would pay, prototype around a documented workaround, interview the people behind the requests, or contribute upstream.
+
+## Developments and areas
 
 | Development | Free source |
 |---|---|
-| Funding | Google News searches for AI infra / dev tool rounds, TechCrunch (AI, Venture), Crunchbase News |
+| Funding | Google News searches for AI infra / dev tool rounds, TechCrunch (AI, Venture), Crunchbase News, GDELT (worldwide news in 65 languages) |
 | New AI products | Product Hunt (AI and developer tools), Show HN and Launch HN |
 | Release notes | Releases of the 13 watched repositories |
 | Media news | SiliconANGLE AI, The Verge AI, Hugging Face blog, TechCrunch |

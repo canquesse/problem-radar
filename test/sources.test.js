@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import { HttpClient, RateLimitError, parseLinkHeader } from '../src/http.js';
 import { emptyState } from '../src/store.js';
 import { runSync } from '../src/sync.js';
-import { response } from './helpers.js';
+import { fakeEmbed, response } from './helpers.js';
 
 const noSleep = async () => {};
 
@@ -106,7 +106,7 @@ const REPOS = [{ repo: 'acme/a', hn: [] }, { repo: 'acme/b', hn: [] }];
 test('sync stores records with stable ids and advances per-endpoint cursors', async () => {
   const s = emptyState();
   const { fetch } = fakeGitHub();
-  await runSync(s, { now: '2026-11-10T00:00:00Z', token: 't', repos: REPOS, fetch, sleep: noSleep, log: () => {}, skipHN: true });
+  await runSync(s, { now: '2026-11-10T00:00:00Z', token: 't', repos: REPOS, fetch, sleep: noSleep, log: () => {}, skipHN: true, embedFn: fakeEmbed });
   assert.ok(s.records['gh:acme/a:issue:1']);
   assert.ok(s.records['gh:acme/b:issue:1']);
   assert.equal(s.cursors['github:acme/a:issues'].since, '2026-11-06T00:00:00Z');
@@ -119,11 +119,11 @@ test('sync stores records with stable ids and advances per-endpoint cursors', as
 
 test('broken feed: a failing source keeps its last good data, shows as delayed, and does not block others', async () => {
   const s = emptyState();
-  await runSync(s, { now: '2026-11-10T00:00:00Z', token: 't', repos: REPOS, fetch: fakeGitHub().fetch, sleep: noSleep, log: () => {}, skipHN: true });
+  await runSync(s, { now: '2026-11-10T00:00:00Z', token: 't', repos: REPOS, fetch: fakeGitHub().fetch, sleep: noSleep, log: () => {}, skipHN: true, embedFn: fakeEmbed });
   const cursorBefore = structuredClone(s.cursors['github:acme/b:issues']);
   const cardsBefore = Object.keys(s.cards).length;
 
-  await runSync(s, { now: '2026-11-11T00:00:00Z', token: 't', repos: REPOS, fetch: fakeGitHub({ failRepo: 'acme/b' }).fetch, sleep: noSleep, log: () => {}, skipHN: true });
+  await runSync(s, { now: '2026-11-11T00:00:00Z', token: 't', repos: REPOS, fetch: fakeGitHub({ failRepo: 'acme/b' }).fetch, sleep: noSleep, log: () => {}, skipHN: true, embedFn: fakeEmbed });
   const src = s.sources['github:acme/b'];
   assert.equal(src.lastSuccessAt, '2026-11-10T00:00:00Z', 'last success is preserved');
   assert.equal(src.lastAttemptAt, '2026-11-11T00:00:00Z');
@@ -139,9 +139,9 @@ test('second sync with unchanged data uses conditional requests and creates no e
   const s = emptyState();
   const gh = fakeGitHub();
   const etagFetch = async (url, opts) => (opts.headers['If-None-Match'] ? response(304, '', { 'x-ratelimit-remaining': '900' }) : gh.fetch(url, opts));
-  await runSync(s, { now: '2026-11-10T00:00:00Z', token: 't', repos: REPOS, fetch: etagFetch, sleep: noSleep, log: () => {}, skipHN: true });
+  await runSync(s, { now: '2026-11-10T00:00:00Z', token: 't', repos: REPOS, fetch: etagFetch, sleep: noSleep, log: () => {}, skipHN: true, embedFn: fakeEmbed });
   const events = s.events.length;
-  const { ghStats, result } = await runSync(s, { now: '2026-11-10T01:00:00Z', token: 't', repos: REPOS, fetch: etagFetch, sleep: noSleep, log: () => {}, skipHN: true });
+  const { ghStats, result } = await runSync(s, { now: '2026-11-10T01:00:00Z', token: 't', repos: REPOS, fetch: etagFetch, sleep: noSleep, log: () => {}, skipHN: true, embedFn: fakeEmbed });
   assert.ok(ghStats.notModified > 0, 'unchanged endpoints answered 304');
   assert.equal(result.transitions.length + result.created.length, 0);
   assert.equal(s.events.length, events);

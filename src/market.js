@@ -84,6 +84,7 @@ export function computeDevelopments(records) {
     const type = first.devType;
     events.push({
       id: `d-${hash(key)}`,
+      embedId: first.id,
       type,
       title: first.title,
       url: first.url,
@@ -105,7 +106,7 @@ export function computeDevelopments(records) {
     const repoCfg = REPOS.find((x) => x.repo === r.repo);
     if (!repoCfg) continue;
     events.push({
-      id: `d-${hash(r.id)}`, type: 'release', title: `${r.repo.split('/')[1]} ${r.tag}`, url: r.url, repo: r.repo,
+      id: `d-${hash(r.id)}`, embedId: r.id, type: 'release', title: `${r.repo.split('/')[1]} ${r.tag}`, url: r.url, repo: r.repo,
       summary: (r.body || '').replace(/[#*`>]/g, '').slice(0, 280), publishedAt: r.publishedAt, lastSeenAt: r.lastSeenAt,
       outlets: [{ name: 'GitHub', url: r.url, at: r.publishedAt }], outletCount: 1, copies: 1, verified: null, funding: null,
       prerelease: !!r.prerelease, topics: tagTopics('', r.body || '', r.repo),
@@ -227,8 +228,7 @@ export function computeOpportunities(developments, cards, now, windowDays = 30) 
  * Store opportunities and append transition events (same rules as needs:
  * idempotent ids, notifications only on a state change).
  */
-export function processOpportunities(state, now) {
-  const devs = computeDevelopments(state.records);
+export function processOpportunities(state, now, devs = computeDevelopments(state.records)) {
   const opps = computeOpportunities(devs, Object.values(state.cards), now);
   const prev = state.opportunities || {};
   const eventIds = new Set(state.events.map((e) => e.id));
@@ -269,3 +269,45 @@ export function oppReason(o) {
 }
 
 export const OPP_STATES = ['investigating', 'demand_confirmed', 'being_solved', 'watching'];
+
+/**
+ * Merge development events that tell the same story in different words,
+ * using the local language model's vectors. Only news and funding merge, and
+ * only when published within 4 days of each other.
+ */
+export function mergeSemantic(events, vectors, threshold = 0.82) {
+  const mergeable = events.filter((e) => (e.type === 'news' || e.type === 'funding') && vectors.get(e.embedId));
+  const absorbed = new Set();
+  for (let i = 0; i < mergeable.length; i++) {
+    const a = mergeable[i];
+    if (absorbed.has(a.id)) continue;
+    const va = vectors.get(a.embedId);
+    for (let j = i + 1; j < mergeable.length; j++) {
+      const b = mergeable[j];
+      if (absorbed.has(b.id)) continue;
+      if (Math.abs(Date.parse(a.publishedAt || 0) - Date.parse(b.publishedAt || 0)) > 4 * 86400_000) continue;
+      if (a.type === 'funding' && b.type === 'funding' && a.funding?.company && b.funding?.company && a.funding.company !== b.funding.company) continue;
+      let sim = 0;
+      const vb = vectors.get(b.embedId);
+      for (let k = 0; k < va.length; k++) sim += va[k] * vb[k];
+      if (sim < threshold) continue;
+      const keep = (a.publishedAt || '') <= (b.publishedAt || '') ? a : b;
+      const drop = keep === a ? b : a;
+      const outlets = new Map(keep.outlets.map((o) => [(o.name || '').toLowerCase(), o]));
+      for (const o of drop.outlets) if (!outlets.has((o.name || '').toLowerCase())) outlets.set((o.name || '').toLowerCase(), o);
+      keep.outlets = [...outlets.values()];
+      keep.outletCount = keep.outlets.length;
+      keep.copies += drop.copies;
+      if (keep.type === 'funding' || drop.type === 'funding') {
+        keep.type = 'funding';
+        keep.funding ||= drop.funding;
+        keep.verified = keep.outletCount >= 2;
+      }
+      keep.topics = [...new Set([...keep.topics, ...drop.topics])].slice(0, 3);
+      keep.semanticMerges = (keep.semanticMerges || 0) + 1;
+      absorbed.add(drop.id);
+      if (drop === a) break;
+    }
+  }
+  return events.filter((e) => !absorbed.has(e.id));
+}

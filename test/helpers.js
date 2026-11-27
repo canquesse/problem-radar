@@ -77,3 +77,17 @@ export function response(status, body, headers = {}) {
     text: async () => (body === undefined ? '' : typeof body === 'string' ? body : JSON.stringify(body)),
   };
 }
+
+/** Deterministic stand-in for the language model: hashed bag of words. */
+export async function fakeEmbed(texts) {
+  return texts.map((t) => {
+    const v = new Array(384).fill(0);
+    for (const w of t.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter((x) => x.length > 2)) {
+      let h = 0;
+      for (const ch of w) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+      v[h % 384] += 1;
+    }
+    const n = Math.sqrt(v.reduce((s, x) => s + x * x, 0)) || 1;
+    return v.map((x) => x / n);
+  });
+}

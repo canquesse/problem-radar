@@ -41,7 +41,7 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -51,6 +51,16 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+          cache: npm
+
+      - name: Install the local language model runtime
+        run: npm ci --omit=dev --no-audit --no-fund
+
+      # all-MiniLM-L6-v2 (~23 MB) is downloaded once and cached between runs.
+      - uses: actions/cache@v4
+        with:
+          path: .model-cache
+          key: minilm-l6-v2-q8
 
       - name: Fetch the data branch (records, cursors, ETags, changelog)
         run: |
@@ -66,6 +76,7 @@ jobs:
         env:
           RADAR_LANE: ${{ github.event_name == 'push' && 'full' || github.event_name == 'workflow_dispatch' && inputs.lane || 'auto' }}
           DATA_DIR: data-branch/data
+          MODEL_CACHE_DIR: .model-cache
           # Optional: a read-only fine-grained PAT in the RADAR_TOKEN secret.
           # GITHUB_TOKEN is minted fresh for every run and GitHub's ETags vary
           # by token, so conditional requests only produce 304s with a stable

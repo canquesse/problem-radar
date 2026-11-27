@@ -5,12 +5,17 @@
   "type": "module",
   "private": true,
   "license": "MIT",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "sync": "node src/cli.js sync",
     "build": "node src/cli.js build",
     "reprocess": "node src/cli.js reprocess",
     "dev": "node src/cli.js build && node scripts/serve.js",
     "test": "node --test"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.8.1"
   }
 }

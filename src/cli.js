@@ -15,7 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { buildSite } from './site.js';
 import { computeMetrics, processCards } from './pipeline.js';
-import { processOpportunities } from './market.js';
+import { processMarket } from './analyze.js';
 import { loadState, saveState } from './store.js';
 import { runSync } from './sync.js';
 
@@ -38,7 +38,7 @@ if (cmd === 'sync') {
 } else if (cmd === 'reprocess') {
   const state = loadState(dataDir);
   const r = processCards(state, now);
-  const m = processOpportunities(state, now);
+  const m = await processMarket(state, now, { log: console.log });
   r.created.push(...m.created); r.transitions.push(...m.transitions);
   const metrics = computeMetrics(state, now);
   saveState(dataDir, state, { metrics });

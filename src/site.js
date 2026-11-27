@@ -157,6 +157,7 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
   const write = (name, value) => fs.writeFileSync(path.join(distDir, 'data', name), JSON.stringify(value));
   write('cards.json', Object.values(state.cards));
   write('opportunities.json', Object.values(state.opportunities || {}));
+  write('gaps.json', Object.values(state.gaps || {}).sort((a, b) => b.score - a.score).slice(0, 300));
   write('developments.json', (state.developments || []).slice(0, 600));
   write('events.json', state.events.slice(-3000));
   write('sources.json', state.sources);

@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
       - name: Syntax check
         run: for f in src/*.js src/sources/*.js web/*.js scripts/*.js; do node --check "$f"; done
       - name: Scenario tests
