@@ -138,10 +138,12 @@ export function computeIdeas(state, developments, vectors, place, now) {
       // by three or more people with the same problem.
       const phrasedAny = m.some((x) => ideaFromText(x.title, x.body));
       if (!phrasedAny && people < 3) continue;
-      // Plain technical questions only make an idea when the same problem
-      // keeps coming back (3+ people); otherwise someone must be asking for a
-      // tool, a product, or complaining about what exists.
-      if (!pay && !seeking && !m.some((x) => x.kind === 'complaint') && people < 3) continue;
+      // Technical support questions ("how do I configure X") are needs, not
+      // ideas. An idea needs someone asking for a tool or product, someone
+      // saying they would pay, or the same complaint from several people.
+      // (With a language model available, it makes this call instead.)
+      const complaints = m.filter((x) => x.kind === 'complaint').length;
+      if (!pay && !seeking && complaints < 2) continue;
       const cen = centroid(m.map(vec));
       const matches = supply.map((s) => ({ s, sim: vectors.get(s.id) ? cosine(cen, vectors.get(s.id)) : 0 })).filter((x) => x.sim >= IDEAS.supplyAt).sort((a, b) => b.sim - a.sim);
       const answeredShare = people ? m.filter((x) => x.answered).length / people : 0;
