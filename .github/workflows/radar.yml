@@ -49,7 +49,11 @@ jobs:
         run: node src/cli.js sync
         env:
           DATA_DIR: data-branch/data
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: a read-only fine-grained PAT in the RADAR_TOKEN secret.
+          # GITHUB_TOKEN is minted fresh for every run and GitHub's ETags vary
+          # by token, so conditional requests only produce 304s with a stable
+          # token. Without the secret everything still works on GITHUB_TOKEN.
+          GITHUB_TOKEN: ${{ secrets.RADAR_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Save the data branch
         # A single orphan commit, force-pushed: the store stays small and the

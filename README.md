@@ -4,6 +4,8 @@
 
 **Live:** https://canquesse.github.io/problem-radar/ · **Weekly digest (RSS):** https://canquesse.github.io/problem-radar/feed.xml
 
+**Demo walkthrough:** [docs/DEMO.md](docs/DEMO.md) shows the three pilot behaviors on real cards.
+
 Everything runs on free infrastructure: a scheduled GitHub Actions workflow, JSON data on a `data` branch, and GitHub Pages. No paid APIs, no LLM calls.
 
 ---
@@ -70,7 +72,11 @@ HN Algolia ──┘                       └─> cursors.json, etags.json, sou
 
 ### GitHub API budget
 
-`GITHUB_TOKEN` inside Actions is limited to **1,000 requests per hour per repository**. A typical hourly run uses 100 to 180 requests for 13 repositories, and a good share of them come back as 304. The workflow also:
+`GITHUB_TOKEN` inside Actions is limited to **1,000 requests per hour per repository**. A typical hourly run uses 100 to 180 requests for 13 repositories, so the budget has plenty of headroom. The main saving comes from the cursors: each endpoint asks only for what changed since the last run.
+
+Conditional requests are always sent, but there is a catch worth knowing: `GITHUB_TOKEN` is minted fresh for every run and GitHub's ETags vary by token, so in Actions they rarely produce a 304. Locally (with `gh auth token`) they do. To get 304s in Actions too, add a read-only fine-grained personal access token as the `RADAR_TOKEN` repository secret; the workflow prefers it when present and falls back to `GITHUB_TOKEN` otherwise.
+
+The workflow also:
 
 - runs at minute 17, avoiding the top-of-the-hour scheduler rush, and the UI shows per-source freshness, so a late run is visible;
 - uses a `concurrency` group so two syncs never write the data branch at once;

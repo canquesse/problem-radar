@@ -263,3 +263,16 @@ test('feature requests and questions do not become problem cards', () => {
   processCards(s, T0);
   assert.equal(cards(s).length, 0);
 });
+
+test('pruning never removes the release that proves a fix', async () => {
+  const { pruneRecords } = await import('../src/pipeline.js');
+  const s = stateWith([
+    issue(120, { createdAt: '2026-01-01T00:00:00Z' }), pr(121, { body: 'Fixes #120', mergedAt: '2026-01-02T00:00:00Z' }),
+    release(12, { tag: 'v9.0.0', publishedAt: '2026-01-03T00:00:00Z', body: '(#121)' }),
+  ]);
+  processCards(s, T0);
+  pruneRecords(s, '2026-11-20T00:00:00Z');
+  assert.ok(s.records['gh:acme/infer:release:12']);
+  processCards(s, '2026-11-20T00:00:00Z');
+  assert.equal(only(s).fixes[0].release.tag, 'v9.0.0');
+});

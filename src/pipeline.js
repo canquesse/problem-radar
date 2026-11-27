@@ -120,18 +120,21 @@ export function computeMetrics(state, now) {
 }
 
 /**
- * Drop old records that no live card needs. Records referenced by a card that
- * is still moving (worth trying / watching / fix coming) are kept, as are
- * releases and merged PRs a pending fix may still need.
+ * Drop old records that no live card needs. Records referenced by a card past
+ * the first rung (worth trying, watching, fix coming, resolved) are kept, as
+ * are the merged PRs and releases that prove any fix.
  */
 export function pruneRecords(state, now) {
   const cutoff = new Date(Date.parse(now) - LIMITS.pruneAfterDays * 86400_000).toISOString();
   const keep = new Set();
   for (const c of Object.values(state.cards)) {
-    if (['worth_trying', 'watching', 'fix_coming'].includes(c.state)) {
+    if (['worth_trying', 'watching', 'fix_coming', 'resolved'].includes(c.state)) {
       c.memberIds.forEach((id) => keep.add(id));
       c.evidence.forEach((e) => keep.add(e.recordId));
     }
+    // A release that proves a fix must outlive the pruning window, otherwise
+    // the card would silently point at a different release later.
+    c.evidence.filter((e) => e.type === 'fix_released' || e.type === 'partial_fix_released' || e.type === 'fix_merged').forEach((e) => keep.add(e.recordId));
   }
   let removed = 0;
   for (const [id, r] of Object.entries(state.records)) {
