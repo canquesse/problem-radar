@@ -21,6 +21,31 @@ export const DOMAINS = [
     stackexchange: ['softwarerecs', 'softwareengineering', 'datascience'],
     forums: ['discuss.huggingface.co', 'discuss.pytorch.org'],
     news: ['(raises OR "seed round" OR "series A" OR launches) (AI OR "developer tools" OR SaaS OR software) startup when:7d'],
+    // Outlets that cover this domain, each its own source.
+    feeds: [
+      ['techcrunch', 'https://techcrunch.com/feed/'],
+      ['theverge', 'https://www.theverge.com/rss/index.xml'],
+      ['arstechnica', 'https://feeds.arstechnica.com/arstechnica/index'],
+      ['wired', 'https://www.wired.com/feed/rss'],
+      ['thenextweb', 'https://thenextweb.com/feed'],
+      ['zdnet', 'https://www.zdnet.com/news/rss.xml'],
+      ['theregister', 'https://www.theregister.com/headlines.atom'],
+      ['infoq', 'https://feed.infoq.com/'],
+      ['devto', 'https://dev.to/feed'],
+      ['github-blog', 'https://github.blog/feed/'],
+      ['mit-tech-review', 'https://www.technologyreview.com/feed/'],
+      ['engadget', 'https://www.engadget.com/rss.xml'],
+      ['siliconangle', 'https://siliconangle.com/feed/'],
+      ['geekwire', 'https://www.geekwire.com/feed/'],
+      ['sifted', 'https://sifted.eu/feed'],
+      ['eu-startups', 'https://www.eu-startups.com/feed/'],
+      ['crunchbase-news', 'https://news.crunchbase.com/feed/'],
+      ['techfundingnews', 'https://techfundingnews.com/feed/'],
+      ['tech-eu', 'https://tech.eu/feed/'],
+      ['ycombinator-blog', 'https://www.ycombinator.com/blog/rss/'],
+      ['lobsters', 'https://lobste.rs/rss'],
+      ['huggingface-blog', 'https://huggingface.co/blog/feed.xml'],
+    ],
     repoTopics: ['topic:llm', 'topic:ai-agents', 'topic:developer-tools', 'topic:productivity'],
   },
   {
@@ -34,6 +59,20 @@ export const DOMAINS = [
     stackexchange: ['electronics', 'arduino', 'iot'],
     forums: ['forum.kicad.info', 'forum.arduino.cc', 'community.platformio.org', 'community.particle.io'],
     news: ['(raises OR "seed round" OR "series A" OR launches) (electronics OR semiconductor OR IoT OR "embedded" OR sensors) startup when:7d'],
+    // Outlets that cover this domain, each its own source.
+    feeds: [
+      ['hackaday', 'https://hackaday.com/blog/feed/'],
+      ['ieee-spectrum', 'https://spectrum.ieee.org/feeds/feed.rss'],
+      ['eetimes', 'https://www.eetimes.com/feed/'],
+      ['electronics-weekly', 'https://www.electronicsweekly.com/feed/'],
+      ['cnx-software', 'https://www.cnx-software.com/feed/'],
+      ['adafruit', 'https://blog.adafruit.com/feed/'],
+      ['allaboutcircuits', 'https://www.allaboutcircuits.com/rss/news/'],
+      ['embedded', 'https://www.embedded.com/feed/'],
+      ['hackster', 'https://www.hackster.io/news.atom'],
+      ['edn', 'https://www.edn.com/feed/'],
+      ['electronicsforyou', 'https://www.electronicsforu.com/feed'],
+    ],
     repoTopics: ['topic:embedded', 'topic:esp32', 'topic:iot', 'topic:kicad'],
   },
   {
@@ -47,6 +86,17 @@ export const DOMAINS = [
     stackexchange: ['engineering', '3dprinting', 'robotics'],
     forums: ['forum.makerforums.info'],
     news: ['(raises OR "seed round" OR "series A" OR launches) (robotics OR "3D printing" OR manufacturing OR CAD OR machining) startup when:7d'],
+    // Outlets that cover this domain, each its own source.
+    feeds: [
+      ['3dprintingindustry', 'https://3dprintingindustry.com/feed/'],
+      ['3dprint-com', 'https://3dprint.com/feed/'],
+      ['3dnatives', 'https://www.3dnatives.com/en/feed/'],
+      ['voxelmatters', 'https://www.voxelmatters.com/feed/'],
+      ['robot-report', 'https://www.therobotreport.com/feed/'],
+      ['engineering-com', 'https://www.engineering.com/feed/'],
+      ['interestingengineering', 'https://interestingengineering.com/feed'],
+      ['plant-engineering', 'https://www.plantengineering.com/feed/'],
+    ],
     repoTopics: ['topic:robotics', 'topic:3d-printing', 'topic:cad', 'topic:cnc'],
   },
   {
@@ -59,6 +109,18 @@ export const DOMAINS = [
     stackexchange: ['hardwarerecs', 'raspberrypi'],
     forums: [],
     news: ['(raises OR "seed round" OR "series A" OR launches) (chip OR semiconductor OR "hardware startup" OR GPU OR device) when:7d'],
+    // Outlets that cover this domain, each its own source.
+    feeds: [
+      ['tomshardware', 'https://www.tomshardware.com/feeds/all'],
+      ['servethehome', 'https://www.servethehome.com/feed/'],
+      ['semiengineering', 'https://semiengineering.com/feed/'],
+      ['notebookcheck', 'https://www.notebookcheck.net/News.152.100.html'],
+      ['raspberrypi', 'https://www.raspberrypi.com/news/feed/'],
+      ['liliputing', 'https://liliputing.com/feed/'],
+      ['techpowerup', 'https://www.techpowerup.com/rss/news'],
+      ['hothardware', 'https://hothardware.com/rss/news.aspx'],
+      ['chipsandcheese', 'https://chipsandcheese.com/feed/'],
+    ],
     repoTopics: ['topic:raspberry-pi', 'topic:hardware', 'topic:risc-v'],
   },
   {
@@ -71,6 +133,20 @@ export const DOMAINS = [
     stackexchange: [],
     forums: ['forum.inductiveautomation.com', 'community.openenergymonitor.org'],
     news: ['(raises OR "seed round" OR "series A" OR launches) ("industrial AI" OR manufacturing OR "supply chain" OR energy OR logistics) startup when:7d'],
+    // Outlets that cover this domain, each its own source.
+    feeds: [
+      ['manufacturing-dive', 'https://www.manufacturingdive.com/feeds/news/'],
+      ['supplychain-dive', 'https://www.supplychaindive.com/feeds/news/'],
+      ['utility-dive', 'https://www.utilitydive.com/feeds/news/'],
+      ['canary-media', 'https://www.canarymedia.com/rss'],
+      ['electrek', 'https://electrek.co/feed/'],
+      ['cleantechnica', 'https://cleantechnica.com/feed/'],
+      ['iiot-world', 'https://www.iiot-world.com/feed/'],
+      ['powermag', 'https://www.powermag.com/feed/'],
+      ['pv-magazine', 'https://www.pv-magazine.com/feed/'],
+      ['freightwaves', 'https://www.freightwaves.com/news/feed'],
+      ['energy-storage-news', 'https://www.energy-storage.news/feed/'],
+    ],
     repoTopics: ['topic:industrial-automation', 'topic:plc', 'topic:energy'],
   },
   {
@@ -83,6 +159,20 @@ export const DOMAINS = [
     stackexchange: ['math', 'stats', 'scicomp'],
     forums: ['discourse.julialang.org'],
     news: ['(raises OR "seed round" OR launches) ("scientific computing" OR "research software" OR simulation OR "math education") startup when:14d'],
+    // Outlets that cover this domain, each its own source.
+    feeds: [
+      ['quanta', 'https://api.quantamagazine.org/feed/'],
+      ['phys-org', 'https://phys.org/rss-feed/'],
+      ['sciencedaily-compmath', 'https://www.sciencedaily.com/rss/computers_math.xml'],
+      ['mit-news-math', 'https://news.mit.edu/rss/topic/mathematics'],
+      ['scientific-american', 'https://www.scientificamerican.com/platform/syndication/rss/'],
+      ['nature', 'https://www.nature.com/nature.rss'],
+      ['hpcwire', 'https://www.hpcwire.com/feed/'],
+      ['plus-maths', 'https://plus.maths.org/content/rss.xml'],
+      ['arxiv-math-na', 'https://rss.arxiv.org/rss/math.NA'],
+      ['arxiv-math-oc', 'https://rss.arxiv.org/rss/math.OC'],
+      ['arxiv-cs-ai', 'https://rss.arxiv.org/rss/cs.AI'],
+    ],
     repoTopics: ['topic:scientific-computing', 'topic:mathematics', 'topic:simulation'],
   },
   {
@@ -95,13 +185,28 @@ export const DOMAINS = [
     stackexchange: ['security'],
     forums: ['forum.hackthebox.com'],
     news: ['(raises OR "seed round" OR "series A" OR launches) (cybersecurity OR security startup OR "identity security") when:7d'],
+    // Outlets that cover this domain, each its own source.
+    feeds: [
+      ['bleepingcomputer', 'https://www.bleepingcomputer.com/feed/'],
+      ['the-hacker-news', 'https://feeds.feedburner.com/TheHackersNews'],
+      ['krebs', 'https://krebsonsecurity.com/feed/'],
+      ['darkreading', 'https://www.darkreading.com/rss.xml'],
+      ['securityweek', 'https://www.securityweek.com/feed/'],
+      ['the-record', 'https://therecord.media/feed/'],
+      ['helpnetsecurity', 'https://www.helpnetsecurity.com/feed/'],
+      ['schneier', 'https://www.schneier.com/feed/atom/'],
+      ['securityaffairs', 'https://securityaffairs.com/feed'],
+    ],
     repoTopics: ['topic:cybersecurity', 'topic:security-tools', 'topic:pentesting'],
   },
 ];
 
 export const SUBS = DOMAINS.flatMap((d) => d.subs.map((s) => ({ ...s, domain: d.id, key: `${d.id}/${s.id}` })));
 
-export const DOMAIN_FEEDS = DOMAINS.flatMap((d) => d.news.map((q, i) => ({ id: `gnews-${d.id}${i ? `-${i}` : ''}`, kind: 'news', url: gnews(q), domain: d.id })));
+export const DOMAIN_FEEDS = DOMAINS.flatMap((d) => [
+  ...d.news.map((q, i) => ({ id: `gnews-${d.id}${i ? `-${i}` : ''}`, kind: 'news', url: gnews(q), domain: d.id })),
+  ...(d.feeds || []).map(([id, url]) => ({ id, kind: 'news', url, domain: d.id })),
+]);
 
 export const ALL_SE_SITES = [...new Set(DOMAINS.flatMap((d) => d.stackexchange))];
 export const ALL_FORUMS = [...new Set(DOMAINS.flatMap((d) => d.forums))];

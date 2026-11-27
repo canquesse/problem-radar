@@ -75,21 +75,14 @@ export const PUBLISHED_STATES = ['worth_trying', 'fix_coming', 'resolved'];
 const gnews = (q) => `https://news.google.com/rss/search?q=${encodeURIComponent(q)}&hl=en-US&gl=US&ceid=US:en`;
 
 export const DEV_FEEDS = [
-  // Funding (investor interest)
-  { id: 'gnews-funding-infra', kind: 'news', url: gnews('(raises OR "seed round" OR "series A" OR "series B" OR funding) ("AI infrastructure" OR inference OR LLM OR GPU OR "AI agents") when:14d') },
-  { id: 'gnews-funding-devtools', kind: 'news', url: gnews('(raises OR "seed round" OR "series A" OR funding) ("developer tools" OR "developer platform" OR observability OR "open source" AI) when:14d') },
-  { id: 'crunchbase-news', kind: 'news', url: 'https://news.crunchbase.com/feed/' },
-  { id: 'techcrunch-ai', kind: 'news', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
-  { id: 'techcrunch-venture', kind: 'news', url: 'https://techcrunch.com/category/venture/feed/' },
-  // Media and product news
-  { id: 'siliconangle-ai', kind: 'news', url: 'https://siliconangle.com/category/ai/feed/' },
-  { id: 'theverge-ai', kind: 'news', url: 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml' },
-  { id: 'huggingface-blog', kind: 'news', url: 'https://huggingface.co/blog/feed.xml' },
-  // New AI products
-  { id: 'producthunt-ai', kind: 'product', url: 'https://www.producthunt.com/feed?category=artificial-intelligence' },
-  { id: 'producthunt-devtools', kind: 'product', url: 'https://www.producthunt.com/feed?category=developer-tools' },
-  { id: 'producthunt-hardware', kind: 'product', url: 'https://www.producthunt.com/feed?category=hardware' },
-  // One funding and launch search per domain (electronics, mechanical, ...).
+  // Funding searches across all outlets Google News indexes.
+  { id: 'gnews-funding-infra', kind: 'news', url: gnews('(raises OR "seed round" OR "series A" OR "series B" OR funding) ("AI infrastructure" OR inference OR LLM OR GPU OR "AI agents") when:14d'), domain: 'computer' },
+  { id: 'gnews-funding-devtools', kind: 'news', url: gnews('(raises OR "seed round" OR "series A" OR funding) ("developer tools" OR "developer platform" OR observability OR "open source" AI) when:14d'), domain: 'computer' },
+  // New products.
+  { id: 'producthunt-ai', kind: 'product', url: 'https://www.producthunt.com/feed?category=artificial-intelligence', domain: 'computer' },
+  { id: 'producthunt-devtools', kind: 'product', url: 'https://www.producthunt.com/feed?category=developer-tools', domain: 'computer' },
+  { id: 'producthunt-hardware', kind: 'product', url: 'https://www.producthunt.com/feed?category=hardware', domain: 'hardware' },
+  // One funding/launch search plus the outlets of each domain (see domains.js).
   ...DOMAIN_FEEDS,
 ];
 
