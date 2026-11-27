@@ -79,6 +79,8 @@ jobs:
           RADAR_LANE: ${{ github.event_name == 'push' && 'full' || github.event_name == 'workflow_dispatch' && inputs.lane || 'auto' }}
           DATA_DIR: data-branch/data
           MODEL_CACHE_DIR: .model-cache
+          # Optional: free Gemini API key for writing ideas and translating.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # Optional: a read-only fine-grained PAT in the RADAR_TOKEN secret.
           # GITHUB_TOKEN is minted fresh for every run and GitHub's ETags vary
           # by token, so conditional requests only produce 304s with a stable

@@ -20,8 +20,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-const FILES = ['records', 'cursors', 'etags', 'sources', 'verifications', 'cards', 'events', 'opportunities', 'developments', 'ideas', 'needs', 'embeddings', 'translations'];
-const DEFAULTS = { records: {}, cursors: {}, etags: {}, sources: {}, verifications: {}, cards: {}, events: [], opportunities: {}, developments: [], ideas: {}, needs: [], embeddings: {}, translations: {} };
+const FILES = ['records', 'cursors', 'etags', 'sources', 'verifications', 'cards', 'events', 'opportunities', 'developments', 'ideas', 'needs', 'embeddings', 'translations', 'llmIdeas'];
+const DEFAULTS = { records: {}, cursors: {}, etags: {}, sources: {}, verifications: {}, cards: {}, events: [], opportunities: {}, developments: [], ideas: {}, needs: [], embeddings: {}, translations: {}, llmIdeas: {} };
 
 export function emptyState() {
   return structuredClone(DEFAULTS);

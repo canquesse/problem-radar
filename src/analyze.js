@@ -11,10 +11,12 @@ import { computeDevelopments, mergeSemantic, processOpportunities } from './mark
 import { computeIdeas, demandItems, supplyItems } from './ideas.js';
 import { classify, subPrototypes } from './classify.js';
 import { ensureEmbeddings, pruneEmbeddings } from './semantic.js';
-import { translatePending } from './translate.js';
+import { translatePending, trKey } from './translate.js';
+import { translateBatch, writeIdeas } from './llm.js';
+import { DOMAINS } from './domains.js';
 import { hash } from './store.js';
 
-export async function processMarket(state, now, { embedFn = null, translateFn = null, translateBudgetMs = 0, translateAll = true, log = () => {} } = {}) {
+export async function processMarket(state, now, { embedFn = null, translateFn = null, translateBudgetMs = 0, translateAll = true, llm = null, log = () => {} } = {}) {
   let devs = computeDevelopments(state.records);
   const demand = demandItems(state, now);
   const supply = supplyItems(devs);
@@ -50,7 +52,21 @@ export async function processMarket(state, now, { embedFn = null, translateFn = 
   log(`semantic dedup: ${before - devs.length} developments merged into others`);
 
   // Ideas and their changelog.
-  const ideas = computeIdeas(state, devs, vectors, place, now);
+  let ideas = computeIdeas(state, devs, vectors, place, now, { loose: !!llm || !!state.llmIdeas });
+  // With a language model, it decides which clusters are real ideas and
+  // writes them in Turkish; its answers are cached, so later runs (with or
+  // without a key) keep using them. Clusters it has not seen fall back to
+  // the rules.
+  if (llm?.available) {
+    const dn = (id) => DOMAINS.find((d) => d.id === id)?.name.en || id;
+    await writeIdeas(state, ideas.slice().sort((a, b) => b.score - a.score), llm, { domainName: dn, log });
+  }
+  ideas = ideas.flatMap((g) => {
+    const j = state.llmIdeas?.[g.signature];
+    if (!j) return g.ruleIdea ? [g] : [];
+    if (!j.isIdea) return [];
+    return [{ ...g, idea: j.ideaEn || g.idea, ideaTrLlm: j.ideaTr || null, type: j.type || g.type, whoTr: j.whoTr, problemTr: j.problemTr, whyOpenTr: j.whyOpenTr, firstStepTr: j.firstStepTr, judged: true }];
+  });
   const prev = state.ideas || {};
   const next = {};
   const eventIds = new Set(state.events.map((e) => e.id));
@@ -97,6 +113,13 @@ export async function processMarket(state, now, { embedFn = null, translateFn = 
       ...cards.filter((c) => c.state !== 'early_signal').map((c) => c.title),
       ...devs.filter((d) => d.type !== 'release').slice(0, 120).map((d) => d.summary).filter(Boolean),
     );
+    state.translations ||= {};
+    // Ideas written by the model already carry their Turkish text.
+    for (const g of ideasSorted) if (g.ideaTrLlm) state.translations[trKey(g.idea.replace(/\s+/g, ' ').trim())] = g.ideaTrLlm;
+    if (llm?.available) {
+      const pending = [...new Set(texts.map((x) => (x || '').replace(/\s+/g, ' ').trim()).filter((x) => x.length > 2 && !state.translations[trKey(x)]))];
+      await translateBatch(state, pending.slice(0, 400), llm, trKey, { log });
+    }
     await translatePending(state, texts, { budgetMs: translateBudgetMs, translateFn, log });
   }
   log(`ideas: ${ideas.length} (${ideas.filter((g) => g.verdict === 'open').length} open), needs placed: ${state.needs.length}`);

@@ -108,7 +108,7 @@ const srcFamily = (s) => (s.startsWith('se:') || s === 'stackoverflow' ? 'stacke
  * Build ideas. `place` maps item id -> { domain, sub } (from classify),
  * `vectors` maps id -> vector.
  */
-export function computeIdeas(state, developments, vectors, place, now) {
+export function computeIdeas(state, developments, vectors, place, now, { loose = false } = {}) {
   const demand = demandItems(state, now).filter((d) => place.get(d.id));
   const supply = supplyItems(developments);
   const vec = (it) => vectors.get(it.id);
@@ -137,13 +137,15 @@ export function computeIdeas(state, developments, vectors, place, now) {
       // An idea must read as one: phrased from an explicit request, or backed
       // by three or more people with the same problem.
       const phrasedAny = m.some((x) => ideaFromText(x.title, x.body));
-      if (!phrasedAny && people < 3) continue;
+      let ruleIdea = phrasedAny || people >= 3;
       // Technical support questions ("how do I configure X") are needs, not
       // ideas. An idea needs someone asking for a tool or product, someone
       // saying they would pay, or the same complaint from several people.
       // (With a language model available, it makes this call instead.)
       const complaints = m.filter((x) => x.kind === 'complaint').length;
-      if (!pay && !seeking && complaints < 2) continue;
+      if (!pay && !seeking && complaints < 2) ruleIdea = false;
+      // In loose mode every candidate is kept for the language model to judge.
+      if (!ruleIdea && !loose) continue;
       const cen = centroid(m.map(vec));
       const matches = supply.map((s) => ({ s, sim: vectors.get(s.id) ? cosine(cen, vectors.get(s.id)) : 0 })).filter((x) => x.sim >= IDEAS.supplyAt).sort((a, b) => b.sim - a.sim);
       const answeredShare = people ? m.filter((x) => x.answered).length / people : 0;
@@ -170,6 +172,8 @@ export function computeIdeas(state, developments, vectors, place, now) {
         domain, sub,
         idea: ideaEn,
         phrased: !!phrased,
+        ruleIdea,
+        signature: hash(m.map((x) => x.id).sort().join('|')),
         title: rep.title,
         type, verdict, strength, score, people,
         sources: [...new Set(m.map((x) => x.source))].sort(),
