@@ -360,11 +360,11 @@ function viewIdea(id) {
     <h1>${esc(tx(g.idea, g.ideaTr))}</h1>
     ${L() === 'tr' && g.ideaTr ? `<p class="orig">${esc(t('i.original'))}: ${esc(g.idea)}</p>` : ''}
     <p class="verdict">${esc(t(`i.verdict.${g.verdict}`, { people }))}</p>
-    ${g.whoTr && L() === 'tr' ? `<dl class="brief">
-      <div><dt>${esc(t('i.who'))}</dt><dd>${esc(g.whoTr)}</dd></div>
-      <div><dt>${esc(t('i.problem'))}</dt><dd>${esc(g.problemTr)}</dd></div>
-      <div><dt>${esc(t('i.whyOpen'))}</dt><dd>${esc(g.whyOpenTr)}</dd></div>
-      <div><dt>${esc(t('i.firstStep'))}</dt><dd>${esc(g.firstStepTr)}</dd></div>
+    ${tx(g.whoEn, g.whoTr) ? `<dl class="brief">
+      <div><dt>${esc(t('i.who'))}</dt><dd>${esc(tx(g.whoEn, g.whoTr))}</dd></div>
+      <div><dt>${esc(t('i.problem'))}</dt><dd>${esc(tx(g.problemEn, g.problemTr))}</dd></div>
+      <div><dt>${esc(t('i.whyOpen'))}</dt><dd>${esc(tx(g.whyOpenEn, g.whyOpenTr))}</dd></div>
+      <div><dt>${esc(t('i.firstStep'))}</dt><dd>${esc(tx(g.firstStepEn, g.firstStepTr))}</dd></div>
     </dl>` : ''}
     <div class="ip-grid">
       <section>
