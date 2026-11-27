@@ -37,7 +37,7 @@ export async function processMarket(state, now, { embedFn = null, translateFn = 
   const place = new Map();
   for (const d of demand) { const p = classify(vectors.get(d.id), d.text, d.source, protoVecs); if (p) place.set(d.id, p); }
   for (const d of devs) {
-    const p = classify(vectors.get(d.embedId), `${d.title} ${d.summary || ''}`, '', protoVecs, d.repo ? 'computer' : d.domainHint || null);
+    const p = classify(vectors.get(d.embedId), `${d.title} ${d.summary || ''}`, d.domainHint && !d.repo ? 'feed' : '', protoVecs, d.repo ? 'computer' : d.domainHint || null);
     d.domain = p?.domain || null;
     d.sub = p?.sub || null;
   }

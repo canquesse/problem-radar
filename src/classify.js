@@ -9,7 +9,7 @@
 import { DOMAINS, SUBS, domainOfSource } from './domains.js';
 import { cosine } from './semantic.js';
 
-export const CLASSIFY = { minScore: 0.3 };
+export const CLASSIFY = { minScore: 0.25 };
 
 export function subPrototypes() {
   return SUBS.map((s) => ({ id: `sub:${s.key}`, text: `${s.name.en}: ${s.desc}`, sub: s }));
@@ -34,7 +34,8 @@ export function classify(vec, text, source, protoVecs, hintDomain = null) {
   // A post on a domain's own forum or Q&A site stays in that domain: only the
   // sub-area is chosen by meaning. Open sources (Hacker News, news) must be
   // close enough to some sub-area to be placed at all.
-  const fixed = !!(domainOfSource(source) || source === 'stackoverflow');
+  // Items from a domain's own outlets (hintDomain from the feed) stay there too.
+  const fixed = !!(domainOfSource(source) || source === 'stackoverflow' || (hintDomain && source === 'feed'));
   let best = null;
   for (const s of SUBS) {
     if (fixed && s.domain !== prior) continue;

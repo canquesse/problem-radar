@@ -165,7 +165,7 @@ export function buildSite({ dataDir, distDir, siteUrl = '', now = new Date().toI
     ...g, ideaTr: T(g.idea), evidence: g.evidence.map((e) => ({ ...e, quoteTr: T(e.quote || e.title) })),
   })));
   write('needs.json', (state.needs || []).map((n) => ({ ...n, titleTr: T(n.title) })));
-  write('developments.json', (state.developments || []).slice(0, 700).map((d) => ({ ...d, titleTr: T(d.title), summaryTr: T(d.summary) })));
+  write('developments.json', (state.developments || []).slice(0, 3000).map((d) => ({ ...d, titleTr: T(d.title), summaryTr: T(d.summary) })));
   write('events.json', state.events.slice(-3000));
   write('sources.json', state.sources);
   write('metrics.json', metrics);
