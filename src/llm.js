@@ -18,7 +18,7 @@ export function llmConfig(env = process.env) {
     url: env.LLM_URL || DEFAULT_URL,
     models: (env.LLM_MODEL || 'gemini-2.5-flash,gemini-2.0-flash,gemini-flash-latest').split(',').map((m) => m.trim()).filter(Boolean),
     maxRequests: Number(env.LLM_MAX_REQUESTS || 20),
-    minGapMs: Number(env.LLM_MIN_GAP_MS || 4500),
+    minGapMs: Number(env.LLM_MIN_GAP_MS || 13000), // free tier: about 5 requests a minute
   };
 }
 
@@ -57,7 +57,11 @@ export class LLM {
         return null;
       }
       if (res.status === 404 || res.status === 400) { this.log(`  llm: model ${model} unavailable (${res.status}), trying the next one`); this.modelIndex++; continue; }
-      if (res.status === 429) { this.log('  llm: rate limited, stopping for this run'); this.disabled = true; return null; }
+      if (res.status === 429) {
+        // Free tier per-minute limit: wait a minute once, then give up for this run.
+        if (!this.waited) { this.waited = true; this.log('  llm: rate limited, waiting a minute'); await this.sleep(62_000); continue; }
+        this.log('  llm: rate limited again, stopping for this run'); this.disabled = true; return null;
+      }
       if (res.status === 401 || res.status === 403) { this.log('  llm: key rejected'); this.disabled = true; return null; }
       if (!res.ok) { this.log(`  llm: HTTP ${res.status}`); return null; }
       const data = await res.json();
