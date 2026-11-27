@@ -122,3 +122,18 @@ test('a high-volume feed is capped to its newest items', async () => {
   assert.equal(upserted.length, 30);
   assert.equal(upserted[0].title, 'Paper 0', 'newest first');
 });
+
+test('different headlines about the same story merge into one development with all outlets', async () => {
+  const { mergeSemantic } = await import('../src/market.js');
+  const v = (x) => { const a = new Float32Array(4); a[0] = x; a[1] = Math.sqrt(1 - x * x); return a; };
+  const ev = (id, title, outlet, vec, day = 1) => ({ id, embedId: id, type: 'news', title, summary: title, publishedAt: `2026-11-2${day}T00:00:00Z`, outlets: [{ name: outlet, url: `https://${outlet}/x`, title }], outletCount: 1, copies: 1, topics: [] });
+  const vectors = new Map([['a', v(1)], ['b', v(0.7)], ['c', v(0.7)]]);
+  const merged = mergeSemantic([
+    ev('a', 'Why AI’s proof of the Riemann hypothesis is so bittersweet', 'sciam.com', 1),
+    ev('b', 'Math’s holy grail, the Riemann hypothesis, appears solved', 'sciencenews.org', 2),
+    ev('c', 'Chipmaker posts record quarter on data center demand', 'reuters.com', 2),
+  ], vectors);
+  assert.equal(merged.length, 2, 'the two Riemann stories merge, the chip story stays apart');
+  const story = merged.find((e) => e.outletCount === 2);
+  assert.deepEqual(story.outlets.map((o) => o.name).sort(), ['sciam.com', 'sciencenews.org']);
+});

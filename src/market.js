@@ -79,7 +79,7 @@ export function computeDevelopments(records) {
   for (const [key, recs] of groups) {
     const sorted = recs.slice().sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
     const first = sorted[0];
-    const outlets = [...new Map(sorted.map((r) => [(r.outlet || '').toLowerCase(), { name: r.outlet, url: r.url, at: r.createdAt }])).values()];
+    const outlets = [...new Map(sorted.map((r) => [(r.outlet || '').toLowerCase(), { name: r.outlet, url: r.url, at: r.createdAt, title: r.title }])).values()];
     const text = sorted.map((r) => `${r.title} ${r.body || ''}`).join(' ');
     const type = first.devType;
     events.push({
@@ -276,7 +276,13 @@ export const OPP_STATES = ['investigating', 'demand_confirmed', 'being_solved', 
  * using the local language model's vectors. Only news and funding merge, and
  * only when published within 4 days of each other.
  */
-export function mergeSemantic(events, vectors, threshold = 0.82) {
+const CAP_STOP = new Set('The This That These Those What Why How When Where Who Which New First Report Reports Says Said Will Could Would Should After Before With From Into Over Under About Inside Behind Meet Here There Their They Your Our Most More Best Week Today Year Years Exclusive Update Breaking'.split(' '));
+/** Distinctive names in a headline (Riemann, Alpöge, Nvidia...). */
+function names(title) {
+  return new Set((title || '').split(/[\s:;,.!?()"'“”‘’\-–—]+/).filter((w) => /^[A-ZÀ-Ý][\p{L}\d]{3,}$/u.test(w) && !CAP_STOP.has(w)).map((w) => w.toLowerCase()));
+}
+
+export function mergeSemantic(events, vectors, threshold = 0.8) {
   const mergeable = events.filter((e) => (e.type === 'news' || e.type === 'funding') && vectors.get(e.embedId));
   const absorbed = new Set();
   for (let i = 0; i < mergeable.length; i++) {
@@ -286,12 +292,19 @@ export function mergeSemantic(events, vectors, threshold = 0.82) {
     for (let j = i + 1; j < mergeable.length; j++) {
       const b = mergeable[j];
       if (absorbed.has(b.id)) continue;
-      if (Math.abs(Date.parse(a.publishedAt || 0) - Date.parse(b.publishedAt || 0)) > 4 * 86400_000) continue;
+      if (Math.abs(Date.parse(a.publishedAt || 0) - Date.parse(b.publishedAt || 0)) > 6 * 86400_000) continue;
       if (a.type === 'funding' && b.type === 'funding' && a.funding?.company && b.funding?.company && a.funding.company !== b.funding.company) continue;
       let sim = 0;
       const vb = vectors.get(b.embedId);
       for (let k = 0; k < va.length; k++) sim += va[k] * vb[k];
-      if (sim < threshold) continue;
+      // Same story: very close in meaning, or fairly close and naming the
+      // same distinctive thing (a person, a company, a theorem).
+      if (sim < threshold) {
+        if (sim < 0.58) continue;
+        a._names ||= names(a.title);
+        b._names ||= names(b.title);
+        if (![...a._names].some((n) => b._names.has(n))) continue;
+      }
       const keep = (a.publishedAt || '') <= (b.publishedAt || '') ? a : b;
       const drop = keep === a ? b : a;
       const outlets = new Map(keep.outlets.map((o) => [(o.name || '').toLowerCase(), o]));
@@ -299,6 +312,8 @@ export function mergeSemantic(events, vectors, threshold = 0.82) {
       keep.outlets = [...outlets.values()];
       keep.outletCount = keep.outlets.length;
       keep.copies += drop.copies;
+      // The fullest description of the story becomes its summary.
+      if ((drop.summary || '').length > (keep.summary || '').length) keep.summary = drop.summary;
       if (keep.type === 'funding' || drop.type === 'funding') {
         keep.type = 'funding';
         keep.funding ||= drop.funding;
@@ -310,5 +325,6 @@ export function mergeSemantic(events, vectors, threshold = 0.82) {
       if (drop === a) break;
     }
   }
+  for (const e of events) delete e._names;
   return events.filter((e) => !absorbed.has(e.id));
 }
