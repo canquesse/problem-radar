@@ -98,7 +98,8 @@ HN Algolia ──┘                       └─> cursors.json, etags.json, sou
 
 `GITHUB_TOKEN` inside Actions is limited to **1,000 requests per hour per repository**. The workflow runs every 5 minutes (the shortest interval GitHub's scheduler allows) in two lanes:
 
-- **Fast lane** (most runs): issues and comments for the 13 repositories (about 26 requests), Hacker News, Show/Launch HN, and news feeds that were not fetched in the last 15 minutes. Fresh data is published to the `data` branch under `site/`, and the live site reads it from there and updates in place, so no Pages redeploy is needed.
+- **Cadence:** each run starts the next one about 3 minutes after it began (`workflow_dispatch` is the one event `GITHUB_TOKEN` may trigger), and the 5-minute cron only restarts the chain if it breaks. Set the repository variable `RADAR_CHAIN=off` to stop it.
+- **Fast lane** (most runs, half of the repositories each time): issues and comments for the 13 repositories (about 26 requests), Hacker News, Show/Launch HN, and news feeds that were not fetched in the last 15 minutes. Fresh data is published to the `data` branch under `site/`, and the live site reads it from there and updates in place, so no Pages redeploy is needed.
 - **Full lane** (about once an hour): everything above plus closed PRs, releases, release-containment checks and new-repo search (100 to 180 requests), then a Pages redeploy.
 
 That is roughly 300 to 450 GitHub requests an hour, well inside the budget. The main saving comes from the cursors: each endpoint asks only for what changed since the last run.

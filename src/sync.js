@@ -47,8 +47,12 @@ export async function runSync(state, { now = new Date().toISOString(), token, re
   const upsert = (rec) => { counts[upsertRecord(state, rec, now)]++; };
   let ghBlocked = null;
 
-  for (const { repo, hn: terms } of repos) {
+  // Fast runs come every ~3 minutes, so each one syncs half of the repos
+  // (alternating) to stay well inside GITHUB_TOKEN's 1,000 requests/hour.
+  const slot = Math.floor(Date.parse(now) / 180_000) % 2;
+  for (const [i, { repo, hn: terms }] of repos.entries()) {
     const key = `github:${repo}`;
+    if (!full && repos.length > 2 && i % 2 !== slot) continue;
     if (ghBlocked) {
       recordSourceRun(state, key, { ok: false, error: `deferred: ${ghBlocked}` }, now);
     } else {

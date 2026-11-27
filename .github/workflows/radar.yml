@@ -1,6 +1,12 @@
 name: Radar sync and deploy
 
-# Every 5 minutes, the shortest interval GitHub's scheduler allows. Most runs
+# Every run ends by starting the next one about 3 minutes after it began
+# (workflow_dispatch is the one event GITHUB_TOKEN may trigger), so the radar
+# refreshes roughly every 3 minutes. The 5-minute cron is only a backup that
+# restarts the chain if it ever breaks; GitHub's scheduler is often late.
+# Set the repository variable RADAR_CHAIN=off to stop the chain.
+#
+# Every 5 minutes is the shortest interval GitHub's scheduler allows. Most runs
 # are the fast lane (issues, comments, Hacker News, launches, polite news
 # polling); about once an hour a run takes the full lane (PRs, releases,
 # release checks, new-repo search) and redeploys Pages. Fresh data is
@@ -11,6 +17,11 @@ on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
+    inputs:
+      lane:
+        description: 'fast, full or auto'
+        default: 'full'
+        required: false
   push:
     branches: [main]
     paths: ['src/**', 'web/**', '.github/workflows/radar.yml']
@@ -53,7 +64,7 @@ jobs:
         id: sync
         run: node src/cli.js sync
         env:
-          RADAR_LANE: ${{ github.event_name == 'schedule' && 'auto' || 'full' }}
+          RADAR_LANE: ${{ github.event_name == 'push' && 'full' || github.event_name == 'workflow_dispatch' && inputs.lane || 'auto' }}
           DATA_DIR: data-branch/data
           # Optional: a read-only fine-grained PAT in the RADAR_TOKEN secret.
           # GITHUB_TOKEN is minted fresh for every run and GitHub's ETags vary
@@ -112,3 +123,15 @@ jobs:
       - id: deploy
         if: steps.sync.outputs.lane == 'full'
         uses: actions/deploy-pages@v4
+
+      - name: Chain the next run (~3 minutes after this one started)
+        if: always() && vars.RADAR_CHAIN != 'off'
+        run: |
+          started=$(gh run view "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --json startedAt -q .startedAt)
+          elapsed=$(( $(date +%s) - $(date -d "$started" +%s) ))
+          wait=$(( 180 - elapsed )); [ "$wait" -gt 0 ] && sleep "$wait"
+          # The concurrency group keeps at most one pending run, so a cron run
+          # and a chained run can never pile up.
+          gh workflow run radar.yml --repo "$GITHUB_REPOSITORY" -f lane=auto
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
