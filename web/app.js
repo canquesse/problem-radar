@@ -244,7 +244,7 @@ function devRow(d) {
   const f = d.funding;
   const meta = [
     d.type === 'funding' && f ? [f.amount, f.round].filter(Boolean).join(' · ') : null,
-    d.outletCount > 1 ? t('devs.outlets', { n: d.outletCount }) : d.outlets?.[0]?.name || null,
+    d.outletCount > 1 ? null : d.outlets?.[0]?.name || null,
     d.type === 'funding' ? (d.verified ? `✓ ${t('devs.verified')}` : t('devs.single')) : null,
     d.stars != null ? t('devs.stars', { n: num(d.stars) }) : null,
   ].filter(Boolean);
@@ -253,6 +253,7 @@ function devRow(d) {
     <div class="dbody2">
       <a class="dtitle" href="${safeUrl(d.url)}" ${ext}>${esc(tx(d.title, d.titleTr))}</a>
       ${d.summary && d.type !== 'release' ? `<p class="dsum">${esc(tx(d.summary, d.summaryTr))}</p>` : ''}
+      ${d.outletCount > 1 ? `<p class="outlets"><b>${esc(t('devs.sourcesN', { n: d.outletCount }))}</b> ${d.outlets.slice(0, 8).map((o) => `<a href="${safeUrl(o.url)}" ${ext} title="${esc(o.title || '')}">${esc(o.name || '')}</a>`).join(' · ')}${d.outletCount > 8 ? ` · +${d.outletCount - 8}` : ''}</p>` : ''}
       <div class="dmeta"><span>${esc(fmtDate(d.publishedAt))}</span>${d.domain ? `<a class="topic" href="#d/${esc(d.domain)}/${esc(d.sub)}">${esc(sName(d.domain, d.sub))}</a>` : ''}${meta.map((m) => `<span>${esc(m)}</span>`).join('')}</div>
     </div>
   </div>`;
