@@ -1,0 +1,1484 @@
+{
+ "i-059044954603": {
+  "counts": {
+   "complaints": 0,
+   "pay": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 1,
+   "views": 0
+  },
+  "coverage": 0,
+  "demandScore": 8,
+  "domain": "hardware",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-09T11:39:27Z",
+    "kind": "pay",
+    "quote": "In the end it's totally possible that I would pay more for electricity running Qwen for 24 hours churning on some complex problem vs.",
+    "source": "hn",
+    "title": "In the end it's totally possible that I would pay more for electricity running Qwen for 24 hours churning on some complex problem vs.",
+    "url": "https://news.ycombinator.com/item?id=50424224",
+    "views": 0
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Yapay zeka modellerini yerel olarak çalıştırmak için çeşitli donanım yapılandırmalarının güç tüketimini araştırmak ve optimizasyon stratejilerini belirlemek.",
+  "id": "i-059044954603",
+  "idea": "An energy-efficient local compute solution or optimization service for running AI models like Qwen on complex problems.",
+  "ideaTrLlm": "Qwen gibi yapay zeka modellerini karmaşık sorunlar üzerinde çalıştırmak için enerji verimli bir yerel hesaplama çözümü veya optimizasyon hizmeti.",
+  "judged": true,
+  "lastActivityAt": "2026-11-09T11:39:27Z",
+  "nextStep": {
+   "code": "talk_payers",
+   "params": {
+    "n": 1
+   },
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Karmaşık sorunlar üzerinde uzun süre yerel yapay zeka modelleri çalıştırmak önemli elektrik maliyetleri doğurabilir.",
+  "ruleIdea": false,
+  "score": 8,
+  "signature": "059044954603",
+  "solutions": [],
+  "sources": [
+   "hn"
+  ],
+  "strength": "signal",
+  "sub": "compute",
+  "title": "In the end it's totally possible that I would pay more for electricity running Qwen for 24 hours churning on some complex problem vs.",
+  "type": "product",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Karmaşık sorunlar için yapay zeka modellerini yerel olarak çalıştırmayı tercih eden, elektrik maliyetleri yüksek olsa bile verimlilikten faydalanacak kullanıcılar.",
+  "whyOpenTr": "Kullanıcı daha fazla elektrik parası ödemeye istekli, bu da mevcut çözümlerin bu senaryoda maliyet-verimlilik açısından optimize edilmediğini veya yerel hesaplamanın faydalarının maliyeti aştığını, ancak optimize edilmiş bir çözümün daha iyi olacağını ima ediyor."
+ },
+ "i-127664a52976": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 1,
+   "views": 43
+  },
+  "coverage": 0,
+  "demandScore": 7.1,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-12T09:33:02.000Z",
+    "kind": "seeking",
+    "quote": "How to set up an isolated environment for C++ development session, with the ability to run scripts?",
+    "source": "se:softwarerecs",
+    "title": "How to set up an isolated environment for C++ development session, with the ability to run scripts?",
+    "url": "https://softwarerecs.stackexchange.com/questions/95785/how-to-set-up-an-isolated-environment-for-c-development-session-with-the-abil",
+    "views": 43
+   }
+  ],
+  "families": [
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Mevcut sanallaştırma veya konteyner teknolojilerini (Docker, Vagrant) C++ geliştirme araçları ve betik motorları ile entegre eden bir prototip oluşturmak.",
+  "id": "i-127664a52976",
+  "idea": "A tool for isolated C++ development environments with scripting capabilities.",
+  "ideaTrLlm": "Betik çalıştırma yeteneğine sahip izole C++ geliştirme ortamları için bir araç.",
+  "judged": true,
+  "lastActivityAt": "2026-11-12T09:33:02.000Z",
+  "nextStep": {
+   "code": "validate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "C++ geliştirme oturumları için betik çalıştırma yeteneğine sahip izole bir ortam kurmakta zorlanıyorlar.",
+  "ruleIdea": false,
+  "score": 7.1,
+  "signature": "127664a52976",
+  "solutions": [],
+  "sources": [
+   "se:softwarerecs"
+  ],
+  "strength": "signal",
+  "sub": "devtools",
+  "title": "How to set up an isolated environment for C++ development session, with the ability to run scripts?",
+  "type": "project",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "C++ geliştiricileri.",
+  "whyOpenTr": "Mevcut çözümlerin bu spesifik ihtiyacı tam olarak karşılamadığı veya entegre bir çözümün olmadığı anlaşılıyor."
+ },
+ "i-151055b9e754": {
+  "counts": {
+   "complaints": 0,
+   "pay": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 1,
+   "views": 0
+  },
+  "coverage": 0,
+  "demandScore": 8,
+  "domain": "industry",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-10T19:57:39Z",
+    "kind": "pay",
+    "quote": "The segmentation is strange as offering this as 'up-sell' is 100% businesses would pay for.",
+    "source": "hn",
+    "title": "The segmentation is strange as offering this as 'up-sell' is 100% businesses would pay for.",
+    "url": "https://news.ycombinator.com/item?id=50445475",
+    "views": 0
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Yaygın iş segmentasyonu zorluklarını ve bunların ek satışla nasıl ilişkili olduğunu belirlemek.",
+  "id": "i-151055b9e754",
+  "idea": "A business segmentation and up-sell strategy tool/service.",
+  "ideaTrLlm": "İşletmeler için segmentasyon ve ek satış stratejileri aracı/hizmeti.",
+  "judged": true,
+  "lastActivityAt": "2026-11-10T19:57:39Z",
+  "nextStep": {
+   "code": "talk_payers",
+   "params": {
+    "n": 1
+   },
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Mevcut segmentasyon ve ek satış teklifleri yetersiz veya garip.",
+  "ruleIdea": false,
+  "score": 8,
+  "signature": "151055b9e754",
+  "solutions": [],
+  "sources": [
+   "hn"
+  ],
+  "strength": "signal",
+  "sub": "operations",
+  "title": "The segmentation is strange as offering this as 'up-sell' is 100% businesses would pay for.",
+  "type": "startup",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "İşletmeler.",
+  "whyOpenTr": "Alıntı, mevcut tekliflerin ihtiyacı karşılamadığını veya kötü yapılandırıldığını ('ek satış olarak sunmak garip') ima ediyor."
+ },
+ "i-1c85dd903f96": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 2,
+   "seeking": 0,
+   "unanswered": 2,
+   "views": 678
+  },
+  "coverage": 0,
+  "demandScore": 9.6,
+  "domain": "math",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-23T12:18:26.026Z",
+    "kind": "question",
+    "quote": "How Can I Build a Real-Time Messaging Backend Using Julia?",
+    "source": "forum:discourse.julialang.org",
+    "title": "How Can I Build a Real-Time Messaging Backend Using Julia?",
+    "url": "https://discourse.julialang.org/t/how-can-i-build-a-real-time-messaging-backend-using-julia/143128",
+    "views": 467
+   },
+   {
+    "answered": false,
+    "at": "2026-11-25T09:54:08.526Z",
+    "kind": "question",
+    "quote": "Can I build an instant messaging application using Julia, or is it better to use an existing solution?",
+    "source": "forum:discourse.julialang.org",
+    "title": "Can I build an instant messaging application using Julia, or is it better to use an existing solution?",
+    "url": "https://discourse.julialang.org/t/can-i-build-an-instant-messaging-application-using-julia-or-is-it-better-to-use-an-existing-solution/143189",
+    "views": 211
+   }
+  ],
+  "families": [
+   "forum"
+  ],
+  "firstSeenAt": "2026-11-27T04:04:52.420Z",
+  "firstStepTr": "Julia'da basit bir WebSocket sunucusu kurarak temel bir mesajlaşma prototipi oluşturmak.",
+  "id": "i-1c85dd903f96",
+  "idea": "A Julia framework or comprehensive guide for building real-time messaging backends.",
+  "ideaTrLlm": "Gerçek zamanlı mesajlaşma arka uçları oluşturmak için bir Julia çatısı veya kapsamlı bir rehber.",
+  "judged": true,
+  "lastActivityAt": "2026-11-25T09:54:08.526Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {
+    "n": 2
+   },
+   "size": "Weekend prototype"
+  },
+  "people": 2,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Julia ile gerçek zamanlı mesajlaşma arka uçları oluşturmanın en iyi yolunu veya mevcut çözümlerle karşılaştırmasını merak ediyorlar, bu da bu alanda net bir yol haritası veya araç eksikliği olduğunu düşündürüyor.",
+  "ruleIdea": false,
+  "score": 9.6,
+  "signature": "81a2d8159046",
+  "solutions": [],
+  "sources": [
+   "forum:discourse.julialang.org"
+  ],
+  "strength": "emerging",
+  "sub": "scicomp",
+  "title": "How Can I Build a Real-Time Messaging Backend Using Julia?",
+  "type": "project",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T04:04:52.420Z",
+  "whoTr": "Julia kullanarak gerçek zamanlı mesajlaşma uygulamaları geliştirmek isteyen geliştiriciler.",
+  "whyOpenTr": "Julia ekosisteminde gerçek zamanlı mesajlaşma için özel olarak tasarlanmış veya yaygın olarak kabul görmüş bir çözümün eksikliği olduğu anlaşılıyor."
+ },
+ "i-25fafb3f1ad7": {
+  "counts": {
+   "complaints": 0,
+   "pay": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 1,
+   "views": 0
+  },
+  "coverage": 0,
+  "demandScore": 8,
+  "domain": "mechanical",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-10-29T12:14:01Z",
+    "kind": "pay",
+    "quote": "I would pay $20 for a used printer, but the few Brother printers I found are always $69 or thereabouts.",
+    "source": "hn",
+    "title": "I would pay $20 for a used printer, but the few Brother printers I found are always $69 or thereabouts.",
+    "url": "https://news.ycombinator.com/item?id=50287737",
+    "views": 0
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-27T04:04:52.420Z",
+  "firstStepTr": "Çok ucuz ikinci el yazıcılar için tedarik zincirini ve potansiyel yenileme maliyetlerini araştırmak.",
+  "id": "i-25fafb3f1ad7",
+  "idea": "A marketplace or service for very low-cost used printers (e.g., around $20).",
+  "ideaTrLlm": "Çok düşük maliyetli ikinci el yazıcılar (örneğin 20 dolar civarı) için bir pazar yeri veya hizmet.",
+  "judged": true,
+  "lastActivityAt": "2026-10-29T12:14:01Z",
+  "nextStep": {
+   "code": "talk_payers",
+   "params": {
+    "n": 1
+   },
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "İkinci el yazıcılar genellikle bazı tüketicilerin temel, kullanılmış bir model için ödemeye razı olduğundan daha yüksek fiyatlandırılıyor.",
+  "ruleIdea": false,
+  "score": 8,
+  "signature": "25fafb3f1ad7",
+  "solutions": [],
+  "sources": [
+   "hn"
+  ],
+  "strength": "signal",
+  "sub": "additive",
+  "title": "I would pay $20 for a used printer, but the few Brother printers I found are always $69 or thereabouts.",
+  "type": "startup",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T04:04:52.420Z",
+  "whoTr": "Çok uygun fiyatlı ikinci el yazıcı arayan bireyler.",
+  "whyOpenTr": "Alıntı, çok ucuz ikinci el yazıcılar için talep ve arz arasında bir fiyat uyumsuzluğu olduğunu gösteriyor."
+ },
+ "i-31ba95d7f60e": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 1,
+   "views": 42
+  },
+  "coverage": 0,
+  "demandScore": 7.1,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-09T18:50:41.000Z",
+    "kind": "seeking",
+    "quote": "One static docs site from OpenAPI, MCP, and Doxygen specs?",
+    "source": "se:softwarerecs",
+    "title": "One static docs site from OpenAPI, MCP, and Doxygen specs?",
+    "url": "https://softwarerecs.stackexchange.com/questions/95778/one-static-docs-site-from-openapi-mcp-and-doxygen-specs",
+    "views": 42
+   }
+  ],
+  "families": [
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "OpenAPI, Doxygen ve varsayımsal bir MCP formatından veri çekebilen ve bunları tek bir statik site şablonuna dönüştürebilen bir komut satırı aracı prototipi geliştirmek.",
+  "id": "i-31ba95d7f60e",
+  "idea": "A documentation generator that consolidates OpenAPI, MCP, and Doxygen specs into a single static site.",
+  "ideaTrLlm": "OpenAPI, MCP ve Doxygen spesifikasyonlarını tek bir statik siteye birleştiren bir dokümantasyon oluşturucu.",
+  "judged": true,
+  "lastActivityAt": "2026-11-09T18:50:41.000Z",
+  "nextStep": {
+   "code": "validate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Farklı spesifikasyonlardan (OpenAPI, MCP, Doxygen) gelen dokümantasyonu tek bir tutarlı statik sitede birleştirmekte zorlanıyorlar.",
+  "ruleIdea": false,
+  "score": 7.1,
+  "signature": "31ba95d7f60e",
+  "solutions": [],
+  "sources": [
+   "se:softwarerecs"
+  ],
+  "strength": "signal",
+  "sub": "devtools",
+  "title": "One static docs site from OpenAPI, MCP, and Doxygen specs?",
+  "type": "product",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Birden fazla dokümantasyon kaynağına sahip yazılım geliştiriciler ve teknik yazarlar.",
+  "whyOpenTr": "Mevcut araçların bu üç farklı formatı tek bir çıktıya dönüştürme konusunda entegre bir çözüm sunmadığı anlaşılıyor."
+ },
+ "i-3b6d7c9df2ca": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 1,
+   "seeking": 2,
+   "unanswered": 3,
+   "views": 10
+  },
+  "coverage": 1.48,
+  "demandScore": 13,
+  "domain": "hardware",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-09T16:26:30Z",
+    "kind": "seeking",
+    "quote": "I wish there was some kind of GPU marketplace so one could just arb this opportunity.",
+    "source": "hn",
+    "title": "I wish there was some kind of GPU marketplace so one could just arb this opportunity.",
+    "url": "https://news.ycombinator.com/item?id=50427769",
+    "views": 0
+   },
+   {
+    "answered": false,
+    "at": "2026-11-21T05:24:49Z",
+    "kind": "seeking",
+    "quote": "Nvidia's investment in neoclouds was an alternative to building their own GPU cloud.",
+    "source": "hn",
+    "title": "Nvidia's investment in neoclouds was an alternative to building their own GPU cloud.",
+    "url": "https://news.ycombinator.com/item?id=50586220",
+    "views": 0
+   },
+   {
+    "answered": false,
+    "at": "2026-11-28T20:20:09Z",
+    "kind": "question",
+    "quote": "Nvidia Hype",
+    "source": "hn",
+    "title": "Nvidia Hype",
+    "url": "https://news.ycombinator.com/item?id=50681622",
+    "views": 10
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-28T20:36:09.379Z",
+  "id": "i-3b6d7c9df2ca",
+  "idea": "An alternative to building their own GPU cloud",
+  "lastActivityAt": "2026-11-28T20:20:09Z",
+  "nextStep": {
+   "code": "differentiate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 3,
+  "phrased": true,
+  "previousVerdict": null,
+  "ruleIdea": true,
+  "score": 7.8,
+  "signature": "cffd5ef34a99",
+  "solutions": [
+   {
+    "kind": "funding",
+    "similarity": 0.69,
+    "title": "NVIDIA Allegedly Engineered Scarcity By Funding AI Startups To Buy Its GPUs",
+    "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVUFpREJuUk5RTzk1YWVQSGlwVDl5bmFlMC0ydXBRbmhGeGdmMGlfc1FRRzI2NlVuNEhxZU9tZkR6Qld3RnRCdGdza3l0LTh2OHZndWVTbGYtTDRyS3ZpRHBmQWpKS1BoS09SRWxqNWlPUWlDTGk4QWtUeGlaTEREV01BcVVFOTNPVUdIZDgydXNYejdQVUNEcGRBSEhlbVRybmFNMXVTZHo0MzNwb1NV0gG0AUFVX3lxTFBJVS12T1hxME9ZUUZCd2UtdkRMSGxzZlQyYjZaRTJ1M184ejdUb1lIT05haTNOOGUxMnd5ZlFvTHYxQ1JMX0VXUXNMZ05VZXJHYl9CalNJVDBoRVlFODg0RU1KRkY3OFNOdmc5Z0pNUlhmcXRfcTg0UDJGTHlQRW1kQjNxNXpsRU9mN1hMYURoQjN3em1mTUV0eEFCQXhZb3JyWUZ0cTJEU3NVcGZwMmxqYi1Vdw?oc=5"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.63,
+    "title": "gpyou",
+    "url": "https://www.producthunt.com/products/gpyou"
+   },
+   {
+    "kind": "funding",
+    "similarity": 0.56,
+    "title": "Nvidia vs AMD GPU: Same $549, RX 9070 Runs 17% Ahead",
+    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNNW93U25wMjh6eG9SN0ViZlZhNlcwZ0ZXUmtDalA4TVJJcGRFUzJQa3EyRVd5RmNJMWNEUU5fTklURUptanhtVWcxeUJVWkwzSERrcS13WExabmw4Rk4wd1FUV2dDRWtieHM3OFZ6Mmh1aE5IUHdoS21SRVQyaXpjUGR1eGlmeV9CREhGZVlQYXl1MURNeXVHcDNOZkw?oc=5"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.54,
+    "title": "GodGMN/tintero",
+    "url": "https://github.com/GodGMN/tintero"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.52,
+    "title": "barrydeen/ampllm",
+    "url": "https://github.com/barrydeen/ampllm"
+   }
+  ],
+  "sources": [
+   "hn"
+  ],
+  "strength": "emerging",
+  "sub": "compute",
+  "title": "Nvidia Hype",
+  "type": "startup",
+  "verdict": "partial",
+  "verdictSince": "2026-11-28T20:36:09.379Z"
+ },
+ "i-60c57ce6dd66": {
+  "counts": {
+   "complaints": 0,
+   "pay": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 1,
+   "views": 0
+  },
+  "coverage": 0,
+  "demandScore": 8,
+  "domain": "mechanical",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-11T07:10:24Z",
+    "kind": "pay",
+    "quote": "If you ask who would pay for Apple local models, I would.",
+    "source": "hn",
+    "title": "If you ask who would pay for Apple local models, I would.",
+    "url": "https://news.ycombinator.com/item?id=50450531",
+    "views": 0
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Yapay zeka modellerini Apple silikonunda yerel olarak verimli bir şekilde çalıştırmak için geliştirme veya taşıma fizibilitesini araştırmak.",
+  "id": "i-60c57ce6dd66",
+  "idea": "A service or product offering Apple-optimized local AI models.",
+  "ideaTrLlm": "Apple için optimize edilmiş yerel yapay zeka modelleri sunan bir hizmet veya ürün.",
+  "judged": true,
+  "lastActivityAt": "2026-11-11T07:10:24Z",
+  "nextStep": {
+   "code": "talk_payers",
+   "params": {
+    "n": 1
+   },
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Apple cihazları için özel olarak optimize edilmiş veya kolayca erişilebilir yerel yapay zeka modellerinin eksikliği.",
+  "ruleIdea": false,
+  "score": 8,
+  "signature": "60c57ce6dd66",
+  "solutions": [],
+  "sources": [
+   "hn"
+  ],
+  "strength": "signal",
+  "sub": "cad",
+  "title": "If you ask who would pay for Apple local models, I would.",
+  "type": "startup",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Yapay zeka modellerini yerel olarak Apple donanımında çalıştırmak isteyen kullanıcılar.",
+  "whyOpenTr": "Kullanıcı ödeme yapmaya istekli olduğunu belirtiyor, bu da böyle modellere yönelik mevcut karşılanmamış bir ihtiyacı ima ediyor."
+ },
+ "i-6b82334160dc": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 1,
+   "seeking": 4,
+   "unanswered": 5,
+   "views": 10
+  },
+  "coverage": 12.51,
+  "demandScore": 18.8,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-01T15:51:22Z",
+    "kind": "seeking",
+    "quote": "Now we have so many different and powerful agents: OpenClaw, Hermes Agent, Muse, Dots, Claude Code, Codex,… more coming. I let everyone run separately but have to copy and paste the same questions from one to another to check their responses. There should be better ways to coordinate all of these ag",
+    "source": "hn",
+    "title": "Ask HN: How do you manage your personal agents?",
+    "url": "https://news.ycombinator.com/item?id=50326764",
+    "views": 0
+   },
+   {
+    "answered": false,
+    "at": "2026-11-07T10:01:48Z",
+    "kind": "seeking",
+    "quote": "Hi Guys,\nlike many of you I work with AI agents every day and across several clients.\nThe major time cost for me is to re-explaining context and past decisions, client rules, that we already do. To finish every tools as its own memory.\nSo I’m curious how you actually handle this:\n1. When you start a",
+    "source": "hn",
+    "title": "Ask HN: How do you manage your AI agents' context across clients and projects?",
+    "url": "https://news.ycombinator.com/item?id=50403153",
+    "views": 0
+   },
+   {
+    "answered": false,
+    "at": "2026-11-25T15:37:45Z",
+    "kind": "seeking",
+    "quote": "How are you handling context for the long-running agents?",
+    "source": "hn",
+    "title": "How are you handling context for the long-running agents?",
+    "url": "https://news.ycombinator.com/item?id=50643418",
+    "views": 0
+   },
+   {
+    "answered": false,
+    "at": "2026-11-28T14:48:46Z",
+    "kind": "seeking",
+    "quote": "how do you handle/plan to handle configurations across different agents?",
+    "source": "hn",
+    "title": "how do you handle/plan to handle configurations across different agents?",
+    "url": "https://news.ycombinator.com/item?id=50678240",
+    "views": 0
+   },
+   {
+    "answered": false,
+    "at": "2026-11-28T17:44:08Z",
+    "kind": "question",
+    "quote": "What are you doing while your agents are working?",
+    "source": "hn",
+    "title": "What are you doing while your agents are working?",
+    "url": "https://news.ycombinator.com/item?id=50680076",
+    "views": 10
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-27T03:01:33.711Z",
+  "firstStepTr": "Farklı ajanlara aynı soruyu veya bağlamı kopyala yapıştır yapma sorununu çözen basit bir arayüz prototipi oluşturmak.",
+  "id": "i-6b82334160dc",
+  "idea": "An AI agent orchestration and context management platform",
+  "ideaTrLlm": "Bir yapay zeka ajanı orkestrasyon ve bağlam yönetim platformu",
+  "judged": true,
+  "lastActivityAt": "2026-11-28T17:44:08Z",
+  "nextStep": {
+   "code": "differentiate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 5,
+  "phrased": true,
+  "previousVerdict": null,
+  "problemTr": "Farklı yapay zeka ajanları arasında bağlamı, geçmiş kararları ve konfigürasyonları tekrar tekrar açıklamak ve kopyala yapıştır yapmak büyük zaman kaybına neden oluyor.",
+  "ruleIdea": true,
+  "score": 4.7,
+  "signature": "d173b98e47ea",
+  "solutions": [
+   {
+    "kind": "launch",
+    "similarity": 0.67,
+    "title": "Show HN: AgentWitch – lessons that survive the next coding-agent session",
+    "url": "https://news.ycombinator.com/item?id=50681313"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.61,
+    "title": "Monton",
+    "url": "https://www.producthunt.com/products/monton"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.61,
+    "title": "Show HN: Evalkit for Improving Your Agents",
+    "url": "https://news.ycombinator.com/item?id=50655285"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.6,
+    "title": "pavelveter/AGENTS.md",
+    "url": "https://github.com/pavelveter/AGENTS.md"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.59,
+    "title": "Show HN: Fleetlayer – Framework for running many AI agents on multiple machines",
+    "url": "https://news.ycombinator.com/item?id=50675831"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.59,
+    "title": "Replit Missions",
+    "url": "https://www.producthunt.com/products/replit"
+   }
+  ],
+  "sources": [
+   "hn"
+  ],
+  "strength": "emerging",
+  "sub": "ai",
+  "title": "Ask HN: How do you manage your personal agents?",
+  "type": "startup",
+  "verdict": "crowded",
+  "verdictSince": "2026-11-27T03:01:33.711Z",
+  "whoTr": "Birden fazla yapay zeka ajanıyla çalışan profesyoneller ve geliştiriciler",
+  "whyOpenTr": "Alıntılarda belirtildiği üzere, kullanıcılar bu sorunu manuel olarak kopyala yapıştır yaparak veya her ajana ayrı ayrı bağlam açıklayarak çözmeye çalışıyor ve mevcut bir entegre çözümden bahsedilmiyor."
+ },
+ "i-7cfc55bb6488": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 1,
+   "seeking": 1,
+   "unanswered": 2,
+   "views": 272
+  },
+  "coverage": 0,
+  "demandScore": 10.7,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-16T08:42:16.334Z",
+    "kind": "seeking",
+    "quote": "How Do You Handle Variable-Length Video Clips in a PyTorch DataLoader?",
+    "source": "forum:discuss.pytorch.org",
+    "title": "How Do You Handle Variable-Length Video Clips in a PyTorch DataLoader?",
+    "url": "https://discuss.pytorch.org/t/how-do-you-handle-variable-length-video-clips-in-a-pytorch-dataloader/225909",
+    "views": 195
+   },
+   {
+    "answered": false,
+    "at": "2026-11-03T06:03:34.701Z",
+    "kind": "question",
+    "quote": "How Do You Evaluate Segment-Level Video Retrieval in PyTorch?",
+    "source": "forum:discuss.pytorch.org",
+    "title": "How Do You Evaluate Segment-Level Video Retrieval in PyTorch?",
+    "url": "https://discuss.pytorch.org/t/how-do-you-evaluate-segment-level-video-retrieval-in-pytorch/225730",
+    "views": 77
+   }
+  ],
+  "families": [
+   "forum"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Değişken uzunluktaki video klipleri PyTorch DataLoader'a entegre etmek için temel bir veri yapısı ve örnek bir işleme akışı tasarlamak.",
+  "id": "i-7cfc55bb6488",
+  "idea": "A PyTorch library for efficient handling of variable-length video clips and segment-level video retrieval.",
+  "ideaTrLlm": "Değişken uzunluktaki video klipleri ve segment düzeyinde video geri alımını verimli bir şekilde işlemek için bir PyTorch kütüphanesi.",
+  "judged": true,
+  "lastActivityAt": "2026-11-16T08:42:16.334Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {
+    "n": 2
+   },
+   "size": "Weekend prototype"
+  },
+  "people": 2,
+  "phrased": true,
+  "previousVerdict": null,
+  "problemTr": "PyTorch'ta değişken uzunluktaki video klipleri işlemek ve segment düzeyinde video geri alımını değerlendirmek için standart ve verimli yöntemler bulmakta zorlanıyorlar.",
+  "ruleIdea": true,
+  "score": 10.7,
+  "signature": "692f66472a54",
+  "solutions": [],
+  "sources": [
+   "forum:discuss.pytorch.org"
+  ],
+  "strength": "emerging",
+  "sub": "devtools",
+  "title": "How Do You Evaluate Segment-Level Video Retrieval in PyTorch?",
+  "type": "project",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "PyTorch kullanarak video verileriyle çalışan araştırmacılar ve geliştiriciler.",
+  "whyOpenTr": "Mevcut PyTorch DataLoader'larının ve değerlendirme metotlarının bu spesifik video işleme zorlukları için doğrudan bir çözüm sunmadığı anlaşılıyor."
+ },
+ "i-8eb07e67a2c0": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 2,
+   "unanswered": 2,
+   "views": 0
+  },
+  "coverage": 0.75,
+  "demandScore": 9.8,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-08T12:19:37Z",
+    "kind": "seeking",
+    "quote": "How do you handle the errors that the agents make?",
+    "source": "hn",
+    "title": "How do you handle the errors that the agents make?",
+    "url": "https://news.ycombinator.com/item?id=50412635",
+    "views": 0
+   },
+   {
+    "answered": false,
+    "at": "2026-11-12T13:49:03Z",
+    "kind": "seeking",
+    "quote": "How do you handle teammates who haven’t yet mastered getting their agents to produce a level of quality and elegance?",
+    "source": "hn",
+    "title": "How do you handle teammates who haven’t yet mastered getting their agents to produce a level of quality and elegance?",
+    "url": "https://news.ycombinator.com/item?id=50467044",
+    "views": 0
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Ajanların çıktılarını loglayan ve belirli hata türlerini etiketlemeye olanak tanıyan basit bir izleme aracı geliştirmek.",
+  "id": "i-8eb07e67a2c0",
+  "idea": "A platform for monitoring, debugging, and improving the quality and reliability of AI agents, facilitating team collaboration.",
+  "ideaTrLlm": "Yapay zeka ajanlarının kalitesini ve güvenilirliğini izlemek, hata ayıklamak ve iyileştirmek için ekip işbirliğini kolaylaştıran bir platform.",
+  "judged": true,
+  "lastActivityAt": "2026-11-12T13:49:03Z",
+  "nextStep": {
+   "code": "differentiate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 2,
+  "phrased": true,
+  "previousVerdict": "open",
+  "problemTr": "Ajanların yaptığı hataları yönetmekte ve ekip üyelerinin ajan kalitesini tutarlı bir seviyeye getirmesini sağlamakta zorlanıyorlar.",
+  "ruleIdea": true,
+  "score": 5.9,
+  "signature": "0c83795dfba1",
+  "solutions": [
+   {
+    "kind": "launch",
+    "similarity": 0.58,
+    "title": "Show HN: AgentWitch – lessons that survive the next coding-agent session",
+    "url": "https://news.ycombinator.com/item?id=50681313"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.54,
+    "title": "Show HN: Evalkit for Improving Your Agents",
+    "url": "https://news.ycombinator.com/item?id=50655285"
+   }
+  ],
+  "sources": [
+   "hn"
+  ],
+  "strength": "emerging",
+  "sub": "ai",
+  "title": "How do you handle the errors that the agents make?",
+  "type": "startup",
+  "verdict": "partial",
+  "verdictSince": "2026-11-28T19:48:37.223Z",
+  "whoTr": "Yapay zeka ajanları geliştiren ve yöneten ekipler ve geliştiriciler.",
+  "whyOpenTr": "Ajan hatalarını izlemek ve ekip içinde ajan kalitesini standartlaştırmak için özel bir araç veya metodoloji eksikliği olduğu görülüyor."
+ },
+ "i-8f24de6bbef3": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 1,
+   "views": 36
+  },
+  "coverage": 0,
+  "demandScore": 7.1,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-18T11:58:51.000Z",
+    "kind": "seeking",
+    "quote": "What software can help me organize and manage personal files stored across multiple cloud storage services?",
+    "source": "se:softwarerecs",
+    "title": "What software can help me organize and manage personal files stored across multiple cloud storage services?",
+    "url": "https://softwarerecs.stackexchange.com/questions/95804/what-software-can-help-me-organize-and-manage-personal-files-stored-across-multi",
+    "views": 36
+   }
+  ],
+  "families": [
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "İki popüler bulut depolama hizmetini (örneğin Google Drive ve Dropbox) entegre edebilen ve temel dosya listeleme, arama ve taşıma işlevlerini sunan bir masaüstü veya web uygulaması prototipi geliştirmek.",
+  "id": "i-8f24de6bbef3",
+  "idea": "A personal file management software for multiple cloud storage services.",
+  "ideaTrLlm": "Birden fazla bulut depolama hizmetindeki kişisel dosyaları düzenlemek ve yönetmek için bir yazılım.",
+  "judged": true,
+  "lastActivityAt": "2026-11-18T11:58:51.000Z",
+  "nextStep": {
+   "code": "validate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": true,
+  "previousVerdict": null,
+  "problemTr": "Kişisel dosyalarını birden fazla bulut depolama hizmetinde organize etmek ve yönetmekte zorlanıyorlar.",
+  "ruleIdea": true,
+  "score": 7.1,
+  "signature": "8f24de6bbef3",
+  "solutions": [],
+  "sources": [
+   "se:softwarerecs"
+  ],
+  "strength": "signal",
+  "sub": "apps",
+  "title": "What software can help me organize and manage personal files stored across multiple cloud storage services?",
+  "type": "product",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Birden fazla bulut depolama hizmeti kullanan bireyler.",
+  "whyOpenTr": "Mevcut çözümlerin bu ihtiyacı tam olarak karşılamadığı veya kullanıcıların aradığı entegre bir deneyimi sunmadığı anlaşılıyor."
+ },
+ "i-b55236610145": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 0,
+   "views": 541
+  },
+  "coverage": 0.8,
+  "demandScore": 7.2,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": true,
+    "at": "2026-11-07T18:11:07.000Z",
+    "kind": "seeking",
+    "quote": "What software provides a markup language for wireframing?",
+    "source": "se:softwarerecs",
+    "title": "What software provides a markup language for wireframing?",
+    "url": "https://softwarerecs.stackexchange.com/questions/95772/what-software-provides-a-markup-language-for-wireframing",
+    "views": 541
+   }
+  ],
+  "families": [
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Temel bir işaretleme dili sözdizimi tanımlayıp basit bir HTML/CSS çıktısı veren bir prototip oluşturmak.",
+  "id": "i-b55236610145",
+  "idea": "A wireframing tool that uses a markup language.",
+  "ideaTrLlm": "İşaretleme dili kullanan bir wireframing aracı.",
+  "judged": true,
+  "lastActivityAt": "2026-11-07T18:11:07.000Z",
+  "nextStep": {
+   "code": "validate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": true,
+  "previousVerdict": null,
+  "problemTr": "Mevcut wireframing araçlarının işaretleme dili tabanlı olmaması veya yeterli olmaması.",
+  "ruleIdea": true,
+  "score": 4.3,
+  "signature": "b55236610145",
+  "solutions": [],
+  "sources": [
+   "se:softwarerecs"
+  ],
+  "strength": "signal",
+  "sub": "devtools",
+  "title": "What software provides a markup language for wireframing?",
+  "type": "product",
+  "verdict": "partial",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Wireframing için işaretleme dili arayan yazılımcılar veya tasarımcılar.",
+  "whyOpenTr": "Kullanıcı, wireframing için işaretleme dili sağlayan bir yazılım arıyor, bu da mevcut çözümlerin bu ihtiyacı karşılamadığını düşündürüyor."
+ },
+ "i-c92dbb8631f8": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 2,
+   "unanswered": 2,
+   "views": 24
+  },
+  "coverage": 2.55,
+  "demandScore": 13.2,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-24T23:38:58.000Z",
+    "kind": "seeking",
+    "quote": "How do I give my Hermes agents permanent memory, institutional knowledge, and intelligent model routing?",
+    "source": "se:softwarerecs",
+    "title": "How do I give my Hermes agents permanent memory, institutional knowledge, and intelligent model routing?",
+    "url": "https://softwarerecs.stackexchange.com/questions/95836/how-do-i-give-my-hermes-agents-permanent-memory-institutional-knowledge-and-in",
+    "views": 24
+   },
+   {
+    "answered": false,
+    "at": "2026-11-03T20:31:45Z",
+    "kind": "seeking",
+    "quote": "How are you handling memory for your own agents?",
+    "source": "hn",
+    "title": "How are you handling memory for your own agents?",
+    "url": "https://news.ycombinator.com/item?id=50357768",
+    "views": 0
+   }
+  ],
+  "families": [
+   "hn",
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Basit bir vektör veritabanı kullanarak bir ajanın geçmiş etkileşimlerini hatırlamasını sağlayan bir bellek modülü prototipi oluşturmak.",
+  "id": "i-c92dbb8631f8",
+  "idea": "A system or library to provide permanent memory, institutional knowledge, and intelligent model routing for AI agents.",
+  "ideaTrLlm": "Yapay zeka ajanlarına kalıcı bellek, kurumsal bilgi ve akıllı model yönlendirme sağlayan bir sistem veya kütüphane.",
+  "judged": true,
+  "lastActivityAt": "2026-11-24T23:38:58.000Z",
+  "nextStep": {
+   "code": "differentiate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 2,
+  "phrased": true,
+  "previousVerdict": null,
+  "problemTr": "Yapay zeka ajanlarına kalıcı bellek ve kurumsal bilgi kazandırmanın zorluğu.",
+  "ruleIdea": true,
+  "score": 3.3,
+  "signature": "868f7cf22f42",
+  "solutions": [
+   {
+    "kind": "product",
+    "similarity": 0.75,
+    "title": "MemoryWorks",
+    "url": "https://www.producthunt.com/products/memoryworks"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.63,
+    "title": "Remora",
+    "url": "https://www.producthunt.com/products/remora-6"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.58,
+    "title": "Claude-Mem Cloud Sync",
+    "url": "https://www.producthunt.com/products/claude-mem"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.55,
+    "title": "langchain-samples/Persistent-Agent",
+    "url": "https://github.com/langchain-samples/Persistent-Agent"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.54,
+    "title": "Show HN: I gave my AI Agents Production backed Memory",
+    "url": "https://news.ycombinator.com/item?id=50671006"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.53,
+    "title": "MyClaw 3.0",
+    "url": "https://www.producthunt.com/products/myclaw-3-0"
+   }
+  ],
+  "sources": [
+   "hn",
+   "se:softwarerecs"
+  ],
+  "strength": "emerging",
+  "sub": "ai",
+  "title": "How do I give my Hermes agents permanent memory, institutional knowledge, and intelligent model routing?",
+  "type": "product",
+  "verdict": "crowded",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Yapay zeka ajanlarının uzun süreli hafızaya ve bilgi yönetimine ihtiyaç duyan geliştiriciler ve şirketler.",
+  "whyOpenTr": "Kullanıcılar, ajanlarına kalıcı bellek ve kurumsal bilgi nasıl vereceklerini soruyorlar, bu da bu konuda hazır ve kolay bir çözümün olmadığını düşündürüyor."
+ },
+ "i-ca0167b0cd52": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 1,
+   "views": 54
+  },
+  "coverage": 0,
+  "demandScore": 7.2,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-13T12:49:46.000Z",
+    "kind": "seeking",
+    "quote": "What software can help manage large volumes of data for long-term archiving?",
+    "source": "se:softwarerecs",
+    "title": "What software can help manage large volumes of data for long-term archiving?",
+    "url": "https://softwarerecs.stackexchange.com/questions/95787/what-software-can-help-manage-large-volumes-of-data-for-long-term-archiving",
+    "views": 54
+   }
+  ],
+  "families": [
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Temel veri depolama, indeksleme ve basit bir geri yükleme özelliği sunan bir MVP (Minimum Viable Product) geliştirmek.",
+  "id": "i-ca0167b0cd52",
+  "idea": "A comprehensive data management and archiving software for large volumes of data.",
+  "ideaTrLlm": "Büyük hacimli veriler için kapsamlı bir veri yönetimi ve uzun süreli arşivleme yazılımı.",
+  "judged": true,
+  "lastActivityAt": "2026-11-13T12:49:46.000Z",
+  "nextStep": {
+   "code": "validate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": true,
+  "previousVerdict": null,
+  "problemTr": "Büyük hacimli verilerin uzun süreli arşivlenmesi ve yönetilmesi için uygun, entegre ve kullanıcı dostu bir yazılım bulmak zor olabilir.",
+  "ruleIdea": true,
+  "score": 7.2,
+  "signature": "ca0167b0cd52",
+  "solutions": [],
+  "sources": [
+   "se:softwarerecs"
+  ],
+  "strength": "signal",
+  "sub": "data",
+  "title": "What software can help manage large volumes of data for long-term archiving?",
+  "type": "product",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Büyük miktarda veriyi uzun vadeli arşivlemek ve yönetmek isteyen kuruluşlar veya bireyler.",
+  "whyOpenTr": "Kullanıcı, büyük hacimli verileri uzun vadeli arşivlemek için hangi yazılımların yardımcı olabileceğini sorarak, bu alanda net veya yeterli bir çözüm bulamadığını ima ediyor."
+ },
+ "i-d44c2cbe3e27": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 1,
+   "views": 58
+  },
+  "coverage": 0,
+  "demandScore": 7.3,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-09T00:44:03.000Z",
+    "kind": "seeking",
+    "quote": "Does any software provide a graphical interface to sign text with an SSH key?",
+    "source": "se:softwarerecs",
+    "title": "Does any software provide a graphical interface to sign text with an SSH key?",
+    "url": "https://softwarerecs.stackexchange.com/questions/95777/does-any-software-provide-a-graphical-interface-to-sign-text-with-an-ssh-key",
+    "views": 58
+   }
+  ],
+  "families": [
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "SSH anahtarıyla metin imzalama işlemini gerçekleştiren temel bir komut satırı aracını GUI'ye bağlayan basit bir prototip oluşturmak.",
+  "id": "i-d44c2cbe3e27",
+  "idea": "A graphical tool to sign text using an SSH key.",
+  "ideaTrLlm": "SSH anahtarı kullanarak metin imzalamak için grafik arayüzlü bir araç.",
+  "judged": true,
+  "lastActivityAt": "2026-11-09T00:44:03.000Z",
+  "nextStep": {
+   "code": "validate",
+   "params": {},
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Mevcut SSH anahtarıyla metin imzalama yöntemleri genellikle komut satırı tabanlıdır ve grafik arayüz arayan kullanıcılar için pratik değildir.",
+  "ruleIdea": false,
+  "score": 7.3,
+  "signature": "d44c2cbe3e27",
+  "solutions": [],
+  "sources": [
+   "se:softwarerecs"
+  ],
+  "strength": "signal",
+  "sub": "devtools",
+  "title": "Does any software provide a graphical interface to sign text with an SSH key?",
+  "type": "project",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Metinleri SSH anahtarlarıyla grafik arayüz üzerinden imzalamak isteyen kullanıcılar.",
+  "whyOpenTr": "Kullanıcı, SSH anahtarıyla metin imzalamak için grafik arayüzlü bir yazılım arıyor, bu da mevcut çözümlerin bu ihtiyacı karşılamadığını düşündürüyor."
+ },
+ "i-df8550fa9274": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 2,
+   "seeking": 0,
+   "unanswered": 2,
+   "views": 145
+  },
+  "coverage": 0,
+  "demandScore": 8.9,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-23T08:09:30.270Z",
+    "kind": "question",
+    "quote": "How Do You Normalize Action Labels Across Different Robot Platforms in PyTorch?",
+    "source": "forum:discuss.pytorch.org",
+    "title": "How Do You Normalize Action Labels Across Different Robot Platforms in PyTorch?",
+    "url": "https://discuss.pytorch.org/t/how-do-you-normalize-action-labels-across-different-robot-platforms-in-pytorch/226027",
+    "views": 101
+   },
+   {
+    "answered": false,
+    "at": "2026-11-27T07:04:20.652Z",
+    "kind": "question",
+    "quote": "How Do You Integrate Active Learning with a PyTorch Robot Dataset?",
+    "source": "forum:discuss.pytorch.org",
+    "title": "How Do You Integrate Active Learning with a PyTorch Robot Dataset?",
+    "url": "https://discuss.pytorch.org/t/how-do-you-integrate-active-learning-with-a-pytorch-robot-dataset/226081",
+    "views": 44
+   }
+  ],
+  "families": [
+   "forum"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Farklı robot platformlarından gelen eylem etiketlerini ortak bir formata dönüştüren temel bir normalleştirme modülü tasarlamak.",
+  "id": "i-df8550fa9274",
+  "idea": "A PyTorch-based library for normalizing robot action labels and integrating active learning with robot datasets.",
+  "ideaTrLlm": "Robot eylem etiketlerini normalleştirmek ve robot veri kümeleriyle aktif öğrenmeyi entegre etmek için PyTorch tabanlı bir kütüphane.",
+  "judged": true,
+  "lastActivityAt": "2026-11-27T07:04:20.652Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {
+    "n": 2
+   },
+   "size": "Weekend prototype"
+  },
+  "people": 2,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Farklı robot platformlarındaki eylem etiketlerini standartlaştırmakta ve robot veri kümelerine aktif öğrenmeyi entegre etmekte zorlanıyorlar.",
+  "ruleIdea": false,
+  "score": 8.9,
+  "signature": "f77b805d89a2",
+  "solutions": [],
+  "sources": [
+   "forum:discuss.pytorch.org"
+  ],
+  "strength": "emerging",
+  "sub": "ai",
+  "title": "How Do You Normalize Action Labels Across Different Robot Platforms in PyTorch?",
+  "type": "project",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "PyTorch kullanarak robotik veri kümeleri ve eylem etiketleri üzerinde çalışan araştırmacılar ve geliştiriciler.",
+  "whyOpenTr": "Robotik alanında PyTorch ile bu spesifik sorunları ele alan standart bir çözüm veya kütüphane eksikliği olduğu anlaşılıyor."
+ },
+ "i-eb130ca2c9a0": {
+  "counts": {
+   "complaints": 0,
+   "pay": 1,
+   "questions": 1,
+   "seeking": 0,
+   "unanswered": 1,
+   "views": 10
+  },
+  "coverage": 4.92,
+  "demandScore": 10.8,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-06T16:06:24Z",
+    "kind": "pay",
+    "quote": "I would pay half that for an AI agent to do emailing and scheduling and contract rounds.",
+    "source": "hn",
+    "title": "I would pay half that for an AI agent to do emailing and scheduling and contract rounds.",
+    "url": "https://news.ycombinator.com/item?id=50394143",
+    "views": 0
+   },
+   {
+    "answered": true,
+    "at": "2026-11-27T23:31:19Z",
+    "kind": "question",
+    "quote": "I was hired by an AI agent",
+    "source": "hn",
+    "title": "I was hired by an AI agent",
+    "url": "https://news.ycombinator.com/item?id=50672702",
+    "views": 10
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-28T00:23:43.266Z",
+  "firstStepTr": "E-posta taslakları oluşturma ve takvim randevuları ayarlama gibi temel idari görevleri otomatikleştiren bir MVP (Minimum Viable Product) geliştirmek.",
+  "id": "i-eb130ca2c9a0",
+  "idea": "An AI agent for administrative tasks like emailing, scheduling, and contract management.",
+  "ideaTrLlm": "E-posta, zamanlama ve sözleşme yönetimi gibi idari görevler için bir yapay zeka ajanı.",
+  "judged": true,
+  "lastActivityAt": "2026-11-27T23:31:19Z",
+  "nextStep": {
+   "code": "talk_payers",
+   "params": {
+    "n": 1
+   },
+   "size": "Interview first"
+  },
+  "people": 2,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "İnsanlar, e-posta yazma, toplantı ayarlama ve sözleşme süreçlerini yönetme gibi zaman alıcı idari görevler için otomasyon ve yardım arıyor.",
+  "ruleIdea": false,
+  "score": 2.7,
+  "signature": "63b16340285c",
+  "solutions": [
+   {
+    "kind": "funding",
+    "similarity": 0.7,
+    "title": "Atsumell raises $1.15M to prep company workflows for AI agents",
+    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQSl85SlpNWkVaT19LaFUwMUlIVzNuM3ZKaGd2anRsVHgxUzJxcjRBb1lSeWVjLTR5LXZjWGFJTDQybW1IVU9MWE9velhKNUJsQWVuYWF2Ym16RlJEWVNwbUZ4Z243UWtvdm56UVY4dnFZSEkxbGMyN0NQbEhfTDhKcmsxRkFRM3hSSENRQ1FTRm9fZzdueGcwVVFSSQ?oc=5"
+   },
+   {
+    "kind": "funding",
+    "similarity": 0.59,
+    "title": "Pippa Labs lands £500k to build trusted AI agents",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaDE1Z0ltTFNvcUlENnhwb2ZmY0xiNllJSGl5OTItYnBjUEJRaUVja3luTngxa3duSzZNQW44Nlc1M2pxeGpsZFdtRlhkRnk5My1MTUlCVnk4MkNjc0k3LWd5RzltU1RfOFBvSG1YMWtiZkpPYTJJc3pMRDUwMVdLUHowd1gtVGpQdVE?oc=5"
+   },
+   {
+    "kind": "funding",
+    "similarity": 0.59,
+    "title": "ProCogia lands C$1.35M federal grant to scale enterprise AI agents",
+    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNQVpZbjhPeTJ4dVB5NHFtaURkRlJOcWkzRjFKU2Q3LTViMFFnZEZUU2p6ci05LTQ3NEIxQWlDaFRVb1JFR1V6Ny1jYXVGLTV0Mk9GQmVLMF9qMEp5Ry1WQTNaWlhwUGNvRk9fOWF2UjExOFVoZXRYY21qSmJXeU9mT0J5WUdnWF9zaEhkMFkwQ1VzQld6TjI0SVZsd3hHMlBNbVE?oc=5"
+   },
+   {
+    "kind": "funding",
+    "similarity": 0.59,
+    "title": "Felicis leads $7.5M bet on Unsiloed AI to make enterprise documents usable by AI agents",
+    "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPNDhZOGpwX3RiS2x2ZVhyeWlnNTh3ZVVyS29rTnZIQ0ZqZHJfcUdjLVh4a19WNEc4dlp4TWhHcS1uQlVPb0tSZHVnTEhfZ0RTa0xLU2RyZ3IySUpFdFFlek9KNFVjU1B0b1dJVlhERWQxTUlHZUtnbVpHaTBjc0J2SWdtWGRSbGxjLUN5a3NRS0MyQWQ5YldXWk1GNnpVMDUyQkNra21ldEFUdFFsRUNoX3NxaGs5Q3NrMzMxV293?oc=5"
+   },
+   {
+    "kind": "funding",
+    "similarity": 0.58,
+    "title": "XEBO.ai Raises $10.5M Series A to Expand Agentic AI and Analytics",
+    "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOMGJLM1dSU0pfN3otZGdjWGM0NzZsSjhIUXhpcDlrRXkxTzNMQjB6YWhCX0lIMmVxdlNEMWNEOU5EV2VNa3JmeDVCbkc1VzdlYXNwWlRXbEZYa2tiTjZKdzBIRHFqYUxxMC1lTUlrUXRraVQtd1l0SlhobGkyNFRFZWdpbHpQX0JDR0JXNHk0NA?oc=5"
+   },
+   {
+    "kind": "funding",
+    "similarity": 0.58,
+    "title": "Modern Industrials raises $6 million for custom AI agents in manufacturing and distribution",
+    "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQUmpfYXlVc1RIaV9tSGY5LWdma0ZtSkdONzdnWW5nRmN5WWlXNFRBX1pDWEF6MnZhM0NuaDhzTlgwLVVGdUxLenZhQUxaanFQcmpfTHdEc3hrNmlwYkQ4QnlESmROeWFaalpIbEpQS1hzeFdnc0JiX3FQd25lek1DMVlZcmszUDB3NFNpT1VpYkFtYkpCYUJEa2VhdDl6WmVxWG1XVzE5cE5Ta1V6ck9kaDZJZ0FMSDF2NlZFU3U5MDNDdw?oc=5"
+   }
+  ],
+  "sources": [
+   "hn"
+  ],
+  "strength": "emerging",
+  "sub": "ai",
+  "title": "I would pay half that for an AI agent to do emailing and scheduling and contract rounds.",
+  "type": "startup",
+  "verdict": "crowded",
+  "verdictSince": "2026-11-28T00:23:43.266Z",
+  "whoTr": "E-posta, zamanlama ve sözleşme süreçleriyle uğraşan profesyoneller veya şirketler.",
+  "whyOpenTr": "Alıntılardan anlaşıldığı kadarıyla, bu tür bir yapay zeka ajanı için ödeme yapmaya istekli bir talep var ve mevcut çözümler bu ihtiyacı tam olarak karşılamıyor gibi görünüyor."
+ },
+ "i-eeb6bef6635c": {
+  "counts": {
+   "complaints": 0,
+   "pay": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 1,
+   "views": 0
+  },
+  "coverage": 0,
+  "demandScore": 8,
+  "domain": "computer",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-10-29T18:36:39Z",
+    "kind": "pay",
+    "quote": "If frontier labs wanted to improve \"LLMs for communication\" they would pay for reasoning traces to be produced which reproduced the thought process of writers/speakers thinking about their audiences.",
+    "source": "hn",
+    "title": "If frontier labs wanted to improve \"LLMs for communication\" they would pay for reasoning traces to be produced which reproduced the thought ",
+    "url": "https://news.ycombinator.com/item?id=50293838",
+    "views": 0
+   }
+  ],
+  "families": [
+   "hn"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Kitleye duyarlı iletişimle ilgili insan düşünce süreçlerini yakalamak veya simüle etmek için bir metodoloji geliştirmek.",
+  "id": "i-eeb6bef6635c",
+  "idea": "A service or tool that generates reasoning traces reproducing human thought processes for communication, specifically for training LLMs.",
+  "ideaTrLlm": "İletişim için insan düşünce süreçlerini yeniden üreten muhakeme izleri üreten bir hizmet veya araç, özellikle büyük dil modellerini (LLM) eğitmek için.",
+  "judged": true,
+  "lastActivityAt": "2026-10-29T18:36:39Z",
+  "nextStep": {
+   "code": "talk_payers",
+   "params": {
+    "n": 1
+   },
+   "size": "Interview first"
+  },
+  "people": 1,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "LLM'lerin iletişim yeteneklerini, insan düşünce süreçlerini anlayarak geliştirmeleri gerekiyor.",
+  "ruleIdea": false,
+  "score": 8,
+  "signature": "eeb6bef6635c",
+  "solutions": [],
+  "sources": [
+   "hn"
+  ],
+  "strength": "signal",
+  "sub": "ai",
+  "title": "If frontier labs wanted to improve \"LLMs for communication\" they would pay for reasoning traces to be produced which reproduced the thought ",
+  "type": "startup",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "İletişim için LLM'ler üzerinde çalışan öncü laboratuvarlar.",
+  "whyOpenTr": "Alıntı, laboratuvarların iyileştirmek isteseler 'muhakeme izleri için ödeme yapacaklarını' belirtiyor, bu da bu verinin/hizmetin kolayca bulunmadığını gösteriyor."
+ },
+ "i-f4bb35da4e2f": {
+  "counts": {
+   "complaints": 0,
+   "pay": 0,
+   "questions": 2,
+   "seeking": 0,
+   "unanswered": 2,
+   "views": 86
+  },
+  "coverage": 0,
+  "demandScore": 8.7,
+  "domain": "math",
+  "evidence": [
+   {
+    "answered": false,
+    "at": "2026-11-25T02:55:12.000Z",
+    "kind": "question",
+    "quote": "Methods that use ML techniques to extract interpretable params from open ended data?",
+    "source": "se:scicomp",
+    "title": "Methods that use ML techniques to extract interpretable params from open ended data?",
+    "url": "https://scicomp.stackexchange.com/questions/45601/methods-that-use-ml-techniques-to-extract-interpretable-params-from-open-ended-d",
+    "views": 45
+   },
+   {
+    "answered": false,
+    "at": "2026-11-25T17:41:21.000Z",
+    "kind": "question",
+    "quote": "Methods that use ML techniques to extract interpretable params from open ended data?",
+    "source": "se:stats",
+    "title": "Methods that use ML techniques to extract interpretable params from open ended data?",
+    "url": "https://stats.stackexchange.com/questions/678846/methods-that-use-ml-techniques-to-extract-interpretable-params-from-open-ended-d",
+    "views": 41
+   }
+  ],
+  "families": [
+   "stackexchange"
+  ],
+  "firstSeenAt": "2026-11-27T13:38:46.939Z",
+  "firstStepTr": "Metin gibi açık uçlu verilerden temel özellikler çıkarabilen ve bu özellikleri basit yorumlanabilir modellerle ilişkilendirebilen bir prototip geliştirmek.",
+  "id": "i-f4bb35da4e2f",
+  "idea": "An open-source library for extracting interpretable parameters from open-ended data using machine learning techniques.",
+  "ideaTrLlm": "Makine öğrenimi tekniklerini kullanarak açık uçlu verilerden yorumlanabilir parametreler çıkarmak için açık kaynaklı bir kütüphane.",
+  "judged": true,
+  "lastActivityAt": "2026-11-25T17:41:21.000Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {
+    "n": 2
+   },
+   "size": "Weekend prototype"
+  },
+  "people": 2,
+  "phrased": false,
+  "previousVerdict": null,
+  "problemTr": "Makine öğrenimi tekniklerini kullanarak açık uçlu verilerden yorumlanabilir parametreler elde etmek için uygun yöntemler arıyorlar.",
+  "ruleIdea": false,
+  "score": 8.7,
+  "signature": "9c24669ec7f4",
+  "solutions": [],
+  "sources": [
+   "se:scicomp",
+   "se:stats"
+  ],
+  "strength": "emerging",
+  "sub": "stats",
+  "title": "Methods that use ML techniques to extract interpretable params from open ended data?",
+  "type": "project",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T13:38:46.939Z",
+  "whoTr": "Açık uçlu verilerden anlamlı ve yorumlanabilir parametreler çıkarmak isteyen veri bilimciler ve araştırmacılar.",
+  "whyOpenTr": "Açık uçlu verilerden yorumlanabilir parametreler çıkarmaya odaklanan özel bir ML kütüphanesi veya metodoloji setinin eksikliği olduğu anlaşılıyor."
+ }
+}

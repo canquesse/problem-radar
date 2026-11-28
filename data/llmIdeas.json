@@ -1,0 +1,482 @@
+{
+ "0285b211f2ee": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "059044954603": {
+  "firstStepTr": "Yapay zeka modellerini yerel olarak çalıştırmak için çeşitli donanım yapılandırmalarının güç tüketimini araştırmak ve optimizasyon stratejilerini belirlemek.",
+  "ideaEn": "An energy-efficient local compute solution or optimization service for running AI models like Qwen on complex problems.",
+  "ideaTr": "Qwen gibi yapay zeka modellerini karmaşık sorunlar üzerinde çalıştırmak için enerji verimli bir yerel hesaplama çözümü veya optimizasyon hizmeti.",
+  "isIdea": true,
+  "problemTr": "Karmaşık sorunlar üzerinde uzun süre yerel yapay zeka modelleri çalıştırmak önemli elektrik maliyetleri doğurabilir.",
+  "type": "product",
+  "whoTr": "Karmaşık sorunlar için yapay zeka modellerini yerel olarak çalıştırmayı tercih eden, elektrik maliyetleri yüksek olsa bile verimlilikten faydalanacak kullanıcılar.",
+  "whyOpenTr": "Kullanıcı daha fazla elektrik parası ödemeye istekli, bu da mevcut çözümlerin bu senaryoda maliyet-verimlilik açısından optimize edilmediğini veya yerel hesaplamanın faydalarının maliyeti aştığını, ancak optimize edilmiş bir çözümün daha iyi olacağını ima ediyor."
+ },
+ "0c83795dfba1": {
+  "firstStepTr": "Ajanların çıktılarını loglayan ve belirli hata türlerini etiketlemeye olanak tanıyan basit bir izleme aracı geliştirmek.",
+  "ideaEn": "A platform for monitoring, debugging, and improving the quality and reliability of AI agents, facilitating team collaboration.",
+  "ideaTr": "Yapay zeka ajanlarının kalitesini ve güvenilirliğini izlemek, hata ayıklamak ve iyileştirmek için ekip işbirliğini kolaylaştıran bir platform.",
+  "isIdea": true,
+  "problemTr": "Ajanların yaptığı hataları yönetmekte ve ekip üyelerinin ajan kalitesini tutarlı bir seviyeye getirmesini sağlamakta zorlanıyorlar.",
+  "type": "startup",
+  "whoTr": "Yapay zeka ajanları geliştiren ve yöneten ekipler ve geliştiriciler.",
+  "whyOpenTr": "Ajan hatalarını izlemek ve ekip içinde ajan kalitesini standartlaştırmak için özel bir araç veya metodoloji eksikliği olduğu görülüyor."
+ },
+ "1133c6b8507a": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "119b7df234de": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "127664a52976": {
+  "firstStepTr": "Mevcut sanallaştırma veya konteyner teknolojilerini (Docker, Vagrant) C++ geliştirme araçları ve betik motorları ile entegre eden bir prototip oluşturmak.",
+  "ideaEn": "A tool for isolated C++ development environments with scripting capabilities.",
+  "ideaTr": "Betik çalıştırma yeteneğine sahip izole C++ geliştirme ortamları için bir araç.",
+  "isIdea": true,
+  "problemTr": "C++ geliştirme oturumları için betik çalıştırma yeteneğine sahip izole bir ortam kurmakta zorlanıyorlar.",
+  "type": "project",
+  "whoTr": "C++ geliştiricileri.",
+  "whyOpenTr": "Mevcut çözümlerin bu spesifik ihtiyacı tam olarak karşılamadığı veya entegre bir çözümün olmadığı anlaşılıyor."
+ },
+ "151055b9e754": {
+  "firstStepTr": "Yaygın iş segmentasyonu zorluklarını ve bunların ek satışla nasıl ilişkili olduğunu belirlemek.",
+  "ideaEn": "A business segmentation and up-sell strategy tool/service.",
+  "ideaTr": "İşletmeler için segmentasyon ve ek satış stratejileri aracı/hizmeti.",
+  "isIdea": true,
+  "problemTr": "Mevcut segmentasyon ve ek satış teklifleri yetersiz veya garip.",
+  "type": "startup",
+  "whoTr": "İşletmeler.",
+  "whyOpenTr": "Alıntı, mevcut tekliflerin ihtiyacı karşılamadığını veya kötü yapılandırıldığını ('ek satış olarak sunmak garip') ima ediyor."
+ },
+ "1b308244e1f1": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "1c5e288f8e6d": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "1f99ca10ec37": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "25fafb3f1ad7": {
+  "firstStepTr": "Çok ucuz ikinci el yazıcılar için tedarik zincirini ve potansiyel yenileme maliyetlerini araştırmak.",
+  "ideaEn": "A marketplace or service for very low-cost used printers (e.g., around $20).",
+  "ideaTr": "Çok düşük maliyetli ikinci el yazıcılar (örneğin 20 dolar civarı) için bir pazar yeri veya hizmet.",
+  "isIdea": true,
+  "problemTr": "İkinci el yazıcılar genellikle bazı tüketicilerin temel, kullanılmış bir model için ödemeye razı olduğundan daha yüksek fiyatlandırılıyor.",
+  "type": "startup",
+  "whoTr": "Çok uygun fiyatlı ikinci el yazıcı arayan bireyler.",
+  "whyOpenTr": "Alıntı, çok ucuz ikinci el yazıcılar için talep ve arz arasında bir fiyat uyumsuzluğu olduğunu gösteriyor."
+ },
+ "31ba95d7f60e": {
+  "firstStepTr": "OpenAPI, Doxygen ve varsayımsal bir MCP formatından veri çekebilen ve bunları tek bir statik site şablonuna dönüştürebilen bir komut satırı aracı prototipi geliştirmek.",
+  "ideaEn": "A documentation generator that consolidates OpenAPI, MCP, and Doxygen specs into a single static site.",
+  "ideaTr": "OpenAPI, MCP ve Doxygen spesifikasyonlarını tek bir statik siteye birleştiren bir dokümantasyon oluşturucu.",
+  "isIdea": true,
+  "problemTr": "Farklı spesifikasyonlardan (OpenAPI, MCP, Doxygen) gelen dokümantasyonu tek bir tutarlı statik sitede birleştirmekte zorlanıyorlar.",
+  "type": "product",
+  "whoTr": "Birden fazla dokümantasyon kaynağına sahip yazılım geliştiriciler ve teknik yazarlar.",
+  "whyOpenTr": "Mevcut araçların bu üç farklı formatı tek bir çıktıya dönüştürme konusunda entegre bir çözüm sunmadığı anlaşılıyor."
+ },
+ "3e9435e84954": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "4bec2a0571d6": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "584d2710eed2": {
+  "firstStepTr": "Farklı yapay zeka aracılarına (OpenClaw, Hermes Agent, Muse, Claude Code vb.) tek bir arayüzden soru göndermeyi ve temel bağlamı paylaşmayı sağlayan bir prototip geliştirmek.",
+  "ideaEn": "An AI Agent Orchestration and Context Management Platform",
+  "ideaTr": "Bir Yapay Zeka Aracısı Orkestrasyon ve Bağlam Yönetim Platformu",
+  "isIdea": true,
+  "problemTr": "Farklı yapay zeka araçları arasında bağlamı, geçmiş kararları ve müşteri kurallarını tekrar tekrar açıklamak, soruları kopyala-yapıştır yapmak ve konfigürasyonları yönetmek büyük zaman kaybına neden oluyor.",
+  "type": "startup",
+  "whoTr": "Birden fazla yapay zeka aracısını (AI agent) günlük işlerinde kullanan profesyoneller ve şirketler.",
+  "whyOpenTr": "Mevcut araçlar, birden fazla yapay zeka aracısını tek bir yerden yönetme, bağlamı ve konfigürasyonları otomatik olarak paylaşma yeteneğinden yoksun görünüyor."
+ },
+ "588d9af829b7": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "5e151f9da324": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "60c57ce6dd66": {
+  "firstStepTr": "Yapay zeka modellerini Apple silikonunda yerel olarak verimli bir şekilde çalıştırmak için geliştirme veya taşıma fizibilitesini araştırmak.",
+  "ideaEn": "A service or product offering Apple-optimized local AI models.",
+  "ideaTr": "Apple için optimize edilmiş yerel yapay zeka modelleri sunan bir hizmet veya ürün.",
+  "isIdea": true,
+  "problemTr": "Apple cihazları için özel olarak optimize edilmiş veya kolayca erişilebilir yerel yapay zeka modellerinin eksikliği.",
+  "type": "startup",
+  "whoTr": "Yapay zeka modellerini yerel olarak Apple donanımında çalıştırmak isteyen kullanıcılar.",
+  "whyOpenTr": "Kullanıcı ödeme yapmaya istekli olduğunu belirtiyor, bu da böyle modellere yönelik mevcut karşılanmamış bir ihtiyacı ima ediyor."
+ },
+ "63450b6b163c": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "63b16340285c": {
+  "firstStepTr": "E-posta taslakları oluşturma ve takvim randevuları ayarlama gibi temel idari görevleri otomatikleştiren bir MVP (Minimum Viable Product) geliştirmek.",
+  "ideaEn": "An AI agent for administrative tasks like emailing, scheduling, and contract management.",
+  "ideaTr": "E-posta, zamanlama ve sözleşme yönetimi gibi idari görevler için bir yapay zeka ajanı.",
+  "isIdea": true,
+  "problemTr": "İnsanlar, e-posta yazma, toplantı ayarlama ve sözleşme süreçlerini yönetme gibi zaman alıcı idari görevler için otomasyon ve yardım arıyor.",
+  "type": "startup",
+  "whoTr": "E-posta, zamanlama ve sözleşme süreçleriyle uğraşan profesyoneller veya şirketler.",
+  "whyOpenTr": "Alıntılardan anlaşıldığı kadarıyla, bu tür bir yapay zeka ajanı için ödeme yapmaya istekli bir talep var ve mevcut çözümler bu ihtiyacı tam olarak karşılamıyor gibi görünüyor."
+ },
+ "6665c1a4aec6": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "692f66472a54": {
+  "firstStepTr": "Değişken uzunluktaki video klipleri PyTorch DataLoader'a entegre etmek için temel bir veri yapısı ve örnek bir işleme akışı tasarlamak.",
+  "ideaEn": "A PyTorch library for efficient handling of variable-length video clips and segment-level video retrieval.",
+  "ideaTr": "Değişken uzunluktaki video klipleri ve segment düzeyinde video geri alımını verimli bir şekilde işlemek için bir PyTorch kütüphanesi.",
+  "isIdea": true,
+  "problemTr": "PyTorch'ta değişken uzunluktaki video klipleri işlemek ve segment düzeyinde video geri alımını değerlendirmek için standart ve verimli yöntemler bulmakta zorlanıyorlar.",
+  "type": "project",
+  "whoTr": "PyTorch kullanarak video verileriyle çalışan araştırmacılar ve geliştiriciler.",
+  "whyOpenTr": "Mevcut PyTorch DataLoader'larının ve değerlendirme metotlarının bu spesifik video işleme zorlukları için doğrudan bir çözüm sunmadığı anlaşılıyor."
+ },
+ "7b343f31a6c3": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "7ce9666c72d6": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "81a2d8159046": {
+  "firstStepTr": "Julia'da basit bir WebSocket sunucusu kurarak temel bir mesajlaşma prototipi oluşturmak.",
+  "ideaEn": "A Julia framework or comprehensive guide for building real-time messaging backends.",
+  "ideaTr": "Gerçek zamanlı mesajlaşma arka uçları oluşturmak için bir Julia çatısı veya kapsamlı bir rehber.",
+  "isIdea": true,
+  "problemTr": "Julia ile gerçek zamanlı mesajlaşma arka uçları oluşturmanın en iyi yolunu veya mevcut çözümlerle karşılaştırmasını merak ediyorlar, bu da bu alanda net bir yol haritası veya araç eksikliği olduğunu düşündürüyor.",
+  "type": "project",
+  "whoTr": "Julia kullanarak gerçek zamanlı mesajlaşma uygulamaları geliştirmek isteyen geliştiriciler.",
+  "whyOpenTr": "Julia ekosisteminde gerçek zamanlı mesajlaşma için özel olarak tasarlanmış veya yaygın olarak kabul görmüş bir çözümün eksikliği olduğu anlaşılıyor."
+ },
+ "8256bf89a45f": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "837b7eec23b5": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "846c08475c02": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "868f7cf22f42": {
+  "firstStepTr": "Basit bir vektör veritabanı kullanarak bir ajanın geçmiş etkileşimlerini hatırlamasını sağlayan bir bellek modülü prototipi oluşturmak.",
+  "ideaEn": "A system or library to provide permanent memory, institutional knowledge, and intelligent model routing for AI agents.",
+  "ideaTr": "Yapay zeka ajanlarına kalıcı bellek, kurumsal bilgi ve akıllı model yönlendirme sağlayan bir sistem veya kütüphane.",
+  "isIdea": true,
+  "problemTr": "Yapay zeka ajanlarına kalıcı bellek ve kurumsal bilgi kazandırmanın zorluğu.",
+  "type": "product",
+  "whoTr": "Yapay zeka ajanlarının uzun süreli hafızaya ve bilgi yönetimine ihtiyaç duyan geliştiriciler ve şirketler.",
+  "whyOpenTr": "Kullanıcılar, ajanlarına kalıcı bellek ve kurumsal bilgi nasıl vereceklerini soruyorlar, bu da bu konuda hazır ve kolay bir çözümün olmadığını düşündürüyor."
+ },
+ "891c2b425e7f": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "8f24de6bbef3": {
+  "firstStepTr": "İki popüler bulut depolama hizmetini (örneğin Google Drive ve Dropbox) entegre edebilen ve temel dosya listeleme, arama ve taşıma işlevlerini sunan bir masaüstü veya web uygulaması prototipi geliştirmek.",
+  "ideaEn": "A personal file management software for multiple cloud storage services.",
+  "ideaTr": "Birden fazla bulut depolama hizmetindeki kişisel dosyaları düzenlemek ve yönetmek için bir yazılım.",
+  "isIdea": true,
+  "problemTr": "Kişisel dosyalarını birden fazla bulut depolama hizmetinde organize etmek ve yönetmekte zorlanıyorlar.",
+  "type": "product",
+  "whoTr": "Birden fazla bulut depolama hizmeti kullanan bireyler.",
+  "whyOpenTr": "Mevcut çözümlerin bu ihtiyacı tam olarak karşılamadığı veya kullanıcıların aradığı entegre bir deneyimi sunmadığı anlaşılıyor."
+ },
+ "9305c9c0017a": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "9834f9957cb6": {
+  "firstStepTr": "İki farklı yapay zeka ajanı arasında basit bir bağlam paylaşımını ve komut yönlendirmesini sağlayan bir API veya CLI aracı prototipi geliştirmek.",
+  "ideaEn": "A platform or tool for orchestrating and managing multiple AI agents, allowing context sharing and reducing repetitive input.",
+  "ideaTr": "Birden fazla yapay zeka ajanını yönetmek, bağlam paylaşımını sağlamak ve tekrarlayan girdileri azaltmak için bir platform veya araç.",
+  "isIdea": true,
+  "problemTr": "Farklı yapay zeka ajanları arasında bağlamı ve geçmiş kararları tekrar tekrar kopyalayıp yapıştırma veya açıklama zorunluluğu.",
+  "type": "startup",
+  "whoTr": "Birden fazla yapay zeka ajanıyla çalışan ve bağlamı tekrar tekrar açıklamak zorunda kalan profesyoneller ve geliştiriciler.",
+  "whyOpenTr": "Kullanıcılar, birden fazla ajanı ayrı ayrı çalıştırmak zorunda kaldıklarını ve aynı soruları kopyalayıp yapıştırmak zorunda kaldıklarını belirtiyorlar, bu da mevcut çözümlerin ajanlar arası bağlam yönetimini sağlamadığını gösteriyor."
+ },
+ "9c24669ec7f4": {
+  "firstStepTr": "Metin gibi açık uçlu verilerden temel özellikler çıkarabilen ve bu özellikleri basit yorumlanabilir modellerle ilişkilendirebilen bir prototip geliştirmek.",
+  "ideaEn": "An open-source library for extracting interpretable parameters from open-ended data using machine learning techniques.",
+  "ideaTr": "Makine öğrenimi tekniklerini kullanarak açık uçlu verilerden yorumlanabilir parametreler çıkarmak için açık kaynaklı bir kütüphane.",
+  "isIdea": true,
+  "problemTr": "Makine öğrenimi tekniklerini kullanarak açık uçlu verilerden yorumlanabilir parametreler elde etmek için uygun yöntemler arıyorlar.",
+  "type": "project",
+  "whoTr": "Açık uçlu verilerden anlamlı ve yorumlanabilir parametreler çıkarmak isteyen veri bilimciler ve araştırmacılar.",
+  "whyOpenTr": "Açık uçlu verilerden yorumlanabilir parametreler çıkarmaya odaklanan özel bir ML kütüphanesi veya metodoloji setinin eksikliği olduğu anlaşılıyor."
+ },
+ "b55236610145": {
+  "firstStepTr": "Temel bir işaretleme dili sözdizimi tanımlayıp basit bir HTML/CSS çıktısı veren bir prototip oluşturmak.",
+  "ideaEn": "A wireframing tool that uses a markup language.",
+  "ideaTr": "İşaretleme dili kullanan bir wireframing aracı.",
+  "isIdea": true,
+  "problemTr": "Mevcut wireframing araçlarının işaretleme dili tabanlı olmaması veya yeterli olmaması.",
+  "type": "product",
+  "whoTr": "Wireframing için işaretleme dili arayan yazılımcılar veya tasarımcılar.",
+  "whyOpenTr": "Kullanıcı, wireframing için işaretleme dili sağlayan bir yazılım arıyor, bu da mevcut çözümlerin bu ihtiyacı karşılamadığını düşündürüyor."
+ },
+ "ba3eb2dce9a3": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "c6bb935735ab": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "c72edcc7f4c4": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "ca0167b0cd52": {
+  "firstStepTr": "Temel veri depolama, indeksleme ve basit bir geri yükleme özelliği sunan bir MVP (Minimum Viable Product) geliştirmek.",
+  "ideaEn": "A comprehensive data management and archiving software for large volumes of data.",
+  "ideaTr": "Büyük hacimli veriler için kapsamlı bir veri yönetimi ve uzun süreli arşivleme yazılımı.",
+  "isIdea": true,
+  "problemTr": "Büyük hacimli verilerin uzun süreli arşivlenmesi ve yönetilmesi için uygun, entegre ve kullanıcı dostu bir yazılım bulmak zor olabilir.",
+  "type": "product",
+  "whoTr": "Büyük miktarda veriyi uzun vadeli arşivlemek ve yönetmek isteyen kuruluşlar veya bireyler.",
+  "whyOpenTr": "Kullanıcı, büyük hacimli verileri uzun vadeli arşivlemek için hangi yazılımların yardımcı olabileceğini sorarak, bu alanda net veya yeterli bir çözüm bulamadığını ima ediyor."
+ },
+ "d173b98e47ea": {
+  "firstStepTr": "Farklı ajanlara aynı soruyu veya bağlamı kopyala yapıştır yapma sorununu çözen basit bir arayüz prototipi oluşturmak.",
+  "ideaEn": "An AI agent orchestration and context management platform",
+  "ideaTr": "Bir yapay zeka ajanı orkestrasyon ve bağlam yönetim platformu",
+  "isIdea": true,
+  "problemTr": "Farklı yapay zeka ajanları arasında bağlamı, geçmiş kararları ve konfigürasyonları tekrar tekrar açıklamak ve kopyala yapıştır yapmak büyük zaman kaybına neden oluyor.",
+  "type": "startup",
+  "whoTr": "Birden fazla yapay zeka ajanıyla çalışan profesyoneller ve geliştiriciler",
+  "whyOpenTr": "Alıntılarda belirtildiği üzere, kullanıcılar bu sorunu manuel olarak kopyala yapıştır yaparak veya her ajana ayrı ayrı bağlam açıklayarak çözmeye çalışıyor ve mevcut bir entegre çözümden bahsedilmiyor."
+ },
+ "d3f3d8be01b4": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "d44c2cbe3e27": {
+  "firstStepTr": "SSH anahtarıyla metin imzalama işlemini gerçekleştiren temel bir komut satırı aracını GUI'ye bağlayan basit bir prototip oluşturmak.",
+  "ideaEn": "A graphical tool to sign text using an SSH key.",
+  "ideaTr": "SSH anahtarı kullanarak metin imzalamak için grafik arayüzlü bir araç.",
+  "isIdea": true,
+  "problemTr": "Mevcut SSH anahtarıyla metin imzalama yöntemleri genellikle komut satırı tabanlıdır ve grafik arayüz arayan kullanıcılar için pratik değildir.",
+  "type": "project",
+  "whoTr": "Metinleri SSH anahtarlarıyla grafik arayüz üzerinden imzalamak isteyen kullanıcılar.",
+  "whyOpenTr": "Kullanıcı, SSH anahtarıyla metin imzalamak için grafik arayüzlü bir yazılım arıyor, bu da mevcut çözümlerin bu ihtiyacı karşılamadığını düşündürüyor."
+ },
+ "de8f76e9c6a8": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "dea12dccb0fa": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "eb130ca2c9a0": {
+  "firstStepTr": "Belirli bir e-posta türünü (örneğin, randevu talepleri) otomatik olarak yanıtlayabilen ve takvime ekleyebilen basit bir prototip geliştirmek.",
+  "ideaEn": "An AI agent specialized in handling administrative tasks like emailing, scheduling, and contract negotiations.",
+  "ideaTr": "E-posta gönderme, randevu ayarlama ve sözleşme görüşmeleri gibi idari görevleri yerine getiren uzman bir yapay zeka ajanı.",
+  "isIdea": true,
+  "problemTr": "E-posta, randevu ve sözleşme süreçleri gibi tekrarlayan idari görevlerin zaman alıcı olması.",
+  "type": "startup",
+  "whoTr": "İdari görevlerini otomatikleştirmek isteyen ve bunun için ödeme yapmaya hazır olan profesyoneller veya küçük işletmeler.",
+  "whyOpenTr": "Kullanıcı, e-posta, randevu ve sözleşme süreçlerini yapay zeka ajanıyla yapması için ödeme yapacağını belirtiyor, bu da mevcut çözümlerin bu spesifik otomasyonu yeterince sağlamadığını gösteriyor."
+ },
+ "eeb6bef6635c": {
+  "firstStepTr": "Kitleye duyarlı iletişimle ilgili insan düşünce süreçlerini yakalamak veya simüle etmek için bir metodoloji geliştirmek.",
+  "ideaEn": "A service or tool that generates reasoning traces reproducing human thought processes for communication, specifically for training LLMs.",
+  "ideaTr": "İletişim için insan düşünce süreçlerini yeniden üreten muhakeme izleri üreten bir hizmet veya araç, özellikle büyük dil modellerini (LLM) eğitmek için.",
+  "isIdea": true,
+  "problemTr": "LLM'lerin iletişim yeteneklerini, insan düşünce süreçlerini anlayarak geliştirmeleri gerekiyor.",
+  "type": "startup",
+  "whoTr": "İletişim için LLM'ler üzerinde çalışan öncü laboratuvarlar.",
+  "whyOpenTr": "Alıntı, laboratuvarların iyileştirmek isteseler 'muhakeme izleri için ödeme yapacaklarını' belirtiyor, bu da bu verinin/hizmetin kolayca bulunmadığını gösteriyor."
+ },
+ "f34e02e32c97": {
+  "firstStepTr": "",
+  "ideaEn": "",
+  "ideaTr": "",
+  "isIdea": false,
+  "problemTr": "",
+  "type": null,
+  "whoTr": "",
+  "whyOpenTr": ""
+ },
+ "f77b805d89a2": {
+  "firstStepTr": "Farklı robot platformlarından gelen eylem etiketlerini ortak bir formata dönüştüren temel bir normalleştirme modülü tasarlamak.",
+  "ideaEn": "A PyTorch-based library for normalizing robot action labels and integrating active learning with robot datasets.",
+  "ideaTr": "Robot eylem etiketlerini normalleştirmek ve robot veri kümeleriyle aktif öğrenmeyi entegre etmek için PyTorch tabanlı bir kütüphane.",
+  "isIdea": true,
+  "problemTr": "Farklı robot platformlarındaki eylem etiketlerini standartlaştırmakta ve robot veri kümelerine aktif öğrenmeyi entegre etmekte zorlanıyorlar.",
+  "type": "project",
+  "whoTr": "PyTorch kullanarak robotik veri kümeleri ve eylem etiketleri üzerinde çalışan araştırmacılar ve geliştiriciler.",
+  "whyOpenTr": "Robotik alanında PyTorch ile bu spesifik sorunları ele alan standart bir çözüm veya kütüphane eksikliği olduğu anlaşılıyor."
+ }
+}

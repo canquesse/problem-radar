@@ -1,0 +1,1218 @@
+{
+ "feed:3dnatives": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:3dprint-com": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:3dprintingindustry": {
+  "fetchedAt": "2026-11-27T03:14:15.732Z"
+ },
+ "feed:adafruit": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:allaboutcircuits": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:arstechnica": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:arxiv-cs-ai": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:arxiv-math-na": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:arxiv-math-oc": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:bleepingcomputer": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:canary-media": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:chipsandcheese": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:cleantechnica": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:cnx-software": {
+  "fetchedAt": "2026-11-27T03:14:15.732Z"
+ },
+ "feed:crunchbase-news": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:darkreading": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:devto": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:edn": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:eetimes": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:electrek": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:electronics-weekly": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:electronicsforyou": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:embedded": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:energy-storage-news": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:engadget": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:engineering-com": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:eu-startups": {
+  "fetchedAt": "2026-11-27T03:14:15.732Z"
+ },
+ "feed:freightwaves": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:geekwire": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:github-blog": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-computer": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-computer-ai": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-computer-apps": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-computer-data": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-computer-devtools": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-cyber": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-cyber-appsec": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-cyber-identity": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-cyber-netsec": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-cyber-x1": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-electronics": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-electronics-embedded": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-electronics-iot": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-electronics-pcb": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-electronics-power": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-electronics-x1": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-funding-devtools": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-funding-infra": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-hardware": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-hardware-compute": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-hardware-devices": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-hardware-sbc": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-hardware-x1": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-industry": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-industry-automation": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-industry-energy": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-industry-operations": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-industry-x1": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-math": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-math-mathtools": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-math-scicomp": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-math-stats": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-math-x1": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-math-x2": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-mechanical": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-mechanical-additive": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-mechanical-cad": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-mechanical-cnc": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-mechanical-robotics": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:gnews-mechanical-x1": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:hackaday": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:hackster": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:helpnetsecurity": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:hothardware": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:hpcwire": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:huggingface-blog": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:ieee-spectrum": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:iiot-world": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:infoq": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:interestingengineering": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:krebs": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:liliputing": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:lobsters": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:manufacturing-dive": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:mit-news-math": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:mit-tech-review": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:nature": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:notebookcheck": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:phys-org": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:plant-engineering": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:plus-maths": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:powermag": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:producthunt-ai": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:producthunt-devtools": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:producthunt-hardware": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:pv-magazine": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:quanta": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:raspberrypi": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:robot-report": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:schneier": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:sciencedaily-compmath": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:scientific-american": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:securityaffairs": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:securityweek": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:semiengineering": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:servethehome": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:sifted": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:siliconangle": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:siliconangle-ai": {
+  "fetchedAt": "2026-11-27T03:01:33.711Z"
+ },
+ "feed:supplychain-dive": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:tech-eu": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:techcrunch": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:techcrunch-ai": {
+  "fetchedAt": "2026-11-27T03:01:33.711Z"
+ },
+ "feed:techcrunch-venture": {
+  "fetchedAt": "2026-11-27T03:01:33.711Z"
+ },
+ "feed:techfundingnews": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:techpowerup": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:the-hacker-news": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:the-record": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:thenextweb": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:theregister": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:theverge": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:theverge-ai": {
+  "fetchedAt": "2026-11-27T03:01:33.711Z"
+ },
+ "feed:tomshardware": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:utility-dive": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:voxelmatters": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:wired": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:ycombinator-blog": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "feed:zdnet": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:community.openenergymonitor.org": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:community.particle.io": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:community.platformio.org": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:discourse.julialang.org": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:discuss.huggingface.co": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:discuss.pytorch.org": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:forum.arduino.cc": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:forum.hackthebox.com": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:forum.inductiveautomation.com": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:forum.kicad.info": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "forum:forum.makerforums.info": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z"
+ },
+ "github:BerriAI/litellm:comments": {
+  "since": "2026-11-28T21:36:32Z"
+ },
+ "github:BerriAI/litellm:issues": {
+  "since": "2026-11-28T21:36:32Z"
+ },
+ "github:BerriAI/litellm:pulls": {
+  "updatedAfter": "2026-11-28T21:03:39Z"
+ },
+ "github:BerriAI/litellm:releases": {
+  "knownIds": [
+   461770944,
+   461086280,
+   459899469,
+   459805574,
+   457518358,
+   459697975,
+   457411523,
+   457546198,
+   457500352,
+   456296294,
+   456299085,
+   457431980,
+   456058819,
+   453954171,
+   454000406,
+   452322541,
+   452254340,
+   452250076,
+   453296582,
+   452251099,
+   452320056,
+   452088226,
+   450925049,
+   450902034,
+   450809868,
+   450973469,
+   450964515,
+   449444225,
+   449414362,
+   449277224
+  ]
+ },
+ "github:ggml-org/llama.cpp:comments": {
+  "since": "2026-11-28T21:18:45Z"
+ },
+ "github:ggml-org/llama.cpp:issues": {
+  "since": "2026-11-28T21:28:56Z"
+ },
+ "github:ggml-org/llama.cpp:pulls": {
+  "updatedAfter": "2026-11-28T21:02:34Z"
+ },
+ "github:ggml-org/llama.cpp:releases": {
+  "knownIds": [
+   461839987,
+   461718304,
+   461601364,
+   461592463,
+   461581772,
+   461561683,
+   461528482,
+   461510855,
+   461212757,
+   461205282,
+   461197959,
+   461190767,
+   461181022,
+   461047992,
+   460868868,
+   460680579,
+   460635735,
+   460612243,
+   460503460,
+   460316469,
+   460270970,
+   460222559,
+   460210406,
+   459181980,
+   459985094,
+   459973347,
+   459962373,
+   459949222,
+   459922053,
+   459904667,
+   459887757,
+   459728404,
+   459693277,
+   459664518,
+   459510139,
+   459342049,
+   459179102,
+   459080453,
+   459066614,
+   459047605,
+   458981598,
+   458911846,
+   458884723,
+   458866416,
+   458855060,
+   458762225,
+   458724263,
+   458708131,
+   458688913,
+   458292199,
+   458245240,
+   458192405,
+   457965520,
+   457794319,
+   457742830,
+   457711099,
+   457652275,
+   457637890,
+   457629290,
+   457619863,
+   457610723,
+   457601717,
+   457592584,
+   457585352,
+   457574098,
+   457423769,
+   457412040,
+   457396952,
+   457217458,
+   457185214,
+   457167767,
+   457147324,
+   456798288,
+   456569190,
+   456478078,
+   456407991,
+   456372799,
+   456240657,
+   456226056,
+   456212375,
+   456201867,
+   456189426,
+   456179137
+  ]
+ },
+ "github:huggingface/trl:comments": {
+  "since": "2026-11-28T18:41:41Z"
+ },
+ "github:huggingface/trl:issues": {
+  "since": "2026-11-28T20:14:45Z"
+ },
+ "github:huggingface/trl:pulls": {
+  "updatedAfter": "2026-11-28T08:58:48Z"
+ },
+ "github:huggingface/trl:releases": {
+  "knownIds": [
+   458424584,
+   451656784,
+   448584319
+  ]
+ },
+ "github:langchain-ai/langchain:comments": {
+  "since": "2026-11-28T21:10:37Z"
+ },
+ "github:langchain-ai/langchain:issues": {
+  "since": "2026-11-28T21:10:37Z"
+ },
+ "github:langchain-ai/langchain:pulls": {
+  "updatedAfter": "2026-11-28T20:28:57Z"
+ },
+ "github:langchain-ai/langchain:releases": {
+  "knownIds": [
+   458690245,
+   458681507,
+   455665338,
+   455668448,
+   455731375,
+   455714958,
+   455670412,
+   455750839,
+   455979928,
+   455741653,
+   455737555,
+   455708321,
+   455731633,
+   451505049,
+   452048967,
+   451958398,
+   450732826,
+   452014274,
+   452037029,
+   450637629,
+   450201481,
+   450327028,
+   450284543,
+   450324268,
+   450324705,
+   450193354,
+   450169202,
+   449171093,
+   449288969
+  ]
+ },
+ "github:langfuse/langfuse:comments": {
+  "since": "2026-11-28T19:03:51Z"
+ },
+ "github:langfuse/langfuse:issues": {
+  "since": "2026-11-28T19:03:51Z"
+ },
+ "github:langfuse/langfuse:pulls": {
+  "updatedAfter": "2026-11-28T13:30:55Z"
+ },
+ "github:langfuse/langfuse:releases": {
+  "knownIds": [
+   459682339,
+   459313877,
+   457199378,
+   456816466,
+   455390954,
+   451188762,
+   448745584
+  ]
+ },
+ "github:modelcontextprotocol/python-sdk:comments": {
+  "since": "2026-11-28T21:06:58Z"
+ },
+ "github:modelcontextprotocol/python-sdk:issues": {
+  "since": "2026-11-28T21:06:58Z"
+ },
+ "github:modelcontextprotocol/python-sdk:pulls": {
+  "updatedAfter": "2026-11-28T20:13:26Z"
+ },
+ "github:modelcontextprotocol/python-sdk:releases": {
+  "knownIds": [
+   402184404,
+   384197183,
+   384132258,
+   377060568,
+   376532224,
+   375923219,
+   375904161,
+   361117325,
+   361114323,
+   360447778,
+   353933457,
+   347148890,
+   345210186,
+   345305601,
+   340429720,
+   340421086,
+   337836084,
+   331658492,
+   319623606,
+   304708157,
+   279656104,
+   271519585,
+   269900219,
+   268778309,
+   267460600,
+   266840253,
+   266731048,
+   264107902,
+   262964996,
+   262241038,
+   260436282,
+   258607877,
+   256867756,
+   255116239,
+   253489963,
+   251795339,
+   250056716,
+   248286595,
+   246568061,
+   241568233,
+   240005140,
+   238429280,
+   236667000,
+   234974666,
+   234311040,
+   233297800,
+   231535199,
+   228322449,
+   228022256,
+   224805035,
+   223437310,
+   221853327,
+   220421578,
+   218929908,
+   218057700,
+   217428245,
+   216214030,
+   216044052,
+   208739758,
+   207403223
+  ]
+ },
+ "github:ollama/ollama:comments": {
+  "since": "2026-11-28T20:30:02Z"
+ },
+ "github:ollama/ollama:issues": {
+  "since": "2026-11-28T21:24:11Z"
+ },
+ "github:ollama/ollama:pulls": {
+  "updatedAfter": "2026-11-28T06:09:49Z"
+ },
+ "github:ollama/ollama:releases": {
+  "knownIds": [
+   459061903,
+   456227993
+  ]
+ },
+ "github:openai/openai-python:comments": {
+  "since": "2026-11-27T13:14:43Z"
+ },
+ "github:openai/openai-python:issues": {
+  "since": "2026-11-27T13:14:43Z"
+ },
+ "github:openai/openai-python:pulls": {
+  "updatedAfter": "2026-11-26T07:09:57Z"
+ },
+ "github:openai/openai-python:releases": {
+  "knownIds": [
+   459067011,
+   457224576,
+   455857182,
+   452156013,
+   451919602,
+   450225202,
+   449557773,
+   449289001,
+   449046774
+  ]
+ },
+ "github:pydantic/pydantic-ai:comments": {
+  "since": "2026-11-28T21:29:13Z"
+ },
+ "github:pydantic/pydantic-ai:issues": {
+  "since": "2026-11-28T21:29:13Z"
+ },
+ "github:pydantic/pydantic-ai:pulls": {
+  "updatedAfter": "2026-11-28T20:28:31Z"
+ },
+ "github:pydantic/pydantic-ai:releases": {
+  "knownIds": [
+   461156279,
+   404218778,
+   460007685
+  ]
+ },
+ "github:run-llama/llama_index:comments": {
+  "since": "2026-11-28T20:34:19Z"
+ },
+ "github:run-llama/llama_index:issues": {
+  "since": "2026-11-28T20:34:19Z"
+ },
+ "github:run-llama/llama_index:pulls": {
+  "updatedAfter": "2026-11-28T06:07:42Z"
+ },
+ "github:run-llama/llama_index:releases": {
+  "knownIds": [
+   444810597,
+   393113822,
+   373275597,
+   344328533,
+   322798710,
+   311472714,
+   305142601,
+   301442001,
+   297643199,
+   295331847,
+   287829122,
+   285038911,
+   278780918,
+   273313070,
+   267562449,
+   266892119,
+   261260437,
+   258653518,
+   257271663,
+   254801769,
+   252069271,
+   249814736,
+   247501267,
+   247172941,
+   247163676,
+   245657880,
+   245326200,
+   244939593,
+   244001918,
+   243478217,
+   241939837,
+   240109269,
+   240102854,
+   238719346,
+   238657466,
+   237748330,
+   236639199,
+   236629968,
+   235769056,
+   234657430,
+   234280519,
+   233699799,
+   232331528,
+   231242598,
+   230345250,
+   229802504,
+   229595573,
+   228974237,
+   228879298,
+   227903066,
+   226313313,
+   224775417,
+   223822572,
+   222570405,
+   222182315,
+   221723517,
+   219820714,
+   217452274,
+   215925636,
+   214341295
+  ]
+ },
+ "github:sgl-project/sglang:comments": {
+  "since": "2026-11-28T21:34:01Z"
+ },
+ "github:sgl-project/sglang:issues": {
+  "since": "2026-11-28T21:34:01Z"
+ },
+ "github:sgl-project/sglang:pulls": {
+  "updatedAfter": "2026-11-28T21:08:12Z"
+ },
+ "github:sgl-project/sglang:releases": {
+  "knownIds": [
+   432026534,
+   416857951,
+   401467591,
+   391825082,
+   383106626,
+   374747333,
+   367063443,
+   359605821,
+   353664278,
+   352365941,
+   345561795,
+   338854351,
+   329797332,
+   323749381,
+   318072853,
+   306874514,
+   305529189,
+   302644363,
+   289659801,
+   279518266,
+   275391648,
+   273689822,
+   272738441,
+   268945084,
+   266959466,
+   262926851,
+   260364390,
+   262925676,
+   257270704,
+   262923304,
+   262919395,
+   252508203,
+   246668593,
+   242052939,
+   262918417,
+   262918010,
+   236670452,
+   262915955,
+   262914529,
+   227456154,
+   224700582,
+   215049819,
+   210682115,
+   205668932,
+   200299570,
+   192321537,
+   188835152,
+   186858799,
+   181136099,
+   178059312,
+   173404672,
+   170477363,
+   168404687,
+   167424165,
+   167166014,
+   165324326,
+   163944704,
+   159462924,
+   155598260,
+   145826359
+  ]
+ },
+ "github:unslothai/unsloth:comments": {
+  "since": "2026-11-28T21:36:00Z"
+ },
+ "github:unslothai/unsloth:issues": {
+  "since": "2026-11-28T21:36:42Z"
+ },
+ "github:unslothai/unsloth:pulls": {
+  "updatedAfter": "2026-11-28T21:08:26Z"
+ },
+ "github:unslothai/unsloth:releases": {
+  "knownIds": [
+   458203453,
+   456851737,
+   455616176,
+   453296780,
+   453115116,
+   451417856,
+   448769940
+  ]
+ },
+ "github:vllm-project/vllm:comments": {
+  "since": "2026-11-28T21:36:51Z"
+ },
+ "github:vllm-project/vllm:issues": {
+  "since": "2026-11-28T21:36:51Z"
+ },
+ "github:vllm-project/vllm:pulls": {
+  "updatedAfter": "2026-11-28T21:06:03Z"
+ },
+ "github:vllm-project/vllm:releases": {
+  "knownIds": [
+   447739190,
+   431309343,
+   416285351,
+   403435729,
+   393467280,
+   385359183,
+   377027961,
+   368501615,
+   368180220,
+   359735987,
+   353668444,
+   351977001,
+   346469299,
+   338844829,
+   334860934,
+   331396286,
+   322898436,
+   319885695,
+   316580679,
+   312943348,
+   310648088,
+   304922777,
+   303469345,
+   299609267,
+   295541535,
+   294153909,
+   285918914,
+   283129012,
+   281026737,
+   279660935,
+   278179519,
+   271634343,
+   267016722,
+   263888662,
+   263447752,
+   251829715,
+   246952103,
+   241342953,
+   240498256,
+   240472290,
+   235031670,
+   234754595,
+   233732129,
+   230544566,
+   230310472,
+   229886468,
+   224411649,
+   224165616,
+   222115304,
+   218714703,
+   216223040,
+   215306203,
+   212118184,
+   210586852,
+   210569346,
+   207718103,
+   206933126,
+   206640533,
+   206309644,
+   206145116
+  ]
+ },
+ "hn:ask:I wish there was": {
+  "createdAfter": 1795880938
+ },
+ "hn:ask:I would pay": {
+  "createdAfter": 1795735534
+ },
+ "hn:ask:I'd pay": {
+  "createdAfter": 1795650349
+ },
+ "hn:ask:alternative to": {
+  "createdAfter": 1795885751
+ },
+ "hn:ask:anyone know of a": {
+  "createdAfter": 1795037506
+ },
+ "hn:ask:does anyone have a good way": {
+  "createdAfter": 1793154698
+ },
+ "hn:ask:does anyone know a tool": {
+  "createdAfter": 1793158870
+ },
+ "hn:ask:how are you handling": {
+  "createdAfter": 1795878288
+ },
+ "hn:ask:how do you handle": {
+  "createdAfter": 1795893757
+ },
+ "hn:ask:how do you manage": {
+  "createdAfter": 1795596937
+ },
+ "hn:ask:is there a library": {
+  "createdAfter": 1793154698
+ },
+ "hn:ask:is there a service": {
+  "createdAfter": 1793545736
+ },
+ "hn:ask:is there a tool": {
+  "createdAfter": 1793382579
+ },
+ "hn:ask:is there an app": {
+  "createdAfter": 1793154698
+ },
+ "hn:ask:is there any software": {
+  "createdAfter": 1795643176
+ },
+ "hn:ask:looking for a tool": {
+  "createdAfter": 1795112640
+ },
+ "hn:ask:looking for an alternative": {
+  "createdAfter": 1795784686
+ },
+ "hn:ask:looking for software": {
+  "createdAfter": 1794410470
+ },
+ "hn:ask:no good solution": {
+  "createdAfter": 1795031150
+ },
+ "hn:ask:nothing on the market": {
+  "createdAfter": 1794212855
+ },
+ "hn:ask:recommend a tool": {
+  "createdAfter": 1795167740
+ },
+ "hn:ask:what do you use for": {
+  "createdAfter": 1795744304
+ },
+ "hn:ask:what tool do you use": {
+  "createdAfter": 1793158870
+ },
+ "hn:ask:would pay for": {
+  "createdAfter": 1795735534
+ },
+ "hn:ask_hn": {
+  "createdAfter": 1795900784
+ },
+ "hn:fastmcp": {
+  "createdAfter": 1794962756
+ },
+ "hn:huggingface trl": {
+  "createdAfter": 1794876686
+ },
+ "hn:langchain": {
+  "createdAfter": 1795872621
+ },
+ "hn:langfuse": {
+  "createdAfter": 1795700964
+ },
+ "hn:launches": {
+  "createdAfter": 1795901260
+ },
+ "hn:litellm": {
+  "createdAfter": 1795468008
+ },
+ "hn:llama.cpp": {
+  "createdAfter": 1795898226
+ },
+ "hn:llama_index": {
+  "createdAfter": 1794876686
+ },
+ "hn:llamaindex": {
+  "createdAfter": 1795672682
+ },
+ "hn:mcp python sdk": {
+  "createdAfter": 1794876686
+ },
+ "hn:ollama": {
+  "createdAfter": 1795860041
+ },
+ "hn:openai python sdk": {
+  "createdAfter": 1794876686
+ },
+ "hn:openai-python": {
+  "createdAfter": 1794876686
+ },
+ "hn:pydantic ai": {
+  "createdAfter": 1794876686
+ },
+ "hn:pydantic-ai": {
+  "createdAfter": 1794876686
+ },
+ "hn:sglang": {
+  "createdAfter": 1795551452
+ },
+ "hn:unsloth": {
+  "createdAfter": 1795898226
+ },
+ "hn:vllm": {
+  "createdAfter": 1795900427
+ },
+ "lane:full": {
+  "at": "2026-11-28T21:12:52.680Z",
+  "sha": "2c5e46e1ad069e95c7135866baff4b4cd64e3c14"
+ },
+ "se:3dprinting": {
+  "fetchedAt": "2026-11-28T20:39:16.937Z",
+  "fromDate": 1795469739
+ },
+ "se:arduino": {
+  "fetchedAt": "2026-11-28T20:36:09.379Z",
+  "fromDate": 1795310492
+ },
+ "se:datascience": {
+  "fetchedAt": "2026-11-28T20:33:18.553Z",
+  "fromDate": 1795776932
+ },
+ "se:electronics": {
+  "fetchedAt": "2026-11-28T20:36:09.379Z",
+  "fromDate": 1795875360
+ },
+ "se:engineering": {
+  "fetchedAt": "2026-11-28T20:39:16.937Z",
+  "fromDate": 1795735430
+ },
+ "se:hardwarerecs": {
+  "fetchedAt": "2026-11-28T20:42:23.160Z",
+  "fromDate": 1794416478
+ },
+ "se:iot": {
+  "fetchedAt": "2026-11-28T20:36:09.379Z",
+  "fromDate": 1795794233
+ },
+ "se:math": {
+  "fetchedAt": "2026-11-28T20:42:23.160Z",
+  "fromDate": 1795895787
+ },
+ "se:raspberrypi": {
+  "fetchedAt": "2026-11-28T20:42:23.160Z",
+  "fromDate": 1795894192
+ },
+ "se:robotics": {
+  "fetchedAt": "2026-11-28T20:39:16.937Z",
+  "fromDate": 1795637770
+ },
+ "se:scicomp": {
+  "fetchedAt": "2026-11-28T20:45:28.623Z",
+  "fromDate": 1795638577
+ },
+ "se:security": {
+  "fetchedAt": "2026-11-28T21:27:52.921Z",
+  "fromDate": 1795735238
+ },
+ "se:softwareengineering": {
+  "fetchedAt": "2026-11-28T20:33:18.553Z",
+  "fromDate": 1795796287
+ },
+ "se:softwarerecs": {
+  "fetchedAt": "2026-11-28T20:33:18.553Z",
+  "fromDate": 1795780553
+ },
+ "se:stats": {
+  "fetchedAt": "2026-11-28T20:45:28.623Z",
+  "fromDate": 1795861180
+ },
+ "so:huggingface-transformers": {
+  "fromDate": 1793154698
+ },
+ "so:langchain": {
+  "fromDate": 1794166658
+ },
+ "so:large-language-model": {
+  "fromDate": 1795577428
+ },
+ "so:llama-index": {
+  "fromDate": 1793154698
+ },
+ "so:model-context-protocol": {
+  "fromDate": 1795062359
+ },
+ "so:ollama": {
+  "fromDate": 1795260856
+ },
+ "so:openai-api": {
+  "fromDate": 1795722078
+ },
+ "so:retrieval-augmented-generation": {
+  "fromDate": 1793154698
+ }
+}

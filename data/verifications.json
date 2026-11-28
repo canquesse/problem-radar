@@ -1,0 +1,1100 @@
+{
+ "BerriAI/litellm@13e2d56066199c8165c77e2ae8c7c22eec5e3885": {
+  "checkedAt": "2026-11-27T22:28:40.414Z",
+  "checks": {
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false
+  }
+ },
+ "BerriAI/litellm@188344a132627b0f75db704b11533cdab8357308": {
+  "checkedAt": "2026-11-27T22:28:40.414Z",
+  "checks": {
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false
+  }
+ },
+ "BerriAI/litellm@1955340dceac5409b8ff298dc8fe48c573b3b8ea": {
+  "checkedAt": "2026-11-27T22:28:40.414Z",
+  "checks": {
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false
+  }
+ },
+ "BerriAI/litellm@34dea88f048b7106df3e16d513c9a616953aee28": {
+  "checkedAt": "2026-11-27T22:28:40.414Z",
+  "checks": {
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false
+  }
+ },
+ "BerriAI/litellm@38b5a15a71987c8f2b04fc756f8f4fc5f0413fa8": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "BerriAI/litellm@7233272834fd2a8314b2200af5c7c0928d73c89d": {
+  "checkedAt": "2026-11-28T21:12:52.680Z",
+  "checks": {
+   "v1.108.16": false,
+   "v1.108.17": false,
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false,
+   "v1.109.4": false,
+   "v1.109.5": false,
+   "v1.110.3": false,
+   "v1.110.4": false,
+   "v1.111.0": false
+  }
+ },
+ "BerriAI/litellm@90e8a90d31d4bfdc52ba2f71f1096a099533f91f": {
+  "checkedAt": "2026-11-27T22:28:40.414Z",
+  "checks": {
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false
+  }
+ },
+ "BerriAI/litellm@9e74d6d0a92a1f6d659f6372f74541f638864f38": {
+  "checkedAt": "2026-11-27T22:28:40.414Z",
+  "checks": {
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false
+  }
+ },
+ "BerriAI/litellm@b17e7e707ec808cfe2d8032b966631849bc8c904": {
+  "checkedAt": "2026-11-27T22:28:40.414Z",
+  "checks": {
+   "v1.108.18": false,
+   "v1.108.19": false,
+   "v1.108.20": false
+  }
+ },
+ "ggml-org/llama.cpp@00201974578d4429047853e4ff5ad0e9e14b4cf2": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ggml-org/llama.cpp@0a76757469ea94ad5f88d14e18cc7370b9931f99": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.1.0": true
+  }
+ },
+ "ggml-org/llama.cpp@21ec3071467b168991e223f2e5b09e571a11eb96": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.1.0": true
+  }
+ },
+ "ggml-org/llama.cpp@28148b5f06666bf44e0975f2980960672c1f94d9": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ggml-org/llama.cpp@3ab385146cad1a374dadc40e042dcc50edceb046": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ggml-org/llama.cpp@4c4a0f0a4246bc36a3724d12238d5624714dcb2f": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.1.0": true
+  }
+ },
+ "ggml-org/llama.cpp@95b09b62beb95c40fc6b317a0c1473c27b5f27fa": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.1.0": true
+  }
+ },
+ "ggml-org/llama.cpp@96eb41bc4884855eacbd64077bc9a00e839a73eb": {
+  "checkedAt": "2026-11-27T00:55:52.056Z",
+  "checks": {
+   "v1.1.0": true
+  }
+ },
+ "ggml-org/llama.cpp@b0448904084fb28b363b3491a2922ee3360d9bbd": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.1.0": true
+  }
+ },
+ "ggml-org/llama.cpp@c7468107efba061fe83d32b17c91e2b5295677d4": {
+  "checkedAt": "2026-11-27T00:55:52.056Z",
+  "checks": {
+   "v1.1.0": true
+  }
+ },
+ "ggml-org/llama.cpp@caea914e9d05153aa32b96a846dca543e7cb16be": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ggml-org/llama.cpp@dc8e7ebf5b42dc2bd82c8614a9e63d5541332f46": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ggml-org/llama.cpp@e087c6c4e7bf6b773a6d3cf6c5bdd41fa6d9e2c1": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ggml-org/llama.cpp@e7ec6361dc3c57ca6ffb773c750daaa90196b1c5": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ggml-org/llama.cpp@f16e79da8921a6ad8e6499a68b27d109c5716a0a": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "huggingface/trl@0ac8005829294feed35bcbc87e66a8251da37d4e": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.18.2": false,
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@14473969703d8527ea51f66c512550fce7859823": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "huggingface/trl@1757ede4e367441df4e0d20959b57c5ecdc99f51": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@1c726460013d12af638503da3299c94dd9d0e3c9": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@1c995ed2b9563afbbb4498e96af177a81fdbc1d9": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@496e87ab36eab4ecc808d6af4ba1e0e9a97a7194": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@5cfbd94e9cb4e008a0555de2a971100af55b5b20": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.18.1": false,
+   "v1.18.2": false,
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@5d92c18363035d42272f7b3bd5f7708adcac00a3": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@732e61cc6a90ad19494a305dd83c2e5f579aee94": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@a4a777fac46bc8c92dc50bacc4461ab6530fb8a3": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@b5266b7219d1f36567f1b49861f2a4e4109a007a": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "huggingface/trl@b8a10ed89f97574e11aa88ec88e86cf9976fad9b": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@c1cab40e70da23c24ee1305e1185f093b89a9efe": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@d5f081fc458a5cf296073fdc05e57d1ba182cdf5": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@d9930ad7b7c00378a6b6ca7a1c2c661ea8cd6731": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.18.2": false,
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@ddbbf223a7529d986e2f2623dd7e114b08663dfa": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "huggingface/trl@ddfe0221954a49cff1dd1a188ba44315a6a729c3": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@e3bb8eb88875307e26984d5466240e376b465d0d": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@f27a906d39cc60aeea576e616f9c829dc4a6ce44": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.18.1": false,
+   "v1.18.2": false,
+   "v1.19.0": true
+  }
+ },
+ "huggingface/trl@ff7de615519c1d9291a9e82e42ea98a0a122710a": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v1.19.0": true
+  }
+ },
+ "langfuse/langfuse@31247bf68755587807ceaa85c8b1dbf866404c81": {
+  "checkedAt": "2026-11-27T00:55:52.056Z",
+  "checks": {
+   "v4.87.0": true
+  }
+ },
+ "langfuse/langfuse@43245c3e59767db80050e00a2c2d51a2dfe24810": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "ollama/ollama@312c3c8d0c2709209ebbc816ca352bcaf52c19b5": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v0.40.18": true
+  }
+ },
+ "ollama/ollama@8ae8acb81afba9c3c67adf08190964eb7d1207ef": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@000da4b4a05462d1b9989a9400c40bd4f9c8c8e7": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@003d60f6a5123b66a79de3821ffde6304074d818": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@0061657f90235063c279dcaaa61ab04984b4a2dc": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@034a38f8e7fbb04f5055334bba36641bb15451da": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@05a89167a68f26ef8341c7a34a7c493524bf2dcf": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@072eac57a3fe48d6ee550077e4e32a2fc561d97e": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@0bef7a0074217e781aff9ac64728fff64dcef466": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@115db0891128a0bae224aec1f1c81116db8693c2": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@145cca038e833261c85beccb3867d2fee39df608": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@1c470a38a343519bf988c4f103e5e46be9618ffa": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@1da39107c1dd58158946ce0cc957cbc68d82899d": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@1f77ff0565af6a59f2780b94b7807e56c871def2": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@202fd05b92f8b7f920976c8b325d77ce6f47eb87": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@2049392c608c3d3f90dd406a91e6c49cff50dc6c": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@208dbaa655f94ceccb76513074139d5d215a4de7": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@2316c6d6e82345ea3b94ece2705c806dfbd86d14": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@249a88700cb55defd619b4fbd068acfc2655681f": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@26af64a2e02b985a923ff7de4edadc58b1151bd2": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@271f48a7668b1185bfab4e9a7f5603bc3220f6f3": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@280ad0dbab57ddb42ef890bc9295cc4a10639af0": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@29a048424e52083c981e8ef6d611f12b6c8fa69b": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@356f544b88772f623366dc9cecd73ba49e158626": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@3892009cbbe3270c6bfcb7dc3af34cea3b091cc3": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@39aab2d75ee43b90b0d77f4fea3385090e6d493b": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@3b18819ac900436ff186ef97f3ae77ec9e4c4540": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": false
+  }
+ },
+ "pydantic/pydantic-ai@3db5b605907e76cf1febc2aef9ce7fd6847f630e": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@41489290ba90e0235e0662e8215faf2bcc25271a": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@4326c21272d2bbe3cdda6fb68898c5af0f1e964c": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@435f94ca8864c5d7dea257b130b10744a64bf3ab": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@43d6775acf1f260633d7c6497db3d6d6a8723440": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@4a64b11619787ab4c079ab433a91c7f47feaa1bd": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@4aa657c8c20e74884be79f5ae020c90db2a02a12": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@4df9988f5e54fac97223c0ad989400d04ca3b766": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@4e759c7c3036c85665e2359d21baa1f72bba8b53": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@511c8da27aee8a560641d7599cb92210eacd34f8": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@52ba6be0a7b58edf752b69070faf017d7f6c9058": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@5900f83a4d7305bb20437e19b5bc67d4f2f24443": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@59db9c7e58f759d29755c2e9d53da3986628acad": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@621c0d2311b2933a7d24e0e498e2ea8b88f1e3f4": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@62291f5fc72a294fed7af4b7963905e2a12c464e": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@646c009f9b883cc9b40468c9ae8b24e273ad90c7": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@64c80453bfbb0615c6186cdc7d5ee46e6bb935ad": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@65360ab3b5a77272e04d13874726169db70e6495": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@66d5ad8ce09e627efce7da3d27c1c389a2495fb1": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@68149f911c7727f376d8c08e409575fda61bdf28": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@693e739fb2cc5a6b20d0bb301e60d54351a09187": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@6954c15ce9078ae74e3fd0e2d4013aeb58d71538": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@6d6ed5bbd312a71ac8993355dafa0e438fa644a0": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@74a7e8c29cacc6f4f5c92af0f51d631fa7eaace9": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@77eb68503c0353b2dc0cd872d6e48d898516982a": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@799e6c9d5c5bff83da23baf70c9927e917c7e15b": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@7d718110cd87b55a65b438a16466b73804fe7d22": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@845d3fb1598ba79515e7a2473a7aa74a77ae5757": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@86b75fd6987871d4d3891eb54b54f3494cd201f7": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@86c930c56d09e89a6729eabe01bfbb74bc82e397": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@87f386adf0a0e3b9d5a799a74233d35105780479": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@8833aee26d9f69e4de93125c29d5b0c26cd27976": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@8bfcaddf2fa497634728fd2e30baf660c3a9a8ec": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@8f30950e5b23350d6966e33790775c0ace78316f": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@94400f65be910640524d32b77a156d7f09977686": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@9935af428401379380466501e85ac62976335469": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@9a27d7f7e8da6317c6714fb2f37da3719149fae7": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@9ce8f5d35ec9be69d7cbd58a8bff36dd146a1123": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@a14b38948ecdfd57ee34f37e83e07bd717fd8fec": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@a469c83a8a93896cd2fdfe4f080822de7b44497c": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@a694b5df4c0ce264f325e10806e3db981d87274d": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@a88fcb38014e433f00b4c57103d6c7383d25aa36": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@aac0131c3ba06b3dcce4b7c788a2f58c559783a8": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@acbd14a6c7e1712a95addc50b5dddfb10f6f04b5": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@ae0968e7226dc53288d1958ed16007182c78308c": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@b2d64a332528f560ea543eb6e8d1743125e1446b": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@b58eced35c02b3d1e19a4f6c89fff0987e480b19": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@bc32664534951b0c0fe1726b9309146ab11dc6fb": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@bcaebfd2e526705785e2020fe1bd0372adba164c": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@c32025a618aaf2e27574eb21fd97feba2ca2c4f7": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@c95a241d9f4a3f123522d5ee56e611f40566839c": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@ca10b1b01635cc418dcb2c75ff861352c8952b4a": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@cbea318ef0328e7ca419cb9e5b4a44e35fdd58c7": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@cd90bee50bb65440a8486361749cc9245c589b7e": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@ceedf994a5413320f8ce0e4949d6e2f12227f19f": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@cf248366ac4ea4b5a58e394d807c30410841288c": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@d2549e7d2cf2abb90bb95fbd94603eb91ada3495": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@d2863ab24f7df13c7ac6e55e603e1088e3cf4723": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@dbad2136cb7960325e99b59722dc8a5ae06f5c85": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@dbc3d126836528c59c76ddac00fa38b00a1b1e74": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@dcb6d7d5a9be2aa8d9f7700219a3f39ca430f2ac": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@de924e76528153077a23c485d16da90ec11180bb": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@df73c99793e20e04fb7d8cbc980397614ce2f297": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@e0e2ff98f47a44a55bd6c5cc1f815770345bb033": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@e246de0295213454b4b3c376a1259f24143c74e9": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@e25d9d9ab1dfd5e2b865f542a1613667efa946fe": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "pydantic/pydantic-ai@e3d2c367909435ea79b641ac5720b8544e3250a8": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@f1890796f19b2e51fa31d4bee1920a016e86eb00": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@f62cc263ba35ca3c7d13cc933757c283faa6c926": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "pydantic/pydantic-ai@f6d3885a092e3e72dd4a64e735bcf2f14537d8b1": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@f9c868d530f060bd976347f28b4ebe430d656dc1": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@fc9eb310e03ff569708f9e8c64f04e6da7b8ef4c": {
+  "checkedAt": "2026-11-28T00:23:43.266Z",
+  "checks": {
+   "v2.77.0": true
+  }
+ },
+ "pydantic/pydantic-ai@fdd5b6e44d8f922cd65978bc2c77ba297de5791a": {
+  "checkedAt": "2026-11-27T01:10:15.731Z",
+  "checks": {
+   "v2.76.0": true
+  }
+ },
+ "run-llama/llama_index@9ce3f290e532a045bf81c4a872660769cf0068c4": {
+  "checkedAt": "2026-11-27T01:07:06.117Z",
+  "checks": {
+   "v0.14.22": true,
+   "v0.14.24": true
+  }
+ },
+ "sgl-project/sglang@01656b480f0a38fca67b42353af4228cb3f4619d": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@1840464670c956f5f5a537b7e68c42f69c6ba4cf": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@301a3efab6a7239cc4a9284e44fb3da20b2733af": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@30238e0fd70060d0d5f7686f0118ff778584f82e": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@607e471c78371ec1638c5d601eef31dc8e025907": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@6d4f5750618f4fb81b4874434aa109cf1f376f19": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@735652e250f6273c5caefa4487431081ee6c9c49": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@9ea1fd7a2c2a3b66585bfb2d16532a9a2214a83b": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@aac1ef2cc86a9074f6cf52fc3f0f8fe27d60e83f": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@c1ba77cf323a55c6d00c9727d0d947e92ef2f898": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@e6e6915f7bda4699ddd93479554b1221292d776b": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@eb59d71264853e71d7036cfe1ff508083abba9a4": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@f0720cce160c373e54276edfc0c15bc337aaf782": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "sgl-project/sglang@f8fd250dd8e2b00c6ee242403ee61fc2e5cbb4dc": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth-zoo@5baf98d77e5bc1f2a56b9b6e22dabcf06701d157": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@08969ae8f8065f5ef5af42e571e1528a26d00cd5": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v0.1.920-beta": true
+  }
+ },
+ "unslothai/unsloth@145be0e8294665de2594e0a8185d37d59717dcd1": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@1bef63896aa946275a04fecc7bcb2dc31d305835": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v0.1.920-beta": true
+  }
+ },
+ "unslothai/unsloth@22cd90b29f0386f0492ec0b661075baabc70149d": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@2dae1b6baa086170cce6a15e97b3d7bf0711066d": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@31b5c7a9e38de59894c723ec921c8041183807d2": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v0.1.920-beta": true
+  }
+ },
+ "unslothai/unsloth@62d66cbbbcf6d10e7b309af0545020f277fe7bce": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v0.1.919-beta": true
+  }
+ },
+ "unslothai/unsloth@6a3a230dcd08f00315bfd11fba5b2a49ea587ccc": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@78ef6152ad01ed98f13a24a59fc42e03598f8502": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@810ee8c82d730c205f1fa5ec2ef17a7c2b3744f7": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@8b73e5fb71b7fffac207616bd462823cca337851": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@9250c9a1836dbc12c2fbe0c7f92c9ee4bfec4780": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v0.1.920-beta": true
+  }
+ },
+ "unslothai/unsloth@96ec29aee896dab9633860c95897755dcc1c478e": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v0.1.920-beta": true
+  }
+ },
+ "unslothai/unsloth@98d3c1478329dc9f38b09a2bc0b984897206a973": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@9dad14859b7f32ab49c9d8c4661afd21cde5c999": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@a4b2dd8850ebae60e6a335064ab74e2d3c3010d4": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@b0377666c0f6867071a823a7dbe887ca4aeb06ac": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@bf98807949c8b65a307f8091b73042e6d9ce14c8": {
+  "checkedAt": "2026-11-27T00:55:52.056Z",
+  "checks": {
+   "v0.1.919-beta": true
+  }
+ },
+ "unslothai/unsloth@cdf6d8e3573d3e8b89170ab1c6780d9fb2935a3f": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v0.1.919-beta": true
+  }
+ },
+ "unslothai/unsloth@e8f3d7b46a4d216d8e6a401cc88630fca3ffbba0": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@f106b195591ecdb7b8022b72f41ef50f665b4f65": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "unslothai/unsloth@ff10fa7b2df88d26ac7b6de4fdbbd8b117ca4c5e": {
+  "checkedAt": "2026-11-27T00:51:26.696Z",
+  "checks": {
+   "v0.1.919-beta": true
+  }
+ },
+ "unslothai/unsloth@ffe16ddb4d478cbd570fb880b0780ba081ed882b": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@014649a2c8c5aa176f144b6520a4d15b568d5c21": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@0ee12948bcfcbf8fcd056d2296adb7b16728220a": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@48e1793769aba1b14035a15d8e840038dd757949": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@4ab76af1fd9a3717ecdfad53382df3e4222e5613": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@6841d5fd5ac3997cc69d1ac67304cc608b66a16c": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@6eb8194d16f52aae9a27720987d3623e753c9d09": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@72fab49ea5bef3e1ea66c2e019aeaa0032ab7fb8": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@89c908a1b81c0b1826260818e60668c99a577642": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@955da92c65cf749b176f4866502c18dd5183c151": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@a53e0a05167117aaf671e7c10d2b91a9fa0c88a3": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@b4369a29cdff5a34901bc0da7ca7cb7920c735fc": {
+  "checkedAt": "2026-11-27T01:04:07.901Z",
+  "checks": {
+   "v0.34.0": false
+  }
+ },
+ "vllm-project/vllm@c9e4cb2b793b5fa6672071675ef5aa49f7926f7f": {
+  "checkedAt": "2026-11-27T02:31:38.200Z",
+  "checks": {
+   "v0.34.0": true
+  }
+ },
+ "vllm-project/vllm@da11057ed97a5f7caea26e61d8bda0c39165e1ba": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@ed686ccec527b48de4c8a67927184933886f062a": {
+  "checkedAt": null,
+  "checks": {}
+ },
+ "vllm-project/vllm@f84b0c4bceee120936030dfb0c90af0a818263ed": {
+  "checkedAt": "2026-11-27T04:04:52.420Z",
+  "checks": {
+   "v0.30.0": true
+  }
+ }
+}

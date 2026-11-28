@@ -1,0 +1,6052 @@
+{
+ "g-022bba28fed3": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:49:06Z",
+    "cardId": "c-3d753c9d731a",
+    "kind": "problem",
+    "people": 1,
+    "quote": "This can't be reproduced end to end until 2026-12-01: Google doesn't say whether the reroute passes `thinkingConfig` through unchanged.",
+    "source": "github",
+    "title": "`GoogleModel` with `thinking=False` on `gemini-2.5-flash` will fail once the Gemini API reroutes it on 2026-12-01",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14032"
+   },
+   {
+    "at": "2026-11-26T23:49:06Z",
+    "cardId": "c-c84ea4f93949",
+    "kind": "problem",
+    "people": 1,
+    "quote": "ModelHTTPError: status_code: 400, model_name: gemini-2.5-flash-lite, body: {'error': {'code': 400, 'message': 'The thinking budget 128 is invalid. Please choose a value between 512 and 24576.', 'status': 'INVALID_ARG",
+    "source": "github",
+    "title": "Invalid mapping between thinking and thinking_budget for gemini-2.5-flash-lite",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/11366"
+   },
+   {
+    "at": "2026-11-26T21:01:14Z",
+    "cardId": "c-30603561a6a5",
+    "kind": "problem",
+    "people": 1,
+    "quote": "In future model generations, supplying these parameters returns an HTTP 400 error.\" It applies that to Gemini 3.6 Flash and 3.5 Flash-Lite, and the [Gemini 3.8 Flash migration checklist](https://aistudio.google.com/docs/whats-new-gemini-3.…",
+    "source": "github",
+    "title": "`GoogleModel` treats `temperature`, `top_p` and `top_k` as supported on Gemini models that ignore them",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14731"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-022bba28fed3",
+  "interest": [],
+  "keywords": [
+   "googlemodel",
+   "gemini",
+   "thinking"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:49:06Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`GoogleModel` treats `temperature`, `top_p` and `top_k` as supported on Gemini models that ignore them",
+  "topic": "inference-cost",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-056d2713ae50": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 1
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:49:06Z",
+    "cardId": "c-376c85149ccd",
+    "kind": "problem",
+    "people": 1,
+    "quote": "UserError: Server-side token counting is not available for openai-codex models ('gpt-5.5'); the provider does not expose the input-tokens endpoint.",
+    "source": "github",
+    "title": "`Advisor` and `SubAgents` fail with `UserError` under `count_tokens_before_request=True` when the child model is an `openai-codex:` model",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14189"
+   },
+   {
+    "at": "2026-11-17T17:01:51Z",
+    "cardId": "c-aeb39599035d",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`/v1/tokenize` still calls `tokenizer.encode()`, producing an internal-error response:",
+    "source": "github",
+    "title": "openai: /v1/tokenize returns 500 with --skip-tokenizer-init",
+    "url": "https://github.com/sgl-project/sglang/issues/51036"
+   },
+   {
+    "at": "2026-11-05T10:42:24Z",
+    "cardId": "c-51a47873c6a1",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The nested object therefore fails validation and the `UsageDetails` union falls through to `RawUsageDetails`.",
+    "source": "github",
+    "title": "bug: OpenAI Responses usage with nested `cache_write_tokens_details` is not recognized, so the generation is priced $0",
+    "url": "https://github.com/langfuse/langfuse/issues/19767"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-056d2713ae50",
+  "interest": [],
+  "keywords": [
+   "openai",
+   "tokens"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:49:06Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {},
+   "size": "Weekend prototype"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "langfuse/langfuse",
+   "pydantic/pydantic-ai",
+   "sgl-project/sglang"
+  ],
+  "scope": "market",
+  "score": 7.5,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "bug: OpenAI Responses usage with nested `cache_write_tokens_details` is not recognized, so the generation is priced $0",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-0bcd288c76b4": {
+  "counts": {
+   "complaints": 1,
+   "features": 0,
+   "items": 2,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 1
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-20T22:06:02Z",
+    "cardId": null,
+    "kind": "complaint",
+    "people": 1,
+    "quote": "Flash Attention (FA) is not supported on the current llama.cpp (at least not for ROCm) for this model so KV cache is forced to f16 for the value (V) and I cannot lower it to q4 go get decent KV cache.",
+    "source": "hn",
+    "title": "Flash Attention (FA) is not supported on the current llama.cpp (at least not for ROCm) for this model so KV cache is forced to f16 for the value (V) and I canno",
+    "url": "https://news.ycombinator.com/item?id=50582966"
+   },
+   {
+    "at": "2026-11-17T15:56:05Z",
+    "cardId": "c-87a1800ebe11",
+    "kind": "problem",
+    "people": 1,
+    "quote": "| nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-NVFP4 (`--max-num-seqs 64`) | FLASHINFER (auto) | 0.60 GiB | fails to start (0.03 GiB left for KV) | - |",
+    "source": "github",
+    "title": "FP8 KV cache on SM89 auto-selects FlashInfer, which leaves far less KV cache than Triton at the same speed",
+    "url": "https://github.com/vllm-project/vllm/issues/68192"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-0bcd288c76b4",
+  "interest": [],
+  "keywords": [
+   "cache"
+  ],
+  "kinds": [
+   "complaint",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-20T22:06:02Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {},
+   "size": "Weekend prototype"
+  },
+  "people": 2,
+  "previousVerdict": null,
+  "repos": [
+   "vllm-project/vllm"
+  ],
+  "scope": "market",
+  "score": 9.3,
+  "solutions": [],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "FP8 KV cache on SM89 auto-selects FlashInfer, which leaves far less KV cache than Triton at the same speed",
+  "topic": "serving",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-0d2670f2f494": {
+  "counts": {
+   "complaints": 0,
+   "features": 3,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-08-12T19:09:15Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "LoRA adapter support for DFlash speculative decoding draft models",
+    "source": "github",
+    "title": "LoRA adapter support for DFlash speculative decoding draft models",
+    "url": "https://github.com/vllm-project/vllm/issues/52038"
+   },
+   {
+    "at": "2026-08-12T07:35:21Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Per-request activation of multiple LoRA adapters with static scales",
+    "source": "github",
+    "title": "Per-request activation of multiple LoRA adapters with static scales",
+    "url": "https://github.com/vllm-project/vllm/issues/51940"
+   },
+   {
+    "at": "2026-07-24T09:59:37Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support router-driven mixtures of multiple LoRA adapters",
+    "source": "github",
+    "title": "Support router-driven mixtures of multiple LoRA adapters",
+    "url": "https://github.com/vllm-project/vllm/issues/49705"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-0d2670f2f494",
+  "interest": [],
+  "keywords": [
+   "lora",
+   "multiple",
+   "adapters"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-08-12T19:09:15Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "vllm-project/vllm"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "vllm-project/vllm"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Support router-driven mixtures of multiple LoRA adapters",
+  "topic": "fine-tuning",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-0f1a5707607c": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 3,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.37,
+  "evidence": [
+   {
+    "at": "2026-11-25T00:40:38Z",
+    "cardId": "c-04fe973cd40e",
+    "kind": "problem",
+    "people": 1,
+    "quote": "So a user (or the agent itself, when it checks a plugin it just wrote) gets \"No plugins.\" for a setup that has several, and can't tell from the CLI whether a drop-in was found.",
+    "source": "github",
+    "title": "`pax plugins list` prints \"No plugins.\" when built-in and drop-in plugins are loaded",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14466"
+   },
+   {
+    "at": "2026-11-24T20:07:31Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Let `pax --agent` opt into plugins (sandbox, MCP, Logfire, coder tools), with tool-clash handling",
+    "source": "github",
+    "title": "Let `pax --agent` opt into plugins (sandbox, MCP, Logfire, coder tools), with tool-clash handling",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14384"
+   },
+   {
+    "at": "2026-11-24T20:07:24Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "`pax --agent` can't supply deps for agents with a required `deps_type`",
+    "source": "github",
+    "title": "`pax --agent` can't supply deps for agents with a required `deps_type`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14382"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-0f1a5707607c",
+  "interest": [],
+  "keywords": [
+   "pax",
+   "--agent",
+   "plugins"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-25T00:40:38Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [
+   {
+    "kind": "product",
+    "similarity": 0.53,
+    "title": "Pax by Pydantic",
+    "url": "https://www.producthunt.com/products/pydantic"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Let `pax --agent` opt into plugins (sandbox, MCP, Logfire, coder tools), with tool-clash handling",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-150af3aab634": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 10.26,
+  "evidence": [
+   {
+    "at": "2026-11-01T15:51:22Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "Now we have so many different and powerful agents: OpenClaw, Hermes Agent, Muse, Dots, Claude Code, Codex,… more coming. I let everyone run separately but have to copy and paste the same questions from one to another to check their responses. There should be better ways to coordinate all of these ag",
+    "source": "hn",
+    "title": "Ask HN: How do you manage your personal agents?",
+    "url": "https://news.ycombinator.com/item?id=50326764"
+   },
+   {
+    "at": "2026-11-10T22:25:43Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Run agents in evals with side-effecting tools blocked, recorded and replayable",
+    "source": "github",
+    "title": "Run agents in evals with side-effecting tools blocked, recorded and replayable",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13115"
+   },
+   {
+    "at": "2026-10-30T00:01:02Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Let agent runs started inside another run inherit its usage budget",
+    "source": "github",
+    "title": "Let agent runs started inside another run inherit its usage budget",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/11918"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-150af3aab634",
+  "interest": [
+   {
+    "funding": {
+     "amount": "£500K",
+     "company": "Pippa",
+     "round": null
+    },
+    "similarity": 0.55,
+    "title": "Pippa Labs lands £500k to build trusted AI agents",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaDE1Z0ltTFNvcUlENnhwb2ZmY0xiNllJSGl5OTItYnBjUEJRaUVja3luTngxa3duSzZNQW44Nlc1M2pxeGpsZFdtRlhkRnk5My1MTUlCVnk4MkNjc0k3LWd5RzltU1RfOFBvSG1YMWtiZkpPYTJJc3pMRDUwMVdLUHowd1gtVGpQdVE?oc=5",
+    "verified": false
+   },
+   {
+    "funding": {
+     "amount": "$15M",
+     "company": "Sequel.io",
+     "round": "Series B"
+    },
+    "similarity": 0.52,
+    "title": "Sequel.io Raises $15M Series B to Expand AI Agents and Personalization",
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxONGc5WGl6cUpoLTNDem5GdEJQLTdweDMtZmVyZEM0b19FQ3ZGazFZZFYxUm00Umw1cEE4M1hFSmJXYXpTQXN5eHVESnZnQ0wwcERLMXhPMFJBWjJJa0VqaGxBd2x3ZWg3TzJyRTZzdVduQTd6NC1WU3BRWm90ektrV2hwdE5kUE4tZU00aThXYnl2MTljb2c?oc=5",
+    "verified": true
+   },
+   {
+    "funding": {
+     "amount": "$8M",
+     "company": "Disseqt",
+     "round": null
+    },
+    "similarity": 0.52,
+    "title": "Disseqt raises $8M to police rogue AI agents",
+    "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNYnladmVkZDRSalRXVUNqT0VRaVVTNWlhYjVDSEI3RDM2Ynh3d3g5QkI4Mkx3RHpERndBUERYU3dudUsyMkRUV3NJTWxENDdHVzhhZjJIUXYyTmZQd3JUZ1AzaHUwdXc3Wkw4cnRydWsxVUI4TTV5NElNd211N0xZQ09BZw?oc=5",
+    "verified": true
+   },
+   {
+    "funding": {
+     "amount": "$1.15M",
+     "company": "Atsumell",
+     "round": null
+    },
+    "similarity": 0.51,
+    "title": "Atsumell raises $1.15M to prep company workflows for AI agents",
+    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQSl85SlpNWkVaT19LaFUwMUlIVzNuM3ZKaGd2anRsVHgxUzJxcjRBb1lSeWVjLTR5LXZjWGFJTDQybW1IVU9MWE9velhKNUJsQWVuYWF2Ym16RlJEWVNwbUZ4Z243UWtvdm56UVY4dnFZSEkxbGMyN0NQbEhfTDhKcmsxRkFRM3hSSENRQ1FTRm9fZzdueGcwVVFSSQ?oc=5",
+    "verified": false
+   },
+   {
+    "funding": {
+     "amount": "$32M",
+     "company": "AidenAI",
+     "round": null
+    },
+    "similarity": 0.51,
+    "title": "AidenAI raises $32 million to get AI agents past the demo, company says",
+    "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE5YUThzc01ZdGp6czNmTHZ4MEpDd3BwNEVFODVfZG45T256ZEhrdU01TWw0U2RaZXFLaEZUcFZrX2c0RTZu?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [
+   "run",
+   "agents"
+  ],
+  "kinds": [
+   "feature",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-10T22:25:43Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 3.8,
+  "solutions": [
+   {
+    "kind": "launch",
+    "similarity": 0.68,
+    "title": "Show HN: Evalkit for Improving Your Agents",
+    "url": "https://news.ycombinator.com/item?id=50655285"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.64,
+    "title": "Replit Missions",
+    "url": "https://www.producthunt.com/products/replit"
+   },
+   {
+    "kind": "tool",
+    "similarity": 0.62,
+    "title": "Pydantic AI",
+    "url": "https://github.com/pydantic/pydantic-ai"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.61,
+    "title": "fluyeporlaweb/ai-agent-tools",
+    "url": "https://github.com/fluyeporlaweb/ai-agent-tools"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.61,
+    "title": "Fleetify",
+    "url": "https://www.producthunt.com/products/fleetify"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.61,
+    "title": "Bifura",
+    "url": "https://www.producthunt.com/products/bifura"
+   }
+  ],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Let agent runs started inside another run inherit its usage budget",
+  "topic": "agents",
+  "verdict": "crowded",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-16057bc45715": {
+  "counts": {
+   "complaints": 0,
+   "features": 4,
+   "items": 4,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.55,
+  "evidence": [
+   {
+    "at": "2026-10-07T12:08:38Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add FlexAI provider",
+    "source": "github",
+    "title": "Add FlexAI provider",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9956"
+   },
+   {
+    "at": "2026-09-28T09:41:27Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add a Scaleway Generative APIs provider (`scaleway:<model>`)",
+    "source": "github",
+    "title": "Add a Scaleway Generative APIs provider (`scaleway:<model>`)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8880"
+   },
+   {
+    "at": "2026-09-23T00:00:28Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Docs: add Cheaper Inference to OpenAI-compatible models",
+    "source": "github",
+    "title": "Docs: add Cheaper Inference to OpenAI-compatible models",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8647"
+   },
+   {
+    "at": "2026-08-09T19:39:41Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add DeepInfra as a model provider",
+    "source": "github",
+    "title": "Add DeepInfra as a model provider",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/7326"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-16057bc45715",
+  "interest": [
+   {
+    "funding": {
+     "amount": "€6M",
+     "company": "Daisytuner",
+     "round": null
+    },
+    "similarity": 0.45,
+    "title": "Daisytuner raises €6m for AI inference tools",
+    "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQREwwbXZwRXpKalpEOVlqLWptSTBUYTU4b2k5WXVaN0VZMU16WWxSWWIzdGV6OXRtSWhGRnowa3BZczFFbk5OZmZoQi1JUmRkblRsa3BXSWttYmZ0YU5zVW9DUmlySC1uU3B2WXFyMFhGU0J4UlFhQVl1UjR4d0tGdmMxY3Fldw?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [
+   "provider",
+   "model"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-10-07T12:08:38Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 3.1,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.55,
+    "title": "OpenAI structured outputs",
+    "url": "https://github.com/openai/openai-python"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Add DeepInfra as a model provider",
+  "topic": "gateway",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-2218144edced": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 3,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T20:16:21Z",
+    "cardId": "c-84b8642d27e0",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Ollama install script breaks any linux who's PC doesnt have GPU that supports latest driver",
+    "source": "github",
+    "title": "Ollama install script breaks any linux who's PC doesnt have GPU that supports latest driver",
+    "url": "https://github.com/ollama/ollama/issues/19933"
+   },
+   {
+    "at": "2026-10-26T13:52:15Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "GPU acceleration detection and configuration in Ollama UI",
+    "source": "github",
+    "title": "GPU acceleration detection and configuration in Ollama UI",
+    "url": "https://github.com/ollama/ollama/issues/19301"
+   },
+   {
+    "at": "2024-04-22T13:25:32Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add API endpoint to see GPU hardware available",
+    "source": "github",
+    "title": "Add API endpoint to see GPU hardware available",
+    "url": "https://github.com/ollama/ollama/issues/3822"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-2218144edced",
+  "interest": [],
+  "keywords": [
+   "gpu",
+   "ollama"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T20:16:21Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "ollama/ollama"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "ollama/ollama"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Add API endpoint to see GPU hardware available",
+  "topic": "gpu-hardware",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-22b8393cc788": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 3,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:00:43Z",
+    "cardId": "c-e13b3d789857",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Reading `ctx.model.profile`, for example in a capability's `get_instructions` or `get_model_settings` that branches on the model's profile, raises a bare `NotImplementedError`, which crashes the run.",
+    "source": "github",
+    "title": "`FallbackModel`: raise a clear error when a capability reads `ctx.model.profile`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14799"
+   },
+   {
+    "at": "2026-11-17T19:00:43Z",
+    "cardId": "c-e0c2e2366b27",
+    "kind": "problem",
+    "people": 1,
+    "quote": "A capability that branches on the profile crashes the run.",
+    "source": "github",
+    "title": "`ModelFallback` should re-run `get_instructions` and `get_model_settings` for the model that serves an attempt",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12747"
+   },
+   {
+    "at": "2026-11-26T23:00:47Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Decide whether `get_toolset` and other per-request hooks should see the model serving a fallback attempt",
+    "source": "github",
+    "title": "Decide whether `get_toolset` and other per-request hooks should see the model serving a fallback attempt",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14800"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-22b8393cc788",
+  "interest": [],
+  "keywords": [
+   "should",
+   "get",
+   "model"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:00:47Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`ModelFallback` should re-run `get_instructions` and `get_model_settings` for the model that serves an attempt",
+  "topic": "serving",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-23040532ab67": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-23T18:59:40Z",
+    "cardId": "c-4f50ad3765a6",
+    "kind": "problem",
+    "people": 1,
+    "quote": "ChatAnthropic 1.7.12: incorrect streamed usage and successful completion without message_stop",
+    "source": "github",
+    "title": "ChatAnthropic 1.7.12: incorrect streamed usage and successful completion without message_stop",
+    "url": "https://github.com/langchain-ai/langchain/issues/42045"
+   },
+   {
+    "at": "2026-11-23T18:53:28Z",
+    "cardId": "c-81cc6f8c98b3",
+    "kind": "problem",
+    "people": 1,
+    "quote": "A caller needs an error or a distinct incomplete outcome for this stream so it can tell a confirmed completion from premature EOF.",
+    "source": "github",
+    "title": "ChatAnthropic 1.7.12: incorrect streamed usage and successful completion without message_stop",
+    "url": "https://github.com/langchain-ai/langchain/issues/42044"
+   },
+   {
+    "at": "2026-11-20T14:49:44Z",
+    "cardId": "c-785ede55a8a6",
+    "kind": "problem",
+    "people": 1,
+    "quote": "With a `muse-glimmer` (Glimmer / ATEM) model and a realistic agent tool payload, two things go wrong, one on top of the other:",
+    "source": "github",
+    "title": "/v1/chat/completions silently ends the stream (no finish_reason, no [DONE]) when the glimmer parser raises mid-generation — clients report \"stream ended without reason\"",
+    "url": "https://github.com/ollama/ollama/issues/19792"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-23040532ab67",
+  "interest": [],
+  "keywords": [
+   "chatanthropic",
+   "incorrect",
+   "streamed"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-23T18:59:40Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "langchain-ai/langchain",
+   "ollama/ollama"
+  ],
+  "scope": "market",
+  "score": 6,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "ChatAnthropic 1.7.12: incorrect streamed usage and successful completion without message_stop",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-244728834b55": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 1
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-23T08:34:03Z",
+    "cardId": "c-54fb958146d9",
+    "kind": "problem",
+    "people": 1,
+    "quote": "OpenAI/generic ChatML renderer drops OTel GenAI parts[].content in assistant output (pydantic-ai NativeOutput) — same as #15790",
+    "source": "github",
+    "title": "OpenAI/generic ChatML renderer drops OTel GenAI parts[].content in assistant output (pydantic-ai NativeOutput) — same as #15790",
+    "url": "https://github.com/langfuse/langfuse/issues/20688"
+   },
+   {
+    "at": "2026-11-21T05:21:40Z",
+    "cardId": "c-5ec60117fe65",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Error Message and Stack Trace (if applicable)",
+    "source": "github",
+    "title": "ChatOpenAI (Chat Completions) forwards Anthropic server tool blocks from earlier turns",
+    "url": "https://github.com/langchain-ai/langchain/issues/42010"
+   },
+   {
+    "at": "2026-11-12T06:29:20Z",
+    "cardId": "c-dcef9e858eec",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Error Message and Stack Trace (if applicable)",
+    "source": "github",
+    "title": "ChatAnthropic sends OpenAI built-in tool blocks (`web_search_call`, `server_tool_call`) from earlier turns to the Messages API",
+    "url": "https://github.com/langchain-ai/langchain/issues/41811"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-244728834b55",
+  "interest": [],
+  "keywords": [
+   "openai",
+   "tool",
+   "blocks"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-23T08:34:03Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {},
+   "size": "Weekend prototype"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "langchain-ai/langchain",
+   "langfuse/langfuse"
+  ],
+  "scope": "market",
+  "score": 7.5,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "ChatAnthropic sends OpenAI built-in tool blocks (`web_search_call`, `server_tool_call`) from earlier turns to the Messages API",
+  "topic": "structured-output",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-287c29cd1b16": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 1,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T00:19:58Z",
+    "cardId": "c-e179b5ca5284",
+    "kind": "problem",
+    "people": 3,
+    "quote": "12 new tests, 9 of which fail on `main` and pass with the fix.",
+    "source": "github",
+    "title": "`Memory.from_defaults` archives almost all chat history on each flush when `token_limit` is small",
+    "url": "https://github.com/run-llama/llama_index/issues/24117"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-287c29cd1b16",
+  "interest": [],
+  "keywords": [
+   "memory.from",
+   "defaults",
+   "archives"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T00:19:58Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "run-llama/llama_index"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "run-llama/llama_index"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`Memory.from_defaults` archives almost all chat history on each flush when `token_limit` is small",
+  "topic": "rag-memory",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-28a64a0eb733": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T09:11:16Z",
+    "cardId": "c-e3e74c2afb1d",
+    "kind": "problem",
+    "people": 1,
+    "quote": "When running Inkling 2 Mini with moe-cache-mib set to any non-zero number, llama.cpp crashes as shown below.",
+    "source": "github",
+    "title": "Eval bug: Inkling 2 Mini crashes when using `--moe-cache-mib`",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/33101"
+   },
+   {
+    "at": "2026-11-18T11:40:34Z",
+    "cardId": "c-b6058b8a3033",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The Qwen3-30B-A3B Q4_K_M model reproduces the crash on Windows with ROCm 10.1 and gfx1103 when using partial GPU offload, including with -ngl 1.",
+    "source": "github",
+    "title": "ROCm Windows large MoE crash after 4 GiB host buffer limit;",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/32534"
+   },
+   {
+    "at": "2026-11-14T14:14:50Z",
+    "cardId": "c-8db25e4e6212",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Crash",
+    "source": "github",
+    "title": "Eval bug: --moe-cache-mib aborts at load in llama_moe_cache::impl::copy on ROCm/HIP (RX 6800 XT, gfx1030, Qwen3.6-35B-A3B) — cache size independent",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/31675"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-28a64a0eb733",
+  "interest": [],
+  "keywords": [
+   "eval",
+   "--moe-cache-mib",
+   "moe"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T09:11:16Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "ggml-org/llama.cpp"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "ggml-org/llama.cpp"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Eval bug: --moe-cache-mib aborts at load in llama_moe_cache::impl::copy on ROCm/HIP (RX 6800 XT, gfx1030, Qwen3.6-35B-A3B) — cache size independent",
+  "topic": "gpu-hardware",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-33c874c2d770": {
+  "counts": {
+   "complaints": 0,
+   "features": 4,
+   "items": 4,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.88,
+  "evidence": [
+   {
+    "at": "2026-11-20T05:34:59Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "diffusion/pi05: real-time chunking (RTC)",
+    "source": "github",
+    "title": "diffusion/pi05: real-time chunking (RTC)",
+    "url": "https://github.com/sgl-project/sglang/issues/51726"
+   },
+   {
+    "at": "2026-11-17T13:15:11Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "MoE expert offloading through Paged Experts",
+    "source": "github",
+    "title": "MoE expert offloading through Paged Experts",
+    "url": "https://github.com/sgl-project/sglang/issues/51018"
+   },
+   {
+    "at": "2026-11-08T03:00:19Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "moe: FlashInfer cuTile NVFP4 MoE as the default runner on SM12x",
+    "source": "github",
+    "title": "moe: FlashInfer cuTile NVFP4 MoE as the default runner on SM12x",
+    "url": "https://github.com/sgl-project/sglang/issues/49123"
+   },
+   {
+    "at": "2026-11-01T14:04:00Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Agent harness x SGLang: compatibility, session-aware KV, and execution efficiency",
+    "source": "github",
+    "title": "Agent harness x SGLang: compatibility, session-aware KV, and execution efficiency",
+    "url": "https://github.com/sgl-project/sglang/issues/47763"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-33c874c2d770",
+  "interest": [],
+  "keywords": [
+   "moe"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-11-20T05:34:59Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "sgl-project/sglang"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "sgl-project/sglang"
+  ],
+  "scope": "upstream",
+  "score": 1.5,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.6,
+    "title": "SGLang",
+    "url": "https://github.com/sgl-project/sglang"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.54,
+    "title": "gauravjain14/inference-observe",
+    "url": "https://github.com/gauravjain14/inference-observe"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "MoE expert offloading through Paged Experts",
+  "topic": "agents",
+  "verdict": "partial",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-36fb2d47e2a4": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:02:45Z",
+    "cardId": "c-19f0f44a5ac1",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`ConversationStore.branch` drops a paused turn's `deferred_tool_requests` when switching back to it",
+    "source": "github",
+    "title": "`ConversationStore.branch` drops a paused turn's `deferred_tool_requests` when switching back to it",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14804"
+   },
+   {
+    "at": "2026-11-19T01:18:39Z",
+    "cardId": "c-70ae5431d11d",
+    "kind": "problem",
+    "people": 2,
+    "quote": "UserError: 'Cannot provide a new user prompt when the message history contains unprocessed tool calls...')`.",
+    "source": "github",
+    "title": "A new prompt on a paused conversation silently drops pending deferred calls when a sibling tool executed",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12156"
+   },
+   {
+    "at": "2026-11-18T14:44:21Z",
+    "cardId": "c-a88c7d905201",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Pending message queued at a `DeferredToolRequests` pause discards the pause and skips approval",
+    "source": "github",
+    "title": "Pending message queued at a `DeferredToolRequests` pause discards the pause and skips approval",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/7537"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-36fb2d47e2a4",
+  "interest": [],
+  "keywords": [
+   "paused",
+   "drops",
+   "pending"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:02:45Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.8,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "A new prompt on a paused conversation silently drops pending deferred calls when a sibling tool executed",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-3be0e43f0b2f": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 4,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 1.38,
+  "evidence": [
+   {
+    "at": "2026-11-17T17:44:07Z",
+    "cardId": "c-e657c804f7f8",
+    "kind": "problem",
+    "people": 1,
+    "quote": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.50 GiB. GPU 0 has a total capacity of 7.62 GiB of which 2.86 GiB is free.",
+    "source": "github",
+    "title": "Without the extensible KV cache, CUDA graph memory profiling allocates one KV block per request and OOMs at startup",
+    "url": "https://github.com/vllm-project/vllm/issues/68209"
+   },
+   {
+    "at": "2026-11-17T15:34:07Z",
+    "cardId": "c-b5967ee31d6e",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Built with CUDA 12.9 (CUDA 13 cannot target sm_61), `-DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=61`.",
+    "source": "github",
+    "title": "Eval bug: CUDA mmvq fusion makes token generation 20-36% slower on Pascal (sm_61, MX230); GGML_CUDA_DISABLE_FUSION=1 is faster with identical output",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/32229"
+   },
+   {
+    "at": "2026-10-19T04:15:36Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "native q8_0 KV in the CUDA flash-attention TILE kernel (bs=1 decode)",
+    "source": "github",
+    "title": "native q8_0 KV in the CUDA flash-attention TILE kernel (bs=1 decode)",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/30790"
+   },
+   {
+    "at": "2026-09-24T11:27:35Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "CUDA flash attention inefficiency in quantized KV cache handling, worsening with context length",
+    "source": "github",
+    "title": "CUDA flash attention inefficiency in quantized KV cache handling, worsening with context length",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/29371"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-3be0e43f0b2f",
+  "interest": [
+   {
+    "funding": {
+     "amount": null,
+     "company": "Stoa",
+     "round": "Seed"
+    },
+    "similarity": 0.44,
+    "title": "Stoa raises seed from 212 to build a GPU exchange",
+    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQUG53Y0tyaUNxSVFGWGp4VWE5RXJWbnlkaDRXV2x6RDZybl9CaFJJSnVqYlVITDJLSW9Objg0SWJqMGRVMkZxZUs1eGd4VFRHc01ZSC1jY2hZUUQ4N25QRTZPa1pOdjYwbEpyOTVUV0NIeTRIUjlmaEFjNDJXc2xvQWptRGN6VzQ2bFA0?oc=5",
+    "verified": false
+   },
+   {
+    "funding": {
+     "amount": "$30M",
+     "company": "Tendrils Compute",
+     "round": null
+    },
+    "similarity": 0.43,
+    "title": "Tendrils Compute raises $30 million to challenge CPU and GPU chips",
+    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNdDBNS3pNVjVZTklLbUZOSmkxNmZZSHB4M3Y0eDU5OU4zWnN5WHVERjlCX3BvZl81NjZCdkc0MXoyMzNXMzVreVJKZnByR2pJNFItQl80RDJhczBtN0tHWkNfNVVTVmdKQzVvZEdpYUVDY2Jzbjl1dHlZdHpYYTVaTVd2bndJR1A5ajQ0UzZSc2g2QWZiM2xyTXVR?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [
+   "cuda",
+   "cache"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-17T17:44:07Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 4
+   },
+   "size": "Interview first"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "ggml-org/llama.cpp",
+   "vllm-project/vllm"
+  ],
+  "scope": "market",
+  "score": 4.4,
+  "solutions": [
+   {
+    "kind": "new_repo",
+    "similarity": 0.63,
+    "title": "alexhmyang/winintel-vllm",
+    "url": "https://github.com/alexhmyang/winintel-vllm"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.55,
+    "title": "barrydeen/ampllm",
+    "url": "https://github.com/barrydeen/ampllm"
+   },
+   {
+    "kind": "tool",
+    "similarity": 0.54,
+    "title": "llama.cpp",
+    "url": "https://github.com/ggml-org/llama.cpp"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.51,
+    "title": "Chromadera/nib",
+    "url": "https://github.com/Chromadera/nib"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "CUDA flash attention inefficiency in quantized KV cache handling, worsening with context length",
+  "topic": "gpu-hardware",
+  "verdict": "partial",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-43aeab805638": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-25T13:24:29Z",
+    "cardId": "c-ca479d7788e5",
+    "kind": "problem",
+    "people": 1,
+    "quote": "SimpleVectorStore conflates `bool` and `int` across `EQ`, `NE`, and `GT` MetadataFilters, diverging from ChromaVectorStore",
+    "source": "github",
+    "title": "SimpleVectorStore conflates `bool` and `int` across `EQ`, `NE`, and `GT` MetadataFilters, diverging from ChromaVectorStore",
+    "url": "https://github.com/run-llama/llama_index/issues/24452"
+   },
+   {
+    "at": "2026-11-25T13:21:48Z",
+    "cardId": "c-2f05852c1586",
+    "kind": "problem",
+    "people": 1,
+    "quote": "TypeError: '<' not supported between instances of 'str' and 'int')",
+    "source": "github",
+    "title": "SimpleVectorStore raises unhandled `TypeError` when a range MetadataFilter encounters heterogeneous metadata types (e.g., `str` vs `int`)",
+    "url": "https://github.com/run-llama/llama_index/issues/24451"
+   },
+   {
+    "at": "2026-11-25T12:51:04Z",
+    "cardId": "c-bdca58edbe3e",
+    "kind": "problem",
+    "people": 1,
+    "quote": "SimpleVectorStore conflates `bool` and `int` in MetadataFilter (`False == 0`, `True == 1`), diverging from ChromaVectorStore",
+    "source": "github",
+    "title": "SimpleVectorStore conflates `bool` and `int` in MetadataFilter (`False == 0`, `True == 1`), diverging from ChromaVectorStore",
+    "url": "https://github.com/run-llama/llama_index/issues/24450"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-43aeab805638",
+  "interest": [],
+  "keywords": [
+   "simplevectorstore",
+   "int",
+   "conflates"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-25T13:24:29Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "run-llama/llama_index"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "run-llama/llama_index"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "SimpleVectorStore conflates `bool` and `int` in MetadataFilter (`False == 0`, `True == 1`), diverging from ChromaVectorStore",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-453e75556519": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 3,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T14:01:07Z",
+    "cardId": "c-979d2dfb1848",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Windows Strix Halo: GPU available memory is underestimated when BIOS UMA reservation reduces Windows-visible RAM",
+    "source": "github",
+    "title": "Windows Strix Halo: GPU available memory is underestimated when BIOS UMA reservation reduces Windows-visible RAM",
+    "url": "https://github.com/unslothai/unsloth/issues/19768"
+   },
+   {
+    "at": "2026-11-18T12:32:26Z",
+    "cardId": "c-9fd0b7c31760",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`--fit on` plans ~52 GiB of device memory on a 64 GB Strix Halo APU -> system RAM goes 43 GB -> 57 GB while VRAM still shows ~9 GB free",
+    "source": "github",
+    "title": "`--fit on` plans ~52 GiB of device memory on a 64 GB Strix Halo APU -> system RAM goes 43 GB -> 57 GB while VRAM still shows ~9 GB free",
+    "url": "https://github.com/unslothai/unsloth/issues/18316"
+   },
+   {
+    "at": "2026-11-26T14:01:07Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Windows Strix Halo: GPU available memory is underestimated when BIOS UMA reservation reduces Windows-visible RAM",
+    "source": "github",
+    "title": "Windows Strix Halo: GPU available memory is underestimated when BIOS UMA reservation reduces Windows-visible RAM",
+    "url": "https://github.com/unslothai/unsloth/issues/19768"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-453e75556519",
+  "interest": [
+   {
+    "funding": {
+     "amount": null,
+     "company": "Stoa",
+     "round": "Seed"
+    },
+    "similarity": 0.47,
+    "title": "Stoa raises seed from 212 to build a GPU exchange",
+    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQUG53Y0tyaUNxSVFGWGp4VWE5RXJWbnlkaDRXV2x6RDZybl9CaFJJSnVqYlVITDJLSW9Objg0SWJqMGRVMkZxZUs1eGd4VFRHc01ZSC1jY2hZUUQ4N25QRTZPa1pOdjYwbEpyOTVUV0NIeTRIUjlmaEFjNDJXc2xvQWptRGN6VzQ2bFA0?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [
+   "memory",
+   "strix",
+   "halo"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T14:01:07Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "unslothai/unsloth"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "unslothai/unsloth"
+  ],
+  "scope": "upstream",
+  "score": 2.7,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Windows Strix Halo: GPU available memory is underestimated when BIOS UMA reservation reduces Windows-visible RAM",
+  "topic": "gpu-hardware",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-4548491d38b7": {
+  "counts": {
+   "complaints": 0,
+   "features": 3,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.56,
+  "evidence": [
+   {
+    "at": "2026-11-25T11:20:15Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "CPU Offloading Tier: Best-Effort KV Hint Retention",
+    "source": "github",
+    "title": "CPU Offloading Tier: Best-Effort KV Hint Retention",
+    "url": "https://github.com/vllm-project/vllm/issues/69888"
+   },
+   {
+    "at": "2026-11-17T04:15:27Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Keep agent KV in the CPU offload tier across tool calls, using client hints",
+    "source": "github",
+    "title": "Keep agent KV in the CPU offload tier across tool calls, using client hints",
+    "url": "https://github.com/vllm-project/vllm/issues/68079"
+   },
+   {
+    "at": "2026-11-16T10:56:14Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "CPU offloading cache lifecycle metrics",
+    "source": "github",
+    "title": "CPU offloading cache lifecycle metrics",
+    "url": "https://github.com/vllm-project/vllm/issues/67909"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-4548491d38b7",
+  "interest": [],
+  "keywords": [
+   "cpu",
+   "offloading",
+   "tier"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-11-25T11:20:15Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "vllm-project/vllm"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "vllm-project/vllm"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [
+   {
+    "kind": "new_repo",
+    "similarity": 0.56,
+    "title": "wangly228/cachebridge",
+    "url": "https://github.com/wangly228/cachebridge"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.56,
+    "title": "gauravjain14/inference-observe",
+    "url": "https://github.com/gauravjain14/inference-observe"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "CPU Offloading Tier: Best-Effort KV Hint Retention",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-466dad2fb142": {
+  "counts": {
+   "complaints": 0,
+   "features": 4,
+   "items": 4,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-27T00:52:11Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support SupraLabs Models",
+    "source": "github",
+    "title": "Support SupraLabs Models",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/33158"
+   },
+   {
+    "at": "2026-09-18T00:08:15Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support Prism PQ2_0 (GGML type 142) and PTQ1_0 (type 143) used by Ternary-Bonsai-2",
+    "source": "github",
+    "title": "Support Prism PQ2_0 (GGML type 142) and PTQ1_0 (type 143) used by Ternary-Bonsai-2",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/29058"
+   },
+   {
+    "at": "2026-09-16T11:13:15Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Performance Improvements on SYCL",
+    "source": "github",
+    "title": "Performance Improvements on SYCL",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/28990"
+   },
+   {
+    "at": "2026-07-30T02:03:52Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support Apertus (a family of models from ETH Zurich)",
+    "source": "github",
+    "title": "Support Apertus (a family of models from ETH Zurich)",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/26300"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-466dad2fb142",
+  "interest": [],
+  "keywords": [
+   "models"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-11-27T00:52:11Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "ggml-org/llama.cpp"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "ggml-org/llama.cpp"
+  ],
+  "scope": "upstream",
+  "score": 2.8,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Support Apertus (a family of models from ETH Zurich)",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-467833f4131d": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 6,
+   "pay": 0,
+   "problems": 5,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 1
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-25T07:52:42Z",
+    "cardId": "c-0d776090ab78",
+    "kind": "problem",
+    "people": 1,
+    "quote": "CI fails for latest TRL release with dev dependencies: https://github.com/huggingface/trl/actions/runs/45517103578/job/138879250772",
+    "source": "github",
+    "title": "CI fails for latest TRL release with dev dependencies for InternVL: XPASS(strict)",
+    "url": "https://github.com/huggingface/trl/issues/8572"
+   },
+   {
+    "at": "2026-11-20T11:58:51Z",
+    "cardId": "c-bd2c1e5772ad",
+    "kind": "problem",
+    "people": 1,
+    "quote": "ValueError: Siglip2VisionModel does not support Flash Attention yet, so it cannot use the `kernels-community/flash-attn3` kernel. Please request to add support where the model is hosted, on its model hub page: ht",
+    "source": "github",
+    "title": "CI fails with dev dependencies for LFM2.5-VL with Flash Attention: ValueError: Siglip2VisionModel does not support Flash Attention yet",
+    "url": "https://github.com/huggingface/trl/issues/8504"
+   },
+   {
+    "at": "2026-11-19T17:07:57Z",
+    "cardId": "c-6fc5dd0845f2",
+    "kind": "problem",
+    "people": 1,
+    "quote": "CI fails for latest TRL release with dev dependencies: https://github.com/huggingface/trl/actions/runs/44427976573/job/135237666402",
+    "source": "github",
+    "title": "CI fails for latest TRL release with dev dependencies for Qwen2-VL and LLaVA-NeXT: XPASS(strict)",
+    "url": "https://github.com/huggingface/trl/issues/8460"
+   },
+   {
+    "at": "2026-11-19T17:07:54Z",
+    "cardId": "c-842c7376ca77",
+    "kind": "problem",
+    "people": 1,
+    "quote": "RuntimeError: Attempting to broadcast a dimension of length 16 at -1! Mismatching argument at index 1 had torch.Size([16]); but expected shape should be broadcastable to [4]",
+    "source": "github",
+    "title": "CI fails for latest TRL release with dev dependencies for Phi-3.5: RuntimeError: Attempting to broadcast a dimension of length 16 at -1!",
+    "url": "https://github.com/huggingface/trl/issues/8434"
+   },
+   {
+    "at": "2026-11-17T13:43:03Z",
+    "cardId": "c-e3a3d80cd40f",
+    "kind": "problem",
+    "people": 1,
+    "quote": "CI fails for latest TRL release with dev dependencies: https://github.com/huggingface/trl/actions/runs/42930296090/job/130227042801",
+    "source": "github",
+    "title": "CI fails for latest TRL release with dev dependencies for FLOPs without head_dim: AssertionError: assert 10456320 == 19900416",
+    "url": "https://github.com/huggingface/trl/issues/8258"
+   },
+   {
+    "at": "2026-11-20T11:58:51Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "CI fails with dev dependencies for LFM2.5-VL with Flash Attention: ValueError: Siglip2VisionModel does not support Flash Attention yet",
+    "source": "github",
+    "title": "CI fails with dev dependencies for LFM2.5-VL with Flash Attention: ValueError: Siglip2VisionModel does not support Flash Attention yet",
+    "url": "https://github.com/huggingface/trl/issues/8504"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-467833f4131d",
+  "interest": [],
+  "keywords": [
+   "dev",
+   "dependencies",
+   "latest"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-25T07:52:42Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "huggingface/trl"
+   },
+   "size": "Tonight"
+  },
+  "people": 6,
+  "previousVerdict": null,
+  "repos": [
+   "huggingface/trl"
+  ],
+  "scope": "upstream",
+  "score": 4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "CI fails for latest TRL release with dev dependencies for FLOPs without head_dim: AssertionError: assert 10456320 == 19900416",
+  "topic": "coding-agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-483794ca4c14": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 1
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-25T15:59:59Z",
+    "cardId": "c-97cb8c3824df",
+    "kind": "problem",
+    "people": 1,
+    "quote": "This creates an inconsistency between the Python and C readers: a file may appear readable to Python-based inspection or conversion tools but fail when loaded by llama.cpp.",
+    "source": "github",
+    "title": "Misc. bug:GGUFReader accepts tensor layouts rejected by the C reader",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/33048"
+   },
+   {
+    "at": "2026-11-24T03:31:29Z",
+    "cardId": "c-56f89316f92a",
+    "kind": "problem",
+    "people": 1,
+    "quote": "This yields/reports 770 tensors (for main-MTP2.gguf) , when it should be 866 ; Noticed this error today, when using: b12600",
+    "source": "github",
+    "title": "Misc. bug: convert_hf_to_gguf.py => error in number of tensors Qwen 3.8 27B (others?)",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/32918"
+   },
+   {
+    "at": "2026-11-18T14:28:49Z",
+    "cardId": "c-68a16ccbd445",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`GGUFReader` accepts a GGUF file with a tensor offset near 2^64 and reads data from the wrong location.",
+    "source": "github",
+    "title": "Misc. bug: gguf-py GGUFReader reads incorrect tensor data after offset overflow",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/32494"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-483794ca4c14",
+  "interest": [],
+  "keywords": [
+   "misc.",
+   "ggufreader",
+   "tensor"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-25T15:59:59Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "ggml-org/llama.cpp"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "ggml-org/llama.cpp"
+  ],
+  "scope": "upstream",
+  "score": 3,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Misc. bug: gguf-py GGUFReader reads incorrect tensor data after offset overflow",
+  "topic": "local-models",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-55890653dd78": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-18T02:24:24Z",
+    "cardId": "c-cdce19b5eb0b",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The LoRA id overflow (ids of 231 or more crash the engine) that was also described here is now tracked in #67948.",
+    "source": "github",
+    "title": "LoRA adapter not applied in batches mixed with base requests under specialize_active_lora and CUDA graphs",
+    "url": "https://github.com/vllm-project/vllm/issues/67786"
+   },
+   {
+    "at": "2026-11-17T00:58:03Z",
+    "cardId": "c-944f0ce0754c",
+    "kind": "problem",
+    "people": 1,
+    "quote": "#67786 — LoRA adapter isn't applied correctly in mixed batches",
+    "source": "github",
+    "title": "#67786 — LoRA adapter isn't applied correctly in mixed batches",
+    "url": "https://github.com/vllm-project/vllm/issues/68000"
+   },
+   {
+    "at": "2026-11-17T00:57:55Z",
+    "cardId": "c-4da6b8b7a52c",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The current tracker lists this as an open bug: LoRA adapter with rank > max_lora_rank kills the engine (EngineDeadError) instead of failing the request",
+    "source": "github",
+    "title": "#67774 — LoRA rank greater than max_lora_rank kills the engine",
+    "url": "https://github.com/vllm-project/vllm/issues/68001"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-55890653dd78",
+  "interest": [],
+  "keywords": [
+   "lora",
+   "adapter",
+   "applied"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-18T02:24:24Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "vllm-project/vllm"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "vllm-project/vllm"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "LoRA adapter not applied in batches mixed with base requests under specialize_active_lora and CUDA graphs",
+  "topic": "fine-tuning",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-626381c0c21f": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-19T03:25:21Z",
+    "cardId": "c-ab56dd4498aa",
+    "kind": "problem",
+    "people": 1,
+    "quote": "ValueError: Failed to instantiate evaluator 'MatchesPattern' for dataset: MatchesPattern.__init__() got an unexpected keyword argument '_compiled'",
+    "source": "github",
+    "title": "`Dataset.to_file()` saves an evaluator's `init=False` dataclass fields, so `Dataset.from_file()` can't load the file",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13351"
+   },
+   {
+    "at": "2026-11-14T22:09:35Z",
+    "cardId": "c-2229c550cd39",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The file still loads, so only schema validation (editor, CI linting of dataset files) breaks.",
+    "source": "github",
+    "title": "`Dataset.to_file()` saves an evaluator with all-default fields in a short form its `dataset_schema.json` rejects",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13504"
+   },
+   {
+    "at": "2026-11-14T19:48:05Z",
+    "cardId": "c-36bfa77ad6e3",
+    "kind": "problem",
+    "people": 1,
+    "quote": "ValueError: Failed to instantiate evaluator 'MinimumLength' for dataset: MinimumLength.__init__() takes 1 positional argument but 2 were given",
+    "source": "github",
+    "title": "`Dataset.to_file` saves an evaluator whose hand-written `__init__` takes its argument by keyword only in the positional short form, so the file fails to load",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13490"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-626381c0c21f",
+  "interest": [],
+  "keywords": [
+   "dataset.to",
+   "file",
+   "saves"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-19T03:25:21Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`Dataset.to_file()` saves an evaluator's `init=False` dataclass fields, so `Dataset.from_file()` can't load the file",
+  "topic": "structured-output",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-657308a602b3": {
+  "counts": {
+   "complaints": 0,
+   "features": 17,
+   "items": 17,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.95,
+  "evidence": [
+   {
+    "at": "2026-03-26T14:43:23Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Home Automation capability (Home Assistant, Google Home, IoT)",
+    "source": "github",
+    "title": "Home Automation capability (Home Assistant, Google Home, IoT)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9174"
+   },
+   {
+    "at": "2026-03-26T14:42:22Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Configuration Hot Reload (live config changes without restart)",
+    "source": "github",
+    "title": "Configuration Hot Reload (live config changes without restart)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9171"
+   },
+   {
+    "at": "2026-03-26T14:41:23Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Mixture of Agents capability (multi-model synthesis)",
+    "source": "github",
+    "title": "Mixture of Agents capability (multi-model synthesis)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9169"
+   },
+   {
+    "at": "2026-03-26T14:41:01Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Plugin Registry & Distribution (install/discover/validate third-party capabilities)",
+    "source": "github",
+    "title": "Plugin Registry & Distribution (install/discover/validate third-party capabilities)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9168"
+   },
+   {
+    "at": "2026-03-26T14:10:05Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Proactive Capability Nudging (periodic reminders to use capabilities)",
+    "source": "github",
+    "title": "Proactive Capability Nudging (periodic reminders to use capabilities)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9158"
+   },
+   {
+    "at": "2026-03-26T14:08:29Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Dynamic Context Window Discovery & Persistence Guard",
+    "source": "github",
+    "title": "Dynamic Context Window Discovery & Persistence Guard",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9155"
+   },
+   {
+    "at": "2026-03-26T14:08:04Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Tool Schema Token Accounting in Context Budget",
+    "source": "github",
+    "title": "Tool Schema Token Accounting in Context Budget",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9154"
+   },
+   {
+    "at": "2026-03-20T22:19:21Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Tool-as-final-result (skip follow-up LLM call after tool return)",
+    "source": "github",
+    "title": "Tool-as-final-result (skip follow-up LLM call after tool return)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9121"
+   },
+   {
+    "at": "2026-03-20T22:16:52Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Programmatic Tool Calling (Code Mode) — API-level support",
+    "source": "github",
+    "title": "Programmatic Tool Calling (Code Mode) — API-level support",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9120"
+   },
+   {
+    "at": "2026-03-20T22:16:06Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Tool Authentication framework",
+    "source": "github",
+    "title": "Tool Authentication framework",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9117"
+   },
+   {
+    "at": "2026-03-20T22:15:01Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Artifact Management capability",
+    "source": "github",
+    "title": "Artifact Management capability",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9115"
+   },
+   {
+    "at": "2026-03-20T22:14:08Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "RAG / Knowledge Sources capability",
+    "source": "github",
+    "title": "RAG / Knowledge Sources capability",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9112"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-657308a602b3",
+  "interest": [],
+  "keywords": [
+   "capability",
+   "tool",
+   "capabilities"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-03-26T14:43:23Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 17,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.8,
+  "solutions": [
+   {
+    "kind": "product",
+    "similarity": 0.56,
+    "title": "Pax by Pydantic",
+    "url": "https://www.producthunt.com/products/pydantic"
+   },
+   {
+    "kind": "tool",
+    "similarity": 0.55,
+    "title": "Pydantic AI",
+    "url": "https://github.com/pydantic/pydantic-ai"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Approval capability",
+  "topic": "agents",
+  "verdict": "partial",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-65c10983b8ef": {
+  "counts": {
+   "complaints": 0,
+   "features": 4,
+   "items": 4,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-09-28T15:31:21Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Workspaces follow-ups: sandbox providers",
+    "source": "github",
+    "title": "Workspaces follow-ups: sandbox providers",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8914"
+   },
+   {
+    "at": "2026-09-28T15:31:13Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Workspaces follow-ups: harness",
+    "source": "github",
+    "title": "Workspaces follow-ups: harness",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8913"
+   },
+   {
+    "at": "2026-09-28T15:31:06Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Workspaces follow-ups: core",
+    "source": "github",
+    "title": "Workspaces follow-ups: core",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8912"
+   },
+   {
+    "at": "2026-09-28T15:31:00Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Workspaces: follow-ups after the initial release",
+    "source": "github",
+    "title": "Workspaces: follow-ups after the initial release",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8911"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-65c10983b8ef",
+  "interest": [],
+  "keywords": [
+   "workspaces",
+   "follow-ups"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-09-28T15:31:21Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.8,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Workspaces: follow-ups after the initial release",
+  "topic": "gateway",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-689ea0b77c55": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 2,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 3.32,
+  "evidence": [
+   {
+    "at": "2026-11-19T20:45:16Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "If you're working with coding agents on a Rust code base, how are you handling the agent development loop, building, linting, and testing?",
+    "source": "hn",
+    "title": "Ask HN: Rust setup for many agents and worktrees?",
+    "url": "https://news.ycombinator.com/item?id=50566105"
+   },
+   {
+    "at": "2026-01-09T09:17:31Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add shell/bash builtin tools",
+    "source": "github",
+    "title": "Add shell/bash builtin tools",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3963"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-689ea0b77c55",
+  "interest": [],
+  "keywords": [],
+  "kinds": [
+   "feature",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-19T20:45:16Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 2
+   },
+   "size": "Interview first"
+  },
+  "people": 2,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 2,
+  "solutions": [
+   {
+    "kind": "launch",
+    "similarity": 0.57,
+    "title": "Show HN: Evalkit for Improving Your Agents",
+    "url": "https://news.ycombinator.com/item?id=50655285"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.55,
+    "title": "AgentDE",
+    "url": "https://www.producthunt.com/products/agentde"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.53,
+    "title": "Statefold",
+    "url": "https://www.producthunt.com/products/statefold-2"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.53,
+    "title": "DeskFleet",
+    "url": "https://www.producthunt.com/products/deskfleet"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.53,
+    "title": "Granular.Build",
+    "url": "https://www.producthunt.com/products/granular-build"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.52,
+    "title": "Fleetify",
+    "url": "https://www.producthunt.com/products/fleetify"
+   }
+  ],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Add shell/bash builtin tools",
+  "topic": "agents",
+  "verdict": "crowded",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-6b4fbda9c2c9": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 3,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-18T21:44:30Z",
+    "cardId": "c-85024588d39c",
+    "kind": "problem",
+    "people": 1,
+    "quote": "QLoRA training of `unsloth/Qwen3-8B-bnb-4bit` aborts with `HIP error: an illegal memory access was encountered` (`Error code 700`) inside three different Unsloth kernels, and evaluation aborts inside the decode graphs.",
+    "source": "github",
+    "title": "QLoRA on gfx1200 (RX 9060 XT, RDNA4) aborts with `HIP error: an illegal memory access` in three different fused kernels; plain PyTorch/PEFT has no SDPA kernel for this arch",
+    "url": "https://github.com/unslothai/unsloth/issues/18403"
+   },
+   {
+    "at": "2026-10-16T20:01:17Z",
+    "cardId": "c-43e55e2c38b8",
+    "kind": "problem",
+    "people": 1,
+    "quote": "NotImplementedError: \"_amp_foreach_non_finite_check_and_unscale_cuda\" not implemented for 'BFloat16'",
+    "source": "github",
+    "title": "QLoRA with fp16=True crashes: trainers cast the adapters to bf16 unconditionally",
+    "url": "https://github.com/huggingface/trl/issues/7776"
+   },
+   {
+    "at": "2026-11-18T21:44:30Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "QLoRA on gfx1200 (RX 9060 XT, RDNA4) aborts with `HIP error: an illegal memory access` in three different fused kernels; plain PyTorch/PEFT has no SDPA kernel for this arch",
+    "source": "github",
+    "title": "QLoRA on gfx1200 (RX 9060 XT, RDNA4) aborts with `HIP error: an illegal memory access` in three different fused kernels; plain PyTorch/PEFT has no SDPA kernel for this arch",
+    "url": "https://github.com/unslothai/unsloth/issues/18403"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-6b4fbda9c2c9",
+  "interest": [],
+  "keywords": [
+   "qlora",
+   "gfx1200",
+   "rdna4"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-18T21:44:30Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "huggingface/trl",
+   "unslothai/unsloth"
+  ],
+  "scope": "market",
+  "score": 6,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "QLoRA on gfx1200 (RX 9060 XT, RDNA4) aborts with `HIP error: an illegal memory access` in three different fused kernels; plain PyTorch/PEFT has no SDPA kernel for this arch",
+  "topic": "fine-tuning",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-77a30295812d": {
+  "counts": {
+   "complaints": 0,
+   "features": 9,
+   "items": 9,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 1.29,
+  "evidence": [
+   {
+    "at": "2026-03-26T14:43:48Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Process Management capability (background tasks, output buffering, watchers)",
+    "source": "github",
+    "title": "Process Management capability (background tasks, output buffering, watchers)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9175"
+   },
+   {
+    "at": "2026-03-26T14:40:31Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Batch Execution & Trajectory Generation (parallel multi-input runs)",
+    "source": "github",
+    "title": "Batch Execution & Trajectory Generation (parallel multi-input runs)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9167"
+   },
+   {
+    "at": "2026-03-26T14:39:25Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Execution Checkpointing & Resume (durable agent state)",
+    "source": "github",
+    "title": "Execution Checkpointing & Resume (durable agent state)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9165"
+   },
+   {
+    "at": "2026-03-26T14:37:41Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Scheduled Agent Execution (cron / time-based triggers)",
+    "source": "github",
+    "title": "Scheduled Agent Execution (cron / time-based triggers)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9163"
+   },
+   {
+    "at": "2026-03-26T14:11:34Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Speculative Prefetch for Capabilities (async background data loading)",
+    "source": "github",
+    "title": "Speculative Prefetch for Capabilities (async background data loading)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9160"
+   },
+   {
+    "at": "2026-03-20T22:16:33Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Environment abstraction (protocol-based file/shell/resource ops)",
+    "source": "github",
+    "title": "Environment abstraction (protocol-based file/shell/resource ops)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9119"
+   },
+   {
+    "at": "2026-03-20T22:16:20Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Resumable agent resources (persist browser sessions, sandbox state)",
+    "source": "github",
+    "title": "Resumable agent resources (persist browser sessions, sandbox state)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9118"
+   },
+   {
+    "at": "2026-03-20T22:14:37Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Composable stop conditions (agent-level, NOT a capability)",
+    "source": "github",
+    "title": "Composable stop conditions (agent-level, NOT a capability)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9113"
+   },
+   {
+    "at": "2026-03-20T22:13:16Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Background agent execution (fire-and-forget with async results)",
+    "source": "github",
+    "title": "Background agent execution (fire-and-forget with async results)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9110"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-77a30295812d",
+  "interest": [],
+  "keywords": [
+   "agent",
+   "execution",
+   "background"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-03-26T14:43:48Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 9,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.2,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.62,
+    "title": "Pydantic AI",
+    "url": "https://github.com/pydantic/pydantic-ai"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.53,
+    "title": "Pax by Pydantic",
+    "url": "https://www.producthunt.com/products/pydantic"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.5,
+    "title": "Show HN: Status page for your AI bots",
+    "url": "https://news.ycombinator.com/item?id=50656826"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Background agent execution (fire-and-forget with async results)",
+  "topic": "agents",
+  "verdict": "partial",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-7bba6a69f69c": {
+  "counts": {
+   "complaints": 0,
+   "features": 4,
+   "items": 4,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.53,
+  "evidence": [
+   {
+    "at": "2026-09-06T10:47:48Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support provider-native mid-turn steering for active model responses",
+    "source": "github",
+    "title": "Support provider-native mid-turn steering for active model responses",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8163"
+   },
+   {
+    "at": "2026-05-15T19:07:44Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support OpenAI-compatible custom providers in `AgentSpec` / `Agent.from_file()` with a custom `base_url`",
+    "source": "github",
+    "title": "Support OpenAI-compatible custom providers in `AgentSpec` / `Agent.from_file()` with a custom `base_url`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/5471"
+   },
+   {
+    "at": "2026-03-26T14:38:55Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "OpenAI-Compatible API Server Mode (serve agent as HTTP endpoint)",
+    "source": "github",
+    "title": "OpenAI-Compatible API Server Mode (serve agent as HTTP endpoint)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9164"
+   },
+   {
+    "at": "2025-11-03T21:24:08Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Expose agent as OpenResponses API",
+    "source": "github",
+    "title": "Expose agent as OpenResponses API",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3321"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-7bba6a69f69c",
+  "interest": [
+   {
+    "funding": {
+     "amount": "£500K",
+     "company": "Pippa",
+     "round": null
+    },
+    "similarity": 0.44,
+    "title": "Pippa Labs lands £500k to build trusted AI agents",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaDE1Z0ltTFNvcUlENnhwb2ZmY0xiNllJSGl5OTItYnBjUEJRaUVja3luTngxa3duSzZNQW44Nlc1M2pxeGpsZFdtRlhkRnk5My1MTUlCVnk4MkNjc0k3LWd5RzltU1RfOFBvSG1YMWtiZkpPYTJJc3pMRDUwMVdLUHowd1gtVGpQdVE?oc=5",
+    "verified": false
+   },
+   {
+    "funding": {
+     "amount": "$32M",
+     "company": "AidenAI",
+     "round": null
+    },
+    "similarity": 0.42,
+    "title": "AidenAI raises $32 million to get AI agents past the demo, company says",
+    "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE5YUThzc01ZdGp6czNmTHZ4MEpDd3BwNEVFODVfZG45T256ZEhrdU01TWw0U2RaZXFLaEZUcFZrX2c0RTZu?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [
+   "agent",
+   "api",
+   "openai-compatible"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-09-06T10:47:48Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 3.4,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.53,
+    "title": "Pydantic AI",
+    "url": "https://github.com/pydantic/pydantic-ai"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Expose agent as OpenResponses API",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-7d9ad69cb7f0": {
+  "counts": {
+   "complaints": 0,
+   "features": 3,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-01-13T23:59:54Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Allow offloading TemporalAgent dynamic instructions to an activity",
+    "source": "github",
+    "title": "Allow offloading TemporalAgent dynamic instructions to an activity",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/4000"
+   },
+   {
+    "at": "2025-12-18T17:45:05Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Temporal: allow cross agent tool registration",
+    "source": "github",
+    "title": "Temporal: allow cross agent tool registration",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3768"
+   },
+   {
+    "at": "2025-11-21T13:41:12Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Define TemporalAgents at runtime",
+    "source": "github",
+    "title": "Define TemporalAgents at runtime",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3506"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-7d9ad69cb7f0",
+  "interest": [],
+  "keywords": [
+   "allow"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-01-13T23:59:54Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Define TemporalAgents at runtime",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-8e63b68855c1": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 1
+  },
+  "coverage": 0.86,
+  "evidence": [
+   {
+    "at": "2026-11-26T02:26:25Z",
+    "cardId": "c-b4710910f481",
+    "kind": "problem",
+    "people": 1,
+    "quote": "After updating Unsloth Studio and llama.cpp on November 23, 2026, Inkling 2 Mini suffered a severe performance regression.",
+    "source": "github",
+    "title": "Inkling 2 Mini GPU offloading regression after v0.1.923-beta: 40 → 12 tokens/s",
+    "url": "https://github.com/unslothai/unsloth/issues/19137"
+   },
+   {
+    "at": "2026-11-25T13:07:03Z",
+    "cardId": "c-c600070923e1",
+    "kind": "problem",
+    "people": 1,
+    "quote": "panic: mlx: [metal::Device] Unable to load kernel custom_kernel_relative_attention_bf16_probabilities_4_float_bfloat16_t_bfloat16_t_bfloat16_t_bfloat16_t_floats_int32_",
+    "source": "github",
+    "title": "MLX: inkling-2-mini panics on M2 Pro (macOS 26.1) — Unable to load kernel custom_kernel_relative_attention_bf16_probabilities",
+    "url": "https://github.com/ollama/ollama/issues/19900"
+   },
+   {
+    "at": "2026-11-24T17:32:30Z",
+    "cardId": "c-02c585e66c64",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The load failure (the closest thing to a \"crash\")",
+    "source": "github",
+    "title": "Inkling-2-mini Crashes machine on DGX Spark - OOM & High CPU Usage",
+    "url": "https://github.com/ollama/ollama/issues/19879"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-8e63b68855c1",
+  "interest": [],
+  "keywords": [
+   "inkling-2-mini"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T02:26:25Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {},
+   "size": "Weekend prototype"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "ollama/ollama",
+   "unslothai/unsloth"
+  ],
+  "scope": "market",
+  "score": 4.1,
+  "solutions": [
+   {
+    "kind": "new_repo",
+    "similarity": 0.64,
+    "title": "snailbrainx/inkling-2-mini-sm80",
+    "url": "https://github.com/snailbrainx/inkling-2-mini-sm80"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.56,
+    "title": "dedene/Inkling-2-Mini-DGX-Spark",
+    "url": "https://github.com/dedene/Inkling-2-Mini-DGX-Spark"
+   },
+   {
+    "kind": "new_repo",
+    "similarity": 0.52,
+    "title": "Makdok/llama.cpp-inkling2-amd",
+    "url": "https://github.com/Makdok/llama.cpp-inkling2-amd"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Inkling-2-mini Crashes machine on DGX Spark - OOM & High CPU Usage",
+  "topic": "gpu-hardware",
+  "verdict": "partial",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-9318d9066226": {
+  "counts": {
+   "complaints": 0,
+   "features": 7,
+   "items": 7,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.54,
+  "evidence": [
+   {
+    "at": "2026-11-20T01:15:29Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Automatic native output on Anthropic empties `dict` fields of the output type",
+    "source": "github",
+    "title": "Automatic native output on Anthropic empties `dict` fields of the output type",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14064"
+   },
+   {
+    "at": "2026-11-11T21:02:54Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Anthropic strict tools silently move `pattern` into the description",
+    "source": "github",
+    "title": "Anthropic strict tools silently move `pattern` into the description",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13196"
+   },
+   {
+    "at": "2026-05-25T09:58:17Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Extended thinking `display` parameter not exposed via unified thinking",
+    "source": "github",
+    "title": "Extended thinking `display` parameter not exposed via unified thinking",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/5649"
+   },
+   {
+    "at": "2026-04-10T15:02:46Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add retry-safe summary field to `judge_output()` results",
+    "source": "github",
+    "title": "Add retry-safe summary field to `judge_output()` results",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/5045"
+   },
+   {
+    "at": "2026-03-30T18:32:21Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support retry mechanism sending minimal correction context instead of full conversation history",
+    "source": "github",
+    "title": "Support retry mechanism sending minimal correction context instead of full conversation history",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/4908"
+   },
+   {
+    "at": "2025-10-09T18:23:13Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add the option to specify the tool descriptions in markdown",
+    "source": "github",
+    "title": "Add the option to specify the tool descriptions in markdown",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3130"
+   },
+   {
+    "at": "2025-06-19T20:19:06Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support tool calls represented as tags inside a text message",
+    "source": "github",
+    "title": "Support tool calls represented as tags inside a text message",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/2033"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-9318d9066226",
+  "interest": [],
+  "keywords": [
+   "tool",
+   "output",
+   "anthropic"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-11-20T01:15:29Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 7,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 3.6,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.54,
+    "title": "Pydantic AI",
+    "url": "https://github.com/pydantic/pydantic-ai"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Support tool calls represented as tags inside a text message",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-9aa2ef7de36d": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 2,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-14T02:22:53Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "How do you manage review loops where the agents nit their way through nonsensical (but real) edge cases?",
+    "source": "hn",
+    "title": "How do you manage review loops where the agents nit their way through nonsensical (but real) edge cases?",
+    "url": "https://news.ycombinator.com/item?id=50493003"
+   },
+   {
+    "at": "2026-11-03T08:34:11Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "How are you handling the failure modes when the agent gets stuck in a retry loop?",
+    "source": "hn",
+    "title": "How are you handling the failure modes when the agent gets stuck in a retry loop?",
+    "url": "https://news.ycombinator.com/item?id=50349515"
+   },
+   {
+    "at": "2026-03-21T00:25:55Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Retry/Review Loop with Solution Ranking (agent-level, NOT a capability)",
+    "source": "github",
+    "title": "Retry/Review Loop with Solution Ranking (agent-level, NOT a capability)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9140"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-9aa2ef7de36d",
+  "interest": [],
+  "keywords": [
+   "retry",
+   "review",
+   "loop"
+  ],
+  "kinds": [
+   "feature",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-14T02:22:53Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 13.5,
+  "solutions": [],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Retry/Review Loop with Solution Ranking (agent-level, NOT a capability)",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-9d24ab5e8d9f": {
+  "counts": {
+   "complaints": 1,
+   "features": 0,
+   "items": 2,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.3,
+  "evidence": [
+   {
+    "at": "2026-11-23T21:04:01Z",
+    "cardId": null,
+    "kind": "complaint",
+    "people": 1,
+    "quote": "I've been getting 30-40 tok/s with Qwen 3.8 27B locally with the unsloth UD-IQ3_XXS quantization and 64K context (degrading a bit down to maybe 20-30 when context fills up) via llama.cpp configured with 8-bit kv cache. I tried strata on the",
+    "source": "hn",
+    "title": "I've been getting 30-40 tok/s with Qwen 3.8 27B locally with the unsloth UD-IQ3_XXS quantization and 64K context (degrading a bit down to maybe 20-30 when conte",
+    "url": "https://news.ycombinator.com/item?id=50619240"
+   },
+   {
+    "at": "2026-11-18T01:44:27Z",
+    "cardId": "c-b113e588c78f",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Either way, a benchmark or canary built only on acceptance can certify a broken deployment.",
+    "source": "github",
+    "title": "Qwen3.8-27B on Ascend: num_speculative_tokens >= 8 produces garbled output, k <= 7 clean",
+    "url": "https://github.com/vllm-project/vllm/issues/64427"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-9d24ab5e8d9f",
+  "interest": [],
+  "keywords": [],
+  "kinds": [
+   "complaint",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-23T21:04:01Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 2
+   },
+   "size": "Interview first"
+  },
+  "people": 2,
+  "previousVerdict": null,
+  "repos": [
+   "vllm-project/vllm"
+  ],
+  "scope": "market",
+  "score": 7.8,
+  "solutions": [
+   {
+    "kind": "new_repo",
+    "similarity": 0.59,
+    "title": "prestonlogan/Qwen3.8-Flash-Next-Single-DGX-Spark-Ultrafast",
+    "url": "https://github.com/prestonlogan/Qwen3.8-Flash-Next-Single-DGX-Spark-Ultrafast"
+   }
+  ],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Qwen3.8-27B on Ascend: num_speculative_tokens >= 8 produces garbled output, k <= 7 clean",
+  "topic": "serving",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-a2184ae65f8e": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:39:16Z",
+    "cardId": "c-98814494aa22",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The same check surfaced a second leak with its own cause.",
+    "source": "github",
+    "title": "Stdio MCP servers keep running after a plain `agent.run()`: FastMCP's connect task holds the run's `RunContext`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14829"
+   },
+   {
+    "at": "2026-11-26T09:28:09Z",
+    "cardId": "c-9a8972aede14",
+    "kind": "problem",
+    "people": 1,
+    "quote": "FastMCP's `StdioTransport` defaults to `keep_alive=True`, so leaving the client context doesn't stop the subprocess; FastMCP stops it in `StdioTransport.del`, once the transport is garbage-collected.",
+    "source": "github",
+    "title": "Stdio MCP servers keep running after each `MCPToolset` run: the message handler keeps the transport alive",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14651"
+   },
+   {
+    "at": "2026-11-25T13:43:51Z",
+    "cardId": "c-f2ad3a5335dd",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Secondarily: a genuine config change (real rebuild) also blocks the event loop for the duration of the subprocess spawn + tools/list; consider running it off-loop or bounding it so one slow server cannot stall the whole proxy.",
+    "source": "github",
+    "title": "Periodic MCP reload (30s) rebuilds stdio servers and freezes the event loop when updated_at is NULL",
+    "url": "https://github.com/BerriAI/litellm/issues/54441"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-a2184ae65f8e",
+  "interest": [],
+  "keywords": [
+   "mcp",
+   "stdio",
+   "servers"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:39:16Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "BerriAI/litellm",
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 6,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Stdio MCP servers keep running after a plain `agent.run()`: FastMCP's connect task holds the run's `RunContext`",
+  "topic": "mcp",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-a285e21ce416": {
+  "counts": {
+   "complaints": 0,
+   "features": 7,
+   "items": 7,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-10-22T09:57:10Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support offline evaluation of precomputed outputs without executing a task",
+    "source": "github",
+    "title": "Support offline evaluation of precomputed outputs without executing a task",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/10997"
+   },
+   {
+    "at": "2026-07-15T18:33:46Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "pydantic-evals: round out the built-in evaluator pack (safety metrics, similarity heuristics, named-preset policy)",
+    "source": "github",
+    "title": "pydantic-evals: round out the built-in evaluator pack (safety metrics, similarity heuristics, named-preset policy)",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/6526"
+   },
+   {
+    "at": "2026-03-20T20:20:48Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Pydantic Evals: optionally storing traces to ReportCase for inspection after Dataset.evaluate()",
+    "source": "github",
+    "title": "Pydantic Evals: optionally storing traces to ReportCase for inspection after Dataset.evaluate()",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/4758"
+   },
+   {
+    "at": "2026-03-10T14:21:02Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Built-in `ContainsExpected` evaluator",
+    "source": "github",
+    "title": "Built-in `ContainsExpected` evaluator",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/4617"
+   },
+   {
+    "at": "2026-01-07T21:41:33Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Pydantic Evals: support creating a SpanTree from historical data downloaded from logfire (for testing span-based evaluators on historical data).",
+    "source": "github",
+    "title": "Pydantic Evals: support creating a SpanTree from historical data downloaded from logfire (for testing span-based evaluators on historical data).",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3946"
+   },
+   {
+    "at": "2025-12-09T13:23:22Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Pydantic Evals: In the history of experiments, most experiments rows look indistiguishable - add option to display metadata values as columns?",
+    "source": "github",
+    "title": "Pydantic Evals: In the history of experiments, most experiments rows look indistiguishable - add option to display metadata values as columns?",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3681"
+   },
+   {
+    "at": "2025-04-02T15:45:13Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Improvements for pydantic_evals framework",
+    "source": "github",
+    "title": "Improvements for pydantic_evals framework",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/1350"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-a285e21ce416",
+  "interest": [],
+  "keywords": [
+   "pydantic",
+   "evals",
+   "built-in"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-10-22T09:57:10Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 7,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 3.6,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Improvements for pydantic_evals framework",
+  "topic": "observability",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-a2e3f7f160e7": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 3,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-17T00:53:30Z",
+    "cardId": "c-6d9a33e7736b",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The Vercel AI adapter shows an approver the model's tool arguments, not the validated ones",
+    "source": "github",
+    "title": "The Vercel AI adapter shows an approver the model's tool arguments, not the validated ones",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13700"
+   },
+   {
+    "at": "2026-10-29T22:13:47Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Warn when the Vercel AI adapter runs an agent that can request approvals with `sdk_version` below 6",
+    "source": "github",
+    "title": "Warn when the Vercel AI adapter runs an agent that can request approvals with `sdk_version` below 6",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/11905"
+   },
+   {
+    "at": "2026-09-09T13:07:06Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support tool metadata in the Vercel AI adapter",
+    "source": "github",
+    "title": "Support tool metadata in the Vercel AI adapter",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8239"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-a2e3f7f160e7",
+  "interest": [
+   {
+    "funding": {
+     "amount": "£500K",
+     "company": "Pippa",
+     "round": null
+    },
+    "similarity": 0.43,
+    "title": "Pippa Labs lands £500k to build trusted AI agents",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaDE1Z0ltTFNvcUlENnhwb2ZmY0xiNllJSGl5OTItYnBjUEJRaUVja3luTngxa3duSzZNQW44Nlc1M2pxeGpsZFdtRlhkRnk5My1MTUlCVnk4MkNjc0k3LWd5RzltU1RfOFBvSG1YMWtiZkpPYTJJc3pMRDUwMVdLUHowd1gtVGpQdVE?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [
+   "vercel",
+   "adapter",
+   "tool"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-17T00:53:30Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.7,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Support tool metadata in the Vercel AI adapter",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-a747e42738c2": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 4,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-25T21:49:39Z",
+    "cardId": "c-738c7c13cae4",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Click Copy Diagnostics on the error, startup, or update screen and paste the result below:",
+    "source": "github",
+    "title": "Offscreen start",
+    "url": "https://github.com/unslothai/unsloth/issues/19590"
+   },
+   {
+    "at": "2026-11-24T20:15:13Z",
+    "cardId": "c-1d796f712e67",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Banner chat (with tools, name model etc) shows \"drop file here\" and freeze with that option.",
+    "source": "github",
+    "title": "chat banner empty",
+    "url": "https://github.com/unslothai/unsloth/issues/19346"
+   },
+   {
+    "at": "2026-11-25T21:49:39Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Offscreen start",
+    "source": "github",
+    "title": "Offscreen start",
+    "url": "https://github.com/unslothai/unsloth/issues/19590"
+   },
+   {
+    "at": "2026-11-24T20:15:13Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "chat banner empty",
+    "source": "github",
+    "title": "chat banner empty",
+    "url": "https://github.com/unslothai/unsloth/issues/19346"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-a747e42738c2",
+  "interest": [],
+  "keywords": [
+   "chat",
+   "banner",
+   "empty"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-25T21:49:39Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "unslothai/unsloth"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "unslothai/unsloth"
+  ],
+  "scope": "upstream",
+  "score": 2.8,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Offscreen start",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-aa71836b0fb7": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 1,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-25T23:07:27Z",
+    "cardId": "c-9ae6def310bb",
+    "kind": "problem",
+    "people": 3,
+    "quote": "That check (a safe browsing thing) fails and it nukes the container and declares it is malware.",
+    "source": "github",
+    "title": "Saw \"A script was blocked\" - `transformers==5.13.1` trips some scanners",
+    "url": "https://github.com/unslothai/unsloth/issues/18699"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-aa71836b0fb7",
+  "interest": [],
+  "keywords": [
+   "saw",
+   "script",
+   "was"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-25T23:07:27Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "unslothai/unsloth"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "unslothai/unsloth"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Saw \"A script was blocked\" - `transformers==5.13.1` trips some scanners",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-ac00023c222d": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T14:07:33Z",
+    "cardId": "c-a2f48b9f4be7",
+    "kind": "problem",
+    "people": 1,
+    "quote": "The CUDA jobs intermittently fail in the `Install Make and Git` step, before any test runs:",
+    "source": "github",
+    "title": "CI fails intermittently on CUDA: E: Failed to fetch ... File has unexpected size. Mirror sync in progress?",
+    "url": "https://github.com/huggingface/trl/issues/8621"
+   },
+   {
+    "at": "2026-11-25T17:44:35Z",
+    "cardId": "c-a0e3c3989af5",
+    "kind": "problem",
+    "people": 1,
+    "quote": "AcceleratorError: CUDA error: an illegal memory access was encountered",
+    "source": "github",
+    "title": "CI fails with latest dependencies for Inkling 2: torch.AcceleratorError: CUDA error: an illegal memory access was encountered",
+    "url": "https://github.com/huggingface/trl/issues/8590"
+   },
+   {
+    "at": "2026-11-13T16:38:55Z",
+    "cardId": "c-dc88353cd491",
+    "kind": "problem",
+    "people": 1,
+    "quote": "AcceleratorError: CUDA error: device-side assert triggered",
+    "source": "github",
+    "title": "CI fails intermittently with latest and dev dependencies for continuous batching: torch.AcceleratorError: CUDA error: device-side assert triggered",
+    "url": "https://github.com/huggingface/trl/issues/8339"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-ac00023c222d",
+  "interest": [],
+  "keywords": [
+   "cuda",
+   "intermittently",
+   "latest"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T14:07:33Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "huggingface/trl"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "huggingface/trl"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "CI fails intermittently with latest and dev dependencies for continuous batching: torch.AcceleratorError: CUDA error: device-side assert triggered",
+  "topic": "gpu-hardware",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-ad668cd91711": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 3,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-24T16:55:20Z",
+    "cardId": "c-35e15c4006da",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Incorrect loading into unified memory on Ryzen 8700G & Radeon 780M #2",
+    "source": "github",
+    "title": "Incorrect loading into unified memory on Ryzen 8700G & Radeon 780M #2",
+    "url": "https://github.com/unslothai/unsloth/issues/19309"
+   },
+   {
+    "at": "2026-11-20T15:10:33Z",
+    "cardId": "c-c20f591151bb",
+    "kind": "problem",
+    "people": 1,
+    "quote": "However, I cannot load almost any model; instead of loading into the dedicated video memory, they attempt to load directly into the shared memory or the system RAM.",
+    "source": "github",
+    "title": "Incorrect loading into unified memory on Ryzen 8700G & Radeon 780M",
+    "url": "https://github.com/unslothai/unsloth/issues/18001"
+   },
+   {
+    "at": "2026-11-24T16:55:20Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Incorrect loading into unified memory on Ryzen 8700G & Radeon 780M #2",
+    "source": "github",
+    "title": "Incorrect loading into unified memory on Ryzen 8700G & Radeon 780M #2",
+    "url": "https://github.com/unslothai/unsloth/issues/19309"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-ad668cd91711",
+  "interest": [],
+  "keywords": [
+   "incorrect",
+   "loading",
+   "unified"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-24T16:55:20Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "unslothai/unsloth"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "unslothai/unsloth"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Incorrect loading into unified memory on Ryzen 8700G & Radeon 780M #2",
+  "topic": "rag-memory",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-b47a919960f9": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 2,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 4.92,
+  "evidence": [
+   {
+    "at": "2026-11-11T17:45:44Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "About 6 months ago, I started looking for a tool to safely run coding agents on my (security sensitive) developer machine.",
+    "source": "hn",
+    "title": "Show HN: Bot-bottle – secure runtime, DLP and remote control for local agents",
+    "url": "https://news.ycombinator.com/item?id=50456190"
+   },
+   {
+    "at": "2026-06-16T13:39:32Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Expose native tool lifecycle stream events for provider-side code execution",
+    "source": "github",
+    "title": "Expose native tool lifecycle stream events for provider-side code execution",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/5953"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-b47a919960f9",
+  "interest": [
+   {
+    "funding": {
+     "amount": "£500K",
+     "company": "Pippa",
+     "round": null
+    },
+    "similarity": 0.42,
+    "title": "Pippa Labs lands £500k to build trusted AI agents",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaDE1Z0ltTFNvcUlENnhwb2ZmY0xiNllJSGl5OTItYnBjUEJRaUVja3luTngxa3duSzZNQW44Nlc1M2pxeGpsZFdtRlhkRnk5My1MTUlCVnk4MkNjc0k3LWd5RzltU1RfOFBvSG1YMWtiZkpPYTJJc3pMRDUwMVdLUHowd1gtVGpQdVE?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [],
+  "kinds": [
+   "feature",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-11T17:45:44Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 2
+   },
+   "size": "Interview first"
+  },
+  "people": 2,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 2.3,
+  "solutions": [
+   {
+    "kind": "launch",
+    "similarity": 0.6,
+    "title": "Show HN: Status page for your AI bots",
+    "url": "https://news.ycombinator.com/item?id=50656826"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.56,
+    "title": "Fleetify",
+    "url": "https://www.producthunt.com/products/fleetify"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.56,
+    "title": "Show HN: Graphvein – Trace calls to handlers and tables across repos, no LLM",
+    "url": "https://news.ycombinator.com/item?id=50656925"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.54,
+    "title": "Pax by Pydantic",
+    "url": "https://www.producthunt.com/products/pydantic"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.54,
+    "title": "WhipDesk",
+    "url": "https://www.producthunt.com/products/whipdesk"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.54,
+    "title": "Show HN: Evalkit for Improving Your Agents",
+    "url": "https://news.ycombinator.com/item?id=50655285"
+   }
+  ],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Show HN: Bot-bottle – secure runtime, DLP and remote control for local agents",
+  "topic": "gateway",
+  "verdict": "crowded",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-bcfb13420ec0": {
+  "counts": {
+   "complaints": 0,
+   "features": 3,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.57,
+  "evidence": [
+   {
+    "at": "2026-11-22T13:44:54Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Extend WrapUpAtLimits to cost and time limits, and keep structured output available on the final turn",
+    "source": "github",
+    "title": "Extend WrapUpAtLimits to cost and time limits, and keep structured output available on the final turn",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14163"
+   },
+   {
+    "at": "2026-10-29T14:36:53Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Gracefully wrap up when request or tool-call limits are reached",
+    "source": "github",
+    "title": "Gracefully wrap up when request or tool-call limits are reached",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/11846"
+   },
+   {
+    "at": "2025-11-06T10:35:15Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add per-tool usage limits",
+    "source": "github",
+    "title": "Add per-tool usage limits",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3352"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-bcfb13420ec0",
+  "interest": [],
+  "keywords": [
+   "limits"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-11-22T13:44:54Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.57,
+    "title": "Pydantic AI",
+    "url": "https://github.com/pydantic/pydantic-ai"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Extend WrapUpAtLimits to cost and time limits, and keep structured output available on the final turn",
+  "topic": "inference-cost",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-c289cf706062": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.26,
+  "evidence": [
+   {
+    "at": "2026-11-22T01:03:26Z",
+    "cardId": "c-0d049e62231e",
+    "kind": "problem",
+    "people": 1,
+    "quote": "With classic draft-model speculation, the hybrid Qwen3.5 target becomes much slower than plain decoding, while a same-size non-hybrid target (Qwen3) with the same draft acceptance rate only loses 10–18%.",
+    "source": "github",
+    "title": "Eval bug: draft-model speculative decoding ~2.2–2.4× slower on Qwen3.5 (Gated DeltaNet hybrid), CUDA — non-hybrid Qwen3 control loses only 10–18% at same acceptance",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/32776"
+   },
+   {
+    "at": "2026-11-18T19:53:39Z",
+    "cardId": "c-d2d9453d649d",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`--spec-type draft-dflash` on this documented pair is broken in two independent ways:",
+    "source": "github",
+    "title": "spec: draft-dflash broken on the docs example pair (Qwen3-4B + z-lab/Qwen3-4B-DFlash-b16): acceptance ~6% instead of ~85%, greedy output divergence, ~5x slower",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/32526"
+   },
+   {
+    "at": "2026-11-04T13:46:11Z",
+    "cardId": "c-fae917a267ca",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Same binary, model and load with `--spec-type draft-mtp --spec-draft-n-max 3` instead: all 164 requests completed with no error.",
+    "source": "github",
+    "title": "Eval bug: draft-dflash (DFlash2) aborts in post_decode seq_rm on hybrid Qwen3.8-27B with --parallel 8",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/31656"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-c289cf706062",
+  "interest": [],
+  "keywords": [
+   "eval",
+   "draft-dflash",
+   "hybrid"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-22T01:03:26Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "ggml-org/llama.cpp"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "ggml-org/llama.cpp"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [
+   {
+    "kind": "new_repo",
+    "similarity": 0.51,
+    "title": "prestonlogan/Qwen3.8-Flash-Next-Single-DGX-Spark-Ultrafast",
+    "url": "https://github.com/prestonlogan/Qwen3.8-Flash-Next-Single-DGX-Spark-Ultrafast"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Eval bug: draft-dflash (DFlash2) aborts in post_decode seq_rm on hybrid Qwen3.8-27B with --parallel 8",
+  "topic": "serving",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-c990af9de7c0": {
+  "counts": {
+   "complaints": 0,
+   "features": 4,
+   "items": 5,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.52,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:03:12Z",
+    "cardId": "c-a8235d2194c8",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Render a mid-conversation `SystemPromptPart` in `pydantic_ai.direct.model_request` as an agent run does, instead of moving it into the system prompt",
+    "source": "github",
+    "title": "Render a mid-conversation `SystemPromptPart` in `pydantic_ai.direct.model_request` as an agent run does, instead of moving it into the system prompt",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14805"
+   },
+   {
+    "at": "2026-08-21T14:10:07Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add support for prompt comments with automatic stripping before LLM calls",
+    "source": "github",
+    "title": "Add support for prompt comments with automatic stripping before LLM calls",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/7680"
+   },
+   {
+    "at": "2026-05-15T16:02:29Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "docs: add PromptLayer integration",
+    "source": "github",
+    "title": "docs: add PromptLayer integration",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/5485"
+   },
+   {
+    "at": "2025-11-26T15:48:22Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Allow customization of all prompts sent by the framework to the model",
+    "source": "github",
+    "title": "Allow customization of all prompts sent by the framework to the model",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/3566"
+   },
+   {
+    "at": "2025-02-13T10:29:16Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Prompt management, versioning, and optimization",
+    "source": "github",
+    "title": "Prompt management, versioning, and optimization",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/921"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-c990af9de7c0",
+  "interest": [],
+  "keywords": [
+   "prompt"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:03:12Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 5,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 3.1,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.52,
+    "title": "Pydantic AI",
+    "url": "https://github.com/pydantic/pydantic-ai"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Prompt management, versioning, and optimization",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-ca2e6c77bcbf": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 3,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-10-28T06:34:26Z",
+    "cardId": "c-dbc6aff9bc8e",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Suppose that activity fails after it started streaming, and Temporal retries it.",
+    "source": "github",
+    "title": "UI event streams leave a message open when a retried Temporal model activity streams its part again",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/11734"
+   },
+   {
+    "at": "2026-11-17T16:53:54Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Expose model request identity and execution attempt on Temporal stream events",
+    "source": "github",
+    "title": "Expose model request identity and execution attempt on Temporal stream events",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13739"
+   },
+   {
+    "at": "2026-11-05T06:02:03Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "TemporalDurability: per-request usage is unreachable inside the model activity since event_stream_handler no longer receives the StreamedResponse",
+    "source": "github",
+    "title": "TemporalDurability: per-request usage is unreachable inside the model activity since event_stream_handler no longer receives the StreamedResponse",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12587"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-ca2e6c77bcbf",
+  "interest": [],
+  "keywords": [
+   "model",
+   "event",
+   "temporal"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-17T16:53:54Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "TemporalDurability: per-request usage is unreachable inside the model activity since event_stream_handler no longer receives the StreamedResponse",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-cae36c804e2d": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 2,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-19T12:34:46Z",
+    "cardId": "c-f0dd9dcb92f9",
+    "kind": "problem",
+    "people": 2,
+    "quote": "import anyio from pydantic_ai_harness.memory import ( MemoryConflictError, MemoryFile, MemoryMutation, MemoryOperation, MemoryOperationConflictError, MemorySearchResult, ) from pydantic_ai_harness.memory._store import ( lexical_search, val…",
+    "source": "github",
+    "title": "Capability Request: MongoDB Atlas Storage Backend for Persistent Agent Memory",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9186"
+   },
+   {
+    "at": "2026-07-30T01:15:44Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add mongo to memory",
+    "source": "github",
+    "title": "Add mongo to memory",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/9214"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-cae36c804e2d",
+  "interest": [
+   {
+    "funding": {
+     "amount": "$35M",
+     "company": "Graphon",
+     "round": null
+    },
+    "similarity": 0.49,
+    "title": "Graphon Raises $35M for Persistent AI Agent Memory",
+    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQeGhkYkk1VnRFTFI3Nko3cy1RYXlWbXI3YXpBQWRYR1JsVjUyRWxmV0RNcWJjZGFDa1lfbzFLTFBwRTJkNEVuY3liWkxERFhhcmUtOUEwZVF0dmVJM19lcDdrWEU4NWk2R3RPOHdlMkI5My1ldHE2QzBydTZJNURlcDJObTFTZzctX2JQQnY0Nkw1anAwcjVreHBR?oc=5",
+    "verified": false
+   }
+  ],
+  "keywords": [
+   "memory"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-19T12:34:46Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.7,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Capability Request: MongoDB Atlas Storage Backend for Persistent Agent Memory",
+  "topic": "rag-memory",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-cc40046b570d": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 2,
+   "pay": 0,
+   "problems": 0,
+   "questions": 1,
+   "seeking": 0,
+   "unanswered": 1,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-12T10:33:21.000Z",
+    "cardId": null,
+    "kind": "question",
+    "people": 1,
+    "quote": "Enforce a tool call order in an MCP server",
+    "source": "stackoverflow",
+    "title": "Enforce a tool call order in an MCP server",
+    "url": "https://stackoverflow.com/questions/80016239/enforce-a-tool-call-order-in-an-mcp-server"
+   },
+   {
+    "at": "2026-11-09T13:01:31Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Let `MCPToolset` take a kept tool list and connect only when a tool is called",
+    "source": "github",
+    "title": "Let `MCPToolset` take a kept tool list and connect only when a tool is called",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12948"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-cc40046b570d",
+  "interest": [],
+  "keywords": [
+   "tool"
+  ],
+  "kinds": [
+   "feature",
+   "question"
+  ],
+  "lastActivityAt": "2026-11-12T10:33:21.000Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 2
+   },
+   "size": "Interview first"
+  },
+  "people": 2,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 9.3,
+  "solutions": [],
+  "sources": [
+   "github",
+   "stackoverflow"
+  ],
+  "title": "Let `MCPToolset` take a kept tool list and connect only when a tool is called",
+  "topic": "mcp",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-cdbfcd28d0b9": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.38,
+  "evidence": [
+   {
+    "at": "2026-11-27T00:07:43Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "Is this meant to be an alternative to harnesses like Claude Code as well?",
+    "source": "hn",
+    "title": "Is this meant to be an alternative to harnesses like Claude Code as well?",
+    "url": "https://news.ycombinator.com/item?id=50661244"
+   },
+   {
+    "at": "2026-11-26T21:47:32Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Pax: expose the harness capabilities that have no plugin and no reason to be left out",
+    "source": "github",
+    "title": "Pax: expose the harness capabilities that have no plugin and no reason to be left out",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14763"
+   },
+   {
+    "at": "2026-11-24T20:07:50Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Decide what pax adds around `Coder` that should move into the harness `Coder`",
+    "source": "github",
+    "title": "Decide what pax adds around `Coder` that should move into the harness `Coder`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14389"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-cdbfcd28d0b9",
+  "interest": [],
+  "keywords": [
+   "pax",
+   "harness"
+  ],
+  "kinds": [
+   "feature",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-27T00:07:43Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 11.3,
+  "solutions": [
+   {
+    "kind": "product",
+    "similarity": 0.55,
+    "title": "Pax by Pydantic",
+    "url": "https://www.producthunt.com/products/pydantic"
+   }
+  ],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Decide what pax adds around `Coder` that should move into the harness `Coder`",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-d0fd2e813892": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 3,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 2
+  },
+  "coverage": 0.26,
+  "evidence": [
+   {
+    "at": "2026-11-22T20:36:55Z",
+    "cardId": "c-c96859a8fdf2",
+    "kind": "problem",
+    "people": 2,
+    "quote": "Currently, i cannot get the model to run using either the `ggml-org` GGUF repository or the Unsloth GGUF repository.",
+    "source": "github",
+    "title": "Windows: Inkling 2 Mini GGUF fails to load: unknown architecture (inkling2_loop/inkling2) and projector (inkling2v)",
+    "url": "https://github.com/ollama/ollama/issues/19817"
+   },
+   {
+    "at": "2026-11-21T12:35:45Z",
+    "cardId": "c-7b9c1fc8c21b",
+    "kind": "problem",
+    "people": 1,
+    "quote": "When attempting to load any quant of the new `Inkling-2-Mini-GGUF` model, unsloth fails with the error `Failed to load model: llama-server failed to start.",
+    "source": "github",
+    "title": "Inkling-2-Mini-GGUF fails to load on latest Unsloth Studio Docker Version.",
+    "url": "https://github.com/unslothai/unsloth/issues/18757"
+   },
+   {
+    "at": "2026-11-21T12:35:45Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Inkling-2-Mini-GGUF fails to load on latest Unsloth Studio Docker Version.",
+    "source": "github",
+    "title": "Inkling-2-Mini-GGUF fails to load on latest Unsloth Studio Docker Version.",
+    "url": "https://github.com/unslothai/unsloth/issues/18757"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-d0fd2e813892",
+  "interest": [],
+  "keywords": [
+   "load",
+   "inkling-2-mini-gguf",
+   "latest"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-22T20:36:55Z",
+  "nextStep": {
+   "code": "prototype",
+   "params": {},
+   "size": "Weekend prototype"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "ollama/ollama",
+   "unslothai/unsloth"
+  ],
+  "scope": "market",
+  "score": 10,
+  "solutions": [
+   {
+    "kind": "new_repo",
+    "similarity": 0.53,
+    "title": "snailbrainx/inkling-2-mini-sm80",
+    "url": "https://github.com/snailbrainx/inkling-2-mini-sm80"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "Inkling-2-Mini-GGUF fails to load on latest Unsloth Studio Docker Version.",
+  "topic": "local-models",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-d3e5bc0cab3c": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 2,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-19T15:43:20Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "> The alternative to semver is not \"projects don't make breaking changes\", it's the old bad \"projects make breaking changes randomly from release to release, and without carefully reading the changelog you will never know\".",
+    "source": "hn",
+    "title": "> The alternative to semver is not \"projects don't make breaking changes\", it's the old bad \"projects make breaking changes randomly from re",
+    "url": "https://news.ycombinator.com/item?id=50561582"
+   },
+   {
+    "at": "2026-11-19T19:44:47Z",
+    "cardId": "c-466938be397f",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Misc. bug: Semver releases (v1.0.0, etc.) have no release binaries",
+    "source": "github",
+    "title": "Misc. bug: Semver releases (v1.0.0, etc.) have no release binaries",
+    "url": "https://github.com/ggml-org/llama.cpp/issues/32623"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-d3e5bc0cab3c",
+  "interest": [],
+  "keywords": [
+   "semver"
+  ],
+  "kinds": [
+   "problem",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-19T19:44:47Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 2
+   },
+   "size": "Interview first"
+  },
+  "people": 2,
+  "previousVerdict": null,
+  "repos": [
+   "ggml-org/llama.cpp"
+  ],
+  "scope": "market",
+  "score": 10,
+  "solutions": [],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Misc. bug: Semver releases (v1.0.0, etc.) have no release binaries",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-d69ebf726044": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 3,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-10-27T22:10:19Z",
+    "cardId": "c-0300cb14fdaa",
+    "kind": "problem",
+    "people": 1,
+    "quote": "UI adapters prepend server-side `message_history` to the client's full message list, so every prior turn reaches the model twice",
+    "source": "github",
+    "title": "UI adapters prepend server-side `message_history` to the client's full message list, so every prior turn reaches the model twice",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/11372"
+   },
+   {
+    "at": "2026-11-25T05:44:09Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "UI adapter egress and server-held history tracker",
+    "source": "github",
+    "title": "UI adapter egress and server-held history tracker",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14555"
+   },
+   {
+    "at": "2026-10-22T16:35:17Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Add an opt-in server-held history mode to UI adapters, so history never round-trips through the client",
+    "source": "github",
+    "title": "Add an opt-in server-held history mode to UI adapters, so history never round-trips through the client",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/11031"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-d69ebf726044",
+  "interest": [],
+  "keywords": [
+   "history",
+   "server-held",
+   "adapters"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-25T05:44:09Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Add an opt-in server-held history mode to UI adapters, so history never round-trips through the client",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-d7968e3b7ae1": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-18T03:40:17Z",
+    "cardId": "c-b5949550d69e",
+    "kind": "problem",
+    "people": 1,
+    "quote": "HarmonyError: Encountered text corresponding to disallowed special token '<|end|>'.",
+    "source": "github",
+    "title": "gpt-oss chat completions return 500 when a prior tool call name contains special-token text",
+    "url": "https://github.com/vllm-project/vllm/issues/65770"
+   },
+   {
+    "at": "2026-11-17T02:02:04Z",
+    "cardId": "c-1f90fef411f3",
+    "kind": "problem",
+    "people": 1,
+    "quote": "With function tools, `OpenAIChatModel` requests to GPT-6 Luna fail with HTTP 400.",
+    "source": "github",
+    "title": "Raise a clear error when `OpenAIChatModel` sends function tools to GPT-6 Luna with reasoning on",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12109"
+   },
+   {
+    "at": "2026-11-14T23:04:46Z",
+    "cardId": "c-811c37cc10cf",
+    "kind": "problem",
+    "people": 1,
+    "quote": "#12109 (PR #12264) adds a pre-send error when `OpenAIChatModel` sends function tools to a GPT-6 model with reasoning on, which Chat Completions rejects.",
+    "source": "github",
+    "title": "`OpenAIChatModel` sends function tools to GPT-5.6, GPT-5.5 and GPT-5.4 with reasoning on, which Chat Completions rejects",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13512"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-d7968e3b7ae1",
+  "interest": [],
+  "keywords": [
+   "openaichatmodel",
+   "sends",
+   "function"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-18T03:40:17Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai",
+   "vllm-project/vllm"
+  ],
+  "scope": "market",
+  "score": 6,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`OpenAIChatModel` sends function tools to GPT-5.6, GPT-5.5 and GPT-5.4 with reasoning on, which Chat Completions rejects",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-d9d7253ddc4b": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 4,
+   "pay": 0,
+   "problems": 4,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:49:06Z",
+    "cardId": "c-7d75d444f857",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Two related flows still store wrong histories.",
+    "source": "github",
+    "title": "`ConversationStore.save` stores an output tool result twice, or branches, when the run merges it into an appended user turn or a `ProcessHistory` trim keeps the merged request",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13276"
+   },
+   {
+    "at": "2026-11-26T23:49:06Z",
+    "cardId": "c-8027f7f6d779",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`ConversationStore.save` stores a server tool return twice after continuing a mixed server + external tool call",
+    "source": "github",
+    "title": "`ConversationStore.save` stores a server tool return twice after continuing a mixed server + external tool call",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13547"
+   },
+   {
+    "at": "2026-11-26T21:22:21Z",
+    "cardId": "c-9a3a22557ca7",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`ConversationStore.save` keeps a dropped turn when the kept messages repeat the stored tail",
+    "source": "github",
+    "title": "`ConversationStore.save` keeps a dropped turn when the kept messages repeat the stored tail",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14739"
+   },
+   {
+    "at": "2026-11-25T21:28:47Z",
+    "cardId": "c-c577ce15397a",
+    "kind": "problem",
+    "people": 1,
+    "quote": "ConversationStore.save treats JSON round-tripped messages as changed",
+    "source": "github",
+    "title": "ConversationStore.save treats JSON round-tripped messages as changed",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14609"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-d9d7253ddc4b",
+  "interest": [],
+  "keywords": [
+   "conversationstore.save",
+   "messages",
+   "keeps"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:49:06Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.8,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`ConversationStore.save` keeps a dropped turn when the kept messages repeat the stored tail",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-dfa8e6d5903e": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 5,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 1
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-27T00:48:29Z",
+    "cardId": "c-ca4668781b79",
+    "kind": "problem",
+    "people": 1,
+    "quote": "An editor that uses the generated schema flags valid specs as errors.",
+    "source": "github",
+    "title": "A capability parameter typed with an app class named `ModelSettings` or `CapabilitySpec` breaks the `AgentSpec` schema for `model_settings` and nested capabilities",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14864"
+   },
+   {
+    "at": "2026-11-26T23:49:06Z",
+    "cardId": "c-04c8dc0530c8",
+    "kind": "problem",
+    "people": 1,
+    "quote": "Export `AgentInstructions` and `SourcedInstruction`, and add `capabilities=` to `Agent.override`",
+    "source": "github",
+    "title": "Export `AgentInstructions` and `SourcedInstruction`, and add `capabilities=` to `Agent.override`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12537"
+   },
+   {
+    "at": "2026-11-19T17:00:45Z",
+    "cardId": "c-61ff3b0adaeb",
+    "kind": "problem",
+    "people": 1,
+    "quote": "TypeError: Permissions.from_spec() got an unexpected keyword argument 'extra_flag'",
+    "source": "github",
+    "title": "Subclasses of capabilities with a narrowed `from_spec` can't load their own fields from a spec",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14025"
+   },
+   {
+    "at": "2026-11-07T09:40:59Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Allow customizing the model-facing name of load_capability",
+    "source": "github",
+    "title": "Allow customizing the model-facing name of load_capability",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12781"
+   },
+   {
+    "at": "2026-05-01T08:57:27Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "`AgentSpec` add `plugins` field for automatic custom capability loading",
+    "source": "github",
+    "title": "`AgentSpec` add `plugins` field for automatic custom capability loading",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/5266"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-dfa8e6d5903e",
+  "interest": [],
+  "keywords": [
+   "capability",
+   "capabilities",
+   "agentspec"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-27T00:48:29Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 5,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 3.7,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`AgentSpec` add `plugins` field for automatic custom capability loading",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-e07ea96beca4": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 6,
+   "pay": 0,
+   "problems": 1,
+   "questions": 0,
+   "seeking": 5,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 8.68,
+  "evidence": [
+   {
+    "at": "2026-11-25T15:37:45Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "How are you handling context for the long-running agents?",
+    "source": "hn",
+    "title": "How are you handling context for the long-running agents?",
+    "url": "https://news.ycombinator.com/item?id=50643418"
+   },
+   {
+    "at": "2026-11-21T08:41:32Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "Your ai agents can easily leak personal data and ciustomer data, how do you manage it",
+    "source": "hn",
+    "title": "Your ai agents can easily leak personal data and ciustomer data, how do you manage it",
+    "url": "https://news.ycombinator.com/item?id=50587257"
+   },
+   {
+    "at": "2026-11-08T12:19:37Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "How do you handle the errors that the agents make?",
+    "source": "hn",
+    "title": "How do you handle the errors that the agents make?",
+    "url": "https://news.ycombinator.com/item?id=50412635"
+   },
+   {
+    "at": "2026-11-07T10:01:48Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "Hi Guys,\nlike many of you I work with AI agents every day and across several clients.\nThe major time cost for me is to re-explaining context and past decisions, client rules, that we already do. To finish every tools as its own memory.\nSo I’m curious how you actually handle this:\n1. When you start a",
+    "source": "hn",
+    "title": "Ask HN: How do you manage your AI agents' context across clients and projects?",
+    "url": "https://news.ycombinator.com/item?id=50403153"
+   },
+   {
+    "at": "2026-11-03T20:31:45Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "How are you handling memory for your own agents?",
+    "source": "hn",
+    "title": "How are you handling memory for your own agents?",
+    "url": "https://news.ycombinator.com/item?id=50357768"
+   },
+   {
+    "at": "2026-11-21T14:32:54Z",
+    "cardId": "c-5a03562116b6",
+    "kind": "problem",
+    "people": 1,
+    "quote": "What happens as a result: an agent that follows the skill decides instructions can't change during a realtime session.",
+    "source": "github",
+    "title": "AGENTS-CORE.md skill reference says realtime sessions don't support instruction updates, but they always append changes",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14132"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-e07ea96beca4",
+  "interest": [
+   {
+    "funding": {
+     "amount": "$90M",
+     "company": "Linq",
+     "round": "Series B"
+    },
+    "similarity": 0.52,
+    "title": "Linq raises $90M to put AI agents inside your text threads",
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPaFRDZFJQTS1udjlIbnZ3MTFFVnZic1dWUVRmTXhPQk1DQlhRU1BPbnExSGhLUW94aFJPX0x0Y0tmMHQ1N0xIQWdpUm5ra3pPdk9JOE5Uc2pwUVJxb1AxOUdxNTZvVFM0dEpNdzNUY3MxR0k0UjZheGRIaXRqYWR3OE5ZRnZNbW96TG1yWWtnZlNDaHhiM2c?oc=5",
+    "verified": true
+   },
+   {
+    "funding": {
+     "amount": "$1.15M",
+     "company": "Atsumell",
+     "round": null
+    },
+    "similarity": 0.46,
+    "title": "Atsumell raises $1.15M to prep company workflows for AI agents",
+    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQSl85SlpNWkVaT19LaFUwMUlIVzNuM3ZKaGd2anRsVHgxUzJxcjRBb1lSeWVjLTR5LXZjWGFJTDQybW1IVU9MWE9velhKNUJsQWVuYWF2Ym16RlJEWVNwbUZ4Z243UWtvdm56UVY4dnFZSEkxbGMyN0NQbEhfTDhKcmsxRkFRM3hSSENRQ1FTRm9fZzdueGcwVVFSSQ?oc=5",
+    "verified": false
+   },
+   {
+    "funding": {
+     "amount": "£500K",
+     "company": "Pippa",
+     "round": null
+    },
+    "similarity": 0.44,
+    "title": "Pippa Labs lands £500k to build trusted AI agents",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaDE1Z0ltTFNvcUlENnhwb2ZmY0xiNllJSGl5OTItYnBjUEJRaUVja3luTngxa3duSzZNQW44Nlc1M2pxeGpsZFdtRlhkRnk5My1MTUlCVnk4MkNjc0k3LWd5RzltU1RfOFBvSG1YMWtiZkpPYTJJc3pMRDUwMVdLUHowd1gtVGpQdVE?oc=5",
+    "verified": false
+   },
+   {
+    "funding": {
+     "amount": "$1.19M",
+     "company": "Surelio",
+     "round": null
+    },
+    "similarity": 0.43,
+    "title": "Surelio raises $1.19M to stress-test enterprise AI agents",
+    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOWVVFNU1PUHFLLTJjVzVPUnZfTGNSQk96dklXaV9kcTQ4OE1vOHVCcFNIT3dZM1hVdl9ySXhnZjRoOFRLTzZQLUtJZm43OWFNaWdZUS1EX3NQWTJUZXNmT1hGbzFVTzhpcUFYT3p6d3RxSVp2d3BNTlB3TVd0UVVoX1hBTTRCY1E0Vk91LWo1V05yY0cw?oc=5",
+    "verified": false
+   },
+   {
+    "funding": {
+     "amount": "$15M",
+     "company": "Sequel.io",
+     "round": "Series B"
+    },
+    "similarity": 0.43,
+    "title": "Sequel.io Raises $15M Series B to Expand AI Agents and Personalization",
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxONGc5WGl6cUpoLTNDem5GdEJQLTdweDMtZmVyZEM0b19FQ3ZGazFZZFYxUm00Umw1cEE4M1hFSmJXYXpTQXN5eHVESnZnQ0wwcERLMXhPMFJBWjJJa0VqaGxBd2x3ZWg3TzJyRTZzdVduQTd6NC1WU3BRWm90ektrV2hwdE5kUE4tZU00aThXYnl2MTljb2c?oc=5",
+    "verified": true
+   }
+  ],
+  "keywords": [
+   "agents",
+   "handling",
+   "manage"
+  ],
+  "kinds": [
+   "problem",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-25T15:37:45Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 5
+   },
+   "size": "Interview first"
+  },
+  "people": 6,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 6,
+  "solutions": [
+   {
+    "kind": "product",
+    "similarity": 0.63,
+    "title": "MemoryWorks",
+    "url": "https://www.producthunt.com/products/memoryworks"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.62,
+    "title": "Remora",
+    "url": "https://www.producthunt.com/products/remora-6"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.58,
+    "title": "Show HN: Evalkit for Improving Your Agents",
+    "url": "https://news.ycombinator.com/item?id=50655285"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.58,
+    "title": "OpenEight",
+    "url": "https://www.producthunt.com/products/openeight"
+   },
+   {
+    "kind": "product",
+    "similarity": 0.56,
+    "title": "Monton",
+    "url": "https://www.producthunt.com/products/monton"
+   },
+   {
+    "kind": "launch",
+    "similarity": 0.56,
+    "title": "Show HN: Lockward – a lockfile for skills and MCP servers your AI agent loads",
+    "url": "https://news.ycombinator.com/item?id=50656050"
+   }
+  ],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "How are you handling memory for your own agents?",
+  "topic": "agents",
+  "verdict": "crowded",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-e2f889e5b347": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 3,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T23:49:06Z",
+    "cardId": "c-7e7d137b46ad",
+    "kind": "problem",
+    "people": 1,
+    "quote": "A history rewrite in the middle of a run drops that run's messages from the ConversationStore",
+    "source": "github",
+    "title": "A history rewrite in the middle of a run drops that run's messages from the ConversationStore",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12588"
+   },
+   {
+    "at": "2026-11-26T21:23:23Z",
+    "cardId": "c-d65d7580672c",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`ConversationStore.save` never stores a summary a capability puts before a message the run was given",
+    "source": "github",
+    "title": "`ConversationStore.save` never stores a summary a capability puts before a message the run was given",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14740"
+   },
+   {
+    "at": "2026-11-25T23:18:23Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Capability hook that supplies the conversation a run continues",
+    "source": "github",
+    "title": "Capability hook that supplies the conversation a run continues",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14627"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-e2f889e5b347",
+  "interest": [],
+  "keywords": [
+   "run",
+   "capability"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T23:49:06Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`ConversationStore.save` never stores a summary a capability puts before a message the run was given",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-e619d7ff5b74": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-26T11:56:27Z",
+    "cardId": "c-237eb21b76ab",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`PrepareTools` can't set the outer tool, because the `prepare_tools` hook runs inside capability wrapper toolsets (`Agent._get_toolset`).",
+    "source": "github",
+    "title": "`ToolBridge`'s `tool_call` and code mode's `run_code` send a `'private'` tool's result under their own `ui_visibility`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14667"
+   },
+   {
+    "at": "2026-11-17T04:54:05Z",
+    "cardId": "c-dae8874f0cdb",
+    "kind": "problem",
+    "people": 1,
+    "quote": "A fix with no replay gate breaks workflows started on v2.68.0.",
+    "source": "github",
+    "title": "How should `FunctionToolset` stop writing its defaults onto a shared `Tool` without changing in-flight durable workflows?",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13713"
+   },
+   {
+    "at": "2026-11-05T13:21:26Z",
+    "cardId": "c-b6ccd435511d",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`FunctionToolset.add_tool()` writes the toolset's defaults onto a `Tool` that other toolsets share",
+    "source": "github",
+    "title": "`FunctionToolset.add_tool()` writes the toolset's defaults onto a `Tool` that other toolsets share",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12617"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-e619d7ff5b74",
+  "interest": [],
+  "keywords": [
+   "tool",
+   "defaults",
+   "onto"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T11:56:27Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "`FunctionToolset.add_tool()` writes the toolset's defaults onto a `Tool` that other toolsets share",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-e992f6cae83a": {
+  "counts": {
+   "complaints": 0,
+   "features": 3,
+   "items": 3,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-25T20:04:19Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Unsloth Translate Language Support for More Languages",
+    "source": "github",
+    "title": "Unsloth Translate Language Support for More Languages",
+    "url": "https://github.com/unslothai/unsloth/issues/19564"
+   },
+   {
+    "at": "2026-11-20T19:46:33Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Unsloth Desktop Translation Mode Improvements Part 2",
+    "source": "github",
+    "title": "Unsloth Desktop Translation Mode Improvements Part 2",
+    "url": "https://github.com/unslothai/unsloth/issues/18666"
+   },
+   {
+    "at": "2026-10-27T19:45:51Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Unsloth Translate: Dedicated Offline Translation Mode with Multimodal Support",
+    "source": "github",
+    "title": "Unsloth Translate: Dedicated Offline Translation Mode with Multimodal Support",
+    "url": "https://github.com/unslothai/unsloth/issues/15597"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-e992f6cae83a",
+  "interest": [],
+  "keywords": [
+   "unsloth",
+   "translate",
+   "translation"
+  ],
+  "kinds": [
+   "feature"
+  ],
+  "lastActivityAt": "2026-11-25T20:04:19Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "unslothai/unsloth"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "unslothai/unsloth"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Unsloth Translate: Dedicated Offline Translation Mode with Multimodal Support",
+  "topic": "local-models",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-ed2b6ceb8ddb": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 5,
+   "pay": 0,
+   "problems": 5,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0.52,
+  "evidence": [
+   {
+    "at": "2026-11-26T09:39:14Z",
+    "cardId": "c-95ca1074c30d",
+    "kind": "problem",
+    "people": 1,
+    "quote": "`float(\"nan\")` generates invalid SQL (`UndefinedColumn`): Filtering `EQ(float(\"nan\"))` interpolates unquoted `nan` into SQL (`(metadata_->>'v')::float = nan`), causing PostgreSQL to fail with `UndefinedColumn: column \"nan\" does not exist`.",
+    "source": "github",
+    "title": "PGVectorStore conflates string `\"1\"` with integer `1` in `EQ` filters and turns `float(\"nan\")` into an invalid SQL column name",
+    "url": "https://github.com/run-llama/llama_index/issues/24511"
+   },
+   {
+    "at": "2026-11-26T07:07:05Z",
+    "cardId": "c-6d3fec99f0c2",
+    "kind": "problem",
+    "people": 1,
+    "quote": "ValueError: Invalid condition: FilterCondition.NOT. Must be one of ['or', 'and']`, even though `FilterCondition.NOT` is part of the core `FilterCondition` enum.",
+    "source": "github",
+    "title": "PGVectorStore rejects `FilterCondition.NOT` and diverges from SimpleVectorStore on `NE`/`NIN` for null and missing metadata keys",
+    "url": "https://github.com/run-llama/llama_index/issues/24502"
+   },
+   {
+    "at": "2026-11-26T06:47:39Z",
+    "cardId": "c-a587024393fe",
+    "kind": "problem",
+    "people": 1,
+    "quote": "PGVectorStore `TEXT_MATCH` / `TEXT_MATCH_INSENSITIVE` does not escape SQL LIKE wildcards (`_` and `%`), causing false-positive matches",
+    "source": "github",
+    "title": "PGVectorStore `TEXT_MATCH` / `TEXT_MATCH_INSENSITIVE` does not escape SQL LIKE wildcards (`_` and `%`), causing false-positive matches",
+    "url": "https://github.com/run-llama/llama_index/issues/24500"
+   },
+   {
+    "at": "2026-11-26T06:21:54Z",
+    "cardId": "c-692a1958bb51",
+    "kind": "problem",
+    "people": 1,
+    "quote": "If any document in the table stores a boolean (`false`/`true`) or string (`\"hello\"`) under the same metadata key, the entire query crashes with `psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision`.",
+    "source": "github",
+    "title": "PGVectorStore unguarded `::float` cast crashes with `InvalidTextRepresentation` when metadata contains boolean or string values",
+    "url": "https://github.com/run-llama/llama_index/issues/24499"
+   },
+   {
+    "at": "2026-11-26T06:17:06Z",
+    "cardId": "c-50b62c5bfccb",
+    "kind": "problem",
+    "people": 1,
+    "quote": "SyntaxError: syntax error at or near \")\"`.",
+    "source": "github",
+    "title": "PGVectorStore raises SQL `SyntaxError` on empty `IN` and `NIN` metadata filters",
+    "url": "https://github.com/run-llama/llama_index/issues/24498"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-ed2b6ceb8ddb",
+  "interest": [],
+  "keywords": [
+   "pgvectorstore",
+   "sql",
+   "metadata"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-26T09:39:14Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "run-llama/llama_index"
+   },
+   "size": "Tonight"
+  },
+  "people": 5,
+  "previousVerdict": null,
+  "repos": [
+   "run-llama/llama_index"
+  ],
+  "scope": "upstream",
+  "score": 3.1,
+  "solutions": [
+   {
+    "kind": "tool",
+    "similarity": 0.52,
+    "title": "pgvector",
+    "url": "https://github.com/pgvector/pgvector"
+   }
+  ],
+  "sources": [
+   "github"
+  ],
+  "title": "PGVectorStore raises SQL `SyntaxError` on empty `IN` and `NIN` metadata filters",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-f4a9ed2032a0": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 2,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-18T04:16:55Z",
+    "cardId": "c-c820454c5130",
+    "kind": "problem",
+    "people": 2,
+    "quote": "With `completion.model_dump_json(warnings=\"error\")`, the same valid response raises `PydanticSerializationError`.",
+    "source": "github",
+    "title": "Parsed Chat Completions emit false serialization warnings and fail with `warnings=\"error\"`",
+    "url": "https://github.com/openai/openai-python/issues/4287"
+   },
+   {
+    "at": "2026-11-17T21:29:35Z",
+    "cardId": "c-0528db2230df",
+    "kind": "problem",
+    "people": 1,
+    "quote": "AttributeError: 'list' object has no attribute '__aiter__'`) instead of a clear 4xx or a working stream.",
+    "source": "github",
+    "title": "Streaming chat completions with comma-separated models return 500 (AttributeError: 'list' object has no attribute '__aiter__')",
+    "url": "https://github.com/BerriAI/litellm/issues/51597"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-f4a9ed2032a0",
+  "interest": [],
+  "keywords": [
+   "chat",
+   "completions"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-18T04:16:55Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 3
+   },
+   "size": "Interview first"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "BerriAI/litellm",
+   "openai/openai-python"
+  ],
+  "scope": "market",
+  "score": 6,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Streaming chat completions with comma-separated models return 500 (AttributeError: 'list' object has no attribute '__aiter__')",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-f56ada6ca969": {
+  "counts": {
+   "complaints": 0,
+   "features": 0,
+   "items": 3,
+   "pay": 0,
+   "problems": 3,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-18T19:51:03Z",
+    "cardId": "c-d90704ad6943",
+    "kind": "problem",
+    "people": 1,
+    "quote": "A timeout (`_run_cell`): the model is told the code `did not stop when interrupted, so the kernel was shut down and its state is gone`, which is wrong.",
+    "source": "github",
+    "title": "`IPythonKernel` replaces the kernel when its single interrupt lands just before a blocking call in the cell",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13911"
+   },
+   {
+    "at": "2026-11-18T15:29:52Z",
+    "cardId": "c-15a887a6ab17",
+    "kind": "problem",
+    "people": 1,
+    "quote": "OperationalError: 'no such table: history')).History will not be written to the database.\\n\", 'result': False} != False",
+    "source": "github",
+    "title": "Flaky tests/harness/ipython_code_mode/test_ipython_code_mode.py::TestIPythonCodeModeKernelLifecycle::test_restart_clears_the_state",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/12801"
+   },
+   {
+    "at": "2026-11-18T14:52:22Z",
+    "cardId": "c-75c5e86b3d21",
+    "kind": "problem",
+    "people": 1,
+    "quote": "OperationalError: 'no such table: history'))...`. ipykernel credits the print to the running cell, so the model gets it as `run_code` output. Any process on the same profile can trigger the move: several agent runs wit",
+    "source": "github",
+    "title": "Decide whether `IPythonKernel` kernels should keep their history out of the user's IPython profile",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13864"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-f56ada6ca969",
+  "interest": [],
+  "keywords": [
+   "ipythonkernel",
+   "ipython"
+  ],
+  "kinds": [
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-18T19:51:03Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 3,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.4,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Decide whether `IPythonKernel` kernels should keep their history out of the user's IPython profile",
+  "topic": null,
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-f578453f4d4d": {
+  "counts": {
+   "complaints": 0,
+   "features": 1,
+   "items": 2,
+   "pay": 0,
+   "problems": 0,
+   "questions": 0,
+   "seeking": 1,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-19T13:37:58Z",
+    "cardId": null,
+    "kind": "seeking",
+    "people": 1,
+    "quote": "Our findings suggest that encoding model-discovery methodology as a portable agent skill can provide a simple, interactive, powerful and broadly applicable alternative to domain-specific automated discovery pipelines.",
+    "source": "hn",
+    "title": "Our findings suggest that encoding model-discovery methodology as a portable agent skill can provide a simple, interactive, powerful and bro",
+    "url": "https://news.ycombinator.com/item?id=50559941"
+   },
+   {
+    "at": "2026-09-14T09:52:08Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support per-tool discovery within on-demand capabilities",
+    "source": "github",
+    "title": "Support per-tool discovery within on-demand capabilities",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/8328"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-f578453f4d4d",
+  "interest": [],
+  "keywords": [],
+  "kinds": [
+   "feature",
+   "seeking"
+  ],
+  "lastActivityAt": "2026-11-19T13:37:58Z",
+  "nextStep": {
+   "code": "interview",
+   "params": {
+    "n": 2
+   },
+   "size": "Interview first"
+  },
+  "people": 2,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "market",
+  "score": 10,
+  "solutions": [],
+  "sources": [
+   "github",
+   "hn"
+  ],
+  "title": "Our findings suggest that encoding model-discovery methodology as a portable agent skill can provide a simple, interactive, powerful and bro",
+  "topic": "agents",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ },
+ "g-fd549460b38a": {
+  "counts": {
+   "complaints": 0,
+   "features": 2,
+   "items": 4,
+   "pay": 0,
+   "problems": 2,
+   "questions": 0,
+   "seeking": 0,
+   "unanswered": 0,
+   "workarounds": 0
+  },
+  "coverage": 0,
+  "evidence": [
+   {
+    "at": "2026-11-27T00:07:42Z",
+    "cardId": "c-cba8efe2f8e1",
+    "kind": "problem",
+    "people": 1,
+    "quote": "After that, `/update` in each of the other, older processes failed with `No module named 'pydantic_clai2.cli.web'` and could not restart itself.",
+    "source": "github",
+    "title": "Pax `/update` in a process whose install another process already replaced fails on an import instead of saying to restart",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14842"
+   },
+   {
+    "at": "2026-11-27T00:06:24Z",
+    "cardId": "c-dcc619be87a0",
+    "kind": "problem",
+    "people": 1,
+    "quote": "A `pydantic-clai2` `uv tool` install from before the rename to `pydantic-ai-pax` (for example `0.68.1.dev30`) cannot `/update` on the `main` channel.",
+    "source": "github",
+    "title": "Pax `/update` on the `main` channel fails from a `pydantic-clai2` install made before the rename",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14840"
+   },
+   {
+    "at": "2026-11-24T20:07:28Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Support `pax --web` with a custom `--agent`",
+    "source": "github",
+    "title": "Support `pax --web` with a custom `--agent`",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/14383"
+   },
+   {
+    "at": "2026-11-18T17:26:47Z",
+    "cardId": null,
+    "kind": "feature",
+    "people": 1,
+    "quote": "Switch `uvx ... clai -a` examples to `pax` once `pydantic-ai-pax` is on PyPI",
+    "source": "github",
+    "title": "Switch `uvx ... clai -a` examples to `pax` once `pydantic-ai-pax` is on PyPI",
+    "url": "https://github.com/pydantic/pydantic-ai/issues/13895"
+   }
+  ],
+  "firstSeenAt": "2026-11-27T02:31:38.200Z",
+  "id": "g-fd549460b38a",
+  "interest": [],
+  "keywords": [
+   "pax",
+   "update",
+   "install"
+  ],
+  "kinds": [
+   "feature",
+   "problem"
+  ],
+  "lastActivityAt": "2026-11-27T00:07:42Z",
+  "nextStep": {
+   "code": "contribute",
+   "params": {
+    "repo": "pydantic/pydantic-ai"
+   },
+   "size": "Tonight"
+  },
+  "people": 4,
+  "previousVerdict": null,
+  "repos": [
+   "pydantic/pydantic-ai"
+  ],
+  "scope": "upstream",
+  "score": 2.8,
+  "solutions": [],
+  "sources": [
+   "github"
+  ],
+  "title": "Switch `uvx ... clai -a` examples to `pax` once `pydantic-ai-pax` is on PyPI",
+  "topic": "structured-output",
+  "verdict": "open",
+  "verdictSince": "2026-11-27T02:31:38.200Z"
+ }
+}
